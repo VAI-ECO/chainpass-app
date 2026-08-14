@@ -7,6 +7,34 @@ interface CheckVAIRequest {
   requesting_platform: string;
 }
 
+interface MissingRequirement {
+  requirement_key: string;
+  display_name: string;
+  completion_url: string;
+}
+
+/**
+ * Write a lookup log entry
+ * Called on every request, including not_found
+ */
+async function logLookup(
+  supabase: any,
+  vai: string,
+  platformId: string,
+  found: boolean
+): Promise<void> {
+  try {
+    await supabase.from("lookup_log").insert({
+      vai: vai,
+      platform_id: platformId,
+      found: found,
+    });
+  } catch (error) {
+    // Log but don't fail the request if logging fails
+    console.error("[Lookup Log] Failed to write:", error);
+  }
+}
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === "OPTIONS") {
@@ -31,27 +59,30 @@ serve(async (req) => {
       );
     }
 
+    const normalizedVAI = vai_number.toUpperCase();
+
     // Initialize Supabase client
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    // 1. Check if VAI number exists in database (using vais view)
-    const { data: vai, error: vaiError } = await supabase
-      .from("vais")
-      .select("*")
-      .eq("vai_number", vai_number.toUpperCase())
-      .single();
+    // STEP 1: Load credential
+    const { data: credential, error: credentialError } = await supabase
+      .from("credentials")
+      .select("vai, state, next_renewal_date, document_expiry")
+      .eq("vai", normalizedVAI)
+      .maybeSingle();
 
-    // VAI not found
-    if (vaiError || !vai) {
+    if (credentialError || !credential) {
+      // VAI does not exist - log and return not_found
+      await logLookup(supabase, normalizedVAI, requesting_platform, false);
+
       return new Response(
         JSON.stringify({
           valid: false,
           message: "VAI number not found",
-          suggest_create_new: true,
-          create_url: `https://chainpass.com/create-vai?platform=${requesting_platform}`,
+          create_url: `https://verify.chainpass.io/enroll?platform=${requesting_platform}`,
         }),
         {
           status: 200,
@@ -60,14 +91,20 @@ serve(async (req) => {
       );
     }
 
-    // 2. Check VAI status (suspended/banned)
-    if (vai.status === "suspended" || vai.status === "banned") {
+    // STEP 2: Check ChainPass suspension/ban BEFORE scope check
+    // This prevents leaking platform history via timing:
+    // - Banned credentials are banned everywhere, no scope needed
+    // - Returning banned before scope check means same response regardless of platform history
+    if (credential.state === "suspended" || credential.state === "banned") {
+      await logLookup(supabase, normalizedVAI, requesting_platform, true);
+
       return new Response(
         JSON.stringify({
           valid: true,
           qualified: false,
-          reason: `VAI ${vai.status}`,
-          contact_support: true,
+          credential_state: credential.state,
+          platform_state: "active", // Not rejected by platform, banned by ChainPass
+          reason: `Credential ${credential.state}`,
         }),
         {
           status: 200,
@@ -76,14 +113,67 @@ serve(async (req) => {
       );
     }
 
-    // 3. Get platform requirements
+    // STEP 3: Scope check - credential_platforms row must exist
+    // This prevents enumeration: a VAI that never presented here is indistinguishable from non-existent
+    const { data: platformLink, error: platformLinkError } = await supabase
+      .from("credential_platforms")
+      .select("state, state_note")
+      .eq("vai", normalizedVAI)
+      .eq("platform_id", requesting_platform)
+      .maybeSingle();
+
+    if (platformLinkError || !platformLink) {
+      // No credential_platforms row = VAI never presented at this platform
+      // Identical response to non-existent VAI
+      await logLookup(supabase, normalizedVAI, requesting_platform, false);
+
+      return new Response(
+        JSON.stringify({
+          valid: false,
+          message: "VAI number not found",
+          create_url: `https://verify.chainpass.io/enroll?platform=${requesting_platform}`,
+        }),
+        {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // STEP 4: Platform rejection check
+    // credential_platforms.state is the PLATFORM's decision, applies only here
+    // This is different from credentials.state (ChainPass's decision, applies everywhere)
+    if (platformLink.state === "rejected") {
+      await logLookup(supabase, normalizedVAI, requesting_platform, true);
+
+      return new Response(
+        JSON.stringify({
+          valid: true,
+          qualified: false,
+          credential_state: credential.state,
+          platform_state: "rejected",
+          reason: "Platform has rejected this credential",
+          state_note: platformLink.state_note || null,
+        }),
+        {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // STEP 5: Load platform requirements
     const { data: platformReqs, error: platformReqsError } = await supabase
       .from("platform_requirements")
-      .select("*")
-      .eq("platform_name", requesting_platform)
-      .single();
+      .select(`
+        requirement_key,
+        requirements!inner(display_name, kind)
+      `)
+      .eq("platform_id", requesting_platform)
+      .order("sort_order", { ascending: true });
 
-    if (platformReqsError || !platformReqs) {
+    if (platformReqsError) {
+      console.error("[Platform Requirements] Error:", platformReqsError);
       return new Response(
         JSON.stringify({
           valid: false,
@@ -97,143 +187,62 @@ serve(async (req) => {
       );
     }
 
-    // 4. Check completions for this platform
-    const { data: completion } = await supabase
-      .from("vai_platform_completions")
-      .select("*")
-      .eq("vai_number", vai_number.toUpperCase())
-      .eq("platform_name", requesting_platform)
-      .single();
+    // STEP 6: Load completions
+    // Include both platform-specific AND ecosystem-wide (platform_id IS NULL)
+    // Ecosystem-wide completions are signed once, valid everywhere
+    const { data: completions, error: completionsError } = await supabase
+      .from("requirement_completions")
+      .select("requirement_key, signed_version, platform_id")
+      .eq("vai", normalizedVAI)
+      .or(`platform_id.eq.${requesting_platform},platform_id.is.null`);
 
-    // 5. Determine missing requirements
-    const missing: Array<{
-      requirement: string;
-      display_name: string;
-      completion_url: string;
-    }> = [];
-
-    if (platformReqs.requires_payment && (!completion || !completion.payment_verified)) {
-      missing.push({
-        requirement: "payment",
-        display_name: "Payment Verification",
-        completion_url: `https://chainpass.com/complete/payment?vai=${vai_number}&platform=${requesting_platform}`,
-      });
+    if (completionsError) {
+      console.error("[Completions] Error:", completionsError);
     }
 
-    if (platformReqs.requires_identity && (!completion || !completion.identity_verified)) {
-      missing.push({
-        requirement: "identity",
-        display_name: "Identity Verification",
-        completion_url: `https://chainpass.com/complete/identity?vai=${vai_number}&platform=${requesting_platform}`,
-      });
+    const completedKeys = new Set(
+      (completions || []).map((c: any) => c.requirement_key)
+    );
+
+    // STEP 7: Calculate missing requirements
+    const missing: MissingRequirement[] = [];
+
+    for (const req of platformReqs || []) {
+      if (!completedKeys.has(req.requirement_key)) {
+        // Requirement not completed
+        const displayName = req.requirements?.display_name || req.requirement_key;
+
+        missing.push({
+          requirement_key: req.requirement_key,
+          display_name: displayName,
+          completion_url: `https://verify.chainpass.io/complete/${req.requirement_key}?vai=${normalizedVAI}&platform=${requesting_platform}`,
+        });
+      }
     }
 
-    if (
-      platformReqs.requires_le_declaration &&
-      (!completion || !completion.le_declaration_signed)
-    ) {
-      missing.push({
-        requirement: "le_declaration",
-        display_name: "Law Enforcement Declaration",
-        completion_url: `https://chainpass.com/complete/le-declaration?vai=${vai_number}&platform=${requesting_platform}`,
-      });
-    }
+    // STEP 8: Write lookup log (every call, always)
+    await logLookup(supabase, normalizedVAI, requesting_platform, true);
 
-    if (
-      platformReqs.requires_signature &&
-      (!completion || !completion.signature_agreement_signed)
-    ) {
-      missing.push({
-        requirement: "signature_agreement",
-        display_name: "V.A.I. Signature Agreement",
-        completion_url: `https://chainpass.com/complete/signature?vai=${vai_number}&platform=${requesting_platform}`,
-      });
-    }
-
-    // 6. Calculate payment status and timing
-    const createdAt = new Date(vai.original_vai_created_at);
-    const currentDate = new Date();
-    const expiresAt = new Date(createdAt);
-    expiresAt.setFullYear(expiresAt.getFullYear() + 1);
-
-    const timeElapsedMs = currentDate.getTime() - createdAt.getTime();
-    const timeElapsedDays = Math.floor(timeElapsedMs / (1000 * 60 * 60 * 24));
-    const remainingMs = expiresAt.getTime() - currentDate.getTime();
-    const remainingDays = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
-
-    // Determine payment status
-    let paymentStatus: any;
-    const isPaid =
-      vai.payment_status === "completed" ||
-      vai.payment_status === "succeeded" ||
-      vai.payment_status === "paid";
-
-    if (isPaid && vai.payment_completed_at) {
-      paymentStatus = {
-        is_paid: true,
-        payment_date: vai.payment_completed_at,
-        expires_at: expiresAt.toISOString(),
-        remaining_days: remainingDays,
-        warning: null,
-      };
-    } else {
-      const clampedRemaining = Math.max(0, remainingDays);
-      const expirationText =
-        clampedRemaining > 0
-          ? `Pay now to unlock the remaining ${clampedRemaining} day${clampedRemaining === 1 ? '' : 's'} on this annual term.`
-          : "Your V.A.I. is expired and locked until you renew.";
-
-      paymentStatus = {
-        is_paid: false,
-        created_at: createdAt.toISOString(),
-        current_date: currentDate.toISOString(),
-        time_elapsed_days: timeElapsedDays,
-        expires_at: expiresAt.toISOString(),
-        remaining_if_paid_now: clampedRemaining,
-        warning: expirationText,
-      };
-    }
-
-    // 7. Get list of completed platforms
-    const { data: allCompletions } = await supabase
-      .from("vai_platform_completions")
-      .select("platform_name")
-      .eq("vai_number", vai_number.toUpperCase())
-      .eq("is_qualified", true);
-
-    const completedPlatforms = allCompletions?.map((c) => c.platform_name) || [];
-
-    // 8. Build response
-    const response: any = {
-      valid: true,
-      qualified_for_platform: missing.length === 0,
-      vai_number: vai_number.toUpperCase(),
-      created_at: vai.original_vai_created_at,
-      completed_platforms: completedPlatforms,
-      missing_requirements: missing,
-      payment_status: paymentStatus,
-    };
-
-    // Add user email if available (from profiles table)
-    // Note: This would require joining with profiles table if user_id is stored
-    // For now, we'll skip this as it's not in the vais view
-
-    // Return appropriate response based on qualification status
-    if (missing.length === 0) {
-      // Fully qualified
-      return new Response(JSON.stringify(response), {
+    // STEP 9: Return success response
+    return new Response(
+      JSON.stringify({
+        valid: true,
+        qualified_for_platform: missing.length === 0,
+        vai_number: normalizedVAI,
+        credential_state: credential.state,
+        platform_state: platformLink.state,
+        expires_at: credential.next_renewal_date,
+        document_expiry: credential.document_expiry,
+        missing_requirements: missing,
+      }),
+      {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    } else {
-      // Missing requirements
-      return new Response(JSON.stringify(response), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+      }
+    );
+
   } catch (error) {
-    console.error("Error in check-vai-requirements:", error);
+    console.error("[Check VAI Requirements] Error:", error);
     return new Response(
       JSON.stringify({
         valid: false,
@@ -247,12 +256,3 @@ serve(async (req) => {
     );
   }
 });
-
-
-
-
-
-
-
-
-

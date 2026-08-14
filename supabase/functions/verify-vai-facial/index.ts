@@ -1,258 +1,311 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "npm:@supabase/supabase-js@2";
+import { corsHeaders } from "../_shared/cors.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+interface FaceServiceResult {
+  vector: number[];
+  model: string;
+  model_version: string;
+  score: number;
+}
+
+/**
+ * Hash a service key using SHA-256
+ */
+async function hashServiceKey(key: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(key);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+/**
+ * Call face service to generate embedding vector
+ * Isolated boundary - fails loudly if env vars missing
+ * Reused from generate-baseline
+ */
+async function callFaceService(imageBlob: ArrayBuffer): Promise<FaceServiceResult> {
+  const FACE_SERVICE_URL = Deno.env.get("FACE_SERVICE_URL");
+  const FACE_SERVICE_KEY = Deno.env.get("FACE_SERVICE_KEY");
+
+  if (!FACE_SERVICE_URL) {
+    throw new Error("FACE_SERVICE_URL environment variable is not configured. Cannot proceed.");
+  }
+  if (!FACE_SERVICE_KEY) {
+    throw new Error("FACE_SERVICE_KEY environment variable is not configured. Cannot proceed.");
+  }
+
+  console.log("[Face Service] Generating embedding vector");
+
+  const response = await fetch(FACE_SERVICE_URL, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${FACE_SERVICE_KEY}`,
+      "Content-Type": "image/jpeg",
+    },
+    body: imageBlob,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Face service request failed: ${response.status} - ${errorText}`);
+  }
+
+  const result = await response.json();
+
+  // Validate response structure
+  if (!result.vector || !Array.isArray(result.vector) || result.vector.length !== 512) {
+    throw new Error(`Face service returned invalid vector (expected 512 floats, got ${result.vector?.length || 0})`);
+  }
+  if (!result.model || !result.model_version || typeof result.score !== 'number') {
+    throw new Error("Face service response missing required fields (model, model_version, score)");
+  }
+
+  console.log(`[Face Service] Vector generated: model=${result.model}, version=${result.model_version}, score=${result.score}`);
+
+  return {
+    vector: result.vector,
+    model: result.model,
+    model_version: result.model_version,
+    score: result.score,
+  };
+}
 
 serve(async (req) => {
-  // Handle CORS
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Step 1: Authenticate platform from service key
     const serviceKeyHeader = req.headers.get("x-service-key");
-    const vairifyServiceKey = Deno.env.get("VAIRIFY_SERVICE_KEY");
-    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
-    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
-    const isServiceAuth =
-      Boolean(serviceKeyHeader && vairifyServiceKey && serviceKeyHeader === vairifyServiceKey);
-
-    let supabaseClient;
-    let user: { id: string } | null = null;
-
-    if (isServiceAuth) {
-      supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
-    } else {
-      // Get authenticated user from JWT
-      const authHeader = req.headers.get("Authorization");
-      if (!authHeader) {
-        return new Response(
-          JSON.stringify({ error: "Authentication required" }),
-          { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-
-      supabaseClient = createClient(
-        supabaseUrl,
-        supabaseAnonKey,
-        { global: { headers: { Authorization: authHeader } } }
+    if (!serviceKeyHeader) {
+      return new Response(
+        JSON.stringify({ error: "Missing x-service-key header" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
-
-      const { data: { user: authedUser }, error: authError } = await supabaseClient.auth.getUser();
-      if (authError || !authedUser) {
-        console.error("[VAI Facial Verify] Auth error:", authError);
-        return new Response(
-          JSON.stringify({ error: "Invalid authentication" }),
-          { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      user = authedUser;
     }
 
-    const { vaiNumber, liveFaceImage } = await req.json();
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
 
-    if (!vaiNumber || !liveFaceImage) {
+    const keyHash = await hashServiceKey(serviceKeyHeader);
+    const { data: platform, error: platformError } = await supabase
+      .from("platforms")
+      .select("id")
+      .eq("api_key_hash", keyHash)
+      .single();
+
+    if (platformError || !platform) {
+      console.error("[Auth] Invalid service key");
       return new Response(
-        JSON.stringify({ error: "Missing required fields" }),
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const platformId = platform.id;
+    console.log(`[Auth] Authenticated as platform: ${platformId}`);
+
+    // Parse request body
+    const { vai, capture } = await req.json();
+
+    if (!vai || !capture) {
+      return new Response(
+        JSON.stringify({ error: "Missing required fields: vai, capture" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    console.log("[VAI Facial Verify] Processing verification for V.A.I.:", vaiNumber, "User:", user?.id ?? "service-key");
+    console.log(`[Verify] Starting facial verification for V.A.I.: ${vai}, platform: ${platformId}`);
 
-    // Verify ownership - check if this V.A.I. belongs to the authenticated user
-    const serviceClient = createClient(
-      Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
-    );
-
-    // Check rate limiting - max 5 attempts per 10 minutes
+    // Step 2: Rate limit check
     const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-    const { count } = await supabaseClient
-      .from("signature_attempts")
-      .select("*", { count: "exact", head: true })
-      .eq("vai_number", vaiNumber)
-      .eq("contract_type", "vai_verification")
+    const { data: recentAttempts, error: attemptsError } = await supabase
+      .from("facial_verification_attempts")
+      .select("id")
+      .eq("vai", vai)
+      .eq("platform_id", platformId)
       .gte("attempted_at", tenMinutesAgo);
 
-    if (count && count >= 5) {
-      console.log("[VAI Facial Verify] Rate limit exceeded");
+    if (attemptsError) {
+      console.error("[Rate Limit] Error checking attempts:", attemptsError);
+    }
+
+    if (recentAttempts && recentAttempts.length >= 5) {
+      console.log(`[Rate Limit] Exceeded for V.A.I. ${vai} on platform ${platformId}`);
       return new Response(
-        JSON.stringify({
-          match: false,
-          message: "Too many attempts. Please wait 10 minutes before trying again.",
-        }),
+        JSON.stringify({ error: "Too many attempts. Please try again later." }),
         { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // Get stored selfie from verification records and verify ownership
-    const { data: vaiData, error: vaiError } = await serviceClient
-      .from("vai_assignments")
-      .select(`
-        verification_record_id,
-        verification_records!inner(
-          selfie_url,
-          session_id
-        )
-      `)
-      .eq("vai_code", vaiNumber)
+    // Step 3: Load credential
+    const { data: credential, error: credentialError } = await supabase
+      .from("credentials")
+      .select("*")
+      .eq("vai", vai)
       .single();
 
-    if (vaiError || !vaiData) {
-      console.error("[VAI Facial Verify] Error fetching V.A.I. data:", vaiError);
+    if (credentialError || !credential) {
+      console.log(`[Credential] Not found: ${vai}`);
       return new Response(
-        JSON.stringify({ error: "V.A.I. number not found" }),
+        JSON.stringify({ error: "V.A.I. not found" }),
         { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // TODO: When user_id column is added to verification_records, verify:
-    // if (vaiData.verification_records.user_id !== user.id) {
-    //   return new Response(
-    //     JSON.stringify({ error: "You do not own this V.A.I. number" }),
-    //     { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    //   );
-    // }
+    // Step 4: Scope check - V.A.I. must have presented at this platform
+    const { data: credentialPlatform, error: scopeError } = await supabase
+      .from("credential_platforms")
+      .select("*")
+      .eq("vai", vai)
+      .eq("platform_id", platformId)
+      .single();
 
-    const storedPhotoUrl = (vaiData.verification_records as any).selfie_url;
-    if (!storedPhotoUrl) {
-      console.error("[VAI Facial Verify] No stored photo found");
+    if (scopeError || !credentialPlatform) {
+      console.log(`[Scope] V.A.I. ${vai} never presented at platform ${platformId}`);
       return new Response(
-        JSON.stringify({ error: "No verification photo found for this V.A.I." }),
+        JSON.stringify({ error: "V.A.I. not found" }),
         { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    console.log("[VAI Facial Verify] Comparing faces using Gemini 2.5 Pro");
-
-    // Use Lovable AI with Gemini 2.5 Pro for facial comparison
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY not configured");
+    // Step 5: State check - suspended or banned returns immediately without face check
+    if (credential.state === "suspended") {
+      console.log(`[State] V.A.I. ${vai} is suspended`);
+      await supabase.from("facial_verification_attempts").insert({
+        vai,
+        platform_id: platformId,
+        success: false,
+        attempted_at: new Date().toISOString(),
+      });
+      return new Response(
+        JSON.stringify({ result: "no_match", state: "suspended" }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-pro",
-        messages: [
-          {
-            role: "system",
-            content: `You are a facial recognition expert system for identity verification. Compare two facial images and determine if they are the same person.
-            
-            Your response MUST be a valid JSON object with these exact fields:
-            {
-              "match": boolean (true if same person, false if different),
-              "confidence": number (0-100, your confidence percentage),
-              "reasoning": string (brief explanation of your decision)
-            }
-            
-            IMPORTANT: Respond ONLY with the JSON object, no additional text.`
-          },
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: "Compare these two images. Is this the same person? Image 1 is the stored verification photo. Image 2 is the live capture."
-              },
-              {
-                type: "image_url",
-                image_url: { url: storedPhotoUrl }
-              },
-              {
-                type: "image_url",
-                image_url: { url: liveFaceImage }
-              }
-            ]
-          }
-        ],
-      }),
+    if (credential.state === "banned") {
+      console.log(`[State] V.A.I. ${vai} is banned`);
+      await supabase.from("facial_verification_attempts").insert({
+        vai,
+        platform_id: platformId,
+        success: false,
+        attempted_at: new Date().toISOString(),
+      });
+      return new Response(
+        JSON.stringify({ result: "no_match", state: "banned" }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Step 6: Load newest baseline
+    const { data: baselines, error: baselineError } = await supabase
+      .from("baselines")
+      .select("*")
+      .eq("vai", vai)
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (baselineError || !baselines || baselines.length === 0) {
+      console.error(`[Baseline] No baseline found for V.A.I. ${vai}`);
+      throw new Error("No baseline found for this V.A.I.");
+    }
+
+    const baseline = baselines[0];
+    console.log(`[Baseline] Loaded baseline ID ${baseline.id}, enrollment_score=${baseline.enrollment_score}`);
+
+    // Step 7: Decode capture from base64 to bytes
+    // Remove data URL prefix if present (e.g., "data:image/jpeg;base64,")
+    let base64Data = capture;
+    if (capture.includes(",")) {
+      base64Data = capture.split(",")[1];
+    }
+
+    // Decode base64 to bytes
+    const binaryString = atob(base64Data);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    const captureBlob = bytes.buffer as ArrayBuffer;
+
+    console.log(`[Capture] Decoded ${captureBlob.byteLength} bytes from base64`);
+
+    // Step 8: Call face service
+    const faceResult = await callFaceService(captureBlob);
+
+    // Step 9 & 10: Compare vectors using pgvector and threshold
+    const FACE_MATCH_THRESHOLD = Deno.env.get("FACE_MATCH_THRESHOLD");
+    if (!FACE_MATCH_THRESHOLD) {
+      throw new Error("FACE_MATCH_THRESHOLD environment variable is not configured. Cannot proceed.");
+    }
+
+    const dropThreshold = parseFloat(FACE_MATCH_THRESHOLD);
+    if (isNaN(dropThreshold)) {
+      throw new Error(`FACE_MATCH_THRESHOLD must be a number, got: ${FACE_MATCH_THRESHOLD}`);
+    }
+
+    // Calculate cosine similarity using pgvector
+    // The <=> operator returns cosine distance (0 = identical, 2 = opposite)
+    // Similarity = 1 - distance
+    const { data: similarityResult, error: similarityError } = await supabase
+      .rpc("calculate_cosine_similarity", {
+        baseline_vector: baseline.vector,
+        capture_vector: JSON.stringify(faceResult.vector),
+      });
+
+    if (similarityError) {
+      console.error(`[Similarity] Error calculating similarity:`, similarityError);
+      throw new Error(`Failed to calculate vector similarity: ${similarityError.message}`);
+    }
+
+    const similarity = similarityResult as number;
+    console.log(`[Similarity] Cosine similarity: ${similarity}`);
+
+    // Threshold is RELATIVE to enrollment_score, not global
+    const minAllowedSimilarity = baseline.enrollment_score - dropThreshold;
+    const match = similarity >= minAllowedSimilarity;
+
+    console.log(
+      `[Threshold] enrollment_score=${baseline.enrollment_score}, ` +
+      `drop_threshold=${dropThreshold}, min_allowed=${minAllowedSimilarity}, ` +
+      `similarity=${similarity}, match=${match}`
+    );
+
+    // Step 11: Determine result
+    // TODO: Escalation to rebaseline_required not yet implemented.
+    // Requires tracking repeated failures per VAI+platform and defining
+    // the failure count threshold before suggesting rebaseline.
+    // For now, all failures return no_match.
+    const result = match ? "match" : "no_match";
+
+    // Step 12: Log attempt
+    await supabase.from("facial_verification_attempts").insert({
+      vai,
+      platform_id: platformId,
+      success: match,
+      attempted_at: new Date().toISOString(),
     });
 
-    if (!aiResponse.ok) {
-      const errorText = await aiResponse.text();
-      console.error("[VAI Facial Verify] AI API error:", aiResponse.status, errorText);
-      throw new Error(`Facial recognition service error: ${aiResponse.status}`);
-    }
-
-    const aiData = await aiResponse.json();
-    console.log("[VAI Facial Verify] AI response:", JSON.stringify(aiData));
-
-    // Parse AI response
-    let aiMatch = false;
-    let aiConfidence = 0;
-    let aiReasoning = "";
-
-    try {
-      const content = aiData.choices?.[0]?.message?.content;
-      if (content) {
-        // Try to extract JSON from the response
-        const jsonMatch = content.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          const parsed = JSON.parse(jsonMatch[0]);
-          aiMatch = parsed.match === true;
-          aiConfidence = Number(parsed.confidence) || 0;
-          aiReasoning = parsed.reasoning || "";
-        }
-      }
-    } catch (parseError) {
-      console.error("[VAI Facial Verify] Error parsing AI response:", parseError);
-      aiReasoning = "Error parsing verification results";
-    }
-
-    // Determine final match (require 95% confidence)
-    const finalMatch = aiMatch && aiConfidence >= 95;
-    
-    console.log("[VAI Facial Verify] Match:", finalMatch, "Confidence:", aiConfidence);
-
-    // Log attempt
-    await supabaseClient.from("signature_attempts").insert({
-      vai_number: vaiNumber,
-      contract_type: "vai_verification",
-      success: finalMatch,
-      facial_match_confidence: aiConfidence,
-      failure_reason: finalMatch ? null : aiReasoning,
-      ip_address: req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip"),
-      user_agent: req.headers.get("user-agent"),
-      device_fingerprint: null,
-    });
-
+    // Step 13: Return result
+    console.log(`[Result] ${result} for V.A.I. ${vai}`);
     return new Response(
-      JSON.stringify({
-        match: finalMatch,
-        confidence: aiConfidence,
-        threshold: 95,
-        message: finalMatch
-          ? "Identity verified successfully!"
-          : `Identity verification failed. Confidence ${aiConfidence}% is below required 95%.`,
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      JSON.stringify({ result }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
 
   } catch (error) {
-    console.error("[VAI Facial Verify] Error:", error);
+    console.error("[Verify] Error:", error);
     return new Response(
-      JSON.stringify({ 
-        error: "Internal server error",
-        details: error instanceof Error ? error.message : "Unknown error"
+      JSON.stringify({
+        error: error instanceof Error ? error.message : "Unknown error occurred",
       }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
