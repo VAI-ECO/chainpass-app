@@ -38,30 +38,39 @@ Deno.serve(async (req) => {
     const signature = req.headers.get('x-vairify-signature');
     const webhookSecret = Deno.env.get('VAIRIFY_WEBHOOK_SECRET');
 
-    // Validate signature if secret is configured
-    if (webhookSecret && signature) {
-      const payload = await req.text();
-      const encoder = new TextEncoder();
-      const data = encoder.encode(payload + webhookSecret);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const expectedSignature = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-      if (signature !== expectedSignature) {
-        console.error('Invalid webhook signature');
-        return new Response(
-          JSON.stringify({ error: 'Invalid signature' }),
-          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-    } else if (webhookSecret) {
-      console.warn('Webhook secret configured but no signature provided');
-    } else {
-      console.warn('VAIRIFY_WEBHOOK_SECRET not configured - skipping signature validation');
+    // Fail closed: unconfigured secret or missing header is a 401
+    if (!webhookSecret) {
+      console.error('VAIRIFY_WEBHOOK_SECRET not configured - rejecting webhook');
+      return new Response(
+        JSON.stringify({ error: 'Webhook authentication not configured' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    // Parse webhook payload
-    const webhookData: VairifyWebhookPayload = await req.json();
+    if (!signature) {
+      return new Response(
+        JSON.stringify({ error: 'Missing x-vairify-signature header' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const payload = await req.text();
+    const encoder = new TextEncoder();
+    const data = encoder.encode(payload + webhookSecret);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const expectedSignature = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    if (signature !== expectedSignature) {
+      console.error('Invalid webhook signature');
+      return new Response(
+        JSON.stringify({ error: 'Invalid signature' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Parse webhook payload (body already read above for signature validation)
+    const webhookData: VairifyWebhookPayload = JSON.parse(payload);
 
     console.log('Received webhook:', {
       event_type: webhookData.event_type,
