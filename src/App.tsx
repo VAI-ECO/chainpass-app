@@ -36,8 +36,6 @@ import ErrorMonitoring from "./pages/ErrorMonitoring";
 import ContractSignature from "./pages/ContractSignature";
 import ComplyCubeFacialVerification from "./pages/ComplyCubeFacialVerification";
 import VerificationCallback from "./pages/VerificationCallback";
-import FinalVerification from "./pages/FinalVerification";
-import FacialVerificationCheckpoint from "./pages/FacialVerificationCheckpoint";
 import IdentityVerificationRequirements from "./pages/IdentityVerificationRequirements";
 import VairifySignup from "./pages/VairifySignup";
 import OnboardingComplete from "./pages/OnboardingComplete";
@@ -82,9 +80,7 @@ const App = () => (
               <Route path="/leo-declaration" element={<LeoDeclaration />} />
               <Route path="/legal-agreements" element={<SignatureAgreement />} />
               <Route path="/contract-signature" element={<ContractSignature />} />
-              <Route path="/final-verification" element={<FinalVerification />} />
               <Route path="/facial-verification" element={<FacialVerification />} />
-              <Route path="/verification-checkpoint" element={<FacialVerificationCheckpoint />} />
               <Route path="/leo-vai-success" element={<LEOVaiSuccess />} />
               <Route path="/vai-success" element={<VaiSuccess />} />
               <Route path="/install" element={<Install />} />

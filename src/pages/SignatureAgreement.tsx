@@ -4,12 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Lock, AlertTriangle, CheckCircle2, Shield, Loader2 } from "lucide-react";
 import chainpassLogo from "@/assets/chainpass-logo.svg";
-import { LeoFacialVerification } from "@/components/LeoFacialVerification";
 import { toast } from "sonner";
 
 export default function SignatureAgreement() {
   const navigate = useNavigate();
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [checkboxes, setCheckboxes] = useState({
     read: false,
@@ -22,10 +21,6 @@ export default function SignatureAgreement() {
     blockchain: false,
     jurisdiction: false,
   });
-
-  const handleVerificationSuccess = () => {
-    setIsVerified(true);
-  };
 
   const handleCheckboxChange = (key: keyof typeof checkboxes) => {
     if (!isVerified) return;
@@ -80,10 +75,7 @@ export default function SignatureAgreement() {
           </div>
         </div>
 
-        {/* SECTION 2: Facial Verification */}
-        <LeoFacialVerification onVerificationSuccess={handleVerificationSuccess} />
-
-        {/* SECTION 3: Agreement Checkboxes */}
+        {/* SECTION 2: Agreement Checkboxes */}
         <div className="relative">
           {/* Lock Overlay when not verified */}
           {!isVerified && (

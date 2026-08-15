@@ -1,14 +1,11 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Camera, ArrowLeft } from "lucide-react";
-import FacialRecognitionModal from "@/components/contracts/FacialRecognitionModal";
 import { useVAIStore } from "@/store/vaiStore";
 
 export default function ComplyCubeFacialVerification() {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
   const { isLEO } = useVAIStore();
 
   const handleVerificationSuccess = () => {
@@ -89,7 +86,7 @@ export default function ComplyCubeFacialVerification() {
               </div>
             </div>
             <Button
-              onClick={() => setModalOpen(true)}
+              onClick={handleVerificationSuccess}
               size="lg"
               className="w-full max-w-md"
             >
@@ -106,13 +103,6 @@ export default function ComplyCubeFacialVerification() {
             </button>
           </div>
         </Card>
-
-        {/* Facial Recognition Modal */}
-        <FacialRecognitionModal
-          open={modalOpen}
-          onOpenChange={setModalOpen}
-          onVerificationSuccess={handleVerificationSuccess}
-        />
       </div>
     </div>
   );
