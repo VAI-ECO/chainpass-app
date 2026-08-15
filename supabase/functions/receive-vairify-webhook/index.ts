@@ -5,6 +5,22 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-vairify-signature',
 };
 
+/**
+ * Constant-time string comparison.
+ * Lengths are not secret here (both are SHA-256 hex digests), so an
+ * early return on length mismatch does not leak beyond that.
+ */
+function timingSafeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) {
+    return false;
+  }
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
 interface VairifyWebhookPayload {
   event_type: 'user.status_changed' | 'user.account_updated' | 'user.vai_revoked' | 'user.vai_suspended';
   user_id: string;
@@ -61,7 +77,7 @@ Deno.serve(async (req) => {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const expectedSignature = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-    if (signature !== expectedSignature) {
+    if (!timingSafeEqual(signature, expectedSignature)) {
       console.error('Invalid webhook signature');
       return new Response(
         JSON.stringify({ error: 'Invalid signature' }),
