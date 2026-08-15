@@ -27,11 +27,35 @@ interface Platform {
 serve(async (req) => {
   console.log("[deliver-events] Starting delivery run");
 
+  // Authenticate caller by service key, same scheme as verify-vai-facial
+  const serviceKeyHeader = req.headers.get("x-service-key");
+  if (!serviceKeyHeader) {
+    return new Response(
+      JSON.stringify({ error: "Missing x-service-key header" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   try {
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
+
+    const keyHash = await hashServiceKey(serviceKeyHeader);
+    const { data: caller, error: callerError } = await supabase
+      .from("platforms")
+      .select("id")
+      .eq("api_key_hash", keyHash)
+      .single();
+
+    if (callerError || !caller) {
+      console.error("[deliver-events] Invalid service key");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     // Query undelivered events for platforms with active webhooks
     const { data: events, error: eventsError } = await supabase
@@ -258,6 +282,18 @@ async function handleFailure(
   }
 
   return { success: false, disabled: false };
+}
+
+/**
+ * Hash a service key using SHA-256
+ * Same algorithm as verify-vai-facial/index.ts
+ */
+async function hashServiceKey(key: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(key);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 /**
