@@ -181,6 +181,30 @@ export async function processEnrollment(
 
   console.log(`[Session] Updated to complete with V.A.I.: ${vai}`);
 
+  // Step 6b: Link credential to the session's platform (same as enroll-in-house)
+  const { data: sessionRow, error: sessionLookupError } = await supabase
+    .from("sessions")
+    .select("platform_id")
+    .eq("id", input.sessionId)
+    .single();
+
+  if (sessionLookupError || !sessionRow) {
+    throw new Error(`Failed to load session platform: ${sessionLookupError?.message || "No session found"}`);
+  }
+
+  const { error: platformLinkError } = await supabase
+    .from("credential_platforms")
+    .insert({
+      vai: vai,
+      platform_id: sessionRow.platform_id,
+    });
+
+  if (platformLinkError) {
+    throw new Error(`Failed to insert credential_platforms: ${platformLinkError.message}`);
+  }
+
+  console.log(`[Platform Link] Inserted: vai=${vai}, platform=${sessionRow.platform_id}`);
+
   // Step 7: Emit credential.issued event
   await emitEvent(supabase, vai, "credential.issued", {
     issued_date: today,
