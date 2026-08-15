@@ -64,16 +64,20 @@ export async function emitEvent(
   }
 
   // Insert one row per platform with unique event_id but shared emission_id
-  const events = platforms.map((p) => ({
-    event_id: crypto.randomUUID(),
-    emission_id,
-    platform_id: p.platform_id,
-    vai,
-    type,
-    payload: eventPayload,
-    attempts: 0,
-    delivered_at: null,
-  }));
+  // event_id rides inside the payload so receivers can dedupe redeliveries
+  const events = platforms.map((p) => {
+    const event_id = crypto.randomUUID();
+    return {
+      event_id,
+      emission_id,
+      platform_id: p.platform_id,
+      vai,
+      type,
+      payload: { ...eventPayload, event_id },
+      attempts: 0,
+      delivered_at: null,
+    };
+  });
 
   const { error: insertError } = await supabase
     .from("credential_events")
