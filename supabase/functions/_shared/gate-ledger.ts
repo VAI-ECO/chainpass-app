@@ -90,7 +90,7 @@ export async function recordGateConsumption(
   args: {
     platform_id: string;
     vai: string;
-    call_type: "gate" | "gate_sign";
+    call_type: string;
     result: string;
   }
 ): Promise<{ billed: boolean; depleted: boolean }> {

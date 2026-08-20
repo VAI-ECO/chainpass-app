@@ -107,3 +107,9 @@ verify_jwt = false
 
 [functions.enrol-handoff]
 verify_jwt = false
+
+[functions.verify]
+verify_jwt = false
+
+[functions.blocks]
+verify_jwt = false
