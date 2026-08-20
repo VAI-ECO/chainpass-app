@@ -134,7 +134,7 @@ export async function processEnrollment(
     .insert({
       vai: vai,
       state: "active",
-      complycube_client_id: input.complycubeClientId,
+      // Provider client id is not stored — live enrolment only (§2.4).
       document_expiry: input.documentExpiry,
       next_renewal_date: next_renewal,
       next_complycube_date: next_complycube,

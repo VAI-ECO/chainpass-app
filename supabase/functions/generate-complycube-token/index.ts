@@ -123,10 +123,11 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
+    // Do not persist provider client id. Session-scoped id returns in the response
+    // for the live enrolment window only (§2.4).
     const { error: dbError } = await supabase
       .from("verification_records")
       .update({
-        complycube_client_id: clientData.id,
         updated_at: new Date().toISOString(),
       })
       .eq("session_id", sessionId);

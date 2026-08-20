@@ -298,7 +298,6 @@ serve(async (req) => {
         vai: vai,
         state: "active",
         provisional: true,
-        complycube_client_id: null,
         document_expiry: null,
         next_renewal_date: null, // No renewal for provisional credentials
         next_complycube_date: null,
