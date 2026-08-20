@@ -15,6 +15,9 @@ verify_jwt = false
 [functions.enrol-register]
 verify_jwt = false
 
+[functions.enrol-otp]
+verify_jwt = false
+
 [functions.create-payment-intent]
 verify_jwt = false
 
