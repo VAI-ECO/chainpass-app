@@ -95,3 +95,15 @@ verify_jwt = false
 
 [functions.create-complycube-flow-session]
 verify_jwt = false
+
+[functions.enrol-capture]
+verify_jwt = false
+
+[functions.enrol-reveal]
+verify_jwt = false
+
+[functions.enrol-baseline]
+verify_jwt = false
+
+[functions.enrol-handoff]
+verify_jwt = false
