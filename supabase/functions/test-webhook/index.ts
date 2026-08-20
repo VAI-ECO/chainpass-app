@@ -55,7 +55,7 @@ Deno.serve(async (req) => {
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 10 * 1000); // 10 second timeout
 
       const webhookResponse = await fetch(callback_url, {
         method: 'POST',
