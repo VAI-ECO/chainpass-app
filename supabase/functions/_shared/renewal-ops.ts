@@ -11,7 +11,7 @@ export async function advanceCredentialYearFromVerification(
   vai: string,
   verified_at: Date = new Date()
 ): Promise<void> {
-  // Window length from settings — three-year figure superseded.
+  // Window length from settings — prior multi-year figure superseded.
   const years = await getSettingNumber(supabase, "credential_year_length_years");
   const start = verified_at;
   const end = new Date(start);
