@@ -7,17 +7,13 @@ import {
   credentialMeetsRequiredLevel,
   loadCredentialForGate,
 } from "../_shared/gate-credential.ts";
-import { signEnrolmentToken } from "../_shared/enrolment-token.ts";
 import { extractApiKey, resolvePlatformByApiKey } from "../_shared/platform-key.ts";
-import {
-  faceGateAgainstBaseline,
-  findPlatformVisit,
-} from "../_shared/gate-visits.ts";
+import { signFirstVisitTerms } from "../_shared/gate-visits.ts";
 
 /**
- * POST /v1/gate — §16.3 items 1–3.
- * Body: { vai, required_level, capture? }
- * Miss visit → terms_required. Hit + capture → granted | no_match (+ band).
+ * POST /v1/gate/sign — first-visit terms (§14.3 / §16.3).
+ * Camera → match vs baseline → agreement (single, terms) + proof + visit → granted.
+ * Body: { vai, required_level, capture }
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -35,7 +31,7 @@ serve(async (req) => {
     }
 
     const body = await req.json().catch(() => ({}));
-    const required_level = Number(body.required_level);
+    const required_level = Number(body.required_level ?? 1);
     if (![1, 2, 3].includes(required_level)) {
       return json({ error: "required_level must be 1, 2, or 3" }, 400);
     }
@@ -46,6 +42,9 @@ serve(async (req) => {
     }
 
     const capture = typeof body.capture === "string" ? body.capture : null;
+    if (!capture) {
+      return json({ error: "capture required" }, 400);
+    }
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -60,31 +59,27 @@ serve(async (req) => {
 
     const credential = await loadCredentialForGate(supabase, vai);
     if (!credential) {
-      const enrolment_token = await signEnrolmentToken(platform.id);
-      return json({ status: "enroll_required", enrolment_token });
+      return json({ status: "enroll_required" }, 403);
     }
-
     if (!credentialIsActive(credential.state)) {
       return json({ status: "credential_inactive", state: credential.state }, 403);
     }
-
     if (!credentialMeetsRequiredLevel(credential.credential_level, required_level)) {
       return json({ status: "credential_level_refused" }, 403);
     }
 
-    // §16.3 / §14.3 — first-visit terms on platform_visits miss
-    const visit = await findPlatformVisit(supabase, vai, platform.id);
-    if (!visit) {
-      return json({ status: "terms_required" });
-    }
+    const result = await signFirstVisitTerms(supabase, {
+      vai,
+      platform_id: platform.id,
+      capture,
+    });
 
-    if (!capture) {
-      return json({ error: "capture required for return visit" }, 400);
-    }
-
-    const { status, band } = await faceGateAgainstBaseline(supabase, vai, capture);
-    // Band only — never similarity / percentage (§7)
-    return json({ status, band });
+    // Band only — never percentage (§7)
+    return json({
+      status: result.status,
+      band: result.band,
+      ...(result.agreement_id ? { agreement_id: result.agreement_id } : {}),
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : "unknown_error";
     const status =
