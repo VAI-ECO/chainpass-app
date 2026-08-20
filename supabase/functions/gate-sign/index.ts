@@ -10,9 +10,11 @@ import {
 import { extractApiKey, resolvePlatformByApiKey } from "../_shared/platform-key.ts";
 import { signFirstVisitTerms } from "../_shared/gate-visits.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
+import { publicGateBody } from "../_shared/gate-response.ts";
 
 /**
- * POST /v1/gate/sign — first-visit terms + ledger/block (§16.3 items 3–4).
+ * POST /v1/gate/sign — first-visit terms + ledger/block (§16.3 items 3–5).
+ * Band returned, never a percentage (§7).
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -123,7 +125,8 @@ serve(async (req) => {
 });
 
 function json(body: Record<string, unknown>, status = 200): Response {
-  return new Response(JSON.stringify(body), {
+  const safe = publicGateBody(body);
+  return new Response(JSON.stringify(safe), {
     status,
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });

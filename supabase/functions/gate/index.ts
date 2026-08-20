@@ -14,10 +14,12 @@ import {
   findPlatformVisit,
 } from "../_shared/gate-visits.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
+import { publicGateBody } from "../_shared/gate-response.ts";
 
 /**
- * POST /v1/gate — §16.3 items 1–4.
+ * POST /v1/gate — §16.3 items 1–5.
  * Every resolved call writes verification_ledger and decrements the block.
+ * Responses carry a band, never a percentage (§7).
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -124,7 +126,8 @@ async function finish(
 }
 
 function json(body: Record<string, unknown>, status = 200): Response {
-  return new Response(JSON.stringify(body), {
+  const safe = publicGateBody(body);
+  return new Response(JSON.stringify(safe), {
     status,
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
