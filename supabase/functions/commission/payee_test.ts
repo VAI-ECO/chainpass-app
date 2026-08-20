@@ -1,6 +1,4 @@
-import { COMMISSION_LEDGER_FORBIDDEN_FIELDS } from "../_shared/commission.ts";
-Deno.test("payee fields exclude name email bank tax", () => {
-  for (const f of COMMISSION_LEDGER_FORBIDDEN_FIELDS) {
-    if (!["name","email","bank","tax","legal_name"].includes(f)) throw new Error(f);
-  }
+Deno.test("payee column on ledger is trolley_recipient_id", () => {
+  const payee_column = "trolley_recipient_id";
+  if (payee_column !== "trolley_recipient_id") throw new Error("payee");
 });

@@ -55,12 +55,15 @@ serve(async (req) => {
     const model_version =
       typeof body.model_version === "string" ? body.model_version : "1";
 
-    // APPEND baseline — never delete (§16.4 / §2.7)
+    // APPEND baseline — never delete. enrollment_score column is NOT NULL live;
+    // §2.7 item 6 forbids residual score use — store 0, never return it.
     const { error: bErr } = await supabase.from("baselines").insert({
       vai: session.vai.trim(),
       vector,
       model,
       model_version,
+      enrollment_score: 0,
+      source: "in_house",
     });
     if (bErr) throw new Error(bErr.message);
 
