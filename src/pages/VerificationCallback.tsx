@@ -4,8 +4,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { sessionManager } from "@/utils/sessionManager";
 
 type CallbackStatus = "processing" | "success" | "failed" | "cancelled";
+
+function resolveSessionId(searchParams: URLSearchParams): string {
+  return (
+    searchParams.get("session_id") ||
+    sessionStorage.getItem("verification_session_id") ||
+    sessionStorage.getItem("session_id") ||
+    sessionManager.getSessionId()
+  );
+}
 
 export default function VerificationCallback() {
   const [searchParams] = useSearchParams();
@@ -19,12 +29,19 @@ export default function VerificationCallback() {
   useEffect(() => {
     const urlStatus = searchParams.get("status");
     const clientId = searchParams.get("clientId");
+    const session_id = resolveSessionId(searchParams);
     
     if (urlStatus === "cancelled") {
       setStatus("cancelled");
       return;
     }
     
+    if (!session_id) {
+      setStatus("failed");
+      toast.error("Missing session ID");
+      return;
+    }
+
     if (!clientId) {
       setStatus("failed");
       toast.error("Missing client ID");
@@ -32,11 +49,11 @@ export default function VerificationCallback() {
     }
     
     // Start polling for verification completion
-    pollVerificationStatus(clientId);
+    pollVerificationStatus(session_id, clientId);
   }, [searchParams]);
 
-  const pollVerificationStatus = async (clientId: string) => {
-    console.log("[Callback] Starting polling for client:", clientId);
+  const pollVerificationStatus = async (session_id: string, clientId: string) => {
+    console.log("[Callback] Starting polling for session:", session_id, "client:", clientId);
     
     const pollInterval = setInterval(async () => {
       setAttempts(prev => prev + 1);
@@ -47,7 +64,8 @@ export default function VerificationCallback() {
         const { data, error } = await supabase.functions.invoke(
           "complycube-verification-callback",
           {
-            body: { clientId }
+            // session_id keys the DB row; clientId is live provider fetch only
+            body: { session_id, clientId }
           }
         );
 

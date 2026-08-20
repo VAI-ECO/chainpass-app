@@ -97,7 +97,7 @@ const VaiSuccess = () => {
       const verificationData = {
         vai_number: vaiCode!,
         biometric_photo_url: sessionStorage.getItem('complycube_photo_url') || '',
-        complycube_transaction_number: sessionStorage.getItem('complycube_client_id') || '',
+        complycube_transaction_number: sessionStorage.getItem('complycube_transaction_number') || '',
         le_disclosure_accepted: sessionStorage.getItem('userType') === 'law-enforcement',
         signature_agreement_accepted: true,
       };

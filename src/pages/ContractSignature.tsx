@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { useVAIStore } from "@/store/vaiStore";
 import { toast } from "sonner";
+import { sessionManager } from "@/utils/sessionManager";
 
 type Step = "contract" | "verification" | "confirmation";
 
@@ -24,7 +25,10 @@ export default function ContractSignature() {
   const { vaiNumber: storeVAI } = useVAIStore();
   const sessionVAI = sessionStorage.getItem('vai_number');
   const vaiNumber = storeVAI || sessionVAI;
-  const complycubeClientId = sessionStorage.getItem('complycube_client_id') || '';
+  const session_id =
+    sessionStorage.getItem("verification_session_id") ||
+    sessionStorage.getItem("session_id") ||
+    sessionManager.getSessionId();
   const contractType = "terms_of_service";
 
   const CONTRACT_CONTENT = {
@@ -74,7 +78,7 @@ export default function ContractSignature() {
       const { data, error } = await supabase.functions.invoke("sign-contract", {
         body: {
           vaiNumber,
-          complycubeClientId,
+          session_id,
           contractType,
           contractText: CONTRACT_CONTENT[contractType as keyof typeof CONTRACT_CONTENT],
           facialMatchConfidence: confidence,

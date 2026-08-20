@@ -1217,7 +1217,6 @@ export type Database = {
       verification_records: {
         Row: {
           biometric_confirmed: boolean | null
-          complycube_client_id: string | null
           complycube_session_id: string | null
           complycube_verification_id: string | null
           created_at: string
@@ -1235,7 +1234,6 @@ export type Database = {
         }
         Insert: {
           biometric_confirmed?: boolean | null
-          complycube_client_id?: string | null
           complycube_session_id?: string | null
           complycube_verification_id?: string | null
           created_at?: string
@@ -1253,7 +1251,6 @@ export type Database = {
         }
         Update: {
           biometric_confirmed?: boolean | null
-          complycube_client_id?: string | null
           complycube_session_id?: string | null
           complycube_verification_id?: string | null
           created_at?: string
