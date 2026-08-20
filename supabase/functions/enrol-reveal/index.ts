@@ -90,6 +90,14 @@ serve(async (req) => {
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
+    // Origination commission to originator (session platform). House null → skip.
+    const { accrueCommission } = await import("../_shared/commission.ts");
+    await accrueCommission(supabase, {
+      platform_id: session.platform_id,
+      vai,
+      event: "origination",
+    });
+
     return json({ status: "vai_revealed", vai, step: 7 });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
