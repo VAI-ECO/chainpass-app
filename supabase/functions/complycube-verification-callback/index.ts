@@ -6,32 +6,34 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+/**
+ * Enrolment-window callback. DB row is keyed by session_id — not complycube_client_id.
+ * clientId is session-scoped for the live provider fetch only (person at camera).
+ */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    console.log("═══ ComplyCube Callback Processing START ═══");
-    
-    const { clientId } = await req.json();
-    
-    if (!clientId) {
-      throw new Error("clientId is required");
+    console.log("═══ Provider Callback Processing START ═══");
+
+    const { session_id, clientId } = await req.json();
+
+    if (!session_id) {
+      throw new Error("session_id is required");
     }
-    
-    console.log("Processing client:", clientId);
-    
+    if (!clientId) {
+      throw new Error("clientId is required for the live provider fetch in the enrolment window");
+    }
+
+    console.log("Processing session:", session_id, "live client:", clientId);
+
     const COMPLYCUBE_API_KEY = Deno.env.get("COMPLYCUBE_API_KEY");
-    
-    // STEP 1: Get verification checks
-    console.log("Fetching checks...");
-    
+
     const checksResponse = await fetch(
       `https://api.complycube.com/v1/clients/${clientId}/checks`,
-      {
-        headers: { "Authorization": COMPLYCUBE_API_KEY! },
-      }
+      { headers: { Authorization: COMPLYCUBE_API_KEY! } }
     );
 
     if (!checksResponse.ok) {
@@ -40,49 +42,33 @@ serve(async (req) => {
     }
 
     const checksData = await checksResponse.json();
-    
-    // Get most recent check
     const latestCheck = checksData.items?.[0];
-    
+
     if (!latestCheck) {
-      // Verification might still be processing
       return new Response(
         JSON.stringify({
           success: false,
           status: "processing",
-          message: "Verification still in progress"
+          message: "Verification still in progress",
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-    
-    console.log("Latest check:", {
-      id: latestCheck.id,
-      type: latestCheck.type,
-      status: latestCheck.status,
-      outcome: latestCheck.outcome
-    });
-    
-    // Check if verification is complete
+
     if (latestCheck.status !== "complete") {
       return new Response(
         JSON.stringify({
           success: false,
           status: "processing",
-          message: "Verification not yet complete"
+          message: "Verification not yet complete",
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-    
-    // STEP 2: Get documents (including live photo)
-    console.log("Fetching documents...");
-    
+
     const documentsResponse = await fetch(
       `https://api.complycube.com/v1/clients/${clientId}/documents`,
-      {
-        headers: { "Authorization": COMPLYCUBE_API_KEY! },
-      }
+      { headers: { Authorization: COMPLYCUBE_API_KEY! } }
     );
 
     if (!documentsResponse.ok) {
@@ -90,26 +76,18 @@ serve(async (req) => {
     }
 
     const documentsData = await documentsResponse.json();
-    
-    // Find live photo
-    const livePhoto = documentsData.items?.find((doc: any) => 
-      doc.type === "live_photo" && doc.status === "approved"
+    const livePhoto = documentsData.items?.find(
+      (doc: { type: string; status: string }) =>
+        doc.type === "live_photo" && doc.status === "approved"
     );
-    
+
     if (!livePhoto) {
       throw new Error("No approved live photo found");
     }
-    
-    console.log("Found live photo:", livePhoto.id);
-    
-    // STEP 3: Download live photo
-    console.log("Downloading biometric photo...");
-    
+
     const photoResponse = await fetch(
       `https://api.complycube.com/v1/documents/${livePhoto.id}/download`,
-      {
-        headers: { "Authorization": COMPLYCUBE_API_KEY! },
-      }
+      { headers: { Authorization: COMPLYCUBE_API_KEY! } }
     );
 
     if (!photoResponse.ok) {
@@ -117,17 +95,14 @@ serve(async (req) => {
     }
 
     const photoBlob = await photoResponse.arrayBuffer();
-    
-    // STEP 4: Upload to Supabase Storage
-    console.log("Uploading to Supabase Storage...");
-    
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const fileName = `${clientId}-complycube-biometric.jpg`;
-    
+    const fileName = `${session_id}-provider-biometric.jpg`;
+
     const { error: uploadError } = await supabase.storage
       .from("verification-photos")
       .upload(fileName, photoBlob, {
@@ -136,20 +111,15 @@ serve(async (req) => {
       });
 
     if (uploadError) {
-      console.error("Storage upload error:", uploadError);
       throw new Error(`Failed to upload photo: ${uploadError.message}`);
     }
 
-    const { data: { publicUrl } } = supabase.storage
-      .from("verification-photos")
-      .getPublicUrl(fileName);
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("verification-photos").getPublicUrl(fileName);
 
-    console.log("✓ Photo stored:", publicUrl);
-
-    // STEP 5: Update verification record
-    console.log("Updating database...");
-    
-    const { error: updateError } = await supabase
+    // Re-keyed: verification_records by enrolment session_id — column may not exist.
+    const { data: updated, error: updateError } = await supabase
       .from("verification_records")
       .update({
         complycube_verification_id: latestCheck.id,
@@ -158,15 +128,19 @@ serve(async (req) => {
         selfie_url: publicUrl,
         updated_at: new Date().toISOString(),
       })
-      .eq("complycube_client_id", clientId);
+      .eq("session_id", session_id)
+      .select("id")
+      .maybeSingle();
 
     if (updateError) {
-      console.error("Database update error:", updateError);
       throw new Error(`Database update failed: ${updateError.message}`);
     }
+    if (!updated) {
+      throw new Error(`No verification_records row for session_id=${session_id}`);
+    }
 
-    console.log("✓ Database updated");
-    console.log("═══ ComplyCube Callback Processing SUCCESS ═══");
+    console.log("✓ Database updated for session", session_id);
+    console.log("═══ Provider Callback Processing SUCCESS ═══");
 
     return new Response(
       JSON.stringify({
@@ -175,25 +149,25 @@ serve(async (req) => {
         transactionId: latestCheck.id,
         biometricUrl: publicUrl,
         verified: latestCheck.outcome === "clear",
+        session_id,
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       }
     );
-
   } catch (error) {
-    console.error("═══ ComplyCube Callback Processing FAILED ═══");
+    console.error("═══ Provider Callback Processing FAILED ═══");
     console.error("Error:", error);
-    
+
     return new Response(
       JSON.stringify({
         success: false,
-        error: error instanceof Error ? error.message : "Unknown error"
+        error: error instanceof Error ? error.message : "Unknown error",
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" }
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
   }

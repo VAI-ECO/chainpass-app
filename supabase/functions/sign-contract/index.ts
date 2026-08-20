@@ -1,11 +1,16 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+/**
+ * Enrolment-window contract sign. Looks up verification_records by session_id —
+ * not by complycube_client_id. Works before that column exists.
+ */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -14,21 +19,19 @@ serve(async (req) => {
   try {
     const {
       vaiNumber,
-      complycubeClientId,
+      session_id,
       contractType,
       contractText,
       facialMatchConfidence,
-      deviceFingerprint,
     } = await req.json();
 
-    console.log("[Sign Contract] Processing signature for VAI:", vaiNumber);
+    console.log("[Sign Contract] Processing signature for VAI:", vaiNumber, "session:", session_id);
 
+    if (!session_id) {
+      throw new Error("session_id is required");
+    }
     if (!contractType || !contractText || facialMatchConfidence === undefined) {
       throw new Error("Missing required fields");
-    }
-
-    if (facialMatchConfidence < 85) {
-      throw new Error("Facial match confidence too low to sign contract");
     }
 
     const serviceClient = createClient(
@@ -36,26 +39,35 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    // Verify that the verification record exists (contract signing happens before V.A.I. generation)
-    if (complycubeClientId) {
-      const { data: verificationRecord, error: verificationError } = await serviceClient
-        .from("verification_records")
-        .select("id")
-        .eq("complycube_client_id", complycubeClientId)
-        .single();
+    const minConfidence = await getSettingNumber(serviceClient, "band_green_min");
+    // facialMatchConfidence historically 0–100; band settings are 0–1 similarity floors.
+    const confidence01 =
+      facialMatchConfidence > 1 ? facialMatchConfidence / 100 : facialMatchConfidence;
 
-      if (verificationError || !verificationRecord) {
-        console.error("[Sign Contract] Verification record not found:", verificationError);
-        return new Response(
-          JSON.stringify({ success: false, message: "Verification record not found. Please complete identity verification first." }),
-          { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-        );
-      }
-      
-      console.log("[Sign Contract] Verification record found:", verificationRecord.id);
+    if (confidence01 < minConfidence) {
+      throw new Error("Facial match confidence too low to sign contract");
     }
 
-    // Generate blockchain-style hash (SHA-256 of contract data)
+    const { data: verificationRecord, error: verificationError } = await serviceClient
+      .from("verification_records")
+      .select("id")
+      .eq("session_id", session_id)
+      .single();
+
+    if (verificationError || !verificationRecord) {
+      console.error("[Sign Contract] Verification record not found:", verificationError);
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message:
+            "Verification record not found. Please complete identity verification first.",
+        }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    console.log("[Sign Contract] Verification record found:", verificationRecord.id);
+
     const contractDataString = `${vaiNumber}-${contractType}-${contractText}-${facialMatchConfidence}-${Date.now()}`;
     const encoder = new TextEncoder();
     const data = encoder.encode(contractDataString);
@@ -64,9 +76,6 @@ serve(async (req) => {
     const blockchainHash =
       "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
-    console.log("[Sign Contract] Generated blockchain hash:", blockchainHash);
-
-    // Create signed contract record
     const { data: contractData, error: contractError } = await serviceClient
       .from("signed_contracts")
       .insert({
@@ -86,32 +95,24 @@ serve(async (req) => {
       throw new Error("Failed to record contract signature");
     }
 
-    console.log("[Sign Contract] Contract signed successfully:", contractData.contract_id);
-
     return new Response(
       JSON.stringify({
         success: true,
         contractId: contractData.contract_id,
         signedAt: contractData.signed_at,
-        blockchainHash: contractData.blockchain_hash,
-        message: "Contract signed successfully",
+        blockchainHash,
+        session_id,
       }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
-      },
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error("[Sign Contract] Error:", error);
     return new Response(
       JSON.stringify({
         success: false,
-        message: error instanceof Error ? error.message : "Failed to sign contract",
+        error: error instanceof Error ? error.message : "Unknown error",
       }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 500,
-      },
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
