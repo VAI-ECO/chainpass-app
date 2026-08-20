@@ -7,7 +7,7 @@ import { accrueCommission } from "../_shared/commission.ts";
 /**
  * POST /v1/commission/accrue — internal/admin shape for origination|renewal events.
  * GET  /v1/commission — list accrued rows for the calling platform (payee view).
- * Ledger holds trolley_recipient_id only — never name/bank/tax.
+ * Ledger holds trolley_recipient_id only.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
