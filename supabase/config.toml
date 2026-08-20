@@ -113,3 +113,6 @@ verify_jwt = false
 
 [functions.blocks]
 verify_jwt = false
+
+[functions.agreements]
+verify_jwt = false
