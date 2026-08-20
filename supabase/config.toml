@@ -1,5 +1,9 @@
 project_id = "pbxpkfotysozdmdophhg"
 
+[functions.gate]
+verify_jwt = false
+
+
 [functions.create-payment-intent]
 verify_jwt = false
 
