@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { createClient } from "npm:@supabase/supabase-js@2";
+import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { agreementMeetsEndpointLevel } from "../_shared/gate-level.ts";
 import {
@@ -13,11 +13,11 @@ import {
   faceGateAgainstBaseline,
   findPlatformVisit,
 } from "../_shared/gate-visits.ts";
+import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 
 /**
- * POST /v1/gate — §16.3 items 1–3.
- * Body: { vai, required_level, capture? }
- * Miss visit → terms_required. Hit + capture → granted | no_match (+ band).
+ * POST /v1/gate — §16.3 items 1–4.
+ * Every resolved call writes verification_ledger and decrements the block.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -55,26 +55,39 @@ serve(async (req) => {
     const platform = await resolvePlatformByApiKey(supabase, apiKey);
 
     if (!agreementMeetsEndpointLevel(platform.service_level!, required_level)) {
+      await recordGateConsumption(supabase, {
+        platform_id: platform.id,
+        vai,
+        call_type: "gate",
+        result: "level_refused",
+      });
       return json({ status: "level_refused" }, 403);
     }
 
     const credential = await loadCredentialForGate(supabase, vai);
     if (!credential) {
       const enrolment_token = await signEnrolmentToken(platform.id);
+      const cons = await finish(supabase, platform.id, vai, "enroll_required");
+      if (cons.depleted) return json({ status: "block_depleted" }, 402);
       return json({ status: "enroll_required", enrolment_token });
     }
 
     if (!credentialIsActive(credential.state)) {
+      const cons = await finish(supabase, platform.id, vai, "credential_inactive");
+      if (cons.depleted) return json({ status: "block_depleted" }, 402);
       return json({ status: "credential_inactive", state: credential.state }, 403);
     }
 
     if (!credentialMeetsRequiredLevel(credential.credential_level, required_level)) {
+      const cons = await finish(supabase, platform.id, vai, "credential_level_refused");
+      if (cons.depleted) return json({ status: "block_depleted" }, 402);
       return json({ status: "credential_level_refused" }, 403);
     }
 
-    // §16.3 / §14.3 — first-visit terms on platform_visits miss
     const visit = await findPlatformVisit(supabase, vai, platform.id);
     if (!visit) {
+      const cons = await finish(supabase, platform.id, vai, "terms_required");
+      if (cons.depleted) return json({ status: "block_depleted" }, 402);
       return json({ status: "terms_required" });
     }
 
@@ -83,7 +96,8 @@ serve(async (req) => {
     }
 
     const { status, band } = await faceGateAgainstBaseline(supabase, vai, capture);
-    // Band only — never similarity / percentage (§7)
+    const cons = await finish(supabase, platform.id, vai, status);
+    if (cons.depleted) return json({ status: "block_depleted" }, 402);
     return json({ status, band });
   } catch (error) {
     const message = error instanceof Error ? error.message : "unknown_error";
@@ -94,6 +108,20 @@ serve(async (req) => {
     return json({ error: message }, status);
   }
 });
+
+async function finish(
+  supabase: SupabaseClient,
+  platform_id: string,
+  vai: string,
+  result: string
+) {
+  return recordGateConsumption(supabase, {
+    platform_id,
+    vai,
+    call_type: "gate",
+    result,
+  });
+}
 
 function json(body: Record<string, unknown>, status = 200): Response {
   return new Response(JSON.stringify(body), {

@@ -9,11 +9,10 @@ import {
 } from "../_shared/gate-credential.ts";
 import { extractApiKey, resolvePlatformByApiKey } from "../_shared/platform-key.ts";
 import { signFirstVisitTerms } from "../_shared/gate-visits.ts";
+import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 
 /**
- * POST /v1/gate/sign — first-visit terms (§14.3 / §16.3).
- * Camera → match vs baseline → agreement (single, terms) + proof + visit → granted.
- * Body: { vai, required_level, capture }
+ * POST /v1/gate/sign — first-visit terms + ledger/block (§16.3 items 3–4).
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -54,17 +53,41 @@ serve(async (req) => {
     const platform = await resolvePlatformByApiKey(supabase, apiKey);
 
     if (!agreementMeetsEndpointLevel(platform.service_level!, required_level)) {
+      await recordGateConsumption(supabase, {
+        platform_id: platform.id,
+        vai,
+        call_type: "gate_sign",
+        result: "level_refused",
+      });
       return json({ status: "level_refused" }, 403);
     }
 
     const credential = await loadCredentialForGate(supabase, vai);
     if (!credential) {
+      await recordGateConsumption(supabase, {
+        platform_id: platform.id,
+        vai,
+        call_type: "gate_sign",
+        result: "enroll_required",
+      });
       return json({ status: "enroll_required" }, 403);
     }
     if (!credentialIsActive(credential.state)) {
+      await recordGateConsumption(supabase, {
+        platform_id: platform.id,
+        vai,
+        call_type: "gate_sign",
+        result: "credential_inactive",
+      });
       return json({ status: "credential_inactive", state: credential.state }, 403);
     }
     if (!credentialMeetsRequiredLevel(credential.credential_level, required_level)) {
+      await recordGateConsumption(supabase, {
+        platform_id: platform.id,
+        vai,
+        call_type: "gate_sign",
+        result: "credential_level_refused",
+      });
       return json({ status: "credential_level_refused" }, 403);
     }
 
@@ -74,7 +97,16 @@ serve(async (req) => {
       capture,
     });
 
-    // Band only — never percentage (§7)
+    const cons = await recordGateConsumption(supabase, {
+      platform_id: platform.id,
+      vai,
+      call_type: "gate_sign",
+      result: result.status,
+    });
+    if (cons.depleted) {
+      return json({ status: "block_depleted" }, 402);
+    }
+
     return json({
       status: result.status,
       band: result.band,
