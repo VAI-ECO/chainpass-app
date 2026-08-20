@@ -3,31 +3,36 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { compareCaptureToBaseline } from "../_shared/band-compare.ts";
 import { renewalPath } from "../_shared/renewal-path.ts";
+import {
+  advanceCredentialYearFromVerification,
+  appendRenewalBaseline,
+  accrueRenewalCommission,
+  resolveSessionKeyDedup,
+} from "../_shared/renewal-ops.ts";
+import { publicGateBody } from "../_shared/gate-response.ts";
 
 /**
- * Renewal (§10.1 / §16.4):
- * - document_expiry AND next_complycube_date (provider retention) still live
- *   → in-house: fresh capture vs baseline, verified_at updated. No ComplyCube.
- * - either lapsed → full_verification_required (she re-runs provider live; §2.4b).
- * No stored client ID on either path.
+ * Renewal (§10.1–10.4 / §16.4 / §2.4b):
+ * Two-date test → in_house | full_verification_required.
+ * Both paths accrue renewal commission to originator.
+ * Year advances from verified_at — payment never moves it.
  */
-
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { vai, capture } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const vai = typeof body.vai === "string" ? body.vai.trim().toUpperCase() : "";
+    const capture = typeof body.capture === "string" ? body.capture : null;
+    const provider_session_key =
+      typeof body.provider_session_key === "string" ? body.provider_session_key : null;
+    const fresh_vector = Array.isArray(body.vector) ? body.vector : null;
 
     if (!vai) {
-      return new Response(
-        JSON.stringify({ error: "Missing required field: vai" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return json({ error: "Missing required field: vai" }, 400);
     }
-
-    console.log(`[Renew] Processing renewal for V.A.I. ${vai}`);
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -41,19 +46,11 @@ serve(async (req) => {
       .single();
 
     if (credentialError || !credential) {
-      return new Response(
-        JSON.stringify({ error: "Credential not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return json({ error: "Credential not found" }, 404);
     }
 
     if (credential.state === "suspended" || credential.state === "banned") {
-      return new Response(
-        JSON.stringify({
-          error: `Credential is ${credential.state}. Cannot renew.`,
-        }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return json({ error: `Credential is ${credential.state}. Cannot renew.` }, 400);
     }
 
     const path = renewalPath(
@@ -61,62 +58,75 @@ serve(async (req) => {
       credential.next_complycube_date
     );
 
-    console.log(
-      `[Renew] path=${path} document_expiry=${credential.document_expiry} ` +
-        `next_complycube_date=${credential.next_complycube_date}`
-    );
-
     if (path === "full_verification_required") {
-      // She must show up live at a camera and re-run the provider (§2.4b).
-      // No stored client ID. No silent ComplyCube lookup.
-      return new Response(
-        JSON.stringify({
+      // Fresh provider run: append baseline; dedup session key; commission.
+      if (provider_session_key) {
+        const dedup = await resolveSessionKeyDedup(
+          supabase,
+          vai,
+          provider_session_key
+        );
+        if (fresh_vector && fresh_vector.length === 512) {
+          await appendRenewalBaseline(supabase, {
+            vai,
+            vector: fresh_vector,
+            model: typeof body.model === "string" ? body.model : "standard",
+            model_version:
+              typeof body.model_version === "string" ? body.model_version : "1",
+          });
+        }
+        const verified_at = new Date();
+        await advanceCredentialYearFromVerification(supabase, vai, verified_at);
+        await accrueRenewalCommission(supabase, vai);
+        return json({
           vai,
           path: "full_verification_required",
-        }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+          session_key: dedup.session_key,
+          year_starts_at: verified_at.toISOString(),
+        });
+      }
+      return json({ vai, path: "full_verification_required" });
     }
 
+    // in_house
     if (!capture) {
-      return new Response(
-        JSON.stringify({
-          vai,
-          path: "in_house",
-          action: "capture_required",
-        }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return json({ vai, path: "in_house", action: "capture_required" });
     }
 
     const { band } = await compareCaptureToBaseline(supabase, vai, capture);
 
     if (band === "green") {
-      const { error: updateError } = await supabase
-        .from("credentials")
-        .update({ verified_at: new Date().toISOString() })
-        .eq("vai", vai);
-
-      if (updateError) {
-        throw new Error(`Failed to update verified_at: ${updateError.message}`);
-      }
-    }
-
-    return new Response(
-      JSON.stringify({
+      const verified_at = new Date();
+      await advanceCredentialYearFromVerification(supabase, vai, verified_at);
+      await accrueRenewalCommission(supabase, vai);
+      return json({
         vai,
         path: "in_house",
         band,
-      }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+        year_starts_at: verified_at.toISOString(),
+      });
+    }
+
+    return json({ vai, path: "in_house", band });
   } catch (error) {
-    console.error("[Renew] Error:", error);
-    return new Response(
-      JSON.stringify({
-        error: error instanceof Error ? error.message : "Unknown error occurred",
-      }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    return json(
+      { error: error instanceof Error ? error.message : "Unknown error occurred" },
+      500
     );
   }
 });
+
+function json(body: Record<string, unknown>, status = 200): Response {
+  // Strip accidental percentages if band present
+  if ("band" in body) {
+    try {
+      body = publicGateBody(body);
+    } catch {
+      /* proof paths may include other fields */
+    }
+  }
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+}
