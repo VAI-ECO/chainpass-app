@@ -9,6 +9,9 @@ verify_jwt = false
 [functions.enrol]
 verify_jwt = false
 
+[functions.enrol-consent]
+verify_jwt = false
+
 [functions.create-payment-intent]
 verify_jwt = false
 
