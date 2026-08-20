@@ -41,6 +41,7 @@ import VairifySignup from "./pages/VairifySignup";
 import OnboardingComplete from "./pages/OnboardingComplete";
 import BusinessCouponDashboard from "./pages/BusinessCouponDashboard";
 import EmergencyRetrieval from "./pages/EmergencyRetrieval";
+import EnrolEntry from "./pages/EnrolEntry";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
@@ -92,6 +93,7 @@ const App = () => (
               <Route path="/api-docs" element={<ApiDocumentation />} />
               <Route path="/sandbox" element={<DeveloperSandbox />} />
               <Route path="/error-monitoring" element={<ErrorMonitoring />} />
+              <Route path="/enrol" element={<EnrolEntry />} />
               <Route path="/vairify-signup" element={<VairifySignup />} />
               <Route path="/onboarding/complete" element={<OnboardingComplete />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
