@@ -1,17 +1,18 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
-import { createComplyCubeFlowSession } from "../_shared/complycube-session.ts";
 import { emitEvent } from "../_shared/emit-event.ts";
+import { drainQueuedSessionAction } from "../_shared/drain-action.ts";
 
 /**
- * Drain queued sessions: attempt to reopen sessions blocked by ComplyCube unavailability
+ * Drain queued sessions by V.A.I.
  *
- * NO N-ATTEMPT LIMIT: Re-verification is the only way out of lockout, so we never give up.
- * Sessions remain queued until ComplyCube becomes available.
- *
- * Scheduled to run every 15 minutes via pg_cron
+ * Silent provider reopen via stored client ID is removed (§2.4 patent gate).
+ * A queue item that previously depended on that fetch cannot complete without
+ * the person live at a camera — it fails to state=failed for ChainPass admin.
+ * Nothing about a person is pulled from a provider here.
  */
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -25,12 +26,11 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Step 1: Find all queued sessions
     const { data: queuedSessions, error: queryError } = await supabase
       .from("sessions")
       .select("*")
       .eq("state", "queued")
-      .order("created_at", { ascending: true }); // FIFO: oldest first
+      .order("created_at", { ascending: true });
 
     if (queryError) {
       throw new Error(`Failed to query queued sessions: ${queryError.message}`);
@@ -39,91 +39,63 @@ serve(async (req) => {
     if (!queuedSessions || queuedSessions.length === 0) {
       console.log("[Drain Queue] No queued sessions found");
       return new Response(
-        JSON.stringify({ message: "No queued sessions", processed: 0 }),
+        JSON.stringify({ message: "No queued sessions", processed: 0, failed: 0 }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     console.log(`[Drain Queue] Found ${queuedSessions.length} queued session(s)`);
 
-    let reopened = 0;
-    let stillQueued = 0;
+    let failed = 0;
 
-    // Step 2: Process each queued session
     for (const session of queuedSessions) {
-      console.log(`[Drain Queue] Processing session ${session.id}, route=${session.route}, vai=${session.vai || "none"}`);
+      console.log(
+        `[Drain Queue] Processing session ${session.id}, route=${session.route}, vai=${session.vai || "none"}`
+      );
 
-      try {
-        // Load credential (needed for complycube_client_id)
-        let complycubeClientId: string;
+      const action = drainQueuedSessionAction(session.vai);
+      if (action !== "failed_needs_live_camera") {
+        continue;
+      }
 
-        if (session.vai) {
-          // Session has VAI (rebaseline, unlock, renewal)
-          const { data: credential, error: credentialError } = await supabase
-            .from("credentials")
-            .select("complycube_client_id")
-            .eq("vai", session.vai)
-            .single();
+      const { error: updateError } = await supabase
+        .from("sessions")
+        .update({ state: "failed" })
+        .eq("id", session.id);
 
-          if (credentialError || !credential) {
-            console.error(`[Drain Queue] Credential not found for VAI ${session.vai}, skipping session ${session.id}`);
-            continue;
-          }
+      if (updateError) {
+        console.error(`[Drain Queue] Failed to mark session ${session.id}:`, updateError);
+        continue;
+      }
 
-          complycubeClientId = credential.complycube_client_id;
-        } else {
-          // Enrollment session (no VAI yet) - this shouldn't happen in normal flow
-          // but handle it gracefully
-          console.error(`[Drain Queue] Session ${session.id} has no VAI and no credential. Cannot process.`);
-          continue;
-        }
+      failed++;
 
-        // Attempt to create ComplyCube flow session
-        const result = await createComplyCubeFlowSession(
-          supabase,
-          session.id,
-          complycubeClientId
-        );
-
-        // Success! Session has been moved to state='at_provider' by createComplyCubeFlowSession
-        console.log(`[Drain Queue] Session ${session.id} reopened: ${result.redirect_url}`);
-        reopened++;
-
-        // Emit session.ready event
-        await emitEvent(supabase, session.vai!, "session.ready", {
+      if (session.vai) {
+        await emitEvent(supabase, session.vai, "session.failed", {
           session_id: session.id,
           route: session.route,
-          redirect_url: result.redirect_url,
+          reason: "needs_live_camera",
+          detail:
+            "Queued provider reopen without a live camera is forbidden. Member must attend.",
         });
-
-        console.log(`[Drain Queue] session.ready event emitted for VAI ${session.vai}`);
-
-      } catch (error) {
-        // Check if it's still a QUEUED error (ComplyCube still unavailable)
-        if (error instanceof Error && error.message.startsWith("QUEUED:")) {
-          console.log(`[Drain Queue] Session ${session.id} still queued: ${error.message}`);
-          stillQueued++;
-          // Session remains in state='queued', will retry next run
-        } else {
-          // Unexpected error - log but don't fail entire batch
-          console.error(`[Drain Queue] Error processing session ${session.id}:`, error);
-          stillQueued++;
-        }
       }
+
+      console.log(
+        `[Drain Queue] Session ${session.id} → failed (admin-visible; no provider fetch)`
+      );
     }
 
-    console.log(`[Drain Queue] Complete: ${reopened} reopened, ${stillQueued} still queued`);
+    console.log(`[Drain Queue] Complete: ${failed} failed to admin-visible status`);
 
     return new Response(
       JSON.stringify({
         message: "Queue drain complete",
         processed: queuedSessions.length,
-        reopened,
-        stillQueued,
+        failed,
+        reopened: 0,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-
   } catch (error) {
     console.error("[Drain Queue] Error:", error);
     return new Response(
