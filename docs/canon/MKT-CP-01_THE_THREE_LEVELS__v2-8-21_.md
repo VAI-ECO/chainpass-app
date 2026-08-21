@@ -13,7 +13,7 @@ real.**
 
 # 1 — ACCESS — THE GATE
 
-⬜ **Working price $19 — unruled.**
+⚠️ **Priced at launch from `settings:price_access`. The value is held internally until announced — "give them the deal, inform later," owner 21 Aug. No figure appears on any surface until then.**
 
 ## 1.1 — For the platform
 
@@ -38,8 +38,7 @@ real.**
 
 # 2 — V.A.I. — THE FACE LEVEL
 
-**$29.** ⬜ **Public name unresolved — V.A.I. · V.A.I. Plus · Plus (collides with
-Vairify's package).**
+**$29.** ⚠️ **Public name: V.A.I. — ruled by `CANON-CP-01` §14.1 vocabulary map (1 Access · 2 V.A.I. · 3 Pro). Bare "Plus" never appears; it is Vairify's package word.**
 
 ## 2.1 — For the platform
 
@@ -100,8 +99,7 @@ Vairify's package).**
 
 | # | | Whose |
 |---|---|---|
-| 1 | ⚠️ **The Access price — $19 is a working number** | Owner |
-| 2 | ⚠️⚠️ **LEVEL 2'S PUBLIC NAME — "PLUS" COLLIDES WITH VAIRIFY'S PACKAGE** | Owner |
+| — | **No opens. Both closed 21 Aug — see changelog.** | |
 
 ---
 
@@ -110,6 +108,8 @@ Vairify's package).**
 | Date | # | Change | Reasoning |
 |---|---|---|---|
 | **20 Aug** | 1 | **Filed from the owner's tier walkthrough.** | ⚠️ **"The wording has to change, but that's real."** |
+| **21 Aug** | 2 | ⚠️⚠️ **LEVEL 2'S PUBLIC NAME CLOSED: V.A.I.** The "unresolved" line in §2 is deleted. | ⚠️ **`CANON-CP-01` §14.1 already ruled it in the vocabulary map — this file contradicted canon and the contradiction produced a design flag (SN-50). Superseded lines are deleted, never marked.** |
+| **21 Aug** | 3 | ⚠️ **THE ACCESS PRICE POSTURE CLOSED.** $19 working number deleted; value lives at `settings:price_access`, held internally until announced. | ⚠️ **Owner, 21 Aug: "give them the deal, inform later." The structure is ruled; the number is a launch decision, not a document value.** |
 
 ---
 
