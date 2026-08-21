@@ -1,0 +1,116 @@
+# MKT-CP-01 — THE THREE LEVELS, AS BENEFITS
+
+**Marketing source material. Ruled 20 August. The wording is a draft — the claims are
+real.**
+
+⚠️ **This is a ChainPass document. No Vairify pricing appears here and none may be added.**
+
+⚠️⚠️ **THE LADDER: GET IN → PUT IT BEHIND YOUR FACE → PUT IT BEHIND YOUR SIGNATURE.**
+
+⚠️⚠️ **THE CONSTANT UNDER ALL THREE: VERIFIED WITHOUT BEING KNOWN.**
+
+---
+
+# 1 — ACCESS — THE GATE
+
+⬜ **Working price $19 — unruled.**
+
+## 1.1 — For the platform
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **AGE VERIFICATION WITHOUT THE FEAR PROBLEM. YOU NEVER SEE WHO THEY ARE, AND YOU CAN SAY SO.** ⚠️ **That sentence is what brings back the traffic that left.** |
+| 2 | ⚠️ **Liability moves to ChainPass.** A regulator asks how you verify; the answer is a company whose whole business is verifying. |
+| 3 | **Free implementation — one integration, no identity infrastructure to build or protect.** |
+| 4 | ⚠️ **A breach at your site exposes nothing, because you hold nothing.** |
+| 5 | ⚠️⚠️ **ORIGINATION COMMISSION — EVERY PASS YOU ORIGINATE PAYS YOU AGAIN AT EVERY RENEWAL, FOREVER** — `CANON-CP-01` §2.8. |
+
+## 1.2 — For the individual
+
+| # | |
+|---|---|
+| 1 | ⚠️ **Proven real and of age, once, everywhere on the web. One pass, every door.** |
+| 2 | ⚠️⚠️ **THE SITE NEVER LEARNS YOUR NAME. NOBODY'S SPREADSHEET, NOBODY'S LEAK.** |
+| 3 | ⚠️ **Five minutes and you're in — and the first time can be deferred, so cost is never the reason you're standing outside** — §4A. |
+| 4 | **No app, no account with the site required. Web only, by design.** |
+
+---
+
+# 2 — V.A.I. — THE FACE LEVEL
+
+**$29.** ⬜ **Public name unresolved — V.A.I. · V.A.I. Plus · Plus (collides with
+Vairify's package).**
+
+## 2.1 — For the platform
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **PUT ANYTHING BEHIND THEIR FACE — FAVORITES, PRIVATE GALLERIES, PURCHASES, GATED ROOMS. YOU DECIDE WHAT'S WORTH PROTECTING; THE VERIFICATION IS A DESIGN MATERIAL.** |
+| 2 | ⚠️ **Membership money with a verified person behind it — recurring billing without holding identity.** |
+| 3 | ⚠️ **Account takeover dies at the face. A stolen password opens nothing you gated.** |
+| 4 | **Every member at your door is the same standard — one level, one price, no tiers to police.** |
+
+## 2.2 — For the individual
+
+| # | |
+|---|---|
+| 1 | ⚠️ **Your account works only with your face. A leaked password is a dead password.** |
+| 2 | ⚠️ **Works across every platform at this level — one credential, all your memberships.** |
+| 3 | ⚠️⚠️ **STILL ANONYMOUS. THE FACE CHECK PROVES IT'S YOU WITHOUT SAYING WHO YOU ARE.** |
+| 4 | **Upgrade is the price difference, same V.A.I., nothing re-done** — §11.2. |
+
+---
+
+# 3 — PRO — THE DOCUMENT LEVEL
+
+**$99.**
+
+## 3.1 — For the platform
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **ADMINISTER ANYTHING A PERSON CAN SIGN — CONSENT CONTRACTS, DISCLOSURES, RELEASES, BACKGROUND CHECKS — WITNESSED AGAINST A VERIFIED IDENTITY, HELD IMMUTABLY BY CHAINPASS** — §4C.4, §14.2. |
+| 2 | ⚠️⚠️ **YOUR AGREEMENTS SURVIVE YOU. VERSION-STAMPED, IMMUTABLE, RETRIEVABLE FOREVER — A RECORD NO DISPUTE CAN REWRITE AND NO STORAGE FAILURE CAN LOSE** — §14.2a. |
+| 3 | ⚠️ **Up to three custom requirements, yours to pick. A new requirement is a row, not a build** — §4C.3. |
+| 4 | ⚠️ **Any Pro can meet any Pro — ChainPass reconciles missing requirements, so your members are never dead-ended** — §11. |
+
+## 3.2 — For the individual
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **THE STRONGEST PROTECTION THAT EXISTS FOR MEETING A STRANGER: SIGNED ACCOUNTABILITY ON BOTH SIDES, BEFORE ANYONE'S AT A DOOR.** |
+| 2 | ⚠️⚠️ **WHAT YOU SIGNED IS WHAT STANDS. NOBODY — NOT THE PLATFORM, NOT ANYONE — CAN REWORD AN AGREEMENT AFTER THE FACT** — §14.2 item 5. |
+| 3 | ⚠️ **One credential carries every requirement, every platform, and it's yours for life** — §4B.2 item 4. |
+| 4 | ⚠️ **Anonymous until YOU sign otherwise. The documents attach to your V.A.I., not your name.** |
+
+---
+
+# 4 — ⚠️ RULES FOR WHOEVER WRITES FROM THIS
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **"THE STRONGEST PROTECTION THAT EXISTS" IS A SUPERLATIVE. IT SURVIVES HERE AS SOURCE MATERIAL; WHETHER IT SURVIVES INTO COPY IS AN MA-05 QUESTION.** |
+| 2 | ⚠️ **Every claim above is backed by a canon section. A rewrite may change the words, never the claim.** ⚠️⚠️ **A REWRITE THAT STRENGTHENS A CLAIM PAST ITS CANON CITATION IS WRONG.** |
+| 3 | ⚠️ **The banned list applies: no blockchain, groundbreaking, revolutionary, innovative, "matters."** |
+| 4 | ⚠️⚠️ **VAI ALWAYS BOLD AND CAPITAL** — `OPERATIONS.md` §7.1. |
+
+---
+
+# 5 — ⬜ OPEN
+
+| # | | Whose |
+|---|---|---|
+| 1 | ⚠️ **The Access price — $19 is a working number** | Owner |
+| 2 | ⚠️⚠️ **LEVEL 2'S PUBLIC NAME — "PLUS" COLLIDES WITH VAIRIFY'S PACKAGE** | Owner |
+
+---
+
+# CHANGELOG
+
+| Date | # | Change | Reasoning |
+|---|---|---|---|
+| **20 Aug** | 1 | **Filed from the owner's tier walkthrough.** | ⚠️ **"The wording has to change, but that's real."** |
+
+---
+
+**20 August 2026.**

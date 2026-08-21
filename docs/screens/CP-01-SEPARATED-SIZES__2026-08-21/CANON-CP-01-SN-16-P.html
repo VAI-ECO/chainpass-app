@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SN-16-P · CP16 Last attempt</title>
+<style>
+:root{--cp-blue:#3e6bf5;--cp-ink:#16295f;--cp-bg:#f2f2f3;--cp-warn:#8a5a00;--cp-warn-bg:#fff3d6;
+--cp-err:#8a1f1f;--space:16px;--radius:10px;--type:16px;--type-h:22px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--cp-blue);
+color:var(--cp-ink);font-size:var(--type);}
+.screen{background:var(--cp-bg);border-radius:var(--radius);padding:calc(var(--space)*1.5);
+margin-block:var(--space);}
+.state{border-block-start:1px dashed #bbb;padding-block-start:var(--space);margin-block-start:var(--space)}
+.state:first-of-type{border:none;margin-block-start:0;padding-block-start:0}
+.state>.tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;margin-block-end:8px}
+h1{font-size:var(--type-h);margin-block:8px}
+p{margin-block:8px;line-height:1.45}
+label.lbl{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-block:10px 4px}
+.field{display:block;inline-size:100%;padding:12px;border:1.5px solid var(--cp-ink);border-radius:8px;background:#fff;font-size:var(--type)}
+button{display:block;inline-size:100%;padding:13px;border-radius:8px;font-size:var(--type);margin-block:10px;cursor:pointer}
+button.b1{background:var(--cp-ink);color:#fff;border:none}
+button.b2{background:transparent;color:var(--cp-ink);border:1.5px solid var(--cp-ink)}
+button:focus-visible{outline:3px solid var(--cp-blue);outline-offset:2px}
+button:disabled{opacity:.45;cursor:default}
+.note{font-size:13px;color:#555;margin-block:8px;line-height:1.4}
+.warn{font-size:13px;color:var(--cp-warn);background:var(--cp-warn-bg);padding:10px;border-radius:8px;margin-block:8px}
+.row{display:flex;justify-content:space-between;gap:12px;padding-block:8px;border-block-end:1px solid #ddd}
+.big{font-size:34px;font-weight:700;letter-spacing:.14em;text-align:center;margin-block:14px}
+.skel{block-size:14px;border-radius:7px;background:#ddd;margin-block:10px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.5}}
+header.top{display:none}
+.wrap{inline-size:390px;margin-inline:auto;padding:var(--space)}</style></head>
+<body><header class='top'>CHAINPASS</header><main class="wrap">
+<p class="note">CANON-CP-01-SN-16-P · CP16 · Last attempt · 17 Aug items 4–5 · route /verify/last-attempt · Phone · 390 reference · ≤599</p>
+<div class="screen"><section class='state' data-sn='16' data-size='P' data-state='default'><div class='tag'>default</div><label class='lbl'>Verification</label><h1>This is your last attempt</h1><p>Attempt 3 of settings:attempt_count. This attempt runs on the premium engine, and a selfie is taken.</p><div class='row' data-wire="reads:settings:attempt_count"><span>Attempt</span><strong>3 of settings:attempt_count</strong></div><div class='row' data-wire="reads:none — 17 Aug item 4"><span>Engine</span><strong>premium</strong></div><button class='b1' data-wire="writes:verification attempt — premium engine, selfie (17 Aug items 4–5)">Try once more</button><p class='note'>17 Aug items 4–5: the last attempt runs on the premium engine wherever one is in place, and the selfie is taken there, whatever N is.</p><p class='warn'>⚠ Attempt count is a setting — never a constant. Every screen reads &#x27;attempt 1 of N&#x27;.</p></section><section class='state' data-sn='16' data-size='P' data-state='loading'><div class='tag'>loading</div><label class='lbl'>Running the premium check</label><div class='skel' style='inline-size:62%'></div><div class='skel' style='inline-size:100%'></div><div class='skel' style='inline-size:88%'></div><div class='skel' style='inline-size:40%'></div></section><section class='state' data-sn='16' data-size='P' data-state='empty'><div class='tag'>empty</div><label class='lbl'>Verification</label><h1>No attempts used</h1><p>This is your first attempt, not your last.</p><button class='b1' data-wire="writes:verification attempt — premium engine, selfie (17 Aug items 4–5)">Start verification</button></section><section class='state' data-sn='16' data-size='P' data-state='error'><div class='tag'>error</div><label class='lbl'>Error</label><h1>Something went wrong</h1><p>The check could not run. This attempt has not been counted against you.</p><button class='b1' data-wire="writes:verification attempt — premium engine, selfie (17 Aug items 4–5)">Try again</button><p class='note'>The enrolment row stays server-side and survives a closed browser — SPEC-CP-01 §2.5.</p></section></div>
+
+</main></body></html>

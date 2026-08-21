@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SN-23-T · CP22 Rows and thresholds</title>
+<style>
+:root{--cp-blue:#3e6bf5;--cp-ink:#16295f;--cp-bg:#f2f2f3;--cp-warn:#8a5a00;--cp-warn-bg:#fff3d6;
+--cp-err:#8a1f1f;--space:16px;--radius:10px;--type:16px;--type-h:22px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--cp-blue);
+color:var(--cp-ink);font-size:var(--type);}
+.screen{background:var(--cp-bg);border-radius:var(--radius);padding:calc(var(--space)*1.5);
+margin-block:var(--space);}
+.state{border-block-start:1px dashed #bbb;padding-block-start:var(--space);margin-block-start:var(--space)}
+.state:first-of-type{border:none;margin-block-start:0;padding-block-start:0}
+.state>.tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;margin-block-end:8px}
+h1{font-size:var(--type-h);margin-block:8px}
+p{margin-block:8px;line-height:1.45}
+label.lbl{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-block:10px 4px}
+.field{display:block;inline-size:100%;padding:12px;border:1.5px solid var(--cp-ink);border-radius:8px;background:#fff;font-size:var(--type)}
+button{display:block;inline-size:100%;padding:13px;border-radius:8px;font-size:var(--type);margin-block:10px;cursor:pointer}
+button.b1{background:var(--cp-ink);color:#fff;border:none}
+button.b2{background:transparent;color:var(--cp-ink);border:1.5px solid var(--cp-ink)}
+button:focus-visible{outline:3px solid var(--cp-blue);outline-offset:2px}
+button:disabled{opacity:.45;cursor:default}
+.note{font-size:13px;color:#555;margin-block:8px;line-height:1.4}
+.warn{font-size:13px;color:var(--cp-warn);background:var(--cp-warn-bg);padding:10px;border-radius:8px;margin-block:8px}
+.row{display:flex;justify-content:space-between;gap:12px;padding-block:8px;border-block-end:1px solid #ddd}
+.big{font-size:34px;font-weight:700;letter-spacing:.14em;text-align:center;margin-block:14px}
+.skel{block-size:14px;border-radius:7px;background:#ddd;margin-block:10px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.5}}
+header.top{display:none}
+body{font-size:17px}.wrap{inline-size:390px;margin-inline:auto;padding:calc(var(--space)*2)}</style><style>.duo{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;align-items:start}.duo .rail{position:sticky;inset-block-start:16px;border:1.5px solid var(--cp-ink);border-radius:8px;padding:14px;background:#fff}.wtab{inline-size:100%;border-collapse:collapse;font-size:15px}.wtab th{text-align:start;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#555;padding:8px;border-block-end:2px solid var(--cp-ink)}.wtab td{padding:10px 8px;border-block-end:1px solid #ddd}</style></head>
+<body><header class='top'>CHAINPASS</header><main class="wrap">
+<p class="note">CANON-CP-01-SN-23-T · CP22 · Rows and thresholds · §1.1a · §5 · §7.3 · §14.4 · route /admin/rows · Tablet · 600–1023 · phone column centred, type scaled</p>
+<div class="screen"><section class='state' data-sn='23' data-size='T' data-state='default'><div class='tag'>default — bespoke wide: settings table</div><label class='lbl'>ChainPass admin</label><h1>Rows and thresholds</h1><table class='wtab'><tr><th>Setting</th><th>Value</th><th>Last change</th></tr><tr data-wire="reads:settings:band_green"><td>Green band</td><td>settings:band_green</td><td>audit → MD08</td></tr><tr data-wire="reads:settings:band_yellow"><td>Yellow band</td><td>settings:band_yellow</td><td>audit → MD08</td></tr><tr data-wire="reads:settings:attempt_count"><td>Attempts</td><td>settings:attempt_count</td><td>audit → MD08</td></tr><tr data-wire="reads:settings:price_plus"><td>Plus price</td><td>settings:price_plus</td><td>audit → MD08</td></tr><tr data-wire="reads:settings:price_pro"><td>Pro price</td><td>settings:price_pro</td><td>audit → MD08</td></tr></table><p>Every value is admin-adjustable without a deploy, and none is a constant in code. Every change lands in the audit log.</p><button class='b1' data-wire="writes:settings update → audit log MD08 (§14.7)">Save</button><p class='warn'>⚠ Authentication for this surface is unruled. Drawn without a login.</p></section><section class='state' data-sn='23' data-size='T' data-state='loading'><div class='tag'>loading</div><label class='lbl'>Reading the settings sheet</label><div class='skel' style='inline-size:62%'></div><div class='skel' style='inline-size:100%'></div><div class='skel' style='inline-size:88%'></div><div class='skel' style='inline-size:40%'></div></section><section class='state' data-sn='23' data-size='T' data-state='empty'><div class='tag'>empty</div><label class='lbl'>ChainPass admin</label><h1>No rows registered</h1><p>No providers are registered. Thresholds still apply; there is nothing to route to.</p><p class='note'>§5: the inbound bank is a set of rows, each an adapter behind one interface.</p></section><section class='state' data-sn='23' data-size='T' data-state='error'><div class='tag'>error</div><label class='lbl'>Error</label><h1>Something went wrong</h1><p>Settings could not be saved. The previous values still stand and the audit log records no change.</p><button class='b1' data-wire="writes:settings update → audit log MD08 (§14.7)">Try again</button><p class='note'>The enrolment row stays server-side and survives a closed browser — SPEC-CP-01 §2.5.</p></section></div>
+<p class="warn">⚠ Dashboard authentication unruled — the API key is the only ruled identity (§14.6 rule 3).</p>
+</main></body></html>
