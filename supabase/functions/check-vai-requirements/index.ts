@@ -82,7 +82,8 @@ serve(async (req) => {
         JSON.stringify({
           valid: false,
           message: "VAI number not found",
-          create_url: `https://verify.chainpass.io/enroll?platform=${requesting_platform}`,
+          // §2.5 — no platform/token in URL; client opens /enrol with token in body/header
+          create_url: "https://verify.chainpass.io/enrol",
         }),
         {
           status: 200,
@@ -131,7 +132,7 @@ serve(async (req) => {
         JSON.stringify({
           valid: false,
           message: "VAI number not found",
-          create_url: `https://verify.chainpass.io/enroll?platform=${requesting_platform}`,
+          create_url: "https://verify.chainpass.io/enrol",
         }),
         {
           status: 200,

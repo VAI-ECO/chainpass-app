@@ -28,8 +28,14 @@ serve(async (req) => {
     }
 
     const body = await req.json().catch(() => ({}));
+    const headerToken =
+      req.headers.get("X-Enrolment-Token") ||
+      req.headers.get("x-enrolment-token") ||
+      "";
     const enrolment_token =
-      typeof body.enrolment_token === "string" ? body.enrolment_token : "";
+      typeof body.enrolment_token === "string" && body.enrolment_token
+        ? body.enrolment_token
+        : headerToken;
     const return_url =
       typeof body.return_url === "string" && body.return_url
         ? body.return_url

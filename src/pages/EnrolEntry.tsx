@@ -3,30 +3,62 @@ import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
 /**
- * §2.5 enrolment entry — platform ID only via signed token in the body / fragment.
- * A ?platform= query is refused before any network call.
+ * §2.5 / §15 item 14 — enrolment token never in the query string.
+ * Token arrives via sessionStorage, Authorization header path (body to enrol),
+ * or URL fragment (fragment is not logged by servers). Query ?token= / ?platform= refused.
  */
+
+const QUERY_FORBIDDEN = new Set([
+  "token",
+  "enrolment_token",
+  "enrollment_token",
+  "platform",
+  "platform_id",
+]);
+
+function tokenFromFragment(): string | null {
+  const hash = window.location.hash.replace(/^#/, "");
+  if (!hash) return null;
+  const params = new URLSearchParams(hash);
+  return (
+    params.get("enrolment_token") ||
+    params.get("enrollment_token") ||
+    params.get("token") ||
+    null
+  );
+}
+
+function clearFragmentToken() {
+  if (window.location.hash) {
+    history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search
+    );
+  }
+}
+
 export default function EnrolEntry() {
   const [searchParams] = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (searchParams.has("platform") || searchParams.has("platform_id")) {
-      setError(
-        "platform_query_rejected: Platform ID must ride in a signed enrolment token, never a query parameter (§2.5)."
-      );
-      return;
+    for (const key of searchParams.keys()) {
+      if (QUERY_FORBIDDEN.has(key.toLowerCase())) {
+        setError(
+          "token_query_rejected: Enrolment token and platform ID must ride in the request body or header, never a query parameter (§2.5)."
+        );
+        return;
+      }
     }
 
     const token =
-      sessionStorage.getItem("enrolment_token") ||
-      searchParams.get("enrolment_token");
+      sessionStorage.getItem("enrolment_token") || tokenFromFragment();
 
-    // enrolment_token as query is not ideal either but is not platform_id.
-    // Prefer body/sessionStorage; if present in query, move to sessionStorage and strip.
-    if (searchParams.get("enrolment_token")) {
-      sessionStorage.setItem("enrolment_token", searchParams.get("enrolment_token")!);
+    if (tokenFromFragment()) {
+      sessionStorage.setItem("enrolment_token", token!);
+      clearFragmentToken();
     }
 
     if (!token) {
@@ -35,10 +67,14 @@ export default function EnrolEntry() {
     }
 
     (async () => {
+      // Body carries the signed token; Authorization also set so proxies never need query.
       const { data, error: fnErr } = await supabase.functions.invoke("enrol", {
         body: {
           enrolment_token: token,
-          return_url: searchParams.get("return_url") || undefined,
+          return_url: undefined,
+        },
+        headers: {
+          "X-Enrolment-Token": token,
         },
       });
       if (fnErr) {
@@ -51,6 +87,7 @@ export default function EnrolEntry() {
       }
       setSessionId(data.session_id);
       sessionStorage.setItem("enrolment_session_id", data.session_id);
+      sessionStorage.removeItem("enrolment_token");
     })();
   }, [searchParams]);
 
