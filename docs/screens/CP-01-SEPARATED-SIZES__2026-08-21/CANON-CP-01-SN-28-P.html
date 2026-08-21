@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SN-28-P · V04 Yellow and red</title>
+<style>:root{--cp-blue:#3e6bf5;--cp-ink:#16295f;--cp-bg:#f2f2f3;--cp-warn:#8a5a00;--cp-warn-bg:#fff3d6;--cp-err:#8a1f1f;--space:16px;--radius:10px;--type:16px;--type-h:22px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--cp-blue);color:var(--cp-ink);font-size:var(--type)}
+.screen{background:var(--cp-bg);border-radius:var(--radius);padding:calc(var(--space)*1.5);margin-block:var(--space)}
+.state{border-block-start:1px dashed #bbb;padding-block-start:var(--space);margin-block-start:var(--space)}
+.state:first-of-type{border:none;margin-block-start:0;padding-block-start:0}
+.state>.tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;margin-block-end:8px}
+h1{font-size:var(--type-h);margin-block:8px}
+p{margin-block:8px;line-height:1.45}
+label.lbl{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-block:10px 4px}
+.field{display:block;inline-size:100%;padding:12px;border:1.5px solid var(--cp-ink);border-radius:8px;background:#fff;font-size:var(--type)}
+button{display:block;inline-size:100%;padding:13px;border-radius:8px;font-size:var(--type);margin-block:10px;cursor:pointer}
+button.b1{background:var(--cp-ink);color:#fff;border:none}
+button.b2{background:transparent;color:var(--cp-ink);border:1.5px solid var(--cp-ink)}
+button:focus-visible{outline:3px solid var(--cp-blue);outline-offset:2px}
+.note{font-size:13px;color:#555;margin-block:8px;line-height:1.4}
+.warn{font-size:13px;color:var(--cp-warn);background:var(--cp-warn-bg);padding:10px;border-radius:8px;margin-block:8px}
+.row{display:flex;justify-content:space-between;gap:12px;padding-block:8px;border-block-end:1px solid #ddd}
+.skel{block-size:14px;border-radius:7px;background:#ddd;margin-block:10px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.5}}
+.cam{aspect-ratio:3/4;border:2px dashed var(--cp-ink);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#555;background:#fff;margin-block:10px}
+.band{border-radius:8px;padding:14px;text-align:center;font-weight:700;margin-block:8px}
+.band.green{background:#e2f3e5;color:#1c5c2a;border:1.5px solid #1c5c2a}
+.band.yellow{background:#fff3d6;color:#8a5a00;border:1.5px solid #8a5a00}
+.band.red{background:#fbe3e3;color:#8a1f1f;border:1.5px solid #8a1f1f}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.pane{border:1.5px solid var(--cp-ink);border-radius:8px;background:#fff;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;color:#555}
+.wtab{inline-size:100%;border-collapse:collapse;font-size:15px}
+.wtab th{text-align:start;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#555;padding:8px;border-block-end:2px solid var(--cp-ink)}
+.wtab td{padding:10px 8px;border-block-end:1px solid #ddd}
+header.top{display:none}.wrap{inline-size:390px;margin-inline:auto;padding:var(--space)}</style></head>
+<body><header class='top'><span>CHAINPASS</span><span>V04</span></header><main class="wrap">
+<p class="note">CANON-CP-01-SN-28-P · V04 · Yellow and red · §7.2 · §8 · route /verify/band · Phone · 390 reference · ≤599</p>
+<div class="screen"><section class='state' data-sn='28' data-size='P' data-state='default'><div class='tag'>default — both outcomes, rendered</div><label class='lbl'>Result</label><div class='band yellow' data-wire="reads:verification.result">YELLOW — below green</div><p>A retry is available. The attempt is counted.</p><button class='b1' data-wire="writes:POST /v1/verifications — capture (retry)">Retry</button><div class='band red' data-wire="reads:verification.result">RED — not this user</div><p>Red is what triggers the manual path.</p><button class='b2' data-wire="flag:manual path — Pro, platform-built end (§8)">Manual path</button><p class='note'>§7.2: green pass, yellow below green, red not this user.</p></section><section class='state' data-sn='28' data-size='P' data-state='loading'><div class='tag'>loading</div><label class='lbl'>Result</label><div class='skel' style='inline-size:100%'></div><div class='skel' style='inline-size:52%'></div></section><section class='state' data-sn='28' data-size='P' data-state='empty'><div class='tag'>empty</div><label class='lbl'>Result</label><h1>No result to show</h1><p>No check has completed in this session.</p></section><section class='state' data-sn='28' data-size='P' data-state='error'><div class='tag'>error</div><label class='lbl'>Result unreadable</label><h1>The result could not be read</h1><p>Treat as not verified — never as not active.</p><button class='b1' data-wire="reads:verification.result — re-read">Check again</button></section></div>
+
+</main></body></html>

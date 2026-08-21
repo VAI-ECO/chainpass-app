@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SN-30-T · V06 The failures column</title>
+<style>:root{--cp-blue:#3e6bf5;--cp-ink:#16295f;--cp-bg:#f2f2f3;--cp-warn:#8a5a00;--cp-warn-bg:#fff3d6;--cp-err:#8a1f1f;--space:16px;--radius:10px;--type:16px;--type-h:22px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--cp-blue);color:var(--cp-ink);font-size:var(--type)}
+.screen{background:var(--cp-bg);border-radius:var(--radius);padding:calc(var(--space)*1.5);margin-block:var(--space)}
+.state{border-block-start:1px dashed #bbb;padding-block-start:var(--space);margin-block-start:var(--space)}
+.state:first-of-type{border:none;margin-block-start:0;padding-block-start:0}
+.state>.tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;margin-block-end:8px}
+h1{font-size:var(--type-h);margin-block:8px}
+p{margin-block:8px;line-height:1.45}
+label.lbl{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-block:10px 4px}
+.field{display:block;inline-size:100%;padding:12px;border:1.5px solid var(--cp-ink);border-radius:8px;background:#fff;font-size:var(--type)}
+button{display:block;inline-size:100%;padding:13px;border-radius:8px;font-size:var(--type);margin-block:10px;cursor:pointer}
+button.b1{background:var(--cp-ink);color:#fff;border:none}
+button.b2{background:transparent;color:var(--cp-ink);border:1.5px solid var(--cp-ink)}
+button:focus-visible{outline:3px solid var(--cp-blue);outline-offset:2px}
+.note{font-size:13px;color:#555;margin-block:8px;line-height:1.4}
+.warn{font-size:13px;color:var(--cp-warn);background:var(--cp-warn-bg);padding:10px;border-radius:8px;margin-block:8px}
+.row{display:flex;justify-content:space-between;gap:12px;padding-block:8px;border-block-end:1px solid #ddd}
+.skel{block-size:14px;border-radius:7px;background:#ddd;margin-block:10px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.5}}
+.cam{aspect-ratio:3/4;border:2px dashed var(--cp-ink);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#555;background:#fff;margin-block:10px}
+.band{border-radius:8px;padding:14px;text-align:center;font-weight:700;margin-block:8px}
+.band.green{background:#e2f3e5;color:#1c5c2a;border:1.5px solid #1c5c2a}
+.band.yellow{background:#fff3d6;color:#8a5a00;border:1.5px solid #8a5a00}
+.band.red{background:#fbe3e3;color:#8a1f1f;border:1.5px solid #8a1f1f}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.pane{border:1.5px solid var(--cp-ink);border-radius:8px;background:#fff;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;color:#555}
+.wtab{inline-size:100%;border-collapse:collapse;font-size:15px}
+.wtab th{text-align:start;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#555;padding:8px;border-block-end:2px solid var(--cp-ink)}
+.wtab td{padding:10px 8px;border-block-end:1px solid #ddd}
+header.top{display:none}.wrap{inline-size:720px;margin-inline:auto;padding:var(--space)}.screen{padding:calc(var(--space)*2)}body{font-size:17px}</style></head>
+<body><header class='top'><span>CHAINPASS</span><span>V06</span></header><main class="wrap">
+<p class="note">CANON-CP-01-SN-30-T · V06 · The failures column · 17 Aug · route /review/failures · Tablet · 600–1023 · phone column centred, type scaled</p>
+<div class="screen wide"><section class='state' data-sn='30' data-size='T' data-state='default'><div class='tag'>default</div><label class='lbl'>Failures</label><h1>The failures column</h1><table class='wtab' data-wire="reads:failures queue — third-attempt selfies (17 Aug)"><tr><th>V.A.I.</th><th>Platform</th><th>Landed</th><th></th></tr><tr><td>765UT7X</td><td>The Sure Thing</td><td>09:41</td><td><a href='CANON-CP-01-SN-31-D.html' data-wire="nav:SN-31">review</a></td></tr><tr><td>2K9…</td><td>VAI Vault</td><td>09:12</td><td><a href='CANON-CP-01-SN-31-D.html' data-wire="nav:SN-31">review</a></td></tr></table><p class='note'>Third-attempt selfies land here. Each opens the side-by-side review (SN-31). Staff look for obvious fraud, not resemblance judgement.</p></section><section class='state' data-sn='30' data-size='T' data-state='loading'><div class='tag'>loading</div><label class='lbl'>Loading the column</label><div class='skel' style='inline-size:100%'></div><div class='skel' style='inline-size:100%'></div><div class='skel' style='inline-size:64%'></div></section><section class='state' data-sn='30' data-size='T' data-state='empty'><div class='tag'>empty — the good state</div><label class='lbl'>Failures</label><h1>The column is empty</h1><p>No third-attempt failures are waiting. This is the normal state.</p></section><section class='state' data-sn='30' data-size='T' data-state='error'><div class='tag'>error</div><label class='lbl'>Unavailable</label><h1>The column could not be read</h1><p>Nothing in the queue is lost — entries persist server-side.</p><button class='b1' data-wire="reads:failures queue — re-read">Reload</button></section></div>
+<p class='warn'>⚠ Dashboard authentication unruled — this is a ChainPass staff surface drawn without a login (register flag 9).</p>
+</main></body></html>

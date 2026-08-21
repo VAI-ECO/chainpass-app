@@ -37,14 +37,14 @@ plates with no responsive treatment to draw, so their Tablet cell is ✅ by natu
 | CANON-CP-01-SN-22 | §14.3 · §14.2 | CP25 First visit · the platform's terms | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
 | CANON-CP-01-SN-23 | §1.1a · §5 · §7.3 · §14.4 | CP22 Rows and thresholds | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
 | CANON-CP-01-SN-24 | — | CP26 Unruled · not drawn | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-25 | §6 | V01 The operational call | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-26 | §6 | V02 Checking | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-27 | §7.2 | V03 Green | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-28 | §7.2 · §8 | V04 Yellow and red | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-29 | §9.1 item 2 | V05 Re-baseline required · the fourth state | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-30 | 17 Aug | V06 The failures column | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-31 | 17 Aug | V07 Side-by-side review | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-32 | 17 Aug | V08 Supplier obligations · health, image serve, recovery | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| CANON-CP-01-SN-25 | §6 | V01 The operational call | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-26 | §6 | V02 Checking | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-27 | §7.2 | V03 Green | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-28 | §7.2 · §8 | V04 Yellow and red | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-29 | §9.1 item 2 | V05 Re-baseline required · the fourth state | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-30 | 17 Aug | V06 The failures column | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-31 | 17 Aug | V07 Side-by-side review | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-32 | 17 Aug | V08 Supplier obligations · health, image serve, recovery | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
 | CANON-CP-01-SN-33 | §14.6 s1 | CD01 Overview | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
 | CANON-CP-01-SN-34 | §14.6 s2 · §14.5 | CD02 Blocks | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
 | CANON-CP-01-SN-35 | §14.2 · §14.2b-c | CD03 Agreements | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
@@ -163,14 +163,14 @@ files carry the contract defaults deliberately — stated per screen in the wiri
 | Live screens | 50 |
 | Retired | 2 |
 | Phone reference drawn | 50 / 50 |
-| Screen files in the delivery folder | **72** (24 screens × 3 sizes: -P, -T, -D) |
+| Screen files in the delivery folder | **96** (32 screens × 3 sizes: -P, -T, -D) |
 | Index file | 1 (`00-INDEX.html`) |
-| `grep -c html` on the delivery folder | **73** = 72 screen files + 1 index |
+| `grep -c html` on the delivery folder | **97** = 96 screen files + 1 index |
 | Markdown in the folder | 3 (this register, the wiring sheet, REGISTER-SIZE-ROWS.md) |
-| Total files in the zip | **76** |
-| Per-size rows in this register | 72 — one per screen file, no index row |
-| Three-breakpoint delivery complete | 24 / 50 (enrolment set, as 72 separated size files) |
-| Wiring tables written | 24 / 50 (enrolment set, incl. wide-layout and states-honesty rulings) |
+| Total files in the folder | **100** |
+| Per-size rows in this register | 96 — one per screen file, no index row |
+| Three-breakpoint delivery complete | 32 / 50 (enrolment + viewer, as 96 separated size files) |
+| Wiring tables written | 32 / 50 (enrolment + viewer) |
 
 ## Flags open at this delivery
 
@@ -196,6 +196,8 @@ files carry the contract defaults deliberately — stated per screen in the wiri
 
 | Date | Entry |
 |---|---|
+| 21 Aug 2026 | Enrolment set ACCEPTED by owner (folder CP-01-ENROLMENT-DELIVERY__2026-08-21__ACCEPTED). |
+| 21 Aug 2026 | Viewer set delivered: SN-25…32 as 24 separated size files, same grammar. V06/V07/V08 bespoke wide at -T/-D; V01–V05 contract defaults, deliberate. Wire tables appended. Rows ✅ through Wire. Not yet accepted. |
 | 21 Aug 2026 | Register opened. 50 live screens rowed, phone reference ✅, 24 wiring tables written (enrolment set). |
 | 21 Aug 2026 | File count reconciled before packaging: `grep -c html` = 73 (72 screen files + 00-INDEX.html), 72 per-size register rows. |
 | 21 Aug 2026 | File 1 (viewer app) FAILED owner check; owner conversion to 72 separated size files is the baseline. Corrections 1–4 applied: register per-size rows folded in, bespoke wide layouts (7 screens), full data-wire join, canon-ruled states on SN-04/SN-08. Enrolment rows ✅ through Wire. Returned for acceptance. |

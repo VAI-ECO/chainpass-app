@@ -455,4 +455,113 @@ for list, grid and review surfaces.
 
 All other loading/empty/error states are legitimately generic and are declared generic here.
 
+
+---
+
+# Viewer set — SN-25 … SN-32 (delivered 21 Aug, not yet accepted)
+
+## CANON-CP-01-SN-25 — V01 The operational call
+| Field | Value |
+|---|---|
+| Route | /verify/call |
+| Canon | §6 |
+| Reads | settings:attempt_count |
+| Writes | POST /v1/verifications — capture (and vai when entered) |
+| Settings used | settings:attempt_count |
+| Nav in | platform gate · SN-28 retry |
+| Nav out | SN-26 · error state (attempt not counted) |
+| Gate | — |
+| Fixed-390 | no |
+
+## CANON-CP-01-SN-26 — V02 Checking
+| Field | Value |
+|---|---|
+| Route | /verify/checking |
+| Canon | §6 |
+| Reads | verification.status — poll until the band returns |
+| Writes | none |
+| Settings used | — |
+| Nav in | SN-25 |
+| Nav out | SN-27 · SN-28 · SN-29 · error → treat as not verified |
+| Gate | — |
+| Fixed-390 | no |
+
+## CANON-CP-01-SN-27 — V03 Green
+| Field | Value |
+|---|---|
+| Route | /verify/green |
+| Canon | §7.2 · §7.1 · §7.3 (band only, never a percentage) |
+| Reads | verification.result · credential.state |
+| Writes | none |
+| Settings used | — |
+| Nav in | SN-26 |
+| Nav out | the platform |
+| Gate | — |
+| Fixed-390 | no |
+
+## CANON-CP-01-SN-28 — V04 Yellow and red
+| Field | Value |
+|---|---|
+| Route | /verify/band |
+| Canon | §7.2 · §8 |
+| Reads | verification.result |
+| Writes | POST /v1/verifications — capture (retry) |
+| Settings used | settings:attempt_count |
+| Nav in | SN-26 |
+| Nav out | SN-25 retry · SN-16 on last attempt · manual path (flag) |
+| Gate | ⚠ Manual path is Pro, platform-built (§8); the reviewer's outcome is unruled (register flag 13) |
+| Fixed-390 | no |
+
+## CANON-CP-01-SN-29 — V05 Re-baseline required · the fourth state
+| Field | Value |
+|---|---|
+| Route | /verify/fourth-state |
+| Canon | §9.1 items 2–3 |
+| Reads | credential.reds_count vs settings:reds_threshold |
+| Writes | re-baseline request |
+| Settings used | settings:reds_threshold |
+| Nav in | SN-26 |
+| Nav out | CP17 re-baseline flow |
+| Gate | — |
+| Fixed-390 | no |
+
+## CANON-CP-01-SN-30 — V06 The failures column
+| Field | Value |
+|---|---|
+| Route | /review/failures |
+| Canon | 17 Aug |
+| Reads | failures queue — third-attempt selfies |
+| Writes | none |
+| Settings used | — |
+| Nav in | ChainPass staff · MD04 |
+| Nav out | SN-31 per row |
+| Gate | ⚠ Dashboard authentication unruled (register flag 9). Bespoke wide at -T/-D: real table. |
+| Fixed-390 | no |
+
+## CANON-CP-01-SN-31 — V07 Side-by-side review
+| Field | Value |
+|---|---|
+| Route | /review/side-by-side |
+| Canon | 17 Aug |
+| Reads | image serve — baseline + third-attempt selfie |
+| Writes | ⚠ reviewer's outcome — UNRULED (17 Aug · §14.8, register flag 13). Button is a flag, not an invention. |
+| Settings used | — |
+| Nav in | SN-30 |
+| Nav out | SN-30 |
+| Gate | ⚠ Reviewer's outcome + reverse fraud-found channel unruled. Bespoke wide at -T/-D: two-pane at size. |
+| Fixed-390 | no |
+
+## CANON-CP-01-SN-32 — V08 Supplier obligations
+| Field | Value |
+|---|---|
+| Route | /supplier/obligations |
+| Canon | 17 Aug, facial stack · §5 · §14.4 · §2.4b |
+| Reads | health switch (declared) · image serve deploy status |
+| Writes | none — informational; flagged, not invented |
+| Settings used | — |
+| Nav in | ChainPass staff |
+| Nav out | — |
+| Gate | ⚠ Dashboard authentication unruled (register flag 9). Bespoke wide at -T/-D: two-column obligations. |
+| Fixed-390 | no |
+
 **21 August 2026.**

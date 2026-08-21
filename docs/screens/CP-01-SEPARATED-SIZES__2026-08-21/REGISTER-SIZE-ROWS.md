@@ -72,3 +72,27 @@
 | CANON-CP-01-SN-24-P | CP26 Unruled · not drawn | P | CANON-CP-01-SN-24-P.html | ✅ 4-in-file | see WIRE CP26 |
 | CANON-CP-01-SN-24-T | CP26 Unruled · not drawn | T | CANON-CP-01-SN-24-T.html | ✅ 4-in-file | see WIRE CP26 |
 | CANON-CP-01-SN-24-D | CP26 Unruled · not drawn | D | CANON-CP-01-SN-24-D.html | ✅ 4-in-file | see WIRE CP26 |
+| CANON-CP-01-SN-25-P | V01 The operational call | P | CANON-CP-01-SN-25-P.html | ✅ 4-in-file | see WIRE V01 |
+| CANON-CP-01-SN-25-T | V01 The operational call | T | CANON-CP-01-SN-25-T.html | ✅ 4-in-file | see WIRE V01 |
+| CANON-CP-01-SN-25-D | V01 The operational call | D | CANON-CP-01-SN-25-D.html | ✅ 4-in-file | see WIRE V01 |
+| CANON-CP-01-SN-26-P | V02 Checking | P | CANON-CP-01-SN-26-P.html | ✅ 4-in-file | see WIRE V02 |
+| CANON-CP-01-SN-26-T | V02 Checking | T | CANON-CP-01-SN-26-T.html | ✅ 4-in-file | see WIRE V02 |
+| CANON-CP-01-SN-26-D | V02 Checking | D | CANON-CP-01-SN-26-D.html | ✅ 4-in-file | see WIRE V02 |
+| CANON-CP-01-SN-27-P | V03 Green | P | CANON-CP-01-SN-27-P.html | ✅ 4-in-file | see WIRE V03 |
+| CANON-CP-01-SN-27-T | V03 Green | T | CANON-CP-01-SN-27-T.html | ✅ 4-in-file | see WIRE V03 |
+| CANON-CP-01-SN-27-D | V03 Green | D | CANON-CP-01-SN-27-D.html | ✅ 4-in-file | see WIRE V03 |
+| CANON-CP-01-SN-28-P | V04 Yellow and red | P | CANON-CP-01-SN-28-P.html | ✅ 4-in-file | see WIRE V04 |
+| CANON-CP-01-SN-28-T | V04 Yellow and red | T | CANON-CP-01-SN-28-T.html | ✅ 4-in-file | see WIRE V04 |
+| CANON-CP-01-SN-28-D | V04 Yellow and red | D | CANON-CP-01-SN-28-D.html | ✅ 4-in-file | see WIRE V04 |
+| CANON-CP-01-SN-29-P | V05 Re-baseline required · the fourth state | P | CANON-CP-01-SN-29-P.html | ✅ 4-in-file | see WIRE V05 |
+| CANON-CP-01-SN-29-T | V05 Re-baseline required · the fourth state | T | CANON-CP-01-SN-29-T.html | ✅ 4-in-file | see WIRE V05 |
+| CANON-CP-01-SN-29-D | V05 Re-baseline required · the fourth state | D | CANON-CP-01-SN-29-D.html | ✅ 4-in-file | see WIRE V05 |
+| CANON-CP-01-SN-30-P | V06 The failures column | P | CANON-CP-01-SN-30-P.html | ✅ 4-in-file | see WIRE V06 |
+| CANON-CP-01-SN-30-T | V06 The failures column | T | CANON-CP-01-SN-30-T.html | ✅ 4-in-file | see WIRE V06 |
+| CANON-CP-01-SN-30-D | V06 The failures column | D | CANON-CP-01-SN-30-D.html | ✅ 4-in-file | see WIRE V06 |
+| CANON-CP-01-SN-31-P | V07 Side-by-side review | P | CANON-CP-01-SN-31-P.html | ✅ 4-in-file | see WIRE V07 |
+| CANON-CP-01-SN-31-T | V07 Side-by-side review | T | CANON-CP-01-SN-31-T.html | ✅ 4-in-file | see WIRE V07 |
+| CANON-CP-01-SN-31-D | V07 Side-by-side review | D | CANON-CP-01-SN-31-D.html | ✅ 4-in-file | see WIRE V07 |
+| CANON-CP-01-SN-32-P | V08 Supplier obligations · health, image serve, recovery | P | CANON-CP-01-SN-32-P.html | ✅ 4-in-file | see WIRE V08 |
+| CANON-CP-01-SN-32-T | V08 Supplier obligations · health, image serve, recovery | T | CANON-CP-01-SN-32-T.html | ✅ 4-in-file | see WIRE V08 |
+| CANON-CP-01-SN-32-D | V08 Supplier obligations · health, image serve, recovery | D | CANON-CP-01-SN-32-D.html | ✅ 4-in-file | see WIRE V08 |
