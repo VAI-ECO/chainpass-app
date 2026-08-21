@@ -1,7 +1,12 @@
 /**
  * §14.4 / §16.6 step 9 — inbound bank adapters.
  * Every engine output normalised to one internal shape.
+ * Band cut-offs from settings (§7.3 / §15 item 12) — never literals.
  */
+
+import { SupabaseClient } from "npm:@supabase/supabase-js@2";
+import { bandFromSimilarity } from "./band-compare.ts";
+import { getSettingNumber } from "./settings.ts";
 
 export type InternalMatchResult = {
   band: "green" | "yellow" | "red";
@@ -15,13 +20,16 @@ export type InternalProviderVerdict = {
 };
 
 /** Normalise heterogeneous engine payloads into InternalMatchResult. */
-export function normaliseMatchOutput(raw: Record<string, unknown>): InternalMatchResult {
-  // { match, confidence } class
+export async function normaliseMatchOutput(
+  supabase: SupabaseClient,
+  raw: Record<string, unknown>
+): Promise<InternalMatchResult> {
+  // { match, confidence } class — floors from settings.band_*_min (§7.3)
   if (typeof raw.match === "boolean" && typeof raw.confidence === "number") {
     const c = raw.confidence;
-    if (c >= 0.8) return { band: "green", _similarity: c };
-    if (c >= 0.65) return { band: "yellow", _similarity: c };
-    return { band: "red", _similarity: c };
+    const greenMin = await getSettingNumber(supabase, "band_green_min");
+    const yellowMin = await getSettingNumber(supabase, "band_yellow_min");
+    return { band: bandFromSimilarity(c, greenMin, yellowMin), _similarity: c };
   }
   // { result } class
   if (raw.result === "match" || raw.result === "green") return { band: "green" };
