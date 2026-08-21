@@ -1,10 +1,23 @@
-Deno.test("handoff payload keys exclude legal name", () => {
-  const payload = { vai: "ABCDEFG", username: "neo", email: "a@b.c", phone: null, session_key: "sk" };
-  for (const k of Object.keys(payload)) {
-    if (/legal|full_name|first_name|last_name/i.test(k)) throw new Error(k);
+/**
+ * Handoff deletes session key once; payload has no legal-name fields.
+ * deno test --allow-read supabase/functions/enrol/handoff_test.ts
+ */
+Deno.test("enrol-handoff deletes provider_session_key and omits legal name", async () => {
+  const text = await Deno.readTextFile(
+    new URL("../enrol-handoff/index.ts", import.meta.url)
+  );
+  if (!/provider_session_key:\s*null/.test(text)) {
+    throw new Error("handoff must null provider_session_key (§2.4a)");
   }
-});
-Deno.test("after handoff session key must be null on ChainPass", () => {
-  const after = { provider_session_key: null as string | null };
-  if (after.provider_session_key != null) throw new Error("key retained");
+  if (!/status:\s*["']no_longer_held["']/.test(text)) {
+    throw new Error("re-handoff must return no_longer_held");
+  }
+  if (/legal_name|full_name|first_name|last_name/.test(text)) {
+    throw new Error("handoff must not carry legal name fields (§2.9)");
+  }
+  const payloadMatch = text.match(/const payload = \{([\s\S]*?)\};/);
+  if (!payloadMatch) throw new Error("payload object missing");
+  if (!/session_key/.test(payloadMatch[1])) {
+    throw new Error("session key must ride in handoff payload once");
+  }
 });
