@@ -34,13 +34,22 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, platform_id, biometric_consent_at, enrolment_step")
+      .select(
+        "id, platform_id, biometric_consent_at, warning_acked_at, paid_at, payment_choice, enrolment_step"
+      )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
-    if (!session.biometric_consent_at) {
-      return json({ error: "biometric_consent_required_first" }, 403);
+    if (!session.biometric_consent_at || !session.warning_acked_at) {
+      return json({ error: "warning_and_consent_required_first" }, 403);
+    }
+    // §2 — PAY is step 3, before register (4) and provider (6)
+    if (!session.paid_at || !session.payment_choice) {
+      return json({ error: "pay_required_before_register" }, 403);
+    }
+    if ((session.enrolment_step ?? 1) < 3) {
+      return json({ error: "enrolment_step_order: pay at 3 before register at 4" }, 403);
     }
 
     const { data: pa } = await supabase

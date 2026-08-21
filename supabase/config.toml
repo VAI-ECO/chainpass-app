@@ -12,6 +12,9 @@ verify_jwt = false
 [functions.enrol-consent]
 verify_jwt = false
 
+[functions.enrol-pay]
+verify_jwt = false
+
 [functions.enrol-register]
 verify_jwt = false
 
