@@ -37,12 +37,15 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, otp_verified_at, biometric_consent_at, enrolment_step, held_capture, username"
+        "id, otp_verified_at, biometric_consent_at, enrolment_step, held_capture, username, paid_at"
       )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    if (!session.paid_at) {
+      return json({ error: "pay_required_before_provider" }, 403);
+    }
     if (!session.biometric_consent_at) {
       return json({ error: "biometric_consent_required_first" }, 403);
     }

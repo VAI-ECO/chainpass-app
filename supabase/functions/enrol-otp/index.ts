@@ -38,12 +38,20 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, username, contact_email, contact_phone, enrolment_step")
+      .select(
+        "id, username, contact_email, contact_phone, enrolment_step, paid_at, payment_choice"
+      )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    if (!session.paid_at || !session.payment_choice) {
+      return json({ error: "pay_required_before_otp" }, 403);
+    }
     if (!session.username) return json({ error: "register_required_first" }, 403);
+    if ((session.enrolment_step ?? 1) < 4) {
+      return json({ error: "enrolment_step_order: register at 4 before otp at 5" }, 403);
+    }
 
     // OTP value from settings — never a constant in code.
     const { data: setting, error: sErr } = await supabase

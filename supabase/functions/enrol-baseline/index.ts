@@ -37,12 +37,17 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, vai, held_capture, held_capture_voided_at, enrolment_step")
+      .select(
+        "id, vai, held_capture, held_capture_voided_at, enrolment_step, requirements_signed_at"
+      )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
     if (!session.vai) return json({ error: "vai_required_first" }, 403);
+    if (!session.requirements_signed_at || (session.enrolment_step ?? 1) < 8) {
+      return json({ error: "requirements_must_be_signed_before_baseline" }, 403);
+    }
     if (!session.held_capture || session.held_capture_voided_at) {
       return json({ error: "held_capture_missing_or_voided" }, 409);
     }

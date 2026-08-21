@@ -4,9 +4,9 @@ import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 
 /**
- * POST /v1/enrol/handoff — §2.4 / §2.4a / §2.9 step 11.
- * Payload once: V.A.I. + fields collected on platform's behalf + session key.
- * ChainPass deletes its copy of the session key.
+ * POST /v1/enrol/complete — §2 step 10 congratulations.
+ * After baseline committed (step 9); before handoff (step 11).
+ * Body: { session_id }
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -33,57 +33,30 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select(
-        "id, vai, username, contact_email, contact_phone, provider_session_key, enrolment_step, platform_id, return_url"
-      )
+      .select("id, vai, enrolment_step, requirements_signed_at")
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
     if (!session.vai) return json({ error: "vai_required" }, 403);
-    if (session.enrolment_step < 10) {
-      return json({ error: "congratulations_required_before_handoff" }, 403);
+    if ((session.enrolment_step ?? 1) < 9) {
+      return json({ error: "baseline_must_be_committed_first" }, 403);
     }
 
-    const session_key = session.provider_session_key;
-    if (!session_key) {
-      // Already handed off — patent claim: no longer held
-      return json({ status: "no_longer_held", step: 11 }, 410);
-    }
-
-    const payload = {
-      vai: session.vai.trim(),
-      username: session.username,
-      email: session.contact_email,
-      phone: session.contact_phone,
-      session_key,
-    };
-
-    // DELETE ChainPass copy — never retain after handoff (§2.4a)
     const { error: uErr } = await supabase
       .from("sessions")
       .update({
-        provider_session_key: null,
-        enrolment_step: 11,
-        state: "complete",
+        congratulations_at: new Date().toISOString(),
+        enrolment_step: Math.max(session.enrolment_step, 10),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    // Also ensure credential_keys does not keep a live undeleted copy for this handoff key
-    // (append-only table may record superseded_at if a row exists)
-    await supabase
-      .from("credential_keys")
-      .update({ superseded_at: new Date().toISOString() })
-      .eq("vai", session.vai.trim())
-      .eq("session_key", session_key)
-      .is("superseded_at", null);
-
     return json({
-      status: "handed_off",
-      step: 11,
-      payload,
-      // Courier rule: no legal name in payload (§2.9)
+      status: "congratulations",
+      step: 10,
+      vai: session.vai.trim(),
+      // year length from settings at reveal/renewal — not a constant here
     });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);

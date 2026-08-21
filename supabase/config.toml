@@ -105,7 +105,13 @@ verify_jwt = false
 [functions.enrol-reveal]
 verify_jwt = false
 
+[functions.enrol-requirements]
+verify_jwt = false
+
 [functions.enrol-baseline]
+verify_jwt = false
+
+[functions.enrol-complete]
 verify_jwt = false
 
 [functions.enrol-handoff]
