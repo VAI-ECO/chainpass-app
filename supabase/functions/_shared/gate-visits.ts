@@ -45,7 +45,9 @@ export async function faceGateAgainstBaseline(
 }
 
 /**
- * First-visit terms sign (§14.3 / §16.3): match → agreement (single, terms) + proof + visit.
+ * First-visit terms sign (§14.2 / §14.2a / §14.3 / §16.3).
+ * Request carries terms_version_id — ChainPass holds the document body on that row.
+ * Never terms_doc_ref: a pointer is not the document (§14.2).
  */
 export async function signFirstVisitTerms(
   supabase: SupabaseClient,
@@ -53,9 +55,15 @@ export async function signFirstVisitTerms(
     vai: string;
     platform_id: string;
     capture: string;
+    /** Exact agreement_versions.id the member is signing (§14.2 item 4). */
+    terms_version_id: string;
   }
 ): Promise<{ status: "granted" | "no_match"; band: Band; agreement_id?: string }> {
-  const { vai, platform_id, capture } = args;
+  const { vai, platform_id, capture, terms_version_id } = args;
+
+  if (!terms_version_id) {
+    throw new Error("terms_version_id required");
+  }
 
   const existing = await findPlatformVisit(supabase, vai, platform_id);
   if (existing) {
@@ -68,44 +76,23 @@ export async function signFirstVisitTerms(
     return { status: "no_match", band };
   }
 
-  // Resolve terms version for this platform (§14.3 — required at onboarding)
-  const { data: pa, error: paErr } = await supabase
-    .from("platform_agreements")
-    .select("terms_doc_ref, terms_version")
-    .eq("platform_id", platform_id)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (paErr) throw new Error(`platform_agreements lookup failed: ${paErr.message}`);
-
-  const termsVersion = pa?.terms_version ?? "1";
-
-  let versionId: string | null = null;
-  const { data: ver } = await supabase
+  // Load immutable document content by version id (§14.2 — ChainPass holds the body)
+  const { data: ver, error: verErr } = await supabase
     .from("agreement_versions")
-    .select("id, version")
-    .eq("platform_id", platform_id)
-    .eq("subtype", "terms")
-    .eq("version", termsVersion)
+    .select("id, version, body, platform_id, subtype")
+    .eq("id", terms_version_id)
     .maybeSingle();
 
-  if (ver?.id) {
-    versionId = ver.id;
-  } else {
-    const body = pa?.terms_doc_ref ?? "platform terms";
-    const { data: created, error: cErr } = await supabase
-      .from("agreement_versions")
-      .insert({
-        platform_id,
-        subtype: "terms",
-        body,
-        version: termsVersion,
-      })
-      .select("id")
-      .single();
-    if (cErr) throw new Error(`agreement_versions insert failed: ${cErr.message}`);
-    versionId = created.id;
+  if (verErr) throw new Error(`agreement_versions lookup failed: ${verErr.message}`);
+  if (!ver) throw new Error("unknown_terms_version_id");
+  if (ver.platform_id !== platform_id) {
+    throw new Error("terms_version_id not for this platform");
+  }
+  if (ver.subtype !== "terms") {
+    throw new Error("terms_version_id must be subtype terms");
+  }
+  if (!ver.body) {
+    throw new Error("agreement_versions.body missing — ChainPass must hold the document");
   }
 
   const { data: agreement, error: aErr } = await supabase
@@ -116,7 +103,7 @@ export async function signFirstVisitTerms(
       subtype: "terms",
       vai_1: vai,
       status: "complete",
-      content_version_id: versionId,
+      content_version_id: ver.id,
       closed_at: new Date().toISOString(),
     })
     .select("id")
@@ -128,7 +115,7 @@ export async function signFirstVisitTerms(
 
   const { error: pErr } = await supabase.from("agreement_proofs").insert({
     agreement_id: agreement.id,
-    agreement_version_id: versionId,
+    agreement_version_id: ver.id,
     vai,
     engine_used: engine,
   });
@@ -138,7 +125,7 @@ export async function signFirstVisitTerms(
     vai,
     platform_id,
     agreement_id: agreement.id,
-    terms_version: termsVersion,
+    terms_version: ver.version,
   });
   if (vErr) throw new Error(`platform_visits insert failed: ${vErr.message}`);
 

@@ -47,6 +47,23 @@ serve(async (req) => {
       return json({ error: "capture required" }, 400);
     }
 
+    // §14.2 — request carries version id; ChainPass holds the document body on that row
+    const terms_version_id =
+      typeof body.terms_version_id === "string" ? body.terms_version_id.trim() : "";
+    if (!terms_version_id) {
+      return json({ error: "terms_version_id required" }, 400);
+    }
+    if (body.terms_doc_ref !== undefined) {
+      return json(
+        {
+          error: "terms_doc_ref_rejected",
+          message:
+            "ChainPass holds the document; send terms_version_id, not a pointer (§14.2).",
+        },
+        400
+      );
+    }
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
@@ -97,6 +114,7 @@ serve(async (req) => {
       vai,
       platform_id: platform.id,
       capture,
+      terms_version_id,
     });
 
     const cons = await recordGateConsumption(supabase, {
