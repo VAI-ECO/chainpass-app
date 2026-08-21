@@ -129,6 +129,9 @@ verify_jwt = false
 [functions.commission]
 verify_jwt = false
 
+[functions.settlement]
+verify_jwt = false
+
 [functions.bank]
 verify_jwt = false
 
