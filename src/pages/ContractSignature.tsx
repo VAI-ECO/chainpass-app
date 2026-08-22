@@ -30,12 +30,7 @@ export default function ContractSignature() {
     sessionStorage.getItem("session_id") ||
     sessionManager.getSessionId();
   const contractType = "terms_of_service";
-
-  const CONTRACT_CONTENT = {
-    law_enforcement: "Law Enforcement Officer Disclosure Agreement content...",
-    mutual_consent: "Mutual Consent and Accountability Agreement content...",
-    terms_of_service: "ChainPass V.A.I. Terms of Service content...",
-  };
+  const subtype = "terms";
 
   const steps: Step[] = ["contract", "verification", "confirmation"];
   const currentStepIndex = steps.indexOf(currentStep);
@@ -77,14 +72,9 @@ export default function ContractSignature() {
     try {
       const { data, error } = await supabase.functions.invoke("sign-contract", {
         body: {
-          vaiNumber,
           session_id,
-          contractType,
-          contractText: CONTRACT_CONTENT[contractType as keyof typeof CONTRACT_CONTENT],
+          subtype,
           facialMatchConfidence: confidence,
-          deviceFingerprint: btoa(
-            `${navigator.userAgent}-${screen.width}x${screen.height}-${navigator.language}`
-          ),
         },
       });
 
