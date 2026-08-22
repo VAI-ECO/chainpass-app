@@ -20,6 +20,7 @@ export default function ContractSignature() {
   const [facialConfidence, setFacialConfidence] = useState<number | null>(null);
   const [signedContract, setSignedContract] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [shownVersionId, setShownVersionId] = useState<string | null>(null);
 
   // Get session data
   const { vaiNumber: storeVAI } = useVAIStore();
@@ -67,6 +68,10 @@ export default function ContractSignature() {
   };
 
   const handleSignContract = async (confidence: number) => {
+    if (!shownVersionId) {
+      toast.error("Document has not loaded. Read it before signing.");
+      return;
+    }
     setIsLoading(true);
 
     try {
@@ -75,6 +80,7 @@ export default function ContractSignature() {
           session_id,
           subtype,
           facialMatchConfidence: confidence,
+          shown_version_id: shownVersionId,
         },
       });
 
@@ -177,14 +183,16 @@ export default function ContractSignature() {
           {currentStep === "contract" && (
             <>
               <ContractViewer
-                contractType={contractType as any}
+                contractType={contractType}
+                session_id={session_id}
                 onScrollComplete={() => setHasScrolledContract(true)}
+                onVersionShown={setShownVersionId}
               />
               <div className="flex justify-end">
                 <Button
                   onClick={handleNextFromContract}
                   size="lg"
-                  disabled={!hasScrolledContract}
+                  disabled={!hasScrolledContract || !shownVersionId}
                 >
                   Continue to Identity Verification
                   <ArrowRight className="w-5 h-5 ml-2" />

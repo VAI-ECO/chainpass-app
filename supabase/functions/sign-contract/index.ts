@@ -2,11 +2,15 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { getSetting, getSettingNumber } from "../_shared/settings.ts";
+import {
+  bindShownToCurrent,
+  resolveCurrentVersion,
+  type AgreementSubtype,
+} from "../_shared/agreement-version.ts";
 
 /**
  * Enrolment-window signature — CANON-CP-01 §14.2 items 4 and 8, §16.2.
- * Version id is resolved server-side from session.platform_id + subtype.
- * Never accepted from the client.
+ * Resolve at view, verify at sign. shown_version_id is a report, not a choice.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -16,7 +20,9 @@ serve(async (req) => {
   try {
     const body = await req.json();
     const session_id = typeof body.session_id === "string" ? body.session_id : "";
-    const subtype = typeof body.subtype === "string" ? body.subtype : "";
+    const subtype = body.subtype as AgreementSubtype;
+    const shown_version_id =
+      typeof body.shown_version_id === "string" ? body.shown_version_id : "";
     const facialMatchConfidence = body.facialMatchConfidence;
 
     if (!session_id) {
@@ -25,6 +31,15 @@ serve(async (req) => {
     if (subtype !== "terms" && subtype !== "contract") {
       return json(
         { success: false, error: "subtype must be terms or contract" },
+        400
+      );
+    }
+    if (!shown_version_id) {
+      return json(
+        {
+          success: false,
+          error: "shown_version_id is required — report the version that was shown",
+        },
         400
       );
     }
@@ -39,7 +54,7 @@ serve(async (req) => {
       return json(
         {
           success: false,
-          error: "agreement_version_id must not come from the client",
+          error: "client reports shown_version_id; it does not choose agreement_version_id",
         },
         400
       );
@@ -102,19 +117,13 @@ serve(async (req) => {
 
     const vai = session.vai.trim();
 
-    const now = new Date().toISOString();
-    const { data: versions, error: verErr } = await supabase
-      .from("agreement_versions")
-      .select("id, platform_id, body, subtype, effective_from, version")
-      .eq("platform_id", session.platform_id)
-      .eq("subtype", subtype)
-      .lte("effective_from", now);
+    const resolved = await resolveCurrentVersion(
+      supabase,
+      session.platform_id,
+      subtype
+    );
 
-    if (verErr) throw new Error(verErr.message);
-
-    const withBody = (versions ?? []).filter((v) => typeof v.body === "string" && v.body.length > 0);
-
-    if (withBody.length === 0) {
+    if (resolved.status === "none") {
       return json(
         {
           success: false,
@@ -125,22 +134,24 @@ serve(async (req) => {
         404
       );
     }
-    if (withBody.length > 1) {
-      // §14.2 item 6 names "when it was superseded" but agreement_versions
-      // has no superseded column. effective_from ≤ now matches more than one
-      // row. Canon does not say which to stamp. Do not pick.
+    if (resolved.status === "multiple") {
       return json(
         {
           success: false,
           error: "multiple_effective_versions",
-          count: withBody.length,
-          version_ids: withBody.map((v) => v.id),
+          count: resolved.version_ids.length,
+          version_ids: resolved.version_ids,
         },
         409
       );
     }
 
-    const ver = withBody[0];
+    const bound = bindShownToCurrent(shown_version_id, resolved.version.id);
+    if (!bound.ok) {
+      return json({ success: false, error: "stale_document" }, 409);
+    }
+
+    const ver = resolved.version;
 
     const { data: agr, error: aErr } = await supabase
       .from("agreements")
@@ -162,7 +173,7 @@ serve(async (req) => {
       .from("agreement_proofs")
       .insert({
         agreement_id: agr.id,
-        agreement_version_id: ver.id,
+        agreement_version_id: bound.agreement_version_id,
         vai,
         engine_used: engine,
       })
@@ -173,7 +184,8 @@ serve(async (req) => {
     return json({
       success: true,
       agreement_id: agr.id,
-      agreement_version_id: ver.id,
+      agreement_version_id: proof.agreement_version_id,
+      shown_version_id,
       vai,
       verified_at: proof.verified_at,
       engine_used: proof.engine_used,
