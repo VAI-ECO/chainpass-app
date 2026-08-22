@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-
-/**
- * §2.5 / §15 item 14 — enrolment token never in the query string.
- * Token arrives via sessionStorage, Authorization header path (body to enrol),
- * or URL fragment (fragment is not logged by servers). Query ?token= / ?platform= refused.
- */
-
-const QUERY_FORBIDDEN = new Set([
-  "token",
-  "enrolment_token",
-  "enrollment_token",
-  "platform",
-  "platform_id",
-]);
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  EnrolAlert,
+  EnrolNote,
+  EnrolPrimaryButton,
+  EnrolShell,
+  EnrolSkeleton,
+  EnrolTitle,
+  EnrolWarn,
+  type EnrolUiState,
+} from "@/components/enrol/EnrolShell";
+import {
+  ENROLMENT_TOKEN_KEY,
+  QUERY_FORBIDDEN,
+  invokeEnrol,
+  setEnrolmentSessionId,
+} from "@/lib/enrol";
 
 function tokenFromFragment(): string | null {
   const hash = window.location.hash.replace(/^#/, "");
@@ -40,8 +41,10 @@ function clearFragmentToken() {
 
 export default function EnrolEntry() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [state, setState] = useState<EnrolUiState>("default");
   const [error, setError] = useState<string | null>(null);
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     for (const key of searchParams.keys()) {
@@ -49,67 +52,107 @@ export default function EnrolEntry() {
         setError(
           "token_query_rejected: Enrolment token and platform ID must ride in the request body or header, never a query parameter (§2.5)."
         );
+        setState("error");
         return;
       }
     }
 
-    const token =
-      sessionStorage.getItem("enrolment_token") || tokenFromFragment();
-
-    if (tokenFromFragment()) {
-      sessionStorage.setItem("enrolment_token", token!);
+    const fromStore = sessionStorage.getItem(ENROLMENT_TOKEN_KEY);
+    const fromHash = tokenFromFragment();
+    if (fromHash) {
+      sessionStorage.setItem(ENROLMENT_TOKEN_KEY, fromHash);
       clearFragmentToken();
     }
-
-    if (!token) {
-      setError("enrolment_token required");
-      return;
-    }
-
-    (async () => {
-      // Body carries the signed token; Authorization also set so proxies never need query.
-      const { data, error: fnErr } = await supabase.functions.invoke("enrol", {
-        body: {
-          enrolment_token: token,
-          return_url: undefined,
-        },
-        headers: {
-          "X-Enrolment-Token": token,
-        },
-      });
-      if (fnErr) {
-        setError(fnErr.message);
-        return;
-      }
-      if (data?.error) {
-        setError(String(data.error));
-        return;
-      }
-      setSessionId(data.session_id);
-      sessionStorage.setItem("enrolment_session_id", data.session_id);
-      sessionStorage.removeItem("enrolment_token");
-    })();
+    setToken(fromStore || fromHash);
   }, [searchParams]);
 
-  if (error) {
+  async function begin() {
+    if (!token) {
+      setError("enrolment_token required");
+      setState("error");
+      return;
+    }
+    setState("loading");
+    setError(null);
+    try {
+      const data = await invokeEnrol(
+        "enrol",
+        { enrolment_token: token },
+        { "X-Enrolment-Token": token }
+      );
+      const sessionId = String(data.session_id ?? "");
+      if (!sessionId) throw new Error("session_id missing from enrol");
+      setEnrolmentSessionId(sessionId);
+      sessionStorage.removeItem(ENROLMENT_TOKEN_KEY);
+      navigate("/enrol/keep");
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "unknown_error";
+      setError(message);
+      if (/unknown_platform/i.test(message)) {
+        setState("empty");
+        return;
+      }
+      setState("error");
+    }
+  }
+
+  if (state === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-950 p-6 text-neutral-100">
-        <p role="alert">{error}</p>
-      </div>
+      <EnrolShell stepLabel="Opening session">
+        <EnrolSkeleton />
+      </EnrolShell>
     );
   }
 
-  if (!sessionId) {
+  if (state === "empty") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-950 p-6 text-neutral-100">
-        <p>Opening enrolment…</p>
-      </div>
+      <EnrolShell stepLabel="Step 1 of 11">
+        <EnrolTitle>Verify once. Use it everywhere.</EnrolTitle>
+        <p className="my-2 leading-[1.45]">
+          This platform has not finished onboarding — no collection spec is on file, so there is nothing to begin.
+        </p>
+        <EnrolNote>
+          §2.3: the platform declares what it collects at onboarding. Absent, enrolment cannot open.
+        </EnrolNote>
+        {error ? <EnrolAlert>{error}</EnrolAlert> : null}
+      </EnrolShell>
+    );
+  }
+
+  if (state === "error") {
+    return (
+      <EnrolShell stepLabel="Error">
+        <EnrolTitle>Something went wrong</EnrolTitle>
+        <p className="my-2 leading-[1.45]">
+          The session could not be opened. Nothing has been created and you have not been charged.
+        </p>
+        {error ? <EnrolAlert>{error}</EnrolAlert> : null}
+        <EnrolPrimaryButton onClick={begin}>Begin again</EnrolPrimaryButton>
+        <EnrolNote>
+          The enrolment row stays server-side and survives a closed browser — SPEC-CP-01 §2.5.
+        </EnrolNote>
+      </EnrolShell>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-950 p-6 text-neutral-100">
-      <p>Enrolment open. Step 1 — landing.</p>
-    </div>
+    <EnrolShell stepLabel="Step 1 of 11">
+      <EnrolTitle>Verify once. Use it everywhere.</EnrolTitle>
+      <p className="my-2 leading-[1.45]">
+        A ChainPass credential is issued to you, not to this platform. Verify here and the same credential works on every participating platform.
+      </p>
+      <EnrolPrimaryButton onClick={begin} disabled={!token}>
+        Begin
+      </EnrolPrimaryButton>
+      {!token ? (
+        <EnrolAlert>enrolment_token required</EnrolAlert>
+      ) : null}
+      <EnrolNote>
+        No identifier on this URL — §2.5. The session lives in an httpOnly cookie.
+      </EnrolNote>
+      <EnrolWarn>
+        ⚠ Branding unruled: ChainPass mark or platform skin. Drawn with the mark.
+      </EnrolWarn>
+    </EnrolShell>
   );
 }

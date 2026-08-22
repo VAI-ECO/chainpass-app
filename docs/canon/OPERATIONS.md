@@ -308,6 +308,7 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 
 | # | | Where |
 |---|---|---|
+| 0 | ⚠️⚠️ **GATE-LAUNCH-01 — TERMS DRAFT LIVE. `agreement_versions` `0-DRAFT` on `vairify` is a build-test marker, not legal text. NO REAL MEMBER MAY ENROL UNTIL OWNER · COUNSEL REPLACE IT WITH REAL TERMS AND RE-POINT `platform_agreements`.** | `docs/GATE-LAUNCH-01_TERMS_DRAFT.md` |
 | 1 | ⚠️⚠️ **LOGIN IS BROKEN END TO END.** **Three contract items.** | `PLAN-DB-02` §6 items 1–3 |
 | 2 | ⚠️ **735 type errors, uninventoried** | `tsconfig.app.json` |
 | 3 | ⚠️⚠️ **DATEGUARD FIELD RENAMES. FIVE EDGE FUNCTIONS IN THE ALARM PATH QUERY NAMES THAT NO LONGER EXIST.** | `supabase/functions/` |
@@ -327,6 +328,7 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 4 | ⚠️⚠️ **§11 ROW 0 — GATE-LAUNCH-01 flagged. Terms draft `0-DRAFT` live on `vairify`; no real member may enrol until replaced.** | `docs/GATE-LAUNCH-01_TERMS_DRAFT.md` |
 | **22 Aug** | 3 | ⚠️ **Banned-words list: the already-purged first term deleted.** The list entry was stale. Superseded lines are deleted, never marked. | Task 10 |
 | **22 Aug** | 2 | ⚠️⚠️ **Vairify package keys purged from this file. ChainPass credential keys remain `settings:price_vai` / `settings:price_vai_pro`.** | Canon §1.1a · two-company split |
 | **22 Aug** | 1 | ⚠️⚠️ **REAL FIGURES → `settings:price_vai`, `settings:price_vai_pro`. BREAKPOINTS LEFT (ILLUSTRATIVE/DESIGN).** | CANON-00 §16. |

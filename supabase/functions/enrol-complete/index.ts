@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
  * POST /v1/enrol/complete — §2 step 10 congratulations.
@@ -52,11 +53,17 @@ serve(async (req) => {
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
+    const term_years = await getSettingNumber(
+      supabase,
+      "credential_year_length_years"
+    );
+
     return json({
       status: "congratulations",
       step: 10,
       vai: session.vai.trim(),
-      // year length from settings at reveal/renewal — not a constant here
+      term_years,
+      term_setting: "credential_year_length_years",
     });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);

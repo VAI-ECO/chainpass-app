@@ -42,6 +42,19 @@ import OnboardingComplete from "./pages/OnboardingComplete";
 import BusinessCouponDashboard from "./pages/BusinessCouponDashboard";
 import EmergencyRetrieval from "./pages/EmergencyRetrieval";
 import EnrolEntry from "./pages/EnrolEntry";
+import EnrolKeep from "./pages/EnrolKeep";
+import EnrolConsent from "./pages/EnrolConsent";
+import EnrolPay from "./pages/EnrolPay";
+import EnrolRegister from "./pages/EnrolRegister";
+import EnrolOtp from "./pages/EnrolOtp";
+import EnrolCapture from "./pages/EnrolCapture";
+import EnrolReveal from "./pages/EnrolReveal";
+import EnrolRequirements from "./pages/EnrolRequirements";
+import EnrolDeclaration from "./pages/EnrolDeclaration";
+import EnrolSign from "./pages/EnrolSign";
+import EnrolBaseline from "./pages/EnrolBaseline";
+import EnrolComplete from "./pages/EnrolComplete";
+import EnrolHandoff from "./pages/EnrolHandoff";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
@@ -94,6 +107,19 @@ const App = () => (
               <Route path="/sandbox" element={<DeveloperSandbox />} />
               <Route path="/error-monitoring" element={<ErrorMonitoring />} />
               <Route path="/enrol" element={<EnrolEntry />} />
+              <Route path="/enrol/keep" element={<EnrolKeep />} />
+              <Route path="/enrol/consent" element={<EnrolConsent />} />
+              <Route path="/enrol/pay" element={<EnrolPay />} />
+              <Route path="/enrol/register" element={<EnrolRegister />} />
+              <Route path="/enrol/otp" element={<EnrolOtp />} />
+              <Route path="/enrol/capture" element={<EnrolCapture />} />
+              <Route path="/enrol/reveal" element={<EnrolReveal />} />
+              <Route path="/enrol/requirements" element={<EnrolRequirements />} />
+              <Route path="/enrol/declaration" element={<EnrolDeclaration />} />
+              <Route path="/enrol/sign" element={<EnrolSign />} />
+              <Route path="/enrol/baseline" element={<EnrolBaseline />} />
+              <Route path="/enrol/complete" element={<EnrolComplete />} />
+              <Route path="/enrol/handoff" element={<EnrolHandoff />} />
               <Route path="/vairify-signup" element={<VairifySignup />} />
               <Route path="/onboarding/complete" element={<OnboardingComplete />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

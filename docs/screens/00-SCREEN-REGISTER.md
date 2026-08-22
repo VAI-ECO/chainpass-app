@@ -13,21 +13,21 @@ plates with no responsive treatment to draw, so their Tablet cell is ✅ by natu
 
 | SN | Canon | Screen | Phone | Tablet | Desktop | States | Wire | Coded | Verified |
 |---|---|---|---|---|---|---|---|---|---|
-| CANON-CP-01-SN-01 | §2 step 1 · §2.5 | CP01 Landing | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-02 | §2 step 2 · §2.1 | CP02 What we keep, and the warning | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-03 | §2 step 2 · §2.6 | CP23 Biometric consent | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-04 | §2 step 3 · §1.1a · §4C | CP03 Pay | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-05 | §2 step 3 · §4A | CP04 Deferred payment · modal | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-06 | §2 step 4 · §2.3 · §2.9 | CP07 Register · username | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-07 | §2 step 5 | CP08 OTP | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-08 | §2 step 6 · §2.2 · §2.7 | CP05 The verification company, embedded | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-09 | §2 step 7 · §2.8 | CP06 The V.A.I. is revealed | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-10 | §2 step 8 · §4D.1 item 5 · §4D.2 | CP09 Both outcomes, rendered | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-11 | §2 step 8 · §4D.1 | CP10 Law enforcement declaration | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-12 | §2 step 8 · §4C.2 | CP11 Signature agreement | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-13 | §2 step 9 · §2.7 | CP24 The baseline is committed | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-14 | §2 step 10 · §10 | CP13 Congratulations | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-15 | §2 step 11 · §2.9 · §2.4 · SPEC-CP-01 §2.3 | CP14 The handoff | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
+| CANON-CP-01-SN-01 | §2 step 1 · §2.5 | CP01 Landing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-02 | §2 step 2 · §2.1 | CP02 What we keep, and the warning | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-03 | §2 step 2 · §2.6 | CP23 Biometric consent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-04 | §2 step 3 · §1.1a · §4C | CP03 Pay | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-05 | §2 step 3 · §4A | CP04 Deferred payment · modal | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-06 | §2 step 4 · §2.3 · §2.9 | CP07 Register · username | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-07 | §2 step 5 | CP08 OTP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-08 | §2 step 6 · §2.2 · §2.7 | CP05 The verification company, embedded | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-09 | §2 step 7 · §2.8 | CP06 The V.A.I. is revealed | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-10 | §2 step 8 · §4D.1 item 5 · §4D.2 | CP09 Both outcomes, rendered | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-11 | §2 step 8 · §4D.1 | CP10 Law enforcement declaration | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-12 | §2 step 8 · §4C.2 | CP11 Signature agreement | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-13 | §2 step 9 · §2.7 | CP24 The baseline is committed | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-14 | §2 step 10 · §10 | CP13 Congratulations | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-15 | §2 step 11 · §2.9 · §2.4 · SPEC-CP-01 §2.3 | CP14 The handoff | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 | CANON-CP-01-SN-16 | 17 Aug · attempt count is a setting | CP16 Last attempt | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
 | CANON-CP-01-SN-17 | §9.1 items 2-3 | CP17 Re-baseline required | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
 | CANON-CP-01-SN-18 | §4B | CP18 Not active | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |

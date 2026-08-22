@@ -1356,6 +1356,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 21 | ⬜ **GATE-LAUNCH-01 OPEN — `agreement_versions` `0-DRAFT` on `vairify` is a build-test marker inserted 22 Aug; real legal terms (owner · counsel) must replace it as a new immutable row and re-point `platform_agreements` before any real member enrols. Recorded: `docs/GATE-LAUNCH-01_TERMS_DRAFT.md` · `OPERATIONS.md` §11 row 0.** | `BLOCKER-ENROLMENT-TERMS` §7 · owner approved draft unblock |
 | **22 Aug** | 20 | ⚠️⚠️ **REAL FIGURES REPLACED WITH SETTINGS POINTERS — `settings:price_vai`, `settings:price_vai_pro`, `settings:credential_term`, `settings:deferral_window`, `settings:deferral_suspend_after`, `settings:pro_custom_requirement_cap`, `settings:platform_document_pack`, `settings:appeal_panel_size`. ILLUSTRATIVE LEFT AS WRITTEN. FLAGGED UNCHANGED: seven-character V.A.I. length (issued format); ONCE.EVER. deferral (schema boolean); owner-quote calendar-year lines (record of what was said).** | CANON-00 §16. |
 | **16 Aug** | 1 | **Filed from the owner's description.** | |
 | **17 Aug** | 2 | **Third-attempt selfie and the facial stack appended.** | |

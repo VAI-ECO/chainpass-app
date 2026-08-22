@@ -2,6 +2,22 @@ import { SupabaseClient } from "npm:@supabase/supabase-js@2";
 
 export type AgreementSubtype = "terms" | "contract";
 
+export function assertAgreementSubtype(
+  subtype: unknown
+): asserts subtype is AgreementSubtype {
+  if (
+    subtype === "le_declaration" ||
+    subtype === "le" ||
+    subtype === "law_enforcement" ||
+    subtype === "leo"
+  ) {
+    throw new Error("le_is_declaration_not_agreement_subtype");
+  }
+  if (subtype !== "terms" && subtype !== "contract") {
+    throw new Error("subtype must be terms or contract");
+  }
+}
+
 export type CurrentVersion = {
   id: string;
   platform_id: string;

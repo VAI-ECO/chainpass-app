@@ -3,11 +3,13 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { getSetting } from "../_shared/settings.ts";
+import { heldCaptureToBytes, requireFaceService } from "../_shared/enrol-baseline.ts";
 
 /**
  * POST /v1/enrol/baseline — §2.7 step 9.
  * Commit the held frame AFTER every required document is signed.
- * Body: { session_id, documents_signed: true, vector: number[], model, model_version }
+ * Vector comes from FACE_SERVICE on the held frame — never from the client.
+ * Body: { session_id, documents_signed: true }
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -28,6 +30,9 @@ serve(async (req) => {
     if (!session_id) return json({ error: "session_id required" }, 400);
     if (body.documents_signed !== true) {
       return json({ error: "documents_must_be_signed_before_baseline" }, 403);
+    }
+    if (body.vector !== undefined) {
+      return json({ error: "client_vector_rejected — matcher is FACE_SERVICE, not a stub" }, 400);
     }
 
     const supabase = createClient(
@@ -52,19 +57,45 @@ serve(async (req) => {
       return json({ error: "held_capture_missing_or_voided" }, 409);
     }
 
-    const vector = body.vector;
-    if (!Array.isArray(vector) || vector.length !== 512) {
-      return json({ error: "vector must be 512 floats from held frame" }, 400);
+    let face: { url: string; key: string };
+    try {
+      face = requireFaceService();
+    } catch (e) {
+      return json(
+        { error: e instanceof Error ? e.message : "FACE_SERVICE missing" },
+        500
+      );
     }
-    const model = typeof body.model === "string" ? body.model : await getSetting(supabase, "engine_attempt_default");
-    const model_version =
-      typeof body.model_version === "string" ? body.model_version : "1";
 
-    // APPEND baseline — never delete. enrollment_score column is NOT NULL live;
-    // §2.7 item 6 forbids residual score use — store 0, never return it.
+    const imageBytes = heldCaptureToBytes(session.held_capture);
+    const response = await fetch(face.url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${face.key}`,
+        "Content-Type": "image/jpeg",
+      },
+      body: imageBytes,
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Face service request failed: ${response.status} - ${errorText}`);
+    }
+    const result = await response.json();
+    if (!result.vector || !Array.isArray(result.vector) || result.vector.length !== 512) {
+      throw new Error(
+        `Face service returned invalid vector (expected 512 floats, got ${result.vector?.length || 0})`
+      );
+    }
+    const model =
+      typeof result.model === "string"
+        ? result.model
+        : await getSetting(supabase, "engine_attempt_default");
+    const model_version =
+      typeof result.model_version === "string" ? result.model_version : "1";
+
     const { error: bErr } = await supabase.from("baselines").insert({
       vai: session.vai.trim(),
-      vector,
+      vector: result.vector,
       model,
       model_version,
       enrollment_score: 0,
@@ -72,7 +103,6 @@ serve(async (req) => {
     });
     if (bErr) throw new Error(bErr.message);
 
-    // Clear held capture after commit (committed into baselines)
     const { error: uErr } = await supabase
       .from("sessions")
       .update({

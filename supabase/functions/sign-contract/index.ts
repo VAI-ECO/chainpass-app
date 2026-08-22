@@ -5,6 +5,7 @@ import { getSetting, getSettingNumber } from "../_shared/settings.ts";
 import {
   bindShownToCurrent,
   resolveCurrentVersion,
+  assertAgreementSubtype,
   type AgreementSubtype,
 } from "../_shared/agreement-version.ts";
 
@@ -28,9 +29,11 @@ serve(async (req) => {
     if (!session_id) {
       return json({ success: false, error: "session_id is required" }, 400);
     }
-    if (subtype !== "terms" && subtype !== "contract") {
+    try {
+      assertAgreementSubtype(subtype);
+    } catch (e) {
       return json(
-        { success: false, error: "subtype must be terms or contract" },
+        { success: false, error: e instanceof Error ? e.message : "bad_subtype" },
         400
       );
     }
@@ -42,9 +45,6 @@ serve(async (req) => {
         },
         400
       );
-    }
-    if (facialMatchConfidence === undefined) {
-      return json({ success: false, error: "facialMatchConfidence is required" }, 400);
     }
     if (
       body.agreement_version_id !== undefined ||
@@ -77,20 +77,39 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const minConfidence = await getSettingNumber(supabase, "band_green_min");
-    const confidence01 =
-      facialMatchConfidence > 1 ? facialMatchConfidence / 100 : facialMatchConfidence;
-    if (confidence01 < minConfidence) {
-      throw new Error("Facial match confidence too low to sign contract");
+    const { data: session, error: sessionError } = await supabase
+      .from("sessions")
+      .select("id, platform_id, vai, held_capture, enrolment_step")
+      .eq("id", session_id)
+      .maybeSingle();
+    if (sessionError) throw new Error(sessionError.message);
+    if (!session) return json({ success: false, error: "session_not_found" }, 404);
+    if (!session.vai) {
+      return json({ success: false, error: "vai_must_be_live_before_signature" }, 403);
+    }
+
+    const enrolmentBound =
+      (session.enrolment_step ?? 1) >= 7 && !!session.held_capture;
+
+    if (!enrolmentBound) {
+      if (facialMatchConfidence === undefined) {
+        return json({ success: false, error: "facialMatchConfidence is required" }, 400);
+      }
+      const minConfidence = await getSettingNumber(supabase, "band_green_min");
+      const confidence01 =
+        facialMatchConfidence > 1 ? facialMatchConfidence / 100 : facialMatchConfidence;
+      if (confidence01 < minConfidence) {
+        throw new Error("Facial match confidence too low to sign contract");
+      }
     }
 
     const { data: verificationRecord, error: verificationError } = await supabase
       .from("verification_records")
       .select("id")
       .eq("session_id", session_id)
-      .single();
+      .maybeSingle();
 
-    if (verificationError || !verificationRecord) {
+    if (!enrolmentBound && (verificationError || !verificationRecord)) {
       return json(
         {
           success: false,
@@ -99,17 +118,6 @@ serve(async (req) => {
         },
         404
       );
-    }
-
-    const { data: session, error: sessionError } = await supabase
-      .from("sessions")
-      .select("id, platform_id, vai")
-      .eq("id", session_id)
-      .maybeSingle();
-    if (sessionError) throw new Error(sessionError.message);
-    if (!session) return json({ success: false, error: "session_not_found" }, 404);
-    if (!session.vai) {
-      return json({ success: false, error: "vai_must_be_live_before_signature" }, 403);
     }
     if (!session.platform_id) {
       return json({ success: false, error: "session missing platform_id" }, 400);

@@ -3,6 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import {
   resolveCurrentVersion,
+  assertAgreementSubtype,
   type AgreementSubtype,
 } from "../_shared/agreement-version.ts";
 
@@ -22,12 +23,13 @@ serve(async (req) => {
 
     const body = await req.json().catch(() => ({}));
     const session_id = typeof body.session_id === "string" ? body.session_id : "";
-    const subtype = body.subtype as AgreementSubtype;
-
     if (!session_id) return json({ error: "session_id is required" }, 400);
-    if (subtype !== "terms" && subtype !== "contract") {
-      return json({ error: "subtype must be terms or contract" }, 400);
+    try {
+      assertAgreementSubtype(body.subtype);
+    } catch (e) {
+      return json({ error: e instanceof Error ? e.message : "bad_subtype" }, 400);
     }
+    const subtype = body.subtype as AgreementSubtype;
     if (
       body.agreement_version_id !== undefined ||
       body.version_id !== undefined ||

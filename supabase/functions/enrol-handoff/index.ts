@@ -5,8 +5,7 @@ import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 
 /**
  * POST /v1/enrol/handoff — §2.4 / §2.4a / §2.9 step 11.
- * Payload once: V.A.I. + fields collected on platform's behalf + session key.
- * ChainPass deletes its copy of the session key.
+ * Browser payload: V.A.I. + username + email/phone only. session_key is nulled, never shown.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -34,7 +33,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, vai, username, contact_email, contact_phone, provider_session_key, enrolment_step, platform_id, return_url"
+        "id, vai, username, contact_email, contact_phone, provider_session_key, enrolment_step, platform_id, return_url, state"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -44,11 +43,8 @@ serve(async (req) => {
     if (session.enrolment_step < 10) {
       return json({ error: "congratulations_required_before_handoff" }, 403);
     }
-
-    const session_key = session.provider_session_key;
-    if (!session_key) {
-      // Already handed off — patent claim: no longer held
-      return json({ status: "no_longer_held", step: 11 }, 410);
+    if (session.enrolment_step >= 11 || session.state === "complete") {
+      return json({ status: "no_longer_held", step: 11, session_key: null }, 410);
     }
 
     const payload = {
@@ -56,10 +52,8 @@ serve(async (req) => {
       username: session.username,
       email: session.contact_email,
       phone: session.contact_phone,
-      session_key,
     };
 
-    // DELETE ChainPass copy — never retain after handoff (§2.4a)
     const { error: uErr } = await supabase
       .from("sessions")
       .update({
@@ -70,22 +64,21 @@ serve(async (req) => {
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    // Row and timestamps stay. The value is deleted.
     const { error: kErr } = await supabase
       .from("credential_keys")
       .update({
         session_key: null,
         superseded_at: new Date().toISOString(),
       })
-      .eq("vai", session.vai.trim())
-      .eq("session_key", session_key);
+      .eq("vai", session.vai.trim());
     if (kErr) throw new Error(kErr.message);
 
     return json({
       status: "handed_off",
       step: 11,
       payload,
-      // Courier rule: no legal name in payload (§2.9)
+      session_key: null,
+      return_url: session.return_url,
     });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);

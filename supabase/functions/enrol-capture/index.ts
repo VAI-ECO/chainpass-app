@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
-import { voidHeldCaptureOnBreak } from "../_shared/enrol-capture.ts";
+import { voidHeldCaptureOnBreak, requireComplyCubeApiKey, assertEmbeddedProviderSession } from "../_shared/enrol-capture.ts";
 
 /**
  * POST /v1/enrol/capture — §2.7 step 6.
@@ -26,8 +26,19 @@ serve(async (req) => {
     if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
     const body = await req.json().catch(() => ({}));
     const session_id = typeof body.session_id === "string" ? body.session_id : "";
-    const action = body.action === "void" ? "void" : "hold";
+    const action =
+      body.action === "void"
+        ? "void"
+        : body.action === "open_provider"
+          ? "open_provider"
+          : "hold";
     if (!session_id) return json({ error: "session_id required" }, 400);
+
+    try {
+      assertEmbeddedProviderSession(body);
+    } catch (e) {
+      return json({ error: e instanceof Error ? e.message : "bad_request" }, 400);
+    }
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -37,7 +48,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, otp_verified_at, biometric_consent_at, enrolment_step, held_capture, username, paid_at"
+        "id, otp_verified_at, biometric_consent_at, enrolment_step, held_capture, username, contact_email, paid_at"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -51,6 +62,73 @@ serve(async (req) => {
     }
     if (!session.otp_verified_at) {
       return json({ error: "otp_required_before_provider" }, 403);
+    }
+
+    if (action === "open_provider") {
+      let apiKey: string;
+      try {
+        apiKey = requireComplyCubeApiKey();
+      } catch (e) {
+        return json(
+          { error: e instanceof Error ? e.message : "COMPLYCUBE_API_KEY missing" },
+          500
+        );
+      }
+
+      const email =
+        typeof session.contact_email === "string" && session.contact_email.trim()
+          ? session.contact_email.trim()
+          : session.username
+            ? `${session.username.replace(/[^a-zA-Z0-9._-]/g, "")}@enrol.invalid`
+            : `session-${session_id.slice(0, 8)}@enrol.invalid`;
+
+      const clientResponse = await fetch("https://api.complycube.com/v1/clients", {
+        method: "POST",
+        headers: {
+          Authorization: apiKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ type: "person", email }),
+      });
+      if (!clientResponse.ok) {
+        const errorText = await clientResponse.text();
+        return json(
+          {
+            error: `ComplyCube client creation failed: ${clientResponse.status} - ${errorText}`,
+          },
+          500
+        );
+      }
+      const clientData = await clientResponse.json();
+
+      const tokenResponse = await fetch("https://api.complycube.com/v1/tokens", {
+        method: "POST",
+        headers: {
+          Authorization: apiKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ clientId: clientData.id, referrer: "*://*/*" }),
+      });
+      if (!tokenResponse.ok) {
+        const errorText = await tokenResponse.text();
+        return json(
+          {
+            error: `ComplyCube token failed: ${tokenResponse.status} - ${errorText}`,
+          },
+          500
+        );
+      }
+      const tokenData = await tokenResponse.json();
+
+      return json({
+        status: "provider_open",
+        step: 6,
+        embed: true,
+        redirect: false,
+        token: tokenData.token,
+        provider_session_key: clientData.id,
+        committed: false,
+      });
     }
 
     if (action === "void") {

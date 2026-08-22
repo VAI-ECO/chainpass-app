@@ -1,5 +1,5 @@
 /**
- * Handoff deletes session key once; payload has no legal-name fields.
+ * Handoff deletes session key once; payload is V.A.I. + username + email/phone only.
  * deno test --allow-read supabase/functions/enrol/handoff_test.ts
  */
 Deno.test("enrol-handoff deletes provider_session_key and omits legal name", async () => {
@@ -23,7 +23,11 @@ Deno.test("enrol-handoff deletes provider_session_key and omits legal name", asy
   }
   const payloadMatch = text.match(/const payload = \{([\s\S]*?)\};/);
   if (!payloadMatch) throw new Error("payload object missing");
-  if (!/session_key/.test(payloadMatch[1])) {
-    throw new Error("session key must ride in handoff payload once");
+  const payload = payloadMatch[1];
+  if (!/vai:/.test(payload) || !/username:/.test(payload) || !/email:/.test(payload) || !/phone:/.test(payload)) {
+    throw new Error("payload must be V.A.I. + username + email/phone");
+  }
+  if (/session_key/.test(payload)) {
+    throw new Error("session_key must not ride in the browser payload");
   }
 });
