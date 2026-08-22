@@ -74,6 +74,19 @@ toward a credential, never ChainPass's price list** — `REF-TIERS-01` §9.1.
 
 ⚠️ **At launch there is one platform: Vairify. And Vairify Pro.**
 
+### ⚠️⚠️ ONE ENROLMENT FLOW. THE LEVEL IS A GATE — RULED 22 AUGUST
+
+⚠️⚠️ **ONE ENROLMENT FLOW. ONE CREDENTIAL. THE LEVEL DOES NOT CHANGE HOW SHE ENROLS.** ⚠️
+**Common to every level: register · terms · capture · reveal. Pro adds the platform's own
+requirements on top — nothing else differs.**
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **DO NOT BUILD SEPARATE FLOWS FOR ACCESS, V.A.I. AND PRO. THERE IS ONE FLOW.** |
+| 2 | ⚠️⚠️ **THE PLATFORM SETS THE GATE. A PLATFORM THAT REQUIRES V.A.I. REJECTS AN ACCESS HOLDER AT ITS DOOR.** |
+| 3 | ⚠️ **Rejection at a platform door is a platform switch, not a ChainPass build.** |
+| 4 | ⚠️ **The value of a higher level is what a platform lets her do inside, not a different enrolment.** |
+
 ## 1.2 — ⚠️ The upsell
 
 > ⚠️ **"We should basically try to upsell them at that point."**
@@ -85,7 +98,7 @@ opens beyond the one door they came through.**
 
 ---
 
-# 2 — ⚠️⚠️ THE SEQUENCE — ⚠️⚠️ AMENDED 20 AUGUST
+# 2 — ⚠️⚠️ THE SEQUENCE — ⚠️⚠️ AMENDED 20 AUGUST · 22 AUGUST
 
 ⚠️⚠️ **THIS REPLACES EVERY EARLIER VERSION, INCLUDING THE NINE-SCREEN ORDER OF 16 AUGUST.
 THE CODE IS MEASURED AGAINST THIS BLOCK.**
@@ -98,16 +111,16 @@ THE CODE IS MEASURED AGAINST THIS BLOCK.**
         ↓                              ⚠️⚠️ AND THE BIOMETRIC CONSENT — §2.6
 3  ⚠️⚠️ PAY                            requirements · price · upsell
         ↓                              ⚠️ the platform's deferral offer — §4A
-4  ⚠️ REGISTER                         ⚠️⚠️ USERNAME · EMAIL · PHONE — §2.3
-        ↓                              ⚠️⚠️ NEVER A LEGAL NAME
+4  ⚠️ REGISTER                         ⚠️⚠️ USERNAME · EMAIL · PHONE · TERMS — §2.3 · §14.3
+        ↓                              ⚠️⚠️ NEVER A LEGAL NAME · ONE PAGE
 5  ⚠️ OTP                              ⚠️⚠️ CONTROL IS PROVEN BEFORE A PROVIDER IS PAID
         ↓
 6  ⚠️ THE KYC PROVIDER                 embedded, not a redirect — §2.2
         ↓                              ⚠️⚠️ CHAINPASS CAPTURES ITS OWN FRAME FROM THE
         ↓                              SAME LIVE CAMERA SESSION, AT THE SAME MOMENT.
         ↓                              HELD, NOT COMMITTED — §2.7
-7  ⚠️⚠️ THE V.A.I. IS REVEALED         ⚠️ on demonstrated control and a provider pass
-        ↓                              ⚠️⚠️ IT MUST BE LIVE BEFORE ANYTHING ATTACHES
+7  ⚠️⚠️ THE V.A.I. IS REVEALED         ⚠️ issued at identity proof — §2.3a
+        ↓                              ⚠️ activation is separate from issuance
         ↓                              ⚠️ origination stamped, trigger-locked — §2.8
 8  ⚠️ THE PLATFORM'S REQUIREMENTS      the signature agreement — §4C.2
         ↓                              + law enforcement declaration — §4D
@@ -117,7 +130,9 @@ THE CODE IS MEASURED AGAINST THIS BLOCK.**
         ↓                              ⚠️ the session key is deleted at the handoff — §2.4
 10 ⚠️ CONGRATULATIONS                  your V.A.I. · good for `settings:credential_term` — §10
         ↓                              → go to the platform
-11 ⚠️ THE HANDOFF                      ⚠️ V.A.I. + username + email/phone ONLY — §2.9
+11 ⚠️ ACCOUNT SECURITY                 ⚠️ three security questions · recovery contact — §2.10
+        ↓                              ⚠️⚠️ THE LAST CHAINPASS SCREEN
+12 ⚠️ THE HANDOFF                      ⚠️ V.A.I. + username + email/phone ONLY — §2.9
 ```
 
 ## 2.0 — ⚠️⚠️ WHAT CHANGED FROM THE NINE-SCREEN ORDER, AND WHY
@@ -130,6 +145,9 @@ THE CODE IS MEASURED AGAINST THIS BLOCK.**
 | 4 | **Baseline set at 8, before Congratulations** | ⚠️⚠️ **COMMITTED AT 9, AFTER EVERY DOCUMENT IS SIGNED** | ⚠️ **Nothing becomes the permanent root of trust until the signings are done.** |
 | 5 | **The V.A.I. appears at 9** | ⚠️⚠️ **REVEALED AT 7, BEFORE THE REQUIREMENTS** | ⚠️⚠️ **A SIGNED DOCUMENT WITH NOTHING TO ATTACH TO IS NOT A RECORD.** |
 | 6 | **No consent screen** | ⚠️ **§2.6 at step 2** | ⚠️⚠️ **CONSENT AFTER A CAPTURE IS NOT CONSENT.** |
+| 7 | **Terms at pay or first platform visit** | ⚠️⚠️ **AT REGISTER, STEP 4 — USERNAME · EMAIL · PHONE · TERMS, ONE PAGE** | ⚠️⚠️ **CHAINPASS IS THE COMPLIANCE GATEKEEPER — `RULINGS-CP-02` §1.** |
+| 8 | **Security questions at the platform** | ⚠️⚠️ **AT CHAINPASS, STEP 11 — §2.10** | ⚠️⚠️ **ONE CUSTODIAN. CHAINPASS RECOVERS THE ACCOUNT — `RULINGS-CP-02` §4.** |
+| 9 | **Handoff at step 11** | ⚠️ **STEP 12, AFTER ACCOUNT SECURITY** | ⚠️ **Recovery contact is the last ChainPass screen; then the platform begins.** |
 
 ## 2.1 — ⚠️⚠️ THE WARNING COMES BEFORE HE PAYS
 
@@ -172,15 +190,27 @@ cannot get another.
 | 1 | ⚠️⚠️ **AMENDED 20 AUGUST — USERNAME · EMAIL · PHONE.** ❌ ⚠️⚠️ **NEVER A LEGAL NAME.** ⚠️ **The username is self-chosen.** |
 | 1a | ⚠️⚠️ **USERNAME IS MANDATORY. AT LEAST ONE OF EMAIL OR PHONE IS MANDATORY. NEITHER CONTACT IS OPTIONAL ON ITS OWN.** ⚠️ **The screen does not advance until the group is satisfied.** |
 | 1b | ⚠️⚠️ **THE COLLECTION SPEC LIVES ON THE PLATFORM AGREEMENT AND SUPPORTS "AT LEAST ONE OF" GROUPS. IT IS NOT A FLAT LIST.** ⚠️ **Vairify's group is {email, phone}. Another platform picks differently. A Standard age-gate platform may collect nothing at all.** |
+| 1c | ⚠️⚠️ **THE PLATFORM'S TERMS ARE ACCEPTED ON THIS SAME PAGE — USERNAME · EMAIL AND/OR PHONE · TERMS. ONE PAGE. CHAINPASS DISPLAYS THE TEXT, COLLECTS THE ACCEPTANCE, AND HOLDS THE RECORD** — §14.3 · `RULINGS-CP-02` §1. |
 | 2 | ⚠️ **He chooses which receives the OTP.** |
 | 3 | ⚠️⚠️ **THE NUMBER SCREEN COMES AFTER THE OTP, SO THERE IS SOMEWHERE TO SEND IT.** |
-| 4 | ⚠️ **The platform has no registration form. She only sets her security questions when she arrives.** |
+| 4 | ⚠️⚠️ **THE PLATFORM HAS NO REGISTRATION FORM FOR IDENTITY OR SECURITY. CHAINPASS COLLECTS USERNAME · CONTACT · TERMS HERE; THE THREE SECURITY QUESTIONS AND RECOVERY CONTACT AT STEP 11 — §2.10.** ⚠️ **One custodian, one record, no copy in a platform's database.** |
 
 ### ⚠️⚠️ WHY THE LEGAL NAME NEVER LEAVES — §2.9
 
 ⚠️⚠️ **CHAINPASS VERIFIED THE LEGAL NAME AT THE PROVIDER AND KEEPS IT. HANDING IT TO A
 PLATFORM IS NOT A COURIER DELIVERING. IT IS CHAINPASS DISCLOSING.** ⚠️ **The anonymity is
 the product.**
+
+## 2.3a — ⚠️⚠️ ISSUED AT REVEAL. ACTIVATION IS SEPARATE — RULED 22 AUGUST
+
+⚠️⚠️ **THE NUMBER IS HERS THE MOMENT IDENTITY IS PROVEN AT STEP 7, WHETHER SHE GOES FURTHER OR
+NOT.** ⚠️ **The reveal is not her ID — it is the reveal of her V.A.I. number.**
+
+| # | |
+|---|---|
+| 1 | ⚠️ **In substance the screen says: ChainPass has identified you. This number is yours. Complete registration and terms to activate it.** |
+| 2 | ⚠️⚠️ **AN ISSUED-BUT-UNACTIVATED CREDENTIAL IS A REAL STATE ON THE CREDENTIAL ROW AND NEEDS A SCREEN THAT PLAINLY STATES WHAT SHE HAS AND WHAT IS MISSING.** |
+| 3 | ⚠️ **Nothing downstream may assume the number appears later than step 7.** |
 
 ## 2.4 — ⚠️⚠️ THE SESSION KEY IS DELETED AT THE HANDOFF, NOT AT ISSUANCE
 
@@ -272,8 +302,8 @@ ONE SIGNING IN THE WHOLE SYSTEM THAT CAN NEVER BE WAIVED.**
 | # | |
 |---|---|
 | 1 | ⚠️⚠️ **CONSENT OBTAINED AFTER A CAPTURE IS NOT CONSENT.** ⚠️ **BIPA and GDPR both require it before collection.** |
-| 2 | ⚠️ **It is distinct from the signature agreement (§4C.2), which is the platform's, and from the platform's own terms, which she signs on first visit there.** |
-| 3 | ⚠️⚠️ **THREE CONSENT LAYERS EXIST AND ALL THREE ARE MANDATORY: CHAINPASS↔PLATFORM AT ONBOARDING · CHAINPASS↔HOLDER AT ENROLMENT · PLATFORM↔HOLDER AT FIRST VISIT.** |
+| 2 | ⚠️ **It is distinct from the signature agreement (§4C.2), which is the platform's, and from the platform's own terms, which she accepts at register — §2.3 item 1c · §14.3.** |
+| 3 | ⚠️⚠️ **THREE CONSENT LAYERS EXIST AND ALL THREE ARE MANDATORY: CHAINPASS↔PLATFORM AT ONBOARDING · CHAINPASS↔HOLDER AT ENROLMENT · PLATFORM↔HOLDER TERMS AT REGISTER (CHAINPASS-ADMINISTERED) AND ON FIRST VISIT TO ANY OTHER PLATFORM.** |
 
 ## 2.7 — ⚠️⚠️ THE BASELINE IS THE ROOT OF TRUST — RULED 20 AUGUST
 
@@ -323,6 +353,17 @@ ISSUE. IMMUTABLE.**
 | 5 | ⚠️ **Payouts do not run on Stripe. The schema carries a payment-method field that assumes no processor.** |
 
 ⚠️ **This closes §13 item 4 — origination and revenue share.**
+
+## 2.10 — ⚠️⚠️ ACCOUNT SECURITY — CHAINPASS'S, LAST — RULED 22 AUGUST
+
+⚠️⚠️ **THE THREE SECURITY QUESTIONS, THE ONE-TIME PASSWORDS AND THE RECOVERY CONTACT ARE
+COLLECTED AND HELD BY CHAINPASS — NOT BY ANY PLATFORM.**
+
+| # | |
+|---|---|
+| 1 | ⚠️ **Because ChainPass recovers the account. One custodian, one record, no copy in a platform's database.** |
+| 2 | ⚠️⚠️ **STEP 11 IS THE RECOVERY-CONTACT SCREEN — THE LAST CHAINPASS SCREEN. SHE CONTINUES, AND THE PLATFORM BEGINS AT THE HANDOFF.** |
+| 3 | ⚠️ **OTP autofill on mobile: iOS one-time-code field; Android app-specific hash on the SMS send template — `RULINGS-CP-02` §6. Manual entry stays underneath. Email magic link ⬜ unruled.** |
 
 ## 2.9 — ⚠️⚠️ THE HANDOFF AND THE COURIER RULE — RULED 20 AUGUST
 
@@ -558,6 +599,17 @@ contracts · disclosures · releases · background checks · declarations · hea
 ---
 
 # 4D — ⚠️⚠️ THE LAW ENFORCEMENT DECLARATION AND THE TWO COLOURS
+
+## 4D.0 — ⚠️⚠️ ALWAYS CHAINPASS-BRANDED — RULED 22 AUGUST
+
+⚠️⚠️ **THE LAW ENFORCEMENT DECLARATION IS ALWAYS CHAINPASS-BRANDED, WHATEVER SKIN THE
+PLATFORM ELECTED FOR ENROLMENT** — `RULINGS-CP-02` §5.1 · `CANON-SA-07` *(vairify-app)*.
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **HE IS DECLARING TO CHAINPASS — A NEUTRAL IDENTITY PROVIDER — NEVER TO THE PLATFORM.** |
+| 2 | ⚠️⚠️ **A PLATFORM-BRANDED DECLARATION LETS AN OFFICER ARGUE HE DECLARED TO THE PLATFORM. IN A JURISDICTION WHERE THE WORK IS ILLEGAL, THAT IS THE GAP HE NEEDS.** |
+| 3 | ⚠️ **This must be legible on the page and in the record, not only in the schema.** |
 
 ## 4D.1 — ⚠️ It is his statement, not a check
 
@@ -832,6 +884,11 @@ PERSON.**
 | 4 | **Does the upsell ship at launch, or later?** — §1.2 | **Owner** |
 | 5 | **Does the provider retention column exist?** — §10.3 | **Check the schema** |
 | 6 | ⚠️⚠️ **R11 — ChainPass holds `credentials.complycube_client_id`, `not null`, read after enrolment by `revalidate:156,189`, `renew-credential:96`, `drain-queue:57,64,73`. THAT IS THE KEY IT MUST DELETE AT STEP 15. THE PATENT GATE IS UNMET.** | **Owner** |
+| 7 | ⚠️⚠️ **NO-PLATFORM ENROLMENT — WHOSE TERMS?** — `RULINGS-CP-02` §8 item 1 | **Owner** |
+| 8 | ⚠️⚠️ **REGISTER-STEP TERMS ACCEPTANCE — WHERE IS THE RECORD IF NOT A FACE PASS?** — `RULINGS-CP-02` §8 item 2 | **Owner** |
+| 9 | ⚠️ **SKINNED PAGE DISCLOSURE — WHAT MUST SHE BE TOLD ABOUT CHAINPASS HOLDING THE DATA?** — `RULINGS-CP-02` §8 item 3 | **Owner · MA-05** |
+| 10 | ⚠️ **EMAIL MAGIC LINK AS OTP ALTERNATIVE MID-ENROLMENT** — `RULINGS-CP-02` §6 item 6 | **Owner** |
+| 11 | ⚠️ **`CANON-MI-25` / `CANON-MI-33` SECURITY SCREENS — MOVE TO CHAINPASS OR CUSTODY ONLY?** — `RULINGS-CP-02` §8 item 5 | **Owner · MA-06** |
 
 ---
 
@@ -869,6 +926,12 @@ CARRIES `service_level` (WHAT ITS DOOR REQUIRES). ENTRY IS ONE COMPARISON:
 `credential_level ≥ required_level`** — §16.3 step 3. ⚠️ **An upgrade is the price
 difference, same V.A.I., nothing re-done** — §11.2. **Levels answer down.**
 
+### ⚠️⚠️ ONE FLOW. THE LEVEL IS A GATE — RULED 22 AUGUST
+
+⚠️⚠️ **THE SERVICE LEVEL DESCRIBES WHAT A PLATFORM MAY ASK AT ITS DOOR AND INSIDE — NOT A
+DIFFERENT ENROLMENT BUILD.** ⚠️ **One enrolment flow for every level. Pro adds requirements
+on top at step 8 — §4C.3 · `RULINGS-CP-02` §2.**
+
 ## 14.2 — ⚠️⚠️ CHAINPASS HOLDS THE DOCUMENT — RULED 20 AUGUST
 
 ⚠️⚠️ **THIS REVERSES THE BLANK-ENVELOPE RULE. CHAINPASS NO LONGER HOLDS A REFERENCE. IT
@@ -888,7 +951,7 @@ IT.**
 | 5 | ⚠️⚠️ **A PLATFORM CANNOT REACH BACKWARDS. NOTHING IT DOES TODAY CHANGES WHAT SOMEONE AGREED TO LAST YEAR.** |
 | 6 | ⚠️ **The version history reads as a changelog — every version, its hash, when it went live, when it was superseded, and how many V.A.I.s are bound to it.** |
 | 7 | ⚠️⚠️ **AN OPEN AGREEMENT EXPIRES ON A TIMER. ONE PROOF ON AN EXPIRED TWO-PARTY AGREEMENT IS VOID. NOBODY HALF-SIGNS A CONTRACT.** |
-| 8 | ⚠️⚠️ **THE FIRST-VISIT TERMS SIGNING RUNS ON THIS SAME MACHINERY — A ONE-PARTY AGREEMENT, SUBTYPE `terms`. ONE PROOF SYSTEM. NEVER A SECOND SUBSYSTEM.** |
+| 8 | ⚠️⚠️ **TERMS SIGNING RUNS ON THIS SAME MACHINERY — SUBTYPE `terms`. AT REGISTER FOR THE ORIGINATING PLATFORM — §2.3 · §14.3. AT FIRST VISIT FOR ANY OTHER PLATFORM SHE ENTERS LATER. ONE PROOF SYSTEM. NEVER A SECOND SUBSYSTEM.** |
 
 ⚠️ **This is §4C.2 expressed as an interface. The signature agreement is the standing
 consent that anything administered here is legally signed; this is the thing administered.**
@@ -928,9 +991,10 @@ DOCUMENTS WHEN IT DECLARES EVERYTHING ELSE.**
 | # | At onboarding the platform elects | |
 |---|---|---|
 | 1 | ⚠️⚠️ **ITS AGREEMENTS — UPLOADED, IMMUTABLE FROM THAT MOMENT** | §14.2 |
-| 2 | ⚠️⚠️ **ITS TERMS AND CONDITIONS — UPLOADED, AND WHETHER THEY ARE SIGNED AT REGISTRATION** | ⚠️ **If elected, the enrolment sequence administers it at step 8 with the platform's other requirements. If not, the first-visit signing at the platform governs** — §14.3 |
+| 2 | ⚠️⚠️ **ITS TERMS AND CONDITIONS — UPLOADED. ACCEPTED AT REGISTER ON THE ONE PAGE WITH USERNAME · EMAIL · PHONE — §2.3 · §14.3** | ⚠️ **Also re-signed on first visit to any other platform, or when the version changes** |
 | 3 | **Its collection spec, requirements, service level, elected services** | §2.3, §4C.3, §14.4 |
 | 4 | ⚠️ **The vault module — elected or declined, set up on their own** | §2.4c |
+| 5 | ⚠️ **The enrolment skin — opt-in, default off. Pro only. One screen set, never a design fork** | `RULINGS-CP-02` §5 · §14.2b skin |
 
 ## 14.2c — ⚠️⚠️ THE VERSION NOTICE — RULED 20 AUGUST
 
@@ -947,9 +1011,10 @@ WHY, IN ITS OWN WORDS.**
 | 3 | ⚠️ **Optional on upload. A version with no notice simply shows none.** |
 | 4 | ⚠️⚠️ **THE NOTICE IS THE PLATFORM'S WORDS. CHAINPASS NEVER SUMMARISES A DOCUMENT CHANGE ON A PLATFORM'S BEHALF — CHARACTERISING A LEGAL CHANGE IS A CLAIM, AND IT IS NOT OURS TO MAKE.** |
 
-## 14.3 — ⚠️⚠️ THE FIRST-VISIT TERMS SIGNING IS UNIVERSAL — RULED 20 AUGUST
+## 14.3 — ⚠️⚠️ TERMS ACCEPTANCE — AT REGISTER AND ON EVERY PLATFORM — RULED 20 AUGUST · 22 AUGUST
 
-> ⚠️⚠️ **"IF THEY DON'T WANT TO, WE SHOULD REQUIRE IT."**
+> ⚠️⚠️ **"CHAINPASS IS THE GATEKEEPER MAKING SURE EVERYONE IS COMPLIANT. THAT WOULD BE ITS
+> JOB."** — owner, 22 August
 
 ⚠️⚠️ **EVERY PLATFORM SUPPLIES ITS TERMS AT ONBOARDING. VERSIONED. REQUIRED FIELD — NO
 TERMS, NO AGREEMENT, NO API KEY. NO PLATFORM MAY OPT OUT.**
@@ -957,8 +1022,13 @@ TERMS, NO AGREEMENT, NO API KEY. NO PLATFORM MAY OPT OUT.**
 | # | |
 |---|---|
 | 1 | ⚠️ **A platform with no terms of its own takes ChainPass's minimum standard terms as the default.** |
-| 2 | ⚠️⚠️ **A TERMS UPDATE RE-FIRES THE SIGNING ON NEXT VISIT. A CHANGED AGREEMENT IS A NEW AGREEMENT.** |
-| 3 | ⚠️ **The proof is face-bound, versioned, timestamped and retrievable forever.** ⚠️ **A platform facing an inquiry pulls the same class of record Vairify pulls in a dispute. That is a selling point at onboarding and the copy may say so.** |
+| 2 | ⚠️⚠️ **AT ENROLMENT, TERMS ARE ACCEPTED AT REGISTER — USERNAME · EMAIL AND/OR PHONE · TERMS — ONE PAGE. CHAINPASS DISPLAYS THE TEXT, COLLECTS THE ACCEPTANCE, AND HOLDS THE RECORD. NO LEVEL EXEMPT.** |
+| 3 | ⚠️⚠️ **HER V.A.I. IS GOOD EVERYWHERE. SHE CANNOT ENTER A GIVEN PLATFORM WITHOUT HAVING ACCEPTED THAT PLATFORM'S TERMS — AT REGISTER FOR THE ORIGINATING PLATFORM, ON FIRST VISIT FOR ANY OTHER.** |
+| 4 | ⚠️⚠️ **A TERMS UPDATE RE-FIRES THE SIGNING ON NEXT VISIT. A CHANGED AGREEMENT IS A NEW AGREEMENT.** |
+| 5 | ⚠️ **Compliance is ChainPass's function. A platform does not administer its own terms acceptance.** |
+| 6 | ⚠️ **The proof is versioned, timestamped and retrievable forever.** ⬜ ⚠️ **Whether register-step acceptance is a face pass or a different record — `RULINGS-CP-02` §8 item 2.** |
+
+⚠️ **See `BLOCKER-ENROLMENT-TERMS` and `GATE-LAUNCH-01` for the standing launch gate on real terms text.**
 
 ## 14.4 — ⚠️⚠️ THE INBOUND BANK
 
@@ -1356,6 +1426,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 22 | ⚠️⚠️ **`RULINGS-CP-02` FOLDED IN — TERMS AT REGISTER (§2 · §14.3); ONE ENROLMENT FLOW / LEVEL IS A GATE (§1.1a · §14.1); ISSUED VS ACTIVATED AT REVEAL (§2.3a); ACCOUNT SECURITY AT CHAINPASS STEP 11 (§2.10); SKIN ON PLATFORM AGREEMENT (§14.2b); LE DECLARATION ALWAYS CHAINPASS-BRANDED (§4D.0). WRONG §2.3 ITEM 4 DELETED.** | Owner's spoken word, 22 Aug. |
 | **22 Aug** | 21 | ⬜ **GATE-LAUNCH-01 OPEN — `agreement_versions` `0-DRAFT` on `vairify` is a build-test marker inserted 22 Aug; real legal terms (owner · counsel) must replace it as a new immutable row and re-point `platform_agreements` before any real member enrols. Recorded: `docs/GATE-LAUNCH-01_TERMS_DRAFT.md` · `OPERATIONS.md` §11 row 0.** | `BLOCKER-ENROLMENT-TERMS` §7 · owner approved draft unblock |
 | **22 Aug** | 20 | ⚠️⚠️ **REAL FIGURES REPLACED WITH SETTINGS POINTERS — `settings:price_vai`, `settings:price_vai_pro`, `settings:credential_term`, `settings:deferral_window`, `settings:deferral_suspend_after`, `settings:pro_custom_requirement_cap`, `settings:platform_document_pack`, `settings:appeal_panel_size`. ILLUSTRATIVE LEFT AS WRITTEN. FLAGGED UNCHANGED: seven-character V.A.I. length (issued format); ONCE.EVER. deferral (schema boolean); owner-quote calendar-year lines (record of what was said).** | CANON-00 §16. |
 | **16 Aug** | 1 | **Filed from the owner's description.** | |

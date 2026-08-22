@@ -112,7 +112,7 @@ Machine     MacBook-Pro, user bmac
 VAIRIFY     ~/vai-workspaces/vairify-app
 Branch      vairify-fixes
 
-  Canon     docs/canon/                 29 files
+  Canon     docs/canon/                 CANON-CP-01 · RULINGS-CP-01 · RULINGS-CP-02 · OPERATIONS · MKT-CP-01
   Screens   docs/screens/               62 files, ~676 numbered screens
   Schema    supabase/migrations/20260816000000_vairify_schema.sql
             59 tables, applied to jejeywliehoxwhukphwk
@@ -152,9 +152,10 @@ ssh -i ~/.ssh/id_ed25519_hetzner root@2.28.18.138
 ```
 grep -c "SEPARATE BYPASS" ~/vai-workspaces/vairify-app/docs/canon/CANON-MI-25_AUTH_AND_RECOVERY.md
 grep -c "SPLIT IS BY ACT" ~/vai-workspaces/vairify-app/docs/canon/CANON-00_GENERAL_RULES.md
+grep -c "THE LEVEL IS A GATE, NOT A BUILD" ~/vai-workspaces/chainpass-app/docs/canon/RULINGS-CP-02__2026-08-22_.md
 ```
 
-⚠️⚠️ **EXPECT 2 AND 1. IF EITHER RETURNS 0 YOU ARE READING A STALE SET — STOP AND SAY SO.**
+⚠️⚠️ **EXPECT 2 AND 1 AND 1. IF ANY RETURNS 0 YOU ARE READING A STALE SET — STOP AND SAY SO.**
 
 > ⚠️⚠️ **THIS HAS ALREADY COST A DAY. A STALE CANON READS AS AUTHORITATIVE AND IS NOT.**
 
@@ -328,6 +329,7 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 5 | ⚠️⚠️ **`RULINGS-CP-02` FILED — enrolment, levels, branding. Folded into `CANON-CP-01` changelog #22. Verify test added §3.** | Owner's spoken word, 22 Aug |
 | **22 Aug** | 4 | ⚠️⚠️ **§11 ROW 0 — GATE-LAUNCH-01 flagged. Terms draft `0-DRAFT` live on `vairify`; no real member may enrol until replaced.** | `docs/GATE-LAUNCH-01_TERMS_DRAFT.md` |
 | **22 Aug** | 3 | ⚠️ **Banned-words list: the already-purged first term deleted.** The list entry was stale. Superseded lines are deleted, never marked. | Task 10 |
 | **22 Aug** | 2 | ⚠️⚠️ **Vairify package keys purged from this file. ChainPass credential keys remain `settings:price_vai` / `settings:price_vai_pro`.** | Canon §1.1a · two-company split |

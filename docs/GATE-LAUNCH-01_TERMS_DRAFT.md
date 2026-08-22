@@ -81,6 +81,7 @@ immutable |
 | `docs/BLOCKER-ENROLMENT-TERMS__2026-08-22.md` | Original blocker analysis and §7 draft
 unblock decision |
 | `docs/canon/CANON-CP-01` §14.2–§14.3 | Terms versioning, platform agreement API |
+| `docs/canon/RULINGS-CP-02__2026-08-22_.md` | Owner rulings folded into canon 22 Aug |
 | `docs/canon/OPERATIONS.md` §11 | Flagged row — this gate |
 
 ---
