@@ -1011,7 +1011,7 @@ export type Database = {
       }
       signed_contracts: {
         Row: {
-          blockchain_hash: string | null
+          content_hash: string | null
           contract_id: string
           contract_text: string
           contract_type: string
@@ -1025,7 +1025,7 @@ export type Database = {
           vai_number: string
         }
         Insert: {
-          blockchain_hash?: string | null
+          content_hash?: string | null
           contract_id?: string
           contract_text: string
           contract_type: string
@@ -1039,7 +1039,7 @@ export type Database = {
           vai_number: string
         }
         Update: {
-          blockchain_hash?: string | null
+          content_hash?: string | null
           contract_id?: string
           contract_text?: string
           contract_type?: string

@@ -408,7 +408,7 @@ const FacialVerification = () => {
               Verification Confidence: {confidence?.toFixed(1)}%
             </p>
             <p className="text-sm text-green-500">
-              ✓ Signature recorded on blockchain
+              ✓ Signature recorded
             </p>
           </Card>
 

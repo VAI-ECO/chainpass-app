@@ -285,7 +285,6 @@ Convert ChainPass to a fully installable Progressive Web App with mobile-first r
 
 #### Verification Functions
 - ✅ `supabase/functions/create-complycube-session/index.ts`
-- ✅ `supabase/functions/create-complycube-flow-session/index.ts`
 - ✅ `supabase/functions/complycube-callback/index.ts`
 - ✅ `supabase/functions/complycube-verification-callback/index.ts`
 - ✅ `supabase/functions/verify-complycube-biometric/index.ts`

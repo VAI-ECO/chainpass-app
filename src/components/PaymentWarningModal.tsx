@@ -90,7 +90,7 @@ export function PaymentWarningModal({
           {/* Core Features Note */}
           <div className="rounded-lg bg-blue-50 dark:bg-blue-950/20 p-4">
             <p className="text-sm">
-              <strong>Remember:</strong> Vairify&apos;s core safety features (V.A.I. Check, DateGuard, TrueRevu) are
+              <strong>Remember:</strong> Vairify&apos;s core safety features (V.A.I. Check, DateGuard) are
               always free. Payment is only for premium convenience features.
             </p>
           </div>

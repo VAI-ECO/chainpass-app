@@ -16,7 +16,7 @@ export function useVAICompliance() {
       const result = await chainpassService.checkCompliance(vaiNumber, userId, 'full');
 
       // Handle result
-      const action = chainpassService.handleComplianceResult(result);
+      const action = await chainpassService.handleComplianceResult(result);
 
       switch (action.action) {
         case 'allow_access':

@@ -7,7 +7,7 @@
 
 ⚠️ **Rules honoured here:** an element with no canon cite is flagged, never invented. A read
 from a table no migration creates is flagged 🔴. Every price is a pointer
-(`settings:price_plus`), never a figure — OPERATIONS §6 holds on drawings.
+(`settings:price_vai`), never a figure — OPERATIONS §6 holds on drawings.
 
 ⚠️ **Gate column** cites SPEC-CP-01 §6 and the register's flag list. PLAN-VA-01 is not in this
 window, so no Gate # is quoted — naming a number I cannot read would be an invention.
@@ -68,9 +68,9 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 |---|---|
 | Route | /enrol/pay |
 | Canon | §2 step 3 · §1.1a (every price admin-adjustable, never a constant) · §4C |
-| Reads | `settings:price_plus` · `settings:price_pro` — **pointers, never figures** (OPERATIONS §6) |
+| Reads | `settings:price_vai` · `settings:price_pro` — **pointers, never figures** (OPERATIONS §6) |
 | Writes | POST /enrol/payment |
-| Settings used | `settings:price_plus` · `settings:price_pro` · `settings:deferral_enabled` |
+| Settings used | `settings:price_vai` · `settings:price_pro` · `settings:deferral_enabled` |
 | Nav in | CP23 |
 | Nav out | CP07 · defer → SN-05 (CP04) · failure → error state |
 | Gate | 🔴 Payment placement unruled — §2 puts PAY at step 3, §4A.2 starts the deferral clock at step 6. Drawn at 3 because that is where the sequence puts it. |
@@ -326,7 +326,7 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Canon | §10.1 · §10.2 · §10.4 |
 | Reads | credential.expires · credential.term_start |
 | Writes | POST /renew |
-| Settings used | `settings:renewal_window` · `settings:term_length` · `settings:price_plus` · `settings:price_pro` (**pointers**) |
+| Settings used | `settings:renewal_window` · `settings:term_length` · `settings:price_vai` · `settings:price_pro` (**pointers**) |
 | Nav in | CP18 · expiry webhook |
 | Nav out | CP13 · CP03 |
 | Gate | — |

@@ -94,7 +94,7 @@ export default function ContractSignature() {
         setSignedContract({
           contractId: data.contractId,
           signedAt: data.signedAt,
-          blockchainHash: data.blockchainHash,
+          contentHash: data.contentHash,
         });
         
         // Store contract acceptance flags
@@ -230,7 +230,7 @@ export default function ContractSignature() {
               contractType={contractType}
               signedAt={signedContract.signedAt}
               vaiNumber={vaiNumber}
-              blockchainHash={signedContract.blockchainHash}
+              contentHash={signedContract.contentHash}
             />
           )}
         </div>
@@ -241,7 +241,7 @@ export default function ContractSignature() {
           <ul className="text-sm text-blue-800 space-y-1 ml-4 list-disc">
             <li>All data is encrypted in transit and at rest</li>
             <li>Facial images are deleted immediately after verification</li>
-            <li>Contracts are permanently recorded with blockchain verification</li>
+            <li>Contracts are permanently recorded with cryptographic verification</li>
             <li>Your identity information is protected by industry standards</li>
           </ul>
         </div>

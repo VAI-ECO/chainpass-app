@@ -86,7 +86,7 @@ serve(async (req) => {
     // STEP 4: Create Hosted Session (CORRECT ENDPOINT)
     console.log("Creating Hosted session...");
     
-    const origin = req.headers.get("origin") || "https://devtest.chainpass.id";
+    const origin = req.headers.get("origin") || "https://devtest.chainpass.io";
     
     // CRITICAL FIX: Use /v1/hosted/sessions NOT /v1/flow/sessions
     const sessionPayload = {

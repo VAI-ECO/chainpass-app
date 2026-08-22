@@ -2,7 +2,7 @@
 -- Every figure is a settings or agreement row; never a constant in code.
 
 INSERT INTO public.settings (key, value) VALUES
-  ('price_vai_standard', '29'),
+  ('price_vai', '29'),
   ('price_vai_pro', '99')
 ON CONFLICT (key) DO NOTHING;
 

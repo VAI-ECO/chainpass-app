@@ -73,7 +73,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         clientId: clientData.id,
-        referrer: "*://devtest.chainpass.id/*"
+        referrer: "*://devtest.chainpass.io/*"
       }),
     });
 

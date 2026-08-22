@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Play, Code2, BookOpen, Zap, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getSettingNumber, SETTING_PRICE_VAI_PRO } from "@/lib/settings";
 
 const graphqlSchema = `type Query {
   verificationRecord(id: ID!): VerificationRecord
@@ -118,7 +119,8 @@ input CreateLegalInput {
 
 scalar DateTime`;
 
-const exampleQueries = [
+function buildExampleQueries(amountCents: number) {
+  return [
   {
     name: "Get Verification Record",
     description: "Fetch a single verification record with related data",
@@ -237,21 +239,36 @@ const exampleMutations = [
     variables: `{
   "input": {
     "verificationRecordId": "verification_123",
-    "amount": 9900,
+    "amount": ${amountCents},
     "status": "PENDING"
   }
 }`
   }
 ];
+}
 
 export const GraphQLSupport = () => {
   const { toast } = useToast();
-  const [query, setQuery] = useState(exampleQueries[0].query);
-  const [variables, setVariables] = useState(exampleQueries[0].variables);
+  const [amountCents, setAmountCents] = useState<number | null>(null);
+  const exampleQueries = amountCents === null ? [] : buildExampleQueries(amountCents);
+  const [query, setQuery] = useState("");
+  const [variables, setVariables] = useState("");
   const [response, setResponse] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
 
+  useEffect(() => {
+    getSettingNumber(SETTING_PRICE_VAI_PRO).then((p) => setAmountCents(Math.round(p * 100)));
+  }, []);
+
+  useEffect(() => {
+    if (exampleQueries.length > 0 && !query) {
+      setQuery(exampleQueries[0].query);
+      setVariables(exampleQueries[0].variables);
+    }
+  }, [exampleQueries, query]);
+
   const executeQuery = async () => {
+    if (amountCents === null) return;
     setIsExecuting(true);
     setResponse("");
 
@@ -275,7 +292,7 @@ export const GraphQLSupport = () => {
           payments: [
             {
               id: "payment_101",
-              amount: 9900,
+              amount: amountCents,
               status: "COMPLETED"
             }
           ]
@@ -292,7 +309,7 @@ export const GraphQLSupport = () => {
     });
   };
 
-  const loadExample = (example: typeof exampleQueries[0]) => {
+  const loadExample = (example: ReturnType<typeof buildExampleQueries>[0]) => {
     setQuery(example.query);
     setVariables(example.variables);
     setResponse("");

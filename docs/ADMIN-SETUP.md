@@ -4,7 +4,7 @@
 The admin dashboard provides real-time monitoring of webhook events and V.A.I. status updates received from Vairify and other business partners.
 
 ## Accessing the Dashboard
-**URL:** `https://chainpass.id/admin`
+**URL:** `https://chainpass.io/admin`
 
 ## Granting Admin Access
 
@@ -14,7 +14,7 @@ Admin access is managed through the `user_roles` table in the database. To grant
 
 **IMPORTANT**: Before you can access the admin dashboard, you need to:
 
-1. **Sign up for an account** at `https://chainpass.id/auth`
+1. **Sign up for an account** at `https://chainpass.io/auth`
 2. **Get your user ID** from the auth logs or database
 3. **Grant yourself admin privileges** using one of the methods below
 

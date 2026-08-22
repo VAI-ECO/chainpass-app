@@ -2,9 +2,9 @@ import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { randomBytes } from "https://deno.land/std@0.177.0/node/crypto.ts";
 import { corsHeaders } from "../_shared/cors.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 const MAX_RETRIES = 10;
-const TRIAL_HOURS = 48;
 
 const getServiceClient = () => {
   const url = Deno.env.get("SUPABASE_URL");
@@ -94,9 +94,10 @@ serve(async (req) => {
       });
     }
 
+    const trialHours = await getSettingNumber(supabase, "deferral_window_hours");
     const now = new Date();
     const expiresAt = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString();
-    const paymentDueAt = new Date(now.getTime() + TRIAL_HOURS * 60 * 60 * 1000).toISOString();
+    const paymentDueAt = new Date(now.getTime() + trialHours * 60 * 60 * 1000).toISOString();
 
     const { data: vaiRecord, error: insertError } = await supabase
       .from("vai_records")
@@ -142,7 +143,7 @@ serve(async (req) => {
         status: vaiRecord.status,
         payment_due_at: paymentDueAt,
         expires_at: expiresAt,
-        trial_hours_remaining: TRIAL_HOURS,
+        trial_hours_remaining: trialHours,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );

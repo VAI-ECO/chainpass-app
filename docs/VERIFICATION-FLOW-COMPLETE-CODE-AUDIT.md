@@ -387,7 +387,7 @@ const [checkboxes, setCheckboxes] = useState({
   review: false,
   responsible: false,
   infrastructure: false,
-  blockchain: false,
+  record_signature: false,
   jurisdiction: false,
 });
 
@@ -544,7 +544,7 @@ const handleSignContract = async (confidence: number) => {
     setSignedContract({
       contractId: data.contractId,
       signedAt: data.signedAt,
-      blockchainHash: data.blockchainHash,
+      contentHash: data.contentHash,
     });
     setCurrentStep("confirmation");
   }
@@ -717,7 +717,7 @@ CREATE TABLE signed_contracts (
   signed_at TIMESTAMP DEFAULT NOW(),
   ip_address TEXT,
   user_agent TEXT,
-  blockchain_hash TEXT,
+  content_hash TEXT,
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -916,7 +916,7 @@ const { data, error } = await supabase
     signed_at: new Date().toISOString(),
     ip_address: req.headers.get('x-forwarded-for'),
     user_agent: req.headers.get('user-agent'),
-    blockchain_hash: null, // TODO: Implement blockchain recording
+    content_hash: null, // TODO: Implement content recording
   })
   .select()
   .single();
@@ -926,13 +926,13 @@ return new Response(
     success: true,
     contractId: data.contract_id,
     signedAt: data.signed_at,
-    blockchainHash: data.blockchain_hash,
+    contentHash: data.content_hash,
   }),
   { headers: corsHeaders }
 );
 ```
 
-**ISSUE:** Blockchain hash is always null - blockchain recording not implemented.
+**ISSUE:** content hash is always null - content recording not implemented.
 
 ---
 
@@ -1047,11 +1047,11 @@ ADD COLUMN is_leo BOOLEAN DEFAULT false;
 
 ---
 
-### 8. Blockchain Hash Always Null
+### 8. content hash Always Null
 
-**Symptom:** signed_contracts.blockchain_hash always null
+**Symptom:** signed_contracts.content_hash always null
 
-**Root Cause:** Blockchain recording not implemented
+**Root Cause:** content recording not implemented
 
 **Impact:** LOW - Nice-to-have feature missing
 

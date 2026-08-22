@@ -40,7 +40,7 @@ export async function buildPayQuote(
   if (!pa) throw new Error("platform_agreements missing — cannot quote pay");
 
   const level = pa.required_credential_level ?? 1;
-  const priceStandard = await getSettingNumber(supabase, "price_vai_standard");
+  const priceStandard = await getSettingNumber(supabase, "price_vai");
   const pricePro = await getSettingNumber(supabase, "price_vai_pro");
   const price = level >= 3 ? pricePro : priceStandard;
   const upsell_difference =

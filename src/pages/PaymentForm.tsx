@@ -12,6 +12,7 @@ import { StripePaymentForm } from "@/components/StripePaymentForm";
 import chainpassLogo from "@/assets/chainpass-logo.svg";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { supabase } from "@/integrations/supabase/client";
+import { getSettingNumber, SETTING_PRICE_VAI_PRO } from "@/lib/settings";
 import { useToast } from "@/hooks/use-toast";
 
 const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY as string | undefined;
@@ -26,8 +27,8 @@ export default function PaymentForm() {
   const [couponCode, setCouponCode] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<any>(null);
   const [validatingCoupon, setValidatingCoupon] = useState(false);
-  const [basePrice, setBasePrice] = useState(99.00);
-  const [finalPrice, setFinalPrice] = useState(99.00);
+  const [basePrice, setBasePrice] = useState<number | null>(null);
+  const [finalPrice, setFinalPrice] = useState<number | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [loadingPaymentIntent, setLoadingPaymentIntent] = useState(false);
 
@@ -47,6 +48,7 @@ export default function PaymentForm() {
   }, []);
 
   useEffect(() => {
+    if (basePrice === null) return;
     calculateFinalPrice(basePrice, appliedCoupon);
   }, [basePrice, appliedCoupon]);
 
@@ -57,7 +59,7 @@ export default function PaymentForm() {
   }, [finalPrice, paymentMethod, isFullyDiscounted]);
 
   const createPaymentIntent = async () => {
-    if (finalPrice <= 0) return;
+    if (finalPrice === null || finalPrice <= 0) return;
     
     setLoadingPaymentIntent(true);
     try {
@@ -86,15 +88,9 @@ export default function PaymentForm() {
   };
 
   const loadPricing = async () => {
-    try {
-      const { data } = await supabase.from("pricing_config").select("base_price").eq("product_name", "vai_verification").single();
-      if (data) {
-        setBasePrice(data.base_price);
-        setFinalPrice(data.base_price);
-      }
-    } catch (error) {
-      console.error("Error loading pricing:", error);
-    }
+    const price = await getSettingNumber(SETTING_PRICE_VAI_PRO);
+    setBasePrice(price);
+    setFinalPrice(price);
   };
 
   const calculateFinalPrice = (price: number, coupon: any) => {
@@ -182,9 +178,9 @@ export default function PaymentForm() {
               <CardContent className="p-6 space-y-4">
                 <h3 className="font-semibold text-lg">Order Summary</h3>
                 <div className="space-y-3">
-                  <div className="flex justify-between"><div><p className="font-medium">V.A.I. Creation</p><p className="text-xs text-muted-foreground">Annual verification</p></div><p className="font-medium">${basePrice.toFixed(2)}</p></div>
-                  {appliedCoupon && <div className="flex justify-between text-success"><p className="font-medium">Discount ({appliedCoupon.code})</p><p className="font-medium">-${(basePrice - finalPrice).toFixed(2)}</p></div>}
-                  <div className="border-t pt-3"><div className="flex justify-between items-center"><p className="font-semibold text-lg">Total</p><div className="text-right">{appliedCoupon && basePrice !== finalPrice && <p className="text-sm text-muted-foreground line-through">${basePrice.toFixed(2)}</p>}<p className="font-bold text-2xl gradient-primary bg-clip-text text-transparent">${finalPrice.toFixed(2)}</p></div></div></div>
+                  <div className="flex justify-between"><div><p className="font-medium">V.A.I. Creation</p><p className="text-xs text-muted-foreground">Annual verification</p></div><p className="font-medium">${basePrice === null ? "…" : basePrice.toFixed(2)}</p></div>
+                  {appliedCoupon && basePrice !== null && finalPrice !== null && <div className="flex justify-between text-success"><p className="font-medium">Discount ({appliedCoupon.code})</p><p className="font-medium">-${(basePrice - finalPrice).toFixed(2)}</p></div>}
+                  <div className="border-t pt-3"><div className="flex justify-between items-center"><p className="font-semibold text-lg">Total</p><div className="text-right">{appliedCoupon && basePrice !== null && finalPrice !== null && basePrice !== finalPrice && <p className="text-sm text-muted-foreground line-through">${basePrice.toFixed(2)}</p>}<p className="font-bold text-2xl gradient-primary bg-clip-text text-transparent">${finalPrice === null ? "…" : finalPrice.toFixed(2)}</p></div></div></div>
                 </div>
               </CardContent>
             </Card>
@@ -197,7 +193,7 @@ export default function PaymentForm() {
                     <Alert className="border-success bg-success/10"><AlertDescription className="text-success"><p className="font-semibold mb-2">Payment Not Required</p>Your 100% discount covers the full cost.</AlertDescription></Alert>
                     <Button onClick={async () => { const sessionId = sessionStorage.getItem("session_id"); await supabase.functions.invoke("record-coupon-usage", { body: { couponId: appliedCoupon.id, sessionId, userEmail: sessionStorage.getItem("user_email") } }); sessionStorage.setItem("payment_status", "completed_comp"); navigate("/verification-transition"); }} className="w-full" size="lg">Continue to Verification</Button>
                   </div>
-                ) : stripePromise && clientSecret && (paymentMethod === "card" || paymentMethod === "paypal") ? (
+                ) : stripePromise && clientSecret && finalPrice !== null && (paymentMethod === "card" || paymentMethod === "paypal") ? (
                   <Elements stripe={stripePromise} options={{ clientSecret }}><StripePaymentForm paymentMethod={paymentMethod} amount={finalPrice} appliedCoupon={appliedCoupon} clientSecret={clientSecret} /></Elements>
                 ) : loadingPaymentIntent ? (
                   <div className="text-center py-8">

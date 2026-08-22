@@ -35,15 +35,15 @@ remain available always.
 
 | Seats | Key | Ruled value |
 |---|---|---|
-| One | `settings:dash_face_seat_1` | $19 |
-| Ten | `settings:dash_face_seat_10` | $55 |
-| Each seat past ten | `settings:dash_face_seat_over_10` | $5 |
+| One | `settings:dash_face_seat_1` | — |
+| `settings:dash_face_seat_pack` | `settings:dash_face_seat_10` | — |
+| Each seat past `settings:dash_face_seat_pack` | `settings:dash_face_seat_over_10` | — |
 
-⬜ **One clarification owed:** the earlier "$99 for the whole business" — superseded by the
+⬜ **One clarification owed:** the earlier "`settings:dash_face_unlimited` for the whole business" — superseded by the
 tiers, or surviving as an unlimited-seats cap (`settings:dash_face_unlimited`)? One word.
 
-**Nothing about this touches member-credential pricing (§1.1a: $29 / $99) or the still-open
-Access price (Ruling 2). The $19 seat figure coincidentally matches marketing's old working
+**Nothing about this touches member-credential pricing (§1.1a: `settings:price_vai` / `settings:price_vai_pro`) or the still-open
+Access price (Ruling 2). The `settings:dash_face_seat_1` figure coincidentally matches marketing's old working
 Access number — they are different products and must never share a surface.**
 
 **Screens affected on ruling: SN-30/31/32 (viewer set flag 9), SN-33–41 (client dashboard),
@@ -84,6 +84,8 @@ plates on SN-45/SN-31 stand until it lands. Nothing blocks on it.
 # CHANGELOG
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 2 | ⚠️⚠️ **SEAT PACK LABEL → `settings:dash_face_seat_pack`.** | CANON-00 §16. |
+| **22 Aug** | 1 | ⚠️⚠️ **REAL FIGURES STRIPPED FROM SEAT TABLE (KEYS ONLY). `settings:dash_face_seat_pack`, `settings:dash_face_unlimited`, `settings:price_vai`, `settings:price_vai_pro`. DELETED $19 ACCESS RECORD LEFT. ALREADY-POINTER ROWS LEFT.** | CANON-00 §16. |
 | **21 Aug** | 1 | Ruling 1 + 1a filed: authority of record, face optional/priced, passwords free. | Owner rulings in session. |
 | **21 Aug** | 2 | Rulings 2, 3, 4 closed as POSTURE: values in settings, held internally until announced. | Owner, "give them the deal, inform later." Structures were already ruled in canon; only values remained, and values are launch decisions, not document contents. |
 | **21 Aug** | 3 | Ruling 5 closed from canon itself: §14.1 already named level 2 "V.A.I." | The open was a contradiction in `MKT-CP-01`, now deleted in its v2. No owner input was needed — the answer was in the KB. |

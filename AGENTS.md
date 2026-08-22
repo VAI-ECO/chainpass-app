@@ -1,0 +1,1 @@
+pbpaste > ~/vai-workspaces/chainpass-app/AGENTS.md

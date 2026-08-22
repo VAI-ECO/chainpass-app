@@ -989,13 +989,13 @@ const continueToBusinessOrVairify = () => {
 
 ### Step 3: Contract Signing
 - Call `sign-contract` edge function
-- Store contract with blockchain hash
+- Store contract with content hash
 - Record facial match confidence
 - Device fingerprinting
 
 ### Step 4: Confirmation
 - Display signed contract ID
-- Blockchain hash
+- content hash
 - Timestamp
 - Download PDF option
 
@@ -1011,7 +1011,7 @@ CREATE TABLE signed_contracts (
   signed_at TIMESTAMPTZ,
   ip_address TEXT,
   user_agent TEXT,
-  blockchain_hash TEXT,
+  content_hash TEXT,
   created_at TIMESTAMPTZ,
   updated_at TIMESTAMPTZ
 );
@@ -1212,7 +1212,7 @@ CREATE POLICY "Public read access for pricing"
 ---
 
 #### `signed_contracts` (Optional)
-Stores digitally signed contracts with blockchain hashes.
+Stores digitally signed contracts with content hashes.
 
 ```sql
 CREATE TABLE signed_contracts (
@@ -1225,7 +1225,7 @@ CREATE TABLE signed_contracts (
   signed_at TIMESTAMPTZ DEFAULT now(),
   ip_address TEXT,
   user_agent TEXT,
-  blockchain_hash TEXT,
+  content_hash TEXT,
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
@@ -1782,7 +1782,7 @@ return {
 
 **File:** `supabase/functions/sign-contract/index.ts`
 
-**Purpose:** Sign legal contract with facial verification and blockchain hash.
+**Purpose:** Sign legal contract with facial verification and content hash.
 
 **Authentication:** Requires JWT verification (`verify_jwt = true`)
 
@@ -1803,7 +1803,7 @@ return {
   success: boolean,
   contractId: string,
   signedAt: string,
-  blockchainHash: string,
+  contentHash: string,
   error?: string
 }
 ```
@@ -1823,13 +1823,13 @@ if (vaiError || !vaiData) {
   throw new Error("V.A.I. not found");
 }
 
-// 2. Generate blockchain hash
+// 2. Generate content hash
 const hashData = `${vaiNumber}-${contractType}-${Date.now()}-${deviceFingerprint}`;
 const encoder = new TextEncoder();
 const data = encoder.encode(hashData);
 const hashBuffer = await crypto.subtle.digest("SHA-256", data);
 const hashArray = Array.from(new Uint8Array(hashBuffer));
-const blockchainHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+const contentHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
 // 3. Get IP address and user agent
 const ipAddress = req.headers.get("x-forwarded-for") || "unknown";
@@ -1845,7 +1845,7 @@ const { data: contractData, error: insertError } = await supabase
     facial_match_confidence: facialMatchConfidence,
     ip_address: ipAddress,
     user_agent: userAgent,
-    blockchain_hash: blockchainHash
+    content_hash: contentHash
   })
   .select()
   .single();
@@ -1856,7 +1856,7 @@ return {
   success: true,
   contractId: contractData.id,
   signedAt: contractData.signed_at,
-  blockchainHash: contractData.blockchain_hash
+  contentHash: contractData.content_hash
 };
 ```
 
@@ -2028,7 +2028,7 @@ const MyComponent = () => {
 - Prevents replay attacks
 - Format: `base64(userAgent-screenSize-language)`
 
-### 8. Blockchain Hash
+### 8. content hash
 - Contracts signed with SHA-256 hash
 - Immutable audit trail
 - Format: `SHA256(vaiNumber-contractType-timestamp-deviceFingerprint)`

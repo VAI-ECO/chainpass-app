@@ -215,7 +215,7 @@ FETCH AND RE-INCLUDE THE EXISTING MX AND TXT RECORDS FIRST.**
 | # | |
 |---|---|
 | 1 | ⚠️⚠️ **CHAINPASS AND VAIRIFY PRICE FIGURES NEVER APPEAR IN THE SAME FILE.** |
-| 2 | ⚠️ **$29 and $99 are ChainPass's. $19.99 and $29.99 are Vairify's.** |
+| 2 | ⚠️ **`settings:price_vai` and `settings:price_vai_pro` are ChainPass's. Vairify package keys must never appear in this repo.** |
 | 3 | ⚠️⚠️ **SAFETY IS NEVER ASSOCIATED WITH A CHARGE.** |
 | 4 | ⚠️ **The Council governs Vairify, not ChainPass** — **it has exactly as much power over ChainPass as it has over Microsoft.** |
 
@@ -246,14 +246,14 @@ THE SAME HOLDS FOR VAIRIDATE.**
 | ⚠️⚠️ **VAIRIFY** | ⚠️⚠️ **Vairify · Verify · VAIrify** |
 | **VAI** — always capitalised, always bold | **Vai · vai** |
 | ⚠️⚠️ **V.A.I. · VAI-CHECK · VAIPULSE · VAIRIDATE** | ⚠️ **Vairidate · lowercase variants** |
-| **TruRevu** | **TrueRevu** |
-| **`chainpass.io`** | **`chainpass.id`** — lost, unrecoverable |
+| **TruRevu** | **wrong-capital product name** |
+| **`chainpass.io`** | **the .id domain — lost, unrecoverable** |
 | **Patent pending** | **patented · patent granted** |
 | ⚠️ **Revenue sharing** | ⚠️⚠️ **AFFILIATE — BANNED PROJECT-WIDE** |
 | ⚠️ **My VAIRIFY** | ⚠️⚠️ **CONNECTIONS — RETIRED 15 AUGUST** |
 | ⚠️ **FMTY** | ⚠️ **Nationwide** |
 
-⚠️ **Banned: blockchain · groundbreaking · revolutionary · innovative · "matters."**
+⚠️ **Banned: groundbreaking · innovative · "matters."**
 
 ---
 
@@ -262,8 +262,8 @@ THE SAME HOLDS FOR VAIRIDATE.**
 | Tier | |
 |---|---|
 | ⚠️⚠️ **FREE** | **THE SAFETY TIER** |
-| ⚠️ **PLUS — $19.99** | **STAY CONNECTED AND SOCIAL** |
-| ⚠️ **PREMIUM — $29.99** | **THE TOOLS YOU NEED TO RUN YOUR BUSINESS** |
+| ⚠️ **PLUS** | **STAY CONNECTED AND SOCIAL** |
+| ⚠️ **PREMIUM** | **THE TOOLS YOU NEED TO RUN YOUR BUSINESS** |
 
 ⚠️⚠️ **THE SPLIT IS BY ACT, NEVER BY ROLE. PLUS FINDS. PREMIUM IS FOUND.**
 
@@ -327,6 +327,9 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 3 | ⚠️ **Banned-words list: the already-purged first term deleted.** The list entry was stale. Superseded lines are deleted, never marked. | Task 10 |
+| **22 Aug** | 2 | ⚠️⚠️ **Vairify package keys purged from this file. ChainPass credential keys remain `settings:price_vai` / `settings:price_vai_pro`.** | Canon §1.1a · two-company split |
+| **22 Aug** | 1 | ⚠️⚠️ **REAL FIGURES → `settings:price_vai`, `settings:price_vai_pro`. BREAKPOINTS LEFT (ILLUSTRATIVE/DESIGN).** | CANON-00 §16. |
 | **17 Aug** | 1 | **Filed.** | |
 | **20 Aug** | 4 | ⚠️⚠️ **§7.1 ADDED — THE VAI RULE. VAI IS ALWAYS BOLD AND CAPITAL, INSIDE ANY WORD. A BRAND ASSET CARRIES THE WHOLE NAME IN CAPITALS.** The naming table's "Vairify" row is superseded — it is VAIRIFY. | ⚠️⚠️ **THE OLD TABLE BANNED "VAIrify" BUT PERMITTED "Vairify", WHICH IS THE FORM THE OWNER RULED OUT OF COPY.** |
 | **20 Aug** | 3 | ⚠️⚠️ **§0 ADDED — GUESSING IS NOT ALLOWED. ANSWERS ARE A PARAGRAPH UNLESS EXPANSION IS ASKED FOR.** | ⚠️⚠️ **A PLAUSIBLE ANSWER ASSEMBLED FROM NOTHING GETS BUILT. AND A CHANGE REPORTED WITHOUT A COMMAND AND ITS OUTPUT IS NOT A CHANGE.** |

@@ -2,7 +2,7 @@
 
 ## What is V.A.I.?
 
-**V.A.I. (Verified Anonymous Identity)** is a revolutionary identity verification system that allows adults to prove they are over 18 without revealing their personal information. It's the first zero-knowledge identity solution designed specifically for adult communities and platforms.
+**V.A.I. (Verified Anonymous Identity)** is an identity verification system that allows adults to prove they are over 18 without revealing their personal information. It's the first zero-knowledge identity solution designed specifically for adult communities and platforms.
 
 ### The Problem V.A.I. Solves
 

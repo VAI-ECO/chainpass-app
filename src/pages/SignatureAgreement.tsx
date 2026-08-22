@@ -18,7 +18,7 @@ export default function SignatureAgreement() {
     review: false,
     responsible: false,
     infrastructure: false,
-    blockchain: false,
+    record_signature: false,
     jurisdiction: false,
   });
 
@@ -115,7 +115,7 @@ export default function SignatureAgreement() {
                     { key: 'review', label: 'I will read documents before signing them with my V.A.I. number' },
                     { key: 'responsible', label: 'I am responsible for all contracts signed with my V.A.I. number' },
                     { key: 'infrastructure', label: 'I understand ChainPass provides signature infrastructure but does not control contract terms' },
-                    { key: 'blockchain', label: 'I consent to signature data being recorded, timestamped, and stored on blockchain' },
+                    { key: 'record_signature', label: 'I consent to signature data being recorded and timestamped' },
                     { key: 'jurisdiction', label: 'This agreement is governed by U.S. federal law and Delaware state law' },
                   ].map(({ key, label }) => (
                     <div

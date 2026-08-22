@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { getSettingNumber } from "../_shared/settings.ts";
 import { corsHeaders } from "../_shared/cors.ts";
 
 interface FaceServiceResult {
@@ -132,7 +133,8 @@ serve(async (req) => {
     const platformId = session.platform_id;
     console.log(`[Session] V.A.I.: ${vai}, Platform: ${platformId}`);
 
-    // Step 3: Rate limit check (per session, 10 attempts per 5 minutes)
+    // Step 3: Rate limit check (per session)
+    const maxRecent = await getSettingNumber(supabase, "facial_signature_max_recent");
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
     const { data: recentAttempts, error: attemptsError } = await supabase
       .from("facial_signature_attempts")
@@ -144,7 +146,7 @@ serve(async (req) => {
       console.error("[Rate Limit] Error checking attempts:", attemptsError);
     }
 
-    if (recentAttempts && recentAttempts.length >= 10) {
+    if (recentAttempts && recentAttempts.length >= maxRecent) {
       console.log(`[Rate Limit] Exceeded for session ${session_id}`);
       return new Response(
         JSON.stringify({ error: "Too many attempts. Please wait before trying again." }),

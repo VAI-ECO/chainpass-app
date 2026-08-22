@@ -38,7 +38,7 @@ real.**
 
 # 2 — V.A.I. — THE FACE LEVEL
 
-**$29.** ⚠️ **Public name: V.A.I. — ruled by `CANON-CP-01` §14.1 vocabulary map (1 Access · 2 V.A.I. · 3 Pro). Bare "Plus" never appears; it is Vairify's package word.**
+**`settings:price_vai`.** ⚠️ **Public name: V.A.I. — ruled by `CANON-CP-01` §14.1 vocabulary map (1 Access · 2 V.A.I. · 3 Pro). Bare "Plus" never appears; it is Vairify's package word.**
 
 ## 2.1 — For the platform
 
@@ -62,7 +62,7 @@ real.**
 
 # 3 — PRO — THE DOCUMENT LEVEL
 
-**$99.**
+**`settings:price_vai_pro`.**
 
 ## 3.1 — For the platform
 
@@ -70,7 +70,7 @@ real.**
 |---|---|
 | 1 | ⚠️⚠️ **ADMINISTER ANYTHING A PERSON CAN SIGN — CONSENT CONTRACTS, DISCLOSURES, RELEASES, BACKGROUND CHECKS — WITNESSED AGAINST A VERIFIED IDENTITY, HELD IMMUTABLY BY CHAINPASS** — §4C.4, §14.2. |
 | 2 | ⚠️⚠️ **YOUR AGREEMENTS SURVIVE YOU. VERSION-STAMPED, IMMUTABLE, RETRIEVABLE FOREVER — A RECORD NO DISPUTE CAN REWRITE AND NO STORAGE FAILURE CAN LOSE** — §14.2a. |
-| 3 | ⚠️ **Up to three custom requirements, yours to pick. A new requirement is a row, not a build** — §4C.3. |
+| 3 | ⚠️ **Up to `settings:pro_custom_requirement_cap` custom requirements, yours to pick. A new requirement is a row, not a build** — §4C.3. |
 | 4 | ⚠️ **Any Pro can meet any Pro — ChainPass reconciles missing requirements, so your members are never dead-ended** — §11. |
 
 ## 3.2 — For the individual
@@ -90,7 +90,7 @@ real.**
 |---|---|
 | 1 | ⚠️⚠️ **"THE STRONGEST PROTECTION THAT EXISTS" IS A SUPERLATIVE. IT SURVIVES HERE AS SOURCE MATERIAL; WHETHER IT SURVIVES INTO COPY IS AN MA-05 QUESTION.** |
 | 2 | ⚠️ **Every claim above is backed by a canon section. A rewrite may change the words, never the claim.** ⚠️⚠️ **A REWRITE THAT STRENGTHENS A CLAIM PAST ITS CANON CITATION IS WRONG.** |
-| 3 | ⚠️ **The banned list applies: no blockchain, groundbreaking, revolutionary, innovative, "matters."** |
+| 3 | ⚠️ **The banned list applies: no groundbreaking, innovative, "matters."** |
 | 4 | ⚠️⚠️ **VAI ALWAYS BOLD AND CAPITAL** — `OPERATIONS.md` §7.1. |
 
 ---
@@ -107,6 +107,8 @@ real.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 2 | ⚠️ **Banned-words list: already-purged terms deleted.** The list entries were stale. | Task 8 / Task 10 |
+| **22 Aug** | 1 | ⚠️⚠️ **REAL FIGURES → `settings:price_vai`, `settings:price_vai_pro`, `settings:pro_custom_requirement_cap`. `settings:price_access` ALREADY POINTER. ILLUSTRATIVE LEFT.** | CANON-00 §16. |
 | **20 Aug** | 1 | **Filed from the owner's tier walkthrough.** | ⚠️ **"The wording has to change, but that's real."** |
 | **21 Aug** | 2 | ⚠️⚠️ **LEVEL 2'S PUBLIC NAME CLOSED: V.A.I.** The "unresolved" line in §2 is deleted. | ⚠️ **`CANON-CP-01` §14.1 already ruled it in the vocabulary map — this file contradicted canon and the contradiction produced a design flag (SN-50). Superseded lines are deleted, never marked.** |
 | **21 Aug** | 3 | ⚠️ **THE ACCESS PRICE POSTURE CLOSED.** $19 working number deleted; value lives at `settings:price_access`, held internally until announced. | ⚠️ **Owner, 21 Aug: "give them the deal, inform later." The structure is ruled; the number is a launch decision, not a document value.** |

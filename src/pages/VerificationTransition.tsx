@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { ProgressSteps } from "@/components/ProgressSteps";
 import { supabase } from "@/integrations/supabase/client";
+import { getSettingNumber, SETTING_PRICE_VAI_PRO } from "@/lib/settings";
 import {
   Dialog,
   DialogContent,
@@ -48,6 +49,7 @@ export default function VerificationTransition() {
   const [iframeLoading, setIframeLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isRedirectModalOpen, setIsRedirectModalOpen] = useState(false);
+  const [price, setPrice] = useState<number | null>(null);
 
   const steps = ["Payment", "Verification", "Processing", "V.A.I."];
   
@@ -56,6 +58,7 @@ export default function VerificationTransition() {
 
   // Auto-fade success message after 3 seconds
   useEffect(() => {
+    getSettingNumber(SETTING_PRICE_VAI_PRO).then(setPrice);
     const timer = setTimeout(() => {
       setShowSuccess(false);
     }, 3000);
@@ -236,7 +239,7 @@ export default function VerificationTransition() {
           clientCreation: data.clientPayload,
           tokenGeneration: {
             clientId: data.clientId,
-            referrer: "*://devtest.chainpass.id/*"
+            referrer: "*://devtest.chainpass.io/*"
           },
           flowSessionRequest: data.flowSessionRequest || null
         });
@@ -325,7 +328,9 @@ export default function VerificationTransition() {
                   <Check className="w-5 h-5 text-success" />
                 </div>
                 <div className="flex-1">
-                  <p className="font-semibold text-success">Payment Successful - $99.00</p>
+                  <p className="font-semibold text-success">
+                    Payment Successful{price === null ? "" : ` - $${price.toFixed(2)}`}
+                  </p>
                   <p className="text-sm text-muted-foreground">Receipt sent to your email</p>
                 </div>
               </div>

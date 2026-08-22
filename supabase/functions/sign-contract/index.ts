@@ -73,7 +73,7 @@ serve(async (req) => {
     const data = encoder.encode(contractDataString);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const blockchainHash =
+    const contentHash =
       "0x" + hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
     const { data: contractData, error: contractError } = await serviceClient
@@ -85,7 +85,7 @@ serve(async (req) => {
         facial_match_confidence: facialMatchConfidence,
         ip_address: req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip"),
         user_agent: req.headers.get("user-agent"),
-        blockchain_hash: blockchainHash,
+        content_hash: contentHash,
       })
       .select()
       .single();
@@ -100,7 +100,7 @@ serve(async (req) => {
         success: true,
         contractId: contractData.contract_id,
         signedAt: contractData.signed_at,
-        blockchainHash,
+        contentHash,
         session_id,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }

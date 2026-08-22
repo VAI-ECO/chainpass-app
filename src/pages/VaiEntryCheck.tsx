@@ -63,7 +63,7 @@ export default function VaiEntryCheck() {
         )}
 
         <p className="text-xs text-center text-gray-500">
-          Not sure? Contact support@chainpass.id for help.
+          Not sure? Contact support@chainpass.io for help.
         </p>
       </Card>
     </div>

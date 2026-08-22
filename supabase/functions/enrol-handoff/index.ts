@@ -70,14 +70,16 @@ serve(async (req) => {
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    // Also ensure credential_keys does not keep a live undeleted copy for this handoff key
-    // (append-only table may record superseded_at if a row exists)
-    await supabase
+    // Row and timestamps stay. The value is deleted.
+    const { error: kErr } = await supabase
       .from("credential_keys")
-      .update({ superseded_at: new Date().toISOString() })
+      .update({
+        session_key: null,
+        superseded_at: new Date().toISOString(),
+      })
       .eq("vai", session.vai.trim())
-      .eq("session_key", session_key)
-      .is("superseded_at", null);
+      .eq("session_key", session_key);
+    if (kErr) throw new Error(kErr.message);
 
     return json({
       status: "handed_off",

@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, Play, CheckCircle, FileJson, Code2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getSettingNumber, SETTING_PRICE_VAI_PRO } from "@/lib/settings";
 
-const testCollections = [
+function buildTestCollections(amountCents: number) {
+  return [
   {
     name: "Verification Workflow",
     description: "Complete verification flow from record creation to V.A.I. assignment",
@@ -112,7 +114,7 @@ const testCollections = [
               mode: "raw",
               raw: JSON.stringify({
                 verification_record_id: "{{verification_id}}",
-                amount: 9900,
+                amount: amountCents,
                 status: "pending"
               }, null, 2)
             },
@@ -223,6 +225,7 @@ const testCollections = [
     }
   }
 ];
+}
 
 const quickTests = [
   {
@@ -257,6 +260,13 @@ export const ApiTestingSuite = () => {
   const { toast } = useToast();
   const [runningTest, setRunningTest] = useState<string | null>(null);
   const [testResults, setTestResults] = useState<Record<string, boolean>>({});
+  const [amountCents, setAmountCents] = useState<number | null>(null);
+
+  useEffect(() => {
+    getSettingNumber(SETTING_PRICE_VAI_PRO).then((p) => setAmountCents(Math.round(p * 100)));
+  }, []);
+
+  const testCollections = amountCents === null ? [] : buildTestCollections(amountCents);
 
   const downloadCollection = (collection: any, filename: string) => {
     const blob = new Blob([JSON.stringify(collection, null, 2)], { type: "application/json" });

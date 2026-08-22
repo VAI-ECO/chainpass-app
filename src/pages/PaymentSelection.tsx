@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,13 +7,22 @@ import { useNavigate } from "react-router-dom";
 import { Check, CreditCard, ArrowLeft, Tag, Wallet, Coins } from "lucide-react";
 import chainpassLogo from "@/assets/chainpass-logo.svg";
 import { cn } from "@/lib/utils";
+import { getSettingNumber, SETTING_PRICE_VAI_PRO } from "@/lib/settings";
 
 type PaymentMethod = "card" | "paypal" | "crypto";
 
 export default function PaymentSelection() {
   const navigate = useNavigate();
+  const [price, setPrice] = useState<number | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [referralCode, setReferralCode] = useState("");
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>("card");
+
+  useEffect(() => {
+    getSettingNumber(SETTING_PRICE_VAI_PRO)
+      .then(setPrice)
+      .catch((e: Error) => setLoadError(e.message));
+  }, []);
 
   const benefits = [
     "Government ID verification",
@@ -84,7 +93,7 @@ export default function PaymentSelection() {
             <CardTitle className="text-2xl md:text-3xl lg:text-4xl">Create Your V.A.I.</CardTitle>
             <div className="space-y-2">
               <div className="text-4xl md:text-5xl lg:text-6xl font-bold gradient-primary bg-clip-text text-transparent">
-                $99
+                {loadError ? loadError : price === null ? "…" : `$${price}`}
               </div>
               <p className="text-sm md:text-base text-muted-foreground">Annual verification</p>
               <p className="text-base md:text-lg text-foreground">Usable on any ChainPass V.A.I. platform</p>

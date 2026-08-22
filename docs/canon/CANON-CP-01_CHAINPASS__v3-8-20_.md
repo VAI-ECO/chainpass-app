@@ -36,8 +36,8 @@ IS NOT ASSOCIATED WITH ANY INDUSTRY ITS PLATFORMS SERVE.**
 
 | Product | Price | |
 |---|---|---|
-| ⚠️ **V.A.I.** | ⚠️⚠️ **$29** | **Admin-changeable** |
-| ⚠️ **V.A.I. PRO** | ⚠️⚠️ **$99** | **Admin-changeable** |
+| ⚠️ **V.A.I.** | ⚠️⚠️ **`settings:price_vai`** | **Admin-changeable** |
+| ⚠️ **V.A.I. PRO** | ⚠️⚠️ **`settings:price_vai_pro`** | **Admin-changeable** |
 
 ### ⚠️⚠️ EVERY PRICE IS ADMIN-ADJUSTABLE. NO PRICE IS EVER A CONSTANT.
 
@@ -115,7 +115,7 @@ THE CODE IS MEASURED AGAINST THIS BLOCK.**
 9  ⚠️⚠️ THE BASELINE IS COMMITTED      ⚠️ the frame held since step 6 — §2.7
         ↓                              ⚠️⚠️ COMMITTED LAST, AFTER EVERY DOCUMENT IS SIGNED
         ↓                              ⚠️ the session key is deleted at the handoff — §2.4
-10 ⚠️ CONGRATULATIONS                  your V.A.I. · good for one calendar year — §10
+10 ⚠️ CONGRATULATIONS                  your V.A.I. · good for `settings:credential_term` — §10
         ↓                              → go to the platform
 11 ⚠️ THE HANDOFF                      ⚠️ V.A.I. + username + email/phone ONLY — §2.9
 ```
@@ -408,12 +408,12 @@ cannot be "I could not afford it."**
 | # | |
 |---|---|
 | 1 | ⚠️⚠️ **ONCE. EVER. PER PERSON.** **Not per platform. Not per year.** ⚠️ **The credential is the person, so it cannot be reset by joining somewhere else.** |
-| 2 | ⚠️ **Negotiated with the platform.** ⚠️ **Vairify's window is 48 HOURS.** |
-| 3 | ⚠️⚠️ **THE CLOCK STARTS AT VERIFICATION, NOT AT PAYMENT.** **Deferring buys 48 hours of use and costs 48 hours of the term.** ⚠️ **There is no free look.** |
+| 2 | ⚠️ **Negotiated with the platform.** ⚠️ **Vairify's window is `settings:deferral_window`.** |
+| 3 | ⚠️⚠️ **THE CLOCK STARTS AT VERIFICATION, NOT AT PAYMENT.** **Deferring buys `settings:deferral_window` of use and costs `settings:deferral_window` of the term.** ⚠️ **There is no free look.** |
 | 4 | ⚠️ **A MODAL states the terms at the moment of choosing.** ⚠️ **He clicks that he does not want to pay — and he is told this is the only time.** |
 | 5 | ⚠️ **"The next time there is no grace period."** |
 
-## 4A.3 — ⚠️⚠️ AT HOUR 49
+## 4A.3 — ⚠️⚠️ AT `settings:deferral_suspend_after`
 
 | # | |
 |---|---|
@@ -425,7 +425,7 @@ cannot be "I could not afford it."**
 
 > ⚠️ **"We will let them know. Both sides."**
 
-⚠️ **She needs to know he is inside a deferral, and after hour 49 that he chose not to
+⚠️ **She needs to know he is inside a deferral, and after `settings:deferral_suspend_after` that he chose not to
 complete it.** ⚠️⚠️ **DEFERRAL IS A STATE ON THE CREDENTIAL, VISIBLE TO BOTH PARTIES.**
 
 ## 4A.5 — ⬜ Owed
@@ -486,8 +486,8 @@ VAIRIFY SAYS NOTHING ABOUT HIM, ONLY THAT THE CREDENTIAL IS NOT ACTIVE.**
 
 | | | |
 |---|---|---|
-| ⚠️ **STANDARD — $29** | **The credential. A verified person.** | **A platform that needs to know someone is real and of age** |
-| ⚠️ **PRO — $99** | ⚠️⚠️ **THE SIGNATURE AGREEMENT PLUS UP TO THREE CUSTOM REQUIREMENTS THE PLATFORM CHOOSES** | **A platform that needs to administer real actions** |
+| ⚠️ **STANDARD — `settings:price_vai`** | **The credential. A verified person.** | **A platform that needs to know someone is real and of age** |
+| ⚠️ **PRO — `settings:price_vai_pro`** | ⚠️⚠️ **THE SIGNATURE AGREEMENT PLUS UP TO `settings:pro_custom_requirement_cap` CUSTOM REQUIREMENTS THE PLATFORM CHOOSES** | **A platform that needs to administer real actions** |
 
 ⚠️⚠️ **A PORN SITE NEEDING ONLY AGE VERIFICATION IS A STANDARD CREDENTIAL. VAIRIFY IS A PRO
 ONE.**
@@ -509,10 +509,10 @@ is missing and routed to complete it.** — §11
 ⚠️ **A person does not have to sign anything.** ⚠️⚠️ **BUT ANYTHING THEY DO SIGN, THEY HAVE
 AGREED IN ADVANCE IS LEGAL.**
 
-## 4C.3 — ⚠️ Every platform picks its own three
+## 4C.3 — ⚠️ Every platform picks its own `settings:pro_custom_requirement_cap`
 
-⚠️⚠️ **THIS IS WHY REQUIREMENTS ARE ROWS AND NOT CODE. A NEW PLATFORM IS A ROW AND THREE OR
-FOUR DOCUMENTS, NOT A BUILD.**
+⚠️⚠️ **THIS IS WHY REQUIREMENTS ARE ROWS AND NOT CODE. A NEW PLATFORM IS A ROW AND `settings:platform_document_pack`
+DOCUMENTS, NOT A BUILD.**
 
 ### ⚠️ Vairify
 
@@ -605,7 +605,7 @@ LIVES IS UNRULED.**
 > ⚠️ **"They can appeal to the Council to have it removed. That is a decision I do not want
 > to make."**
 
-⚠️ **Five members, drawn at random, majority wins.** ⚠️⚠️ **ADMIN NEVER JUDGES. THE PLATFORM
+⚠️ **`settings:appeal_panel_size` members, drawn at random, majority wins.** ⚠️⚠️ **ADMIN NEVER JUDGES. THE PLATFORM
 DOES NOT DECIDE WHETHER A MAN'S RECORD IS VISIBLE.**
 
 ⚠️⚠️ **A GRANTED RULING PERSISTS THROUGH RENEWAL.** **The check returns the same answer next
@@ -720,7 +720,7 @@ back into an account.**
 
 ---
 
-# 10 — ⚠️⚠️ RENEWAL — THE CALENDAR YEAR
+# 10 — ⚠️⚠️ RENEWAL — `settings:credential_term`
 
 > ⚠️ **"It always goes by a calendar year from when you sign up."**
 
@@ -796,7 +796,7 @@ requires.**
 
 | Case | |
 |---|---|
-| **They hold V.A.I. and need Pro** | ⚠️ **Told so, and told the cost — the difference between $29 and $99** |
+| **They hold V.A.I. and need Pro** | ⚠️ **Told so, and told the cost — the difference between `settings:price_vai` and `settings:price_vai_pro`** |
 | **They hold Pro but lack a platform-specific requirement** | ⚠️ **Told which, and routed to complete it** |
 
 ⚠️ **Both the client AND the platform are notified.**
@@ -858,7 +858,7 @@ MAY ASK.**
 |---|---|---|
 | **1** | ⚠️ **ACCESS** | ⚠️ **The door. One question at the gate: is this person real and of age.** ⚠️⚠️ **THIS IS THE STANDARD CREDENTIAL AT WORK — §4C.1.** |
 | **2** | ⚠️ **V.A.I.** | **The door plus inside. Repeated yes/no while she is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** |
-| **3** | ⚠️ **PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND UP TO THREE CUSTOM REQUIREMENTS — §4C.2, §4C.3.** |
+| **3** | ⚠️ **PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND UP TO `settings:pro_custom_requirement_cap` CUSTOM REQUIREMENTS — §4C.2, §4C.3.** |
 
 ⚠️⚠️ **ENDPOINTS CHECK `agreement level ≥ endpoint's required level` AND NOTHING ELSE. ONE
 INTEGER COMPARISON.**
@@ -1356,6 +1356,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **22 Aug** | 20 | ⚠️⚠️ **REAL FIGURES REPLACED WITH SETTINGS POINTERS — `settings:price_vai`, `settings:price_vai_pro`, `settings:credential_term`, `settings:deferral_window`, `settings:deferral_suspend_after`, `settings:pro_custom_requirement_cap`, `settings:platform_document_pack`, `settings:appeal_panel_size`. ILLUSTRATIVE LEFT AS WRITTEN. FLAGGED UNCHANGED: seven-character V.A.I. length (issued format); ONCE.EVER. deferral (schema boolean); owner-quote calendar-year lines (record of what was said).** | CANON-00 §16. |
 | **16 Aug** | 1 | **Filed from the owner's description.** | |
 | **17 Aug** | 2 | **Third-attempt selfie and the facial stack appended.** | |
 | **20 Aug** | 3 | ⚠️⚠️ **§2 THE SEQUENCE REWRITTEN. ELEVEN STEPS. REGISTER AND OTP MOVED AHEAD OF THE PROVIDER; THE V.A.I. REVEALED BEFORE THE REQUIREMENTS; THE BASELINE COMMITTED LAST.** §2.0 records every change. | ⚠️⚠️ **A SIGNED DOCUMENT WITH NOTHING TO ATTACH TO IS NOT A RECORD. AND NOTHING BECOMES THE ROOT OF TRUST UNTIL THE SIGNINGS ARE DONE.** ⚠️ **A provider call costs money and should not run before control is proven.** |

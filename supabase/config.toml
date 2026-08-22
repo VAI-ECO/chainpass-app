@@ -96,9 +96,6 @@ verify_jwt = false
 [functions.verify-complycube-biometric]
 verify_jwt = false
 
-[functions.create-complycube-flow-session]
-verify_jwt = false
-
 [functions.enrol-capture]
 verify_jwt = false
 

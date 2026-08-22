@@ -9,6 +9,12 @@ Deno.test("enrol-handoff deletes provider_session_key and omits legal name", asy
   if (!/provider_session_key:\s*null/.test(text)) {
     throw new Error("handoff must null provider_session_key (§2.4a)");
   }
+  if (!/session_key:\s*null/.test(text)) {
+    throw new Error("handoff must null credential_keys.session_key (§2.4a)");
+  }
+  if (!/superseded_at/.test(text)) {
+    throw new Error("handoff must keep the credential_keys row (superseded_at stamped)");
+  }
   if (!/status:\s*["']no_longer_held["']/.test(text)) {
     throw new Error("re-handoff must return no_longer_held");
   }

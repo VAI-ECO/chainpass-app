@@ -5,6 +5,8 @@
  * Used by Vairify to verify users before allowing platform access
  */
 
+import { getSettingNumber, SETTING_PRICE_VAI_PRO } from "@/lib/settings";
+
 interface ComplianceCheckRequest {
   vaiNumber: string;
   platformId: string;
@@ -116,7 +118,7 @@ export class ChainPassComplianceService {
   /**
    * Handle compliance check result and determine action
    */
-  handleComplianceResult(result: ComplianceCheckResponse): ComplianceAction {
+  async handleComplianceResult(result: ComplianceCheckResponse): Promise<ComplianceAction> {
     switch (result.status) {
       case 'compliant':
         return {
@@ -139,12 +141,14 @@ export class ChainPassComplianceService {
           message: result.actions.warningMessage || 'Your V.A.I. has expired. Renew to continue.'
         };
 
-      case 'suspended':
+      case 'suspended': {
+        const price = await getSettingNumber(SETTING_PRICE_VAI_PRO);
         return {
           action: 'redirect_renewal',
           url: result.actions.renewalUrl!,
-          message: result.actions.message || 'Your V.A.I. requires reactivation ($99)'
+          message: result.actions.message || `Your V.A.I. requires reactivation ($${price})`
         };
+      }
 
       case 'duplicate_detected':
         return {

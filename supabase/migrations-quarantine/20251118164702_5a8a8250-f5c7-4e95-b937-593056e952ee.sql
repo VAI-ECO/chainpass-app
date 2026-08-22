@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.signed_contracts (
   signed_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   ip_address TEXT,
   user_agent TEXT,
-  blockchain_hash TEXT,
+  content_hash TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );

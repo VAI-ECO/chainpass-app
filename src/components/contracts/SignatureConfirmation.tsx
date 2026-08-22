@@ -11,7 +11,7 @@ interface SignatureConfirmationProps {
   contractType: string;
   signedAt: string;
   vaiNumber: string;
-  blockchainHash: string;
+  contentHash: string;
 }
 
 export function SignatureConfirmation({
@@ -19,7 +19,7 @@ export function SignatureConfirmation({
   contractType,
   signedAt,
   vaiNumber,
-  blockchainHash,
+  contentHash,
 }: SignatureConfirmationProps) {
   const navigate = useNavigate();
   const contractTypeLabels = {
@@ -47,12 +47,12 @@ export function SignatureConfirmation({
     doc.text(`Signed At: ${new Date(signedAt).toLocaleString()}`, 20, 60);
     doc.text(`Contract Type: ${contractTypeLabels[contractType as keyof typeof contractTypeLabels]}`, 20, 70);
     
-    // Blockchain hash
+    // Content hash
     doc.setFont("helvetica", "bold");
-    doc.text("Blockchain Hash:", 20, 85);
+    doc.text("Content Hash:", 20, 85);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(blockchainHash, 20, 93);
+    doc.text(contentHash, 20, 93);
     
     // QR Code
     doc.addImage(qrCodeDataUrl, "PNG", 20, 105, 50, 50);
@@ -63,7 +63,7 @@ export function SignatureConfirmation({
     doc.setFontSize(9);
     doc.setFont("helvetica", "italic");
     doc.text("This contract is legally binding and has been permanently recorded with", 20, 180);
-    doc.text("cryptographic verification. The blockchain hash above serves as immutable", 20, 187);
+    doc.text("cryptographic verification. The content hash above serves as immutable", 20, 187);
     doc.text("proof of this contract's authenticity and timestamp.", 20, 194);
     
     // Download
@@ -124,10 +124,10 @@ export function SignatureConfirmation({
           </div>
 
           <div>
-            <p className="text-sm text-muted-foreground">Blockchain Hash</p>
+            <p className="text-sm text-muted-foreground">Content Hash</p>
             <div className="flex items-center gap-2 mt-1">
               <Shield className="w-4 h-4 text-green-600" />
-              <p className="text-xs font-mono text-foreground break-all">{blockchainHash}</p>
+              <p className="text-xs font-mono text-foreground break-all">{contentHash}</p>
             </div>
           </div>
         </div>

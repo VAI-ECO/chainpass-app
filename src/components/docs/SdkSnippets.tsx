@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Copy, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getSettingNumber, SETTING_PRICE_VAI_PRO } from "@/lib/settings";
 
 export const SdkSnippets = () => {
   const { toast } = useToast();
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
+  const [amountCents, setAmountCents] = useState<number | null>(null);
+
+  useEffect(() => {
+    getSettingNumber(SETTING_PRICE_VAI_PRO).then((p) => setAmountCents(Math.round(p * 100)));
+  }, []);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -368,7 +374,7 @@ curl -X POST "$BASE_URL/rest/v1/payments" \\
   -H "Content-Type: application/json" \\
   -d '{
     "verification_record_id": "verification_id",
-    "amount": 9900,
+    "amount": ${amountCents},
     "status": "pending"
   }'
 
@@ -392,6 +398,17 @@ curl -X POST "$BASE_URL/functions/v1/send-to-vairify" \\
     ruby: { code: rubySnippet, filename: "chainpass_client.rb" },
     curl: { code: curlSnippet, filename: "chainpass-api.sh" },
   };
+
+  if (amountCents === null) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>SDK Code Snippets</CardTitle>
+        </CardHeader>
+        <CardContent>Loading settings…</CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>

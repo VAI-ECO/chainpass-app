@@ -56,7 +56,7 @@ export const BUSINESS_REGISTRY: BusinessRegistry = {
 
 **URL Format:**
 ```
-https://chainpass.id/?business_id=your-business-id&user_id={uuid}
+https://chainpass.io/?business_id=your-business-id&user_id={uuid}
 ```
 
 **Parameters:**
@@ -66,7 +66,7 @@ https://chainpass.id/?business_id=your-business-id&user_id={uuid}
 **Example:**
 ```javascript
 const redirectToChainPass = (userId) => {
-  window.location.href = `https://chainpass.id/?business_id=vairify&user_id=${userId}`;
+  window.location.href = `https://chainpass.io/?business_id=vairify&user_id=${userId}`;
 };
 ```
 
@@ -183,5 +183,5 @@ http://localhost:5173/?business_id=vairify&user_id=test-user-123
 ## Contact
 
 For integration support or questions:
-- **ChainPass Team**: integration@chainpass.id
-- **Technical Documentation**: https://docs.chainpass.id
+- **ChainPass Team**: integration@chainpass.io
+- **Technical Documentation**: https://docs.chainpass.io
