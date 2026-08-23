@@ -95,8 +95,10 @@ serve(async (req) => {
     }
 
     const trialHours = await getSettingNumber(supabase, "deferral_window_hours");
+    const termYears = await getSettingNumber(supabase, "credential_year_length_years");
     const now = new Date();
-    const expiresAt = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString();
+    const expiresAt = new Date(now);
+    expiresAt.setUTCFullYear(expiresAt.getUTCFullYear() + termYears);
     const paymentDueAt = new Date(now.getTime() + trialHours * 60 * 60 * 1000).toISOString();
 
     const { data: vaiRecord, error: insertError } = await supabase
@@ -108,7 +110,7 @@ serve(async (req) => {
         platform_source: platform_source || session.platform_source || "chainpass",
         status: "trial",
         verified_at: now.toISOString(),
-        expires_at: expiresAt,
+        expires_at: expiresAt.toISOString(),
         payment_due_at: paymentDueAt,
         referral_vai: referral_vai || session.referral_vai || null,
       })
@@ -142,7 +144,7 @@ serve(async (req) => {
         vai_number: vaiRecord.vai_number,
         status: vaiRecord.status,
         payment_due_at: paymentDueAt,
-        expires_at: expiresAt,
+        expires_at: expiresAt.toISOString(),
         trial_hours_remaining: trialHours,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },

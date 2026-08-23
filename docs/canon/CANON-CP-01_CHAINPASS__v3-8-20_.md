@@ -105,7 +105,7 @@ opens beyond the one door they came through.**
 THE CODE IS MEASURED AGAINST THIS BLOCK.**
 
 ```
-1  ⚠️ LANDING                          what is about to happen · four minutes
+1  ⚠️ LANDING                          what is about to happen
         ↓                              the platform ID rides in a SIGNED TOKEN — §2.5
 2  ⚠️ WHAT WE KEEP, WHAT WE NEVER HAVE
         ↓                              ⚠️⚠️ AND THE WARNING — §2.1
@@ -131,7 +131,7 @@ THE CODE IS MEASURED AGAINST THIS BLOCK.**
 10 ⚠️⚠️ THE BASELINE IS COMMITTED      ⚠️ two frames — §2.7 · gated on terms checkbox
         ↓                              ⚠️⚠️ AFTER EVERY DOCUMENT IS SIGNED — PRO
         ↓                              ⚠️ the session key is deleted at the handoff — §2.4
-11 ⚠️ CONGRATULATIONS                  your V.A.I. · good for `settings:credential_term` — §10
+11 ⚠️ CONGRATULATIONS                  your V.A.I. · good for `settings:credential_year_length_years` — §10
         ↓                              → go to the platform
 12 ⚠️ ACCOUNT SECURITY                 ⚠️ three security questions · recovery contact — §2.10
         ↓                              ⚠️⚠️ THE LAST CHAINPASS SCREEN
@@ -460,8 +460,8 @@ cannot be "I could not afford it."**
 | # | |
 |---|---|
 | 1 | ⚠️⚠️ **ONCE. EVER. PER PERSON.** **Not per platform. Not per year.** ⚠️ **The credential is the person, so it cannot be reset by joining somewhere else.** |
-| 2 | ⚠️ **Negotiated with the platform.** ⚠️ **Vairify's window is `settings:deferral_window`.** |
-| 3 | ⚠️⚠️ **THE CLOCK STARTS AT VERIFICATION, NOT AT PAYMENT.** **Deferring buys `settings:deferral_window` of use and costs `settings:deferral_window` of the term.** ⚠️ **There is no free look.** |
+| 2 | ⚠️ **Negotiated with the platform.** ⚠️ **Vairify's window is `settings:deferral_window_hours`.** |
+| 3 | ⚠️⚠️ **THE CLOCK STARTS AT VERIFICATION, NOT AT PAYMENT.** **Deferring buys `settings:deferral_window_hours` of use and costs `settings:deferral_window_hours` of the term.** ⚠️ **There is no free look.** |
 | 4 | ⚠️ **A MODAL states the terms at the moment of choosing.** ⚠️ **He clicks that he does not want to pay — and he is told this is the only time.** |
 | 5 | ⚠️ **"The next time there is no grace period."** |
 
@@ -788,7 +788,7 @@ getting a user back into its own app session when it chose a password.**
 
 ---
 
-# 10 — ⚠️⚠️ RENEWAL — `settings:credential_term`
+# 10 — ⚠️⚠️ RENEWAL — `settings:credential_year_length_years`
 
 > ⚠️ **"It always goes by a calendar year from when you sign up."**
 
@@ -1450,6 +1450,8 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **23 Aug** | 25 | **One name per control.** `credential_term` → `credential_year_length_years`. `deferral_window` → `deferral_window_hours`. Term stays one year as a field. Face attempts read `attempt_count_n`. The hardcoded 365, +1 year, and 5 are deleted. | RULINGS-VA-02 §6 · §8 · §9. Two names is how the mint and the copy drift. |
+| **23 Aug** | 24 | **"four minutes" deleted from the §2 sequence block.** A canon step is not a stopwatch. | RULINGS-VA-02 §10. |
 | **22 Aug** | 23 | ⚠️⚠️ **`RULINGS-CP-03` FOLDED IN — TERMS TO ACCEPTANCE PAGE (§2 · §14.3); TWO-FRAME BASELINE (§2.7); CONTACT-PLUS-TERMS MINIMUM, USERNAME NOT CHAINPASS (§2.3); ACCESS/V.A.I. THREE-REQUIREMENT CAP, PRO UNCAPPED (§1.1a · §4C · §14.1); PLATFORM TERMS DISCLOSURE (§14.3); SHORTFALL NEVER REJECTION (§11.4); BASELINE GATED ON TERMS CHECKBOX; LE SEPARATE AFFIRMATION (§4D); RECOVERY TABLES ON CHAINPASS (§2.10). §2.3 ITEM 1a DELETED. HELD-FRAME SIMULTANEITY LANGUAGE DELETED.** | Owner's spoken word, 22 Aug. |
 | **22 Aug** | 22 | ⚠️⚠️ **`RULINGS-CP-02` FOLDED IN — TERMS AT REGISTER (§2 · §14.3); ONE ENROLMENT FLOW / LEVEL IS A GATE (§1.1a · §14.1); ISSUED VS ACTIVATED AT REVEAL (§2.3a); ACCOUNT SECURITY AT CHAINPASS STEP 11 (§2.10); SKIN ON PLATFORM AGREEMENT (§14.2b); LE DECLARATION ALWAYS CHAINPASS-BRANDED (§4D.0). WRONG §2.3 ITEM 4 DELETED.** | Owner's spoken word, 22 Aug. |
 | **22 Aug** | 21 | ⬜ **GATE-LAUNCH-01 OPEN — `agreement_versions` `0-DRAFT` on `vairify` is a build-test marker inserted 22 Aug; real legal terms (owner · counsel) must replace it as a new immutable row and re-point `platform_agreements` before any real member enrols. Recorded: `docs/GATE-LAUNCH-01_TERMS_DRAFT.md` · `OPERATIONS.md` §11 row 0.** | `BLOCKER-ENROLMENT-TERMS` §7 · owner approved draft unblock |

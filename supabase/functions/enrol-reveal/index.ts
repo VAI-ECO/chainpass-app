@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 const VAI_ALPHABET = "ABCDEFGHJKLMNPQRTUVWXY23456789";
 
@@ -50,21 +51,46 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, platform_id, held_capture, otp_verified_at, vai, enrolment_step")
+      .select(
+        "id, platform_id, held_capture, otp_verified_at, vai, enrolment_step, background_check_at, document_expiry, issuing_country, issuing_province"
+      )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
     if (!session.otp_verified_at) return json({ error: "otp_required" }, 403);
     if (!session.held_capture) return json({ error: "held_capture_required" }, 403);
+    if (!session.document_expiry) {
+      return json({ error: "document_expiry_required" }, 403);
+    }
+    if (!session.issuing_country) {
+      return json({ error: "issuing_country_required" }, 403);
+    }
     if (session.vai) {
       return json({ status: "vai_already_revealed", vai: session.vai.trim(), step: 7 });
     }
 
+    const { data: needsCheck } = await supabase
+      .from("platform_requirements")
+      .select("requirement_key")
+      .eq("platform_id", session.platform_id)
+      .eq("requirement_key", "background_check")
+      .maybeSingle();
+    if (needsCheck && !session.background_check_at) {
+      return json({ error: "background_check_required", check_did_not_run: true }, 403);
+    }
+
     const vai = await generateVAI(supabase);
     const yearStart = new Date();
+    const termYears = await getSettingNumber(supabase, "credential_year_length_years");
     const yearEnd = new Date(yearStart);
-    yearEnd.setUTCFullYear(yearEnd.getUTCFullYear() + 1);
+    yearEnd.setUTCFullYear(yearEnd.getUTCFullYear() + termYears);
+    const retentionYears = await getSettingNumber(
+      supabase,
+      "provider_retention_years"
+    );
+    const retentionEnd = new Date(yearStart);
+    retentionEnd.setUTCFullYear(retentionEnd.getUTCFullYear() + retentionYears);
 
     // Origination = platform whose API key opened enrolment (token → session.platform_id).
     // Immutable via DB trigger (§2.8).
@@ -73,6 +99,10 @@ serve(async (req) => {
       state: "active",
       credential_level: 1,
       originating_platform_id: session.platform_id,
+      document_expiry: session.document_expiry,
+      issuing_country: session.issuing_country,
+      issuing_province: session.issuing_province,
+      next_complycube_date: retentionEnd.toISOString().slice(0, 10),
       next_renewal_date: yearEnd.toISOString().slice(0, 10),
       year_starts_at: yearStart.toISOString(),
       year_ends_at: yearEnd.toISOString(),
@@ -89,6 +119,17 @@ serve(async (req) => {
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
+
+    if (needsCheck) {
+      const { error: rcErr } = await supabase.from("requirement_completions").insert({
+        vai,
+        requirement_key: "background_check",
+        platform_id: session.platform_id,
+        signed_version: "ran",
+        signed_at: session.background_check_at,
+      });
+      if (rcErr) throw new Error(rcErr.message);
+    }
 
     // Origination commission to originator (session platform). House null → skip.
     const { accrueCommission } = await import("../_shared/commission.ts");

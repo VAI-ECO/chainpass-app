@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 interface FaceServiceResult {
   vector: number[];
@@ -135,7 +136,8 @@ serve(async (req) => {
       console.error("[Rate Limit] Error checking attempts:", attemptsError);
     }
 
-    if (recentAttempts && recentAttempts.length >= 5) {
+    const maxAttempts = await getSettingNumber(supabase, "attempt_count_n");
+    if (recentAttempts && recentAttempts.length >= maxAttempts) {
       console.log(`[Rate Limit] Exceeded for V.A.I. ${vai} on platform ${platformId}`);
       return new Response(
         JSON.stringify({ error: "Too many attempts. Please try again later." }),

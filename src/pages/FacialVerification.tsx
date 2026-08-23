@@ -27,6 +27,7 @@ import {
 import chainpassLogo from "@/assets/chainpass-logo.svg";
 import { verificationNavigator } from "@/utils/verificationNavigation";
 import { supabase } from "@/integrations/supabase/client";
+import { getSettingNumber } from "@/lib/settings";
 
 type VerificationState = 
   | "initial" 
@@ -44,12 +45,19 @@ const FacialVerification = () => {
   const [faceAlignment, setFaceAlignment] = useState<FaceAlignment>("searching");
   const [countdown, setCountdown] = useState<number | null>(null);
   const [attempts, setAttempts] = useState(0);
+  const [maxAttempts, setMaxAttempts] = useState<number | null>(null);
   const [confidence, setConfidence] = useState<number | null>(null);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+
+  useEffect(() => {
+    getSettingNumber("attempt_count_n")
+      .then(setMaxAttempts)
+      .catch((e: Error) => console.error(e.message));
+  }, []);
 
   // Cleanup camera on unmount
   useEffect(() => {
@@ -184,7 +192,7 @@ const FacialVerification = () => {
     setCountdown(null);
     setFaceAlignment("searching");
     setConfidence(null);
-    if (attempts < 5) {
+    if (maxAttempts != null && attempts < maxAttempts) {
       startCamera();
     }
   };
@@ -424,7 +432,7 @@ const FacialVerification = () => {
   }
 
   if (state === "failed") {
-    const remainingAttempts = 5 - attempts;
+    const remainingAttempts = (maxAttempts ?? 0) - attempts;
     const showTips = attempts >= 3;
     
     return (
