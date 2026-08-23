@@ -14,6 +14,27 @@ SPENT A DAY ELIMINATING.**
 ⚠️⚠️ **CHAINPASS IS AN INFRASTRUCTURE COMPANY. AN AGE AND IDENTITY VERIFICATION COMPANY. IT
 IS NOT ASSOCIATED WITH ANY INDUSTRY ITS PLATFORMS SERVE.**
 
+
+# 0 — ⚠️⚠️ THE GRT — GOLDEN ROSE TOKEN. RULED 23 AUGUST 2026.
+
+⚠️⚠️ **THE GRT IS A CHAINPASS SERVICE. TOKEN ISSUANCE AS A SERVICE. VAIRIFY IS ONE CUSTOMER.**
+
+| # | |
+|---|---|
+| 1 | ⚠️⚠️ **CHAINPASS PROCESSES THE PURCHASE AND REMITS 95% TO THE PLATFORM THAT DELIVERED THE VALUE. THE 5% IS THE FEE, TAKEN AT SPEND.** |
+| 2 | ⚠️⚠️ **REMITTANCE IS AT SPEND, NOT AT PURCHASE.** |
+| 3 | ⚠️⚠️ **CHAINPASS NEVER HOLDS THE BALANCE AS ITS OWN. THE MONEY IS THE PLATFORM'S. CHAINPASS IS THE PROCESSOR OF RECORD.** |
+| 4 | ⚠️ **Standard tokens — the Golden Rose — spend across every platform that accepts the standard. Custom tokens are one platform only.** |
+| 5 | ⚠️⚠️ **THE PEG IS ONE ROSE, ONE DOLLAR, EVERYWHERE. WHAT VARIES IS WHAT A PLATFORM CHARGES IN TOKENS FOR ITS OWN GOODS.** |
+
+⚠️ **Adult platforms struggle to obtain payment processing. ChainPass is an identity company and is not associated with any industry its platforms serve** — §0 of this canon. **It can hold a processor relationship the platforms cannot.**
+
+⚠️⚠️ **SHE ALREADY GAVE CHAINPASS HER VERIFIED IDENTITY. GIVING CHAINPASS A CARD REVEALS NOTHING NEW. GIVING IT TO THE PLATFORM LINKS HER CARD TO AN ADULT PLATFORM.**
+
+Source: `RULINGS-VA-03` §3 · §6.
+
+---
+
 ---
 ---
 
@@ -1450,6 +1471,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **23 Aug** | 26 | ⚠️⚠️ **§0 ADDED — THE GRT AS A CHAINPASS SERVICE. 95% remitted at spend. ChainPass never holds the balance as its own. Peg is one Rose, one dollar.** | `RULINGS-VA-03` §3, §6. |
 | **23 Aug** | 25 | **One name per control.** `credential_term` → `credential_year_length_years`. `deferral_window` → `deferral_window_hours`. Term stays one year as a field. Face attempts read `attempt_count_n`. The hardcoded 365, +1 year, and 5 are deleted. | RULINGS-VA-02 §6 · §8 · §9. Two names is how the mint and the copy drift. |
 | **23 Aug** | 24 | **"four minutes" deleted from the §2 sequence block.** A canon step is not a stopwatch. | RULINGS-VA-02 §10. |
 | **22 Aug** | 23 | ⚠️⚠️ **`RULINGS-CP-03` FOLDED IN — TERMS TO ACCEPTANCE PAGE (§2 · §14.3); TWO-FRAME BASELINE (§2.7); CONTACT-PLUS-TERMS MINIMUM, USERNAME NOT CHAINPASS (§2.3); ACCESS/V.A.I. THREE-REQUIREMENT CAP, PRO UNCAPPED (§1.1a · §4C · §14.1); PLATFORM TERMS DISCLOSURE (§14.3); SHORTFALL NEVER REJECTION (§11.4); BASELINE GATED ON TERMS CHECKBOX; LE SEPARATE AFFIRMATION (§4D); RECOVERY TABLES ON CHAINPASS (§2.10). §2.3 ITEM 1a DELETED. HELD-FRAME SIMULTANEITY LANGUAGE DELETED.** | Owner's spoken word, 22 Aug. |
