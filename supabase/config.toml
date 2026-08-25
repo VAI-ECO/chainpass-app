@@ -155,3 +155,24 @@ verify_jwt = false
 
 [functions.face-stub]
 verify_jwt = false
+
+[functions.registry]
+verify_jwt = false
+
+[functions.rebaseline-request]
+verify_jwt = false
+
+[functions.service-state]
+verify_jwt = false
+
+[functions.evidence-package]
+verify_jwt = false
+
+[functions.identity-join]
+verify_jwt = false
+
+[functions.verify-vai-login]
+verify_jwt = false
+
+[functions.recovery]
+verify_jwt = false

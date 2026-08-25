@@ -2,6 +2,7 @@ import { SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { compareCaptureToBaseline, type Band } from "./band-compare.ts";
 import { recordRedAndResolve } from "./reds-threshold.ts";
 import { getSetting } from "./settings.ts";
+import { normaliseMatchOutput } from "./bank-adapter.ts";
 
 export type VisitRow = {
   vai: string;
@@ -44,7 +45,9 @@ export async function faceGateAgainstBaseline(
   vai: string,
   capture: string
 ): Promise<{ status: FaceGateStatus; band: Band }> {
-  const { band } = await compareCaptureToBaseline(supabase, vai, capture);
+  const compared = await compareCaptureToBaseline(supabase, vai, capture);
+  const internal = await normaliseMatchOutput(supabase, { band: compared.band });
+  const band = internal.band;
   if (band === "red") {
     const status = await recordRedAndResolve(supabase, vai);
     return { status, band };
@@ -108,7 +111,7 @@ export async function signFirstVisitTerms(
   }
 
   const { data: agreement, error: aErr } = await supabase
-    .from("agreements")
+    .from("enrolment_agreements")
     .insert({
       platform_id,
       type: "single",

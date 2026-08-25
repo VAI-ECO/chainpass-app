@@ -38,3 +38,24 @@ Deno.test("normalises result shape to band", async () => {
     throw new Error("red");
   }
 });
+
+Deno.test("one fixture per engine shape produces one internal result", async () => {
+  const shapes: Array<Record<string, unknown>> = [
+    { match: true, confidence: 0.99 },
+    { result: "match" },
+    { band: "green" },
+  ];
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) {
+    if (bandFromSimilarity(0.99, 0.8, 0.65) !== "green") throw new Error("green");
+    return;
+  }
+  const supabase = createClient(url, key);
+  for (const raw of shapes) {
+    const out = await normaliseMatchOutput(supabase, raw);
+    if (out.band !== "green" && out.band !== "yellow" && out.band !== "red") {
+      throw new Error(`bad band from ${JSON.stringify(raw)}`);
+    }
+  }
+});
