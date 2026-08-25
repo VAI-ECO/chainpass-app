@@ -30,9 +30,6 @@ verify_jwt = true
 [functions.send-partner-notification]
 verify_jwt = false
 
-[functions.send-to-vairify]
-verify_jwt = false
-
 [functions.run-retention-policy]
 verify_jwt = false
 
@@ -94,9 +91,6 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.complycube-verification-callback]
-verify_jwt = false
-
-[functions.verify-complycube-biometric]
 verify_jwt = false
 
 [functions.enrol-capture]
