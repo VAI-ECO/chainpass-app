@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CP-01-SN-42-P · MD01 Platforms as rows</title>
+<style>
+:root{
+--vf-bg:#020617;--vf-surface:#0B1120;--vf-surface-2:#111C2F;--vf-field:#0F172A;
+--vf-line:rgba(255,255,255,.10);--vf-line-strong:rgba(255,255,255,.16);--vf-line-hover:rgba(255,255,255,.30);
+--vf-ink:#F8FAFC;--vf-ink-2:#CBD5E1;--vf-ink-3:#94A3B8;--vf-ink-4:#64748B;
+--vf-accent:#6D3EE0;--vf-accent-hover:#7C4DEC;--vf-accent-active:#5B2FC4;--vf-accent-ink:#FFFFFF;--vf-accent-wash:rgba(109,62,224,.12);
+--vf-ok:#4ADE9B;--vf-warn:#FBBF24;--vf-danger:#EF4444;
+--vf-space-1:4px;--vf-space-2:8px;--vf-space-3:12px;--vf-space-4:16px;--vf-space-5:22px;--vf-space-6:32px;--vf-space-7:44px;
+--vf-radius-field:10px;--vf-radius-card:14px;--vf-radius-pill:999px;
+--vf-type-h1:800 27px/1.19;--vf-type-h2:700 20px/1.25;--vf-type-body:400 15px/1.55;--vf-type-small:400 13px/1.5;--vf-type-label:600 12px/1.2;
+--vf-mono:ui-monospace,SFMono-Regular,Menlo,monospace;--vf-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+--vf-target:44px;--vf-control-h:56px;--vf-column:640px;--vf-focus:0 0 0 3px rgba(109,62,224,.45);
+--vf-cam:280px;
+--vf-vote-live:#F59E0B;
+--vf-le-declared:#F94E00;--vf-bg-check:#FBBF24;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#e8e6e1;font-family:var(--vf-sans);padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px}
+.vf-statecap{font:600 11px/1.35 var(--vf-sans);letter-spacing:.11em;text-transform:uppercase;color:#5B6675;align-self:flex-start;margin-inline-start:2px;max-inline-size:900px}
+.vf-screen{background:var(--vf-bg);color:var(--vf-ink);display:flex;flex-direction:column;overflow:hidden;border-radius:10px;flex:none;position:relative}
+.vf-flow{flex:1;min-block-size:0;display:flex;flex-direction:column;inline-size:100%;max-inline-size:var(--vf-column);margin-inline:auto;padding-inline:24px;padding-block-end:var(--vf-space-6)}
+.vf-statusbar{block-size:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 6px;font:600 13px/1 var(--vf-sans);color:var(--vf-ink-3);flex:none;inline-size:100%;max-inline-size:var(--vf-column);margin-inline:auto}
+.vf-topnav{block-size:60px;flex:none;display:flex;align-items:center;justify-content:space-between;padding-inline:32px;border-block-end:1px solid var(--vf-line);font:var(--vf-type-small) var(--vf-sans);color:var(--vf-ink-3)}
+.vf-topnav .vf-wordmark{font-size:16px;color:var(--vf-ink)}
+.vf-h1{font:var(--vf-type-h1) var(--vf-sans);letter-spacing:-.012em;margin:0;text-wrap:pretty}
+.vf-h2{font:var(--vf-type-h2) var(--vf-sans);margin:0}
+.vf-body{font:var(--vf-type-body) var(--vf-sans);margin:0;text-wrap:pretty;color:var(--vf-ink-2)}
+.vf-body--lead{font:400 17px/1.5 var(--vf-sans);color:var(--vf-ink)}
+.vf-label{font:var(--vf-type-label) var(--vf-sans);letter-spacing:.13em;text-transform:uppercase;color:var(--vf-ink-3);margin:0}
+.vf-hint{font:var(--vf-type-small) var(--vf-sans);color:var(--vf-ink-3);margin:0;text-wrap:pretty}
+.vf-attrib{font:400 11px/1.5 var(--vf-sans);color:var(--vf-ink-4);margin:0}
+.vf-wordmark{letter-spacing:.01em}.vf-wordmark b{font-weight:900}.vf-wordmark span{font-weight:500}
+.vf-stack{display:flex;flex-direction:column;gap:var(--vf-space-4)}
+.vf-stack--tight{gap:var(--vf-space-3)}
+.vf-stack--loose{gap:var(--vf-space-5)}
+.vf-centre{flex:1;min-block-size:0;display:flex;flex-direction:column;justify-content:center;gap:var(--vf-space-5)}
+.vf-btn{inline-size:100%;min-block-size:var(--vf-control-h);border:0;border-radius:var(--vf-radius-pill);background:var(--vf-accent);color:var(--vf-accent-ink);font:600 16px/1.3 var(--vf-sans);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:var(--vf-space-2);padding-inline:20px}
+.vf-btn:hover,.vf-btn.is-hover{background:var(--vf-accent-hover)}
+.vf-btn:active,.vf-btn.is-active{background:var(--vf-accent-active)}
+.vf-btn:focus-visible,.vf-btn.is-focus{outline:none;box-shadow:var(--vf-focus)}
+.vf-btn:disabled,.vf-btn.is-disabled{background:#1E293B;color:var(--vf-ink-4);cursor:not-allowed}
+.vf-btn--ghost{background:transparent;border:1px solid var(--vf-line-strong);color:var(--vf-ink)}
+.vf-btn--ghost:hover,.vf-btn--ghost.is-hover{border-color:var(--vf-line-hover);background:rgba(255,255,255,.04)}
+.vf-btn--link{background:none;border:0;inline-size:auto;min-block-size:var(--vf-target);color:var(--vf-ink-3);font:var(--vf-type-body) var(--vf-sans);text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding-inline:var(--vf-space-3)}
+.vf-btn--link:hover,.vf-btn--link.is-hover{color:var(--vf-ink)}
+.vf-btn--link:focus-visible,.vf-btn--link.is-focus{outline:none;box-shadow:var(--vf-focus);border-radius:var(--vf-radius-pill)}
+.vf-btnrow{display:flex;gap:var(--vf-space-3)}
+.vf-btnrow .vf-btn{inline-size:auto;flex:1}
+.vf-field{inline-size:100%;min-block-size:var(--vf-control-h);background:var(--vf-field);color:var(--vf-ink);border:1px solid var(--vf-line-strong);border-radius:var(--vf-radius-field);padding-inline:16px;font:400 17px/1.2 var(--vf-sans);appearance:none}
+.vf-field::placeholder{color:var(--vf-ink-4)}
+.vf-field:hover,.vf-field.is-hover{border-color:rgba(255,255,255,.28)}
+.vf-field:focus-visible,.vf-field.is-focus{outline:none;border-color:var(--vf-accent);box-shadow:var(--vf-focus)}
+.vf-field:disabled,.vf-field.is-disabled{opacity:.45;cursor:not-allowed}
+.vf-field[aria-invalid="true"],.vf-field.is-error{border-color:var(--vf-danger)}
+.vf-field--vai{font:500 30px/1.2 var(--vf-mono);letter-spacing:.22em;text-align:center;min-block-size:76px;text-transform:uppercase}
+.vf-field--code{font:500 26px/1.2 var(--vf-mono);letter-spacing:.34em;text-align:center;min-block-size:70px}
+.vf-fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--vf-space-4)}
+.vf-legend{padding:0}
+.vf-error{display:flex;gap:var(--vf-space-2);font:var(--vf-type-small) var(--vf-sans);color:#FCA5A5;margin:0}
+.vf-check{display:flex;align-items:flex-start;gap:var(--vf-space-3);min-block-size:var(--vf-target)}
+.vf-check label{font:var(--vf-type-body) var(--vf-sans);color:var(--vf-ink);padding-block-start:2px}
+.vf-checkbox{appearance:none;inline-size:26px;block-size:26px;flex:none;margin:0;border:1px solid var(--vf-line-strong);border-radius:7px;background:var(--vf-field);cursor:pointer;position:relative}
+.vf-checkbox:hover,.vf-checkbox.is-hover{border-color:var(--vf-line-hover)}
+.vf-checkbox:checked{background:var(--vf-accent);border-color:var(--vf-accent)}
+.vf-checkbox:checked::after{content:"";position:absolute;inset-block-start:6px;inset-inline-start:8px;inline-size:8px;block-size:13px;border-inline-end:2px solid #fff;border-block-end:2px solid #fff;transform:rotate(42deg)}
+.vf-checkbox:focus-visible,.vf-checkbox.is-focus{outline:none;box-shadow:var(--vf-focus)}
+.vf-checkbox.is-error{border-color:var(--vf-danger)}
+.vf-switch{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--vf-space-4);min-block-size:var(--vf-target);padding-block:10px;border-block-end:1px solid var(--vf-line)}
+.vf-switch>span{display:flex;flex-direction:column;gap:3px}
+.vf-switch b{font:600 15px/1.35 var(--vf-sans)}
+.vf-switch small{font:var(--vf-type-small) var(--vf-sans);color:var(--vf-ink-3)}
+.vf-toggle{appearance:none;flex:none;inline-size:52px;block-size:30px;border-radius:var(--vf-radius-pill);background:#1E293B;border:1px solid var(--vf-line-strong);position:relative;cursor:pointer;margin:0}
+.vf-toggle::after{content:"";position:absolute;inset-block-start:3px;inset-inline-start:3px;inline-size:22px;block-size:22px;border-radius:var(--vf-radius-pill);background:var(--vf-ink-3)}
+.vf-toggle:checked{background:var(--vf-accent);border-color:var(--vf-accent)}
+.vf-toggle:checked::after{inset-inline-start:25px;background:#fff}
+.vf-toggle:hover,.vf-toggle.is-hover{border-color:var(--vf-line-hover)}
+.vf-toggle:focus-visible,.vf-toggle.is-focus{outline:none;box-shadow:var(--vf-focus)}
+.vf-toggle:disabled,.vf-toggle.is-disabled{opacity:.45;cursor:not-allowed}
+/* ---- the camera. Vairify opens it and does nothing else with a face. ---- */
+.vf-cam{inline-size:100%;block-size:var(--vf-cam);border-radius:var(--vf-radius-card);border:1px solid var(--vf-line-strong);background:repeating-linear-gradient(135deg,#0C1626 0 9px,#0A1220 9px 18px);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.vf-cam::after{content:"";position:absolute;inline-size:64%;aspect-ratio:3/4;border:2px dashed rgba(255,255,255,.20);border-radius:48% 48% 44% 44%}
+.vf-cam .vf-camnote{position:relative;font:600 11px/1.3 var(--vf-mono);letter-spacing:.10em;text-transform:uppercase;color:var(--vf-ink-4);text-align:center;padding-inline:20px}
+.vf-cam.is-sending::after{border-style:solid;border-color:var(--vf-accent)}
+.vf-cam.is-error::after{border-color:rgba(239,68,68,.55)}
+.vf-attempt{display:flex;align-items:center;justify-content:space-between;gap:var(--vf-space-3);font:600 12px/1.2 var(--vf-sans);letter-spacing:.11em;text-transform:uppercase;color:var(--vf-ink-3)}
+.vf-attempt .pips{display:flex;gap:6px}
+.vf-attempt .pip{inline-size:9px;block-size:9px;border-radius:var(--vf-radius-pill);background:#1E293B;border:1px solid var(--vf-line-strong)}
+.vf-attempt .pip.is-used{background:var(--vf-warn);border-color:var(--vf-warn)}
+.vf-attempt .pip.is-now{background:var(--vf-accent);border-color:var(--vf-accent)}
+.vf-banner{display:flex;gap:var(--vf-space-3);padding:12px 14px;border-radius:var(--vf-radius-field);background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.35);font:var(--vf-type-small) var(--vf-sans);color:#FDE68A}
+.vf-banner--danger{background:rgba(239,68,68,.10);border-color:rgba(239,68,68,.38);color:#FCA5A5}
+.vf-banner--ok{background:rgba(74,222,155,.10);border-color:rgba(74,222,155,.34);color:#A7F3CF}
+.vf-banner--note{background:rgba(255,255,255,.05);border-color:var(--vf-line-strong);color:var(--vf-ink-2)}
+.vf-card{background:var(--vf-surface);border:1px solid var(--vf-line);border-radius:var(--vf-radius-card);padding:var(--vf-space-4);display:flex;flex-direction:column;gap:var(--vf-space-3)}
+.vf-route{display:flex;align-items:center;gap:var(--vf-space-4);text-align:start;background:var(--vf-surface);border:1px solid var(--vf-line);border-radius:var(--vf-radius-card);padding:16px;min-block-size:var(--vf-target);cursor:pointer;color:var(--vf-ink);font:var(--vf-type-body) var(--vf-sans);inline-size:100%}
+.vf-route:hover,.vf-route.is-hover{border-color:var(--vf-line-hover)}
+.vf-route:focus-visible,.vf-route.is-focus{outline:none;box-shadow:var(--vf-focus)}
+.vf-route:active,.vf-route.is-active{background:rgba(255,255,255,.05)}
+.vf-route[aria-pressed="true"]{border-color:var(--vf-accent);background:var(--vf-accent-wash)}
+.vf-route:disabled,.vf-route.is-disabled{opacity:.45;cursor:not-allowed}
+.vf-route b{display:block;font:700 16px/1.3 var(--vf-sans)}
+.vf-route small{display:block;color:var(--vf-ink-3);font:var(--vf-type-small) var(--vf-sans)}
+.vf-token{display:inline-flex;align-items:center;gap:6px;border:1px dashed var(--vf-line-strong);border-radius:var(--vf-radius-field);padding:9px 12px;font:600 11px/1.3 var(--vf-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--vf-ink-4)}
+.vf-vai{font:500 22px/1.2 var(--vf-mono);letter-spacing:.20em;color:var(--vf-ink)}
+.vf-rows{display:flex;flex-direction:column;margin:0}
+.vf-row{min-block-size:var(--vf-target);display:flex;align-items:flex-start;justify-content:space-between;gap:var(--vf-space-4);padding-block:11px;border-block-end:1px solid var(--vf-line)}
+.vf-row dt{margin:0;font:var(--vf-type-body) var(--vf-sans);color:var(--vf-ink-2)}
+.vf-row dd{margin:0;text-align:end;font:600 16px/1.4 var(--vf-sans)}
+.vf-row dd.is-ok{color:var(--vf-ok)}
+.vf-row dd.is-warn{color:var(--vf-warn)}
+.vf-row dd.is-quiet{color:var(--vf-ink-4);font-weight:400}
+.vf-spinner{inline-size:34px;block-size:34px;border-radius:var(--vf-radius-pill);border:3px solid rgba(255,255,255,.14);border-block-start-color:var(--vf-accent);align-self:center}
+/* ---- review surfaces: mutual manual, and the requirements gate ---- */
+.vf-pair{display:grid;grid-template-columns:1fr;gap:var(--vf-space-4)}
+.vf-portrait{border:1px solid var(--vf-line-strong);border-radius:var(--vf-radius-card);background:repeating-linear-gradient(135deg,#141F33 0 8px,#0C1626 8px 16px);aspect-ratio:3/4;display:flex;align-items:flex-end;padding:14px;font:600 10px/1.3 var(--vf-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--vf-ink-4)}
+.vf-reqgrid{display:grid;grid-template-columns:1fr;gap:var(--vf-space-3)}
+.vf-req{display:flex;align-items:flex-start;gap:var(--vf-space-3);border:1px solid var(--vf-line);border-radius:var(--vf-radius-card);background:var(--vf-surface);padding:14px 16px}
+.vf-req .mark{inline-size:24px;block-size:24px;flex:none;border-radius:var(--vf-radius-pill);border:1px solid var(--vf-line-strong);display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--vf-sans);color:var(--vf-ink-3)}
+.vf-req.is-met .mark{background:rgba(74,222,155,.16);border-color:rgba(74,222,155,.5);color:#A7F3CF}
+.vf-req.is-missing .mark{background:rgba(251,191,36,.14);border-color:rgba(251,191,36,.5);color:#FDE68A}
+.vf-req b{display:block;font:600 15px/1.35 var(--vf-sans)}
+.vf-req small{display:block;font:var(--vf-type-small) var(--vf-sans);color:var(--vf-ink-3)}
+
+/* ---- operator dashboards · list surfaces ---- */
+.vf-page{inline-size:min(100% - 32px,1200px);margin-inline:auto}
+.vf-tbl{inline-size:100%;border-collapse:collapse;font:400 13px/1.45 var(--vf-sans)}
+.vf-tbl th,.vf-tbl td{text-align:start;padding:11px 10px;border-block-end:1px solid var(--vf-line);vertical-align:top}
+.vf-tbl th{font:700 9.5px/1.2 var(--vf-sans);letter-spacing:.11em;text-transform:uppercase;color:var(--vf-ink-3);white-space:nowrap}
+.vf-tbl td{color:var(--vf-ink-2)}
+.vf-tbl td.mono{font:400 13px/1.4 var(--vf-mono);letter-spacing:.08em;color:var(--vf-ink)}
+.vf-tbl tbody tr:hover{background:rgba(255,255,255,.03)}
+.vf-scroll{inline-size:100%;overflow-x:auto}
+.vf-kpis{display:grid;grid-template-columns:1fr;gap:var(--vf-space-3)}
+.vf-kpi{border:1px solid var(--vf-line);border-radius:var(--vf-radius-card);background:var(--vf-surface);padding:14px 15px;display:flex;flex-direction:column;gap:6px}
+.vf-kpi .lb{font:700 9.5px/1.2 var(--vf-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--vf-ink-4)}
+.vf-kpi .vl{font:600 15px/1.3 var(--vf-sans);color:var(--vf-ink)}
+.vf-kpi small{font:var(--vf-type-small) var(--vf-sans);color:var(--vf-ink-3)}
+.vf-sidebyside{display:grid;grid-template-columns:1fr;gap:var(--vf-space-4)}
+.vf-face{border:1px solid var(--vf-line-strong);border-radius:var(--vf-radius-card);background:repeating-linear-gradient(135deg,#141F33 0 8px,#0C1626 8px 16px);aspect-ratio:3/4;display:flex;align-items:flex-end;padding:14px;font:600 10px/1.3 var(--vf-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--vf-ink-4)}
+.vf-keyrow{display:flex;align-items:center;gap:var(--vf-space-3);padding-block:13px;border-block-end:1px solid var(--vf-line)}
+.vf-keyrow .k{flex:1;min-inline-size:0;font:400 13px/1.4 var(--vf-mono);letter-spacing:.06em;color:var(--vf-ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vf-sw{display:flex;align-items:center;gap:var(--vf-space-4);padding:16px;border-radius:var(--vf-radius-card);border:1px solid var(--vf-line-strong);background:var(--vf-surface-2)}
+.vf-sw .t{flex:1;min-inline-size:0;display:flex;flex-direction:column;gap:4px}
+.vf-sw .t b{font:600 15px/1.35 var(--vf-sans)}
+.vf-sw .t small{font:var(--vf-type-small) var(--vf-sans);color:var(--vf-ink-3)}
+.vf-log{display:flex;flex-direction:column;gap:4px;padding-block:12px;border-block-end:1px solid var(--vf-line)}
+.vf-log .hd{display:flex;flex-wrap:wrap;gap:4px 12px;font:400 11.5px/1.3 var(--vf-mono);letter-spacing:.05em;color:var(--vf-ink-3)}
+.vf-log p{margin:0;font:400 13.5px/1.45 var(--vf-sans);color:var(--vf-ink-2)}
+@media (min-width:768px){
+  .vf-kpis{grid-template-columns:1fr 1fr}
+  .vf-sidebyside{grid-template-columns:1fr 1fr}
+  .vf-flow{padding-inline:24px}
+}
+@media (min-width:1024px){
+  .vf-kpis{grid-template-columns:repeat(4,1fr)}
+  .vf-flow{padding-inline:32px}
+}
+.vf-screen{inline-size:390px;block-size:900px}
+</style></head>
+<body>
+<!-- CANON-CP-01 · Master dashboard · Phone 390 · below 768, the default with no query -->
+<!-- OFFICIAL BREAKPOINTS: phone below 768 is the DEFAULT WITH NO QUERY · @media (min-width:768px) tablet · @media (min-width:1024px) computer. NO FOURTH. -->
+<!-- CONTENT CAP: .vf-page is width:min(100% - 32px,1200px), margin-inline:auto — the gutter survives at the low edge of every band. -->
+<!-- LIST SURFACES. Real wide treatment: tables at full width with horizontal scroll on the phone, KPI grids at 2-up from 768 and 4-up from 1024. NOT the default flow column. -->
+<!-- EVERY FIGURE IS A SETTINGS POINTER. No number in copy on any screen. -->
+<!-- A platform reads only its own, scoped to the key. NEVER a legal name, a document, a baseline or a percentage anywhere a platform can read — §14.7. -->
+<p class="vf-statecap">CP-01-SN-42-P · default — §14.7. Platforms as rows — provider-only, and the master dashboard is provider-hosted regardless of what any platform builds.</p>
+<div class="vf-screen" data-screen-label="CP-01-SN-42-P" data-sn="CP-01-SN-42" data-size="P" data-state="default" data-theme="dark">
+  <div class="vf-statusbar"><span>9:41</span><span>▮</span></div>
+  <main class="vf-flow"><div class="vf-page vf-stack vf-stack--loose" style="padding-block:14px">
+            <p class="vf-label">Master · platforms</p>
+            <h1 class="vf-h1">Platforms</h1>
+            <div class="vf-scroll"><table class="vf-tbl" data-wire="master.platforms">
+                <thead><tr><th>Platform</th><th>State</th><th>Level</th><th>Blocks</th><th>Verifications</th><th>Reds</th></tr></thead>
+                <tbody><tr><td class="mono">A platform</td><td>Active</td><td>A level</td><td>—</td><td>—</td><td>—</td></tr><tr><td class="mono">A platform</td><td>Active</td><td>A level</td><td>—</td><td>—</td><td>—</td></tr><tr><td class="mono">A platform</td><td>Suspended</td><td>A level</td><td>—</td><td>—</td><td>—</td></tr></tbody>
+              </table></div>
+            <p class="vf-hint">Every value is a read. No figure is written into copy on any master surface.</p>
+  </div></main>
+</div>
+
+<p class="vf-statecap">CP-01-SN-42-P · one — One platform opened. Its configuration, its agreement, its keys — the same data the client dashboard reads, from the other side.</p>
+<div class="vf-screen" data-screen-label="CP-01-SN-42-P" data-sn="CP-01-SN-42" data-size="P" data-state="one" data-theme="dark">
+  <div class="vf-statusbar"><span>9:41</span><span>▮</span></div>
+  <main class="vf-flow"><div class="vf-page vf-stack vf-stack--loose" style="padding-block:14px">
+            <p class="vf-label">Master · a platform</p>
+            <h1 class="vf-h2">A platform</h1>
+            <dl class="vf-rows">
+              <div class="vf-row"><dt>Level</dt><dd data-wire="platform.level">A level</dd></div>
+              <div class="vf-row"><dt>Collection spec</dt><dd data-wire="platform.collection_spec">Read from config</dd></div>
+              <div class="vf-row"><dt>Requirements</dt><dd data-wire="platform.requirements">Read from config</dd></div>
+              <div class="vf-row"><dt>Keys issued</dt><dd data-wire="platform.keys">Read from the endpoint</dd></div>
+            </dl>
+  </div></main>
+</div>
+
+<p class="vf-statecap">CP-01-SN-42-P · launch — At launch there is one platform, and its own professional tier. The row count is a read, not a claim.</p>
+<div class="vf-screen" data-screen-label="CP-01-SN-42-P" data-sn="CP-01-SN-42" data-size="P" data-state="launch" data-theme="dark">
+  <div class="vf-statusbar"><span>9:41</span><span>▮</span></div>
+  <main class="vf-flow"><div class="vf-page vf-stack vf-stack--loose" style="padding-block:14px">
+            <p class="vf-label">Master · platforms</p>
+            <h1 class="vf-h2">At launch</h1>
+            <div class="vf-scroll"><table class="vf-tbl" data-wire="master.platforms">
+                <thead><tr><th>Platform</th><th>State</th><th>Note</th></tr></thead>
+                <tbody><tr><td class="mono">A platform</td><td>Active</td><td>The first client</td></tr><tr><td class="mono">Its professional tier</td><td>Active</td><td>Same API</td></tr></tbody>
+              </table></div>
+            <p class="vf-hint">Nothing platform-specific exists in the code. A platform-shaped endpoint is a second platform away from being a bug.</p>
+  </div></main>
+</div>
+
+<p class="vf-statecap">CP-01-SN-42-P · suspend — Suspending a platform is destructive and financial. Reason and actor recorded, and the audit log is append-only.</p>
+<div class="vf-screen" data-screen-label="CP-01-SN-42-P" data-sn="CP-01-SN-42" data-size="P" data-state="suspend" data-theme="dark">
+  <div class="vf-statusbar"><span>9:41</span><span>▮</span></div>
+  <main class="vf-flow"><div class="vf-page vf-stack vf-stack--loose" style="padding-block:14px">
+            <h1 class="vf-h1">Suspend a platform</h1>
+            <div class="vf-stack vf-stack--tight">
+              <label class="vf-label" for="rsn">Reason</label>
+              <input class="vf-field" type="text" id="rsn" data-wire="platform.suspend_reason">
+            </div>
+            <button type="button" class="vf-btn" data-wire="platform.suspend">Suspend</button>
+            <dl class="vf-rows">
+              <div class="vf-row"><dt>Recorded</dt><dd class="is-ok" data-wire="audit.entry">Actor, timestamp, before and after</dd></div>
+              <div class="vf-row"><dt>Deletable</dt><dd class="is-quiet">By nobody</dd></div>
+            </dl>
+  </div></main>
+</div>
+</body></html>
