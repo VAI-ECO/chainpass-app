@@ -51,7 +51,7 @@ async function cleanup() {
   await supabase.from("platform_visits").delete().eq("vai", VAI);
   await supabase.from("agreement_proofs").delete().eq("vai", VAI);
   // agreements referencing this vai
-  await supabase.from("agreements").delete().eq("vai_1", VAI);
+  await supabase.from("enrolment_agreements").delete().eq("vai_1", VAI);
   await supabase.from("blocks").delete().in("platform_id", [PLAT_L1, PLAT_L3]);
   await supabase.from("platform_agreements").delete().in("platform_id", [PLAT_L1, PLAT_L3]);
   await supabase.from("agreement_versions").delete().in("platform_id", [PLAT_L1, PLAT_L3]);
@@ -180,7 +180,7 @@ try {
   if (verErr) throw new Error(verErr.message);
 
   const { data: agr, error: agrErr } = await supabase
-    .from("agreements")
+    .from("enrolment_agreements")
     .insert({
       platform_id: PLAT_L3,
       type: "single",

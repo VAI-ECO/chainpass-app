@@ -45,7 +45,7 @@ export async function openAgreement(
   }
 ): Promise<{ id: string }> {
   const { data, error } = await supabase
-    .from("agreements")
+    .from("enrolment_agreements")
     .insert({
       platform_id: args.platform_id,
       type: args.type,
@@ -71,7 +71,7 @@ export async function verifyAgreementParty(
   args: { agreement_id: string; vai: string; capture: string }
 ): Promise<{ status: string; band?: string }> {
   const { data: agr, error } = await supabase
-    .from("agreements")
+    .from("enrolment_agreements")
     .select("*")
     .eq("id", args.agreement_id)
     .single();
@@ -81,13 +81,13 @@ export async function verifyAgreementParty(
   if (agr.expires_at && new Date(agr.expires_at) < now) {
     if (agr.type === "dual" && agr.status !== "complete") {
       await supabase
-        .from("agreements")
+        .from("enrolment_agreements")
         .update({ status: "void", closed_at: now.toISOString() })
         .eq("id", agr.id);
       return { status: "void" };
     }
     await supabase
-      .from("agreements")
+      .from("enrolment_agreements")
       .update({ status: "expired", closed_at: now.toISOString() })
       .eq("id", agr.id);
     return { status: "expired" };
@@ -113,7 +113,7 @@ export async function verifyAgreementParty(
 
   if (agr.type === "single") {
     await supabase
-      .from("agreements")
+      .from("enrolment_agreements")
       .update({ status: "complete", closed_at: now.toISOString() })
       .eq("id", agr.id);
     return { status: "complete", band };
@@ -127,14 +127,14 @@ export async function verifyAgreementParty(
 
   if ((count ?? 0) >= 2) {
     await supabase
-      .from("agreements")
+      .from("enrolment_agreements")
       .update({ status: "complete", closed_at: now.toISOString() })
       .eq("id", agr.id);
     return { status: "complete", band };
   }
 
   await supabase
-    .from("agreements")
+    .from("enrolment_agreements")
     .update({ status: "party1_verified" })
     .eq("id", agr.id);
   return { status: "party1_verified", band };
@@ -145,7 +145,7 @@ export async function getAgreementProof(
   agreement_id: string
 ): Promise<Record<string, unknown>> {
   const { data: agr, error } = await supabase
-    .from("agreements")
+    .from("enrolment_agreements")
     .select("*")
     .eq("id", agreement_id)
     .single();
@@ -159,7 +159,7 @@ export async function getAgreementProof(
     new Date(agr.expires_at) < new Date()
   ) {
     await supabase
-      .from("agreements")
+      .from("enrolment_agreements")
       .update({ status: "void", closed_at: new Date().toISOString() })
       .eq("id", agr.id);
     agr.status = "void";

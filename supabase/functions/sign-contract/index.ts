@@ -89,7 +89,7 @@ serve(async (req) => {
     }
 
     const enrolmentBound =
-      (session.enrolment_step ?? 1) >= 7 && !!session.held_capture;
+      (session.enrolment_step ?? 1) >= 9 && !!session.held_capture;
 
     if (!enrolmentBound) {
       if (facialMatchConfidence === undefined) {
@@ -162,7 +162,7 @@ serve(async (req) => {
     const ver = resolved.version;
 
     const { data: agr, error: aErr } = await supabase
-      .from("agreements")
+      .from("enrolment_agreements")
       .insert({
         platform_id: session.platform_id,
         type: "single",
