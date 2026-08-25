@@ -1,6 +1,6 @@
 # 00-SCREEN-REGISTER.md — chainpass-app
 
-**Repo:** `chainpass-app` · **branch:** `chainpass-fixes` · **canon:** CANON-CP-01 v2 (amended 20 Aug 2026)
+**Repo:** `chainpass-app` · **branch:** `chainpass-fixes` · **canon:** CANON-CP-01 (amended 22 Aug 2026 · `RULINGS-CP-03`)
 **Contract:** SPEC-DS-01 (20 Aug 2026). One canon in, one delivery out.
 
 ⚠️ **Numbering.** The `SN` column carries the SPEC-DS-01 §1 designation. The `Screen` column
@@ -18,51 +18,53 @@ plates with no responsive treatment to draw, so their Tablet cell is ✅ by natu
 | CANON-CP-01-SN-03 | §2 step 2 · §2.6 | CP23 Biometric consent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 | CANON-CP-01-SN-04 | §2 step 3 · §1.1a · §4C | CP03 Pay | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 | CANON-CP-01-SN-05 | §2 step 3 · §4A | CP04 Deferred payment · modal | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-06 | §2 step 4 · §2.3 · §2.9 | CP07 Register · username | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-06 | §2 step 4 · §2.3 · §2.9 | CP07 Register · contact | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 | CANON-CP-01-SN-07 | §2 step 5 | CP08 OTP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-08 | §2 step 6 · §2.2 · §2.7 | CP05 The verification company, embedded | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-08 | §2 step 6 · §2.2 · §2.7 | CP05 The verification company · frame one | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 | CANON-CP-01-SN-09 | §2 step 7 · §2.8 | CP06 The V.A.I. is revealed | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-10 | §2 step 8 · §4D.1 item 5 · §4D.2 | CP09 Both outcomes, rendered | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-11 | §2 step 8 · §4D.1 | CP10 Law enforcement declaration | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-12 | §2 step 8 · §4C.2 | CP11 Signature agreement | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-13 | §2 step 9 · §2.7 | CP24 The baseline is committed | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-14 | §2 step 10 · §10 | CP13 Congratulations | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-15 | §2 step 11 · §2.9 · §2.4 · SPEC-CP-01 §2.3 | CP14 The handoff | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-16 | 17 Aug · attempt count is a setting | CP16 Last attempt | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-17 | §9.1 items 2-3 | CP17 Re-baseline required | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-18 | §4B | CP18 Not active | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-19 | §11.2 · §11.3 | CP19 Requirements shortfall | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-20 | §10.1 · §10.2 · §10.4 | CP20 Renewal · the two-date test | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-21 | §4C.3 | CP21 A different platform · AVCHEXXX | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-22 | §14.3 · §14.2 | CP25 First visit · the platform's terms | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-23 | §1.1a · §5 · §7.3 · §14.4 | CP22 Rows and thresholds | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-24 | — | CP26 Unruled · not drawn | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-25 | §6 | V01 The operational call | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-26 | §6 | V02 Checking | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-27 | §7.2 | V03 Green | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-28 | §7.2 · §8 | V04 Yellow and red | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-29 | §9.1 item 2 | V05 Re-baseline required · the fourth state | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-30 | 17 Aug | V06 The failures column | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-31 | 17 Aug | V07 Side-by-side review | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-32 | 17 Aug | V08 Supplier obligations · health, image serve, recovery | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ⬜ |
-| CANON-CP-01-SN-33 | §14.6 s1 | CD01 Overview | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-34 | §14.6 s2 · §14.5 | CD02 Blocks | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-35 | §14.2 · §14.2b-c | CD03 Agreements | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-36 | §14.2a · §14.6 s4 | CD04 Proofs | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-37 | §14.5a · §14.6 s5 | CD05 Commission ledger | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-38 | §14.6 s6 · §14.2b · §2.4c | CD06 Configuration | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-39 | §14.6 s7 · 17 Aug | CD07 Health signal | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-40 | §14.6 s8 | CD08 API keys | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-41 | — | CD09 Unruled · not drawn | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-42 | §14.7 · §14.2b | MD01 Platforms as rows | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-43 | §5 · §14.4 | MD02 Providers as rows | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-44 | §1.1a · §7.3 · 17 Aug | MD03 Settings | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-45 | 17 Aug | MD04 The failures column | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-46 | §4B · §9.1 | MD05 Credentials by state | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-47 | §14.5 · §14.5a | MD06 Revenue by platform | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-48 | 17 Aug | MD07 The health switch | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-49 | §14.7 | MD08 Audit log | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| CANON-CP-01-SN-50 | — | MD09 Unruled · not drawn | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| CANON-CP-01-SN-10 | §2 step 9 · §4D.1 item 5 · §4D.2 | CP09 Both outcomes, rendered | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-11 | §2 step 9 · §4D.1 | CP10 Law enforcement declaration | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-12 | §2 step 9 · §4C.2 | CP11 Signature agreement | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-13 | §2 step 10 · §2.7 | CP24 The baseline is committed | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-14 | §2 step 11 · §10 | CP13 Congratulations | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-15 | §2 step 13 · §2.9 · §2.4 · SPEC-CP-01 §2.3 | CP14 The handoff | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-16 | 17 Aug · attempt count is a setting | CP16 Last attempt | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-17 | §9.1 items 2-3 | CP17 Re-baseline required | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-18 | §4B | CP18 Not active | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-19 | §11.2 · §11.3 | CP19 Requirements shortfall | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-20 | §10.1 · §10.2 · §10.4 | CP20 Renewal · the two-date test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-21 | §4C.3 | CP21 A different platform · AVCHEXXX | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-22 | §14.3 · §14.2 | CP25 First visit · the platform's terms | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-51 | §2 step 8 · §14.3 · `RULINGS-CP-03` §1 · §8 | CP27 Acceptance · terms and frame two | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | ⬜ |
+| CANON-CP-01-SN-52 | §2 step 12 · §2.10 · `RULINGS-CP-03` §7 | CP28 Account security | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | ⬜ |
+| CANON-CP-01-SN-23 | §1.1a · §5 · §7.3 · §14.4 | CP22 Rows and thresholds | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-24 | — | CP26 Unruled · not drawn | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-25 | §6 | V01 The operational call | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-26 | §6 | V02 Checking | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-27 | §7.2 | V03 Green | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-28 | §7.2 · §8 | V04 Yellow and red | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-29 | §9.1 item 2 | V05 Re-baseline required · the fourth state | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-30 | 17 Aug | V06 The failures column | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-31 | 17 Aug | V07 Side-by-side review | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-32 | 17 Aug | V08 Supplier obligations · health, image serve, recovery | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-33 | §14.6 s1 | CD01 Overview | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-34 | §14.6 s2 · §14.5 | CD02 Blocks | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-35 | §14.2 · §14.2b-c | CD03 Agreements | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-36 | §14.2a · §14.6 s4 | CD04 Proofs | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-37 | §14.5a · §14.6 s5 | CD05 Commission ledger | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-38 | §14.6 s6 · §14.2b · §2.4c | CD06 Configuration | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-39 | §14.6 s7 · 17 Aug | CD07 Health signal | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-40 | §14.6 s8 | CD08 API keys | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-41 | — | CD09 Unruled · not drawn | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-42 | §14.7 · §14.2b | MD01 Platforms as rows | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-43 | §5 · §14.4 | MD02 Providers as rows | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-44 | §1.1a · §7.3 · 17 Aug | MD03 Settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-45 | 17 Aug | MD04 The failures column | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-46 | §4B · §9.1 | MD05 Credentials by state | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-47 | §14.5 · §14.5a | MD06 Revenue by platform | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-48 | 17 Aug | MD07 The health switch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-49 | §14.7 | MD08 Audit log | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-50 | — | MD09 Unruled · not drawn | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 
 ## Retired — kept, stamped, never renumbered
 
@@ -201,3 +203,10 @@ files carry the contract defaults deliberately — stated per screen in the wiri
 | 21 Aug 2026 | Register opened. 50 live screens rowed, phone reference ✅, 24 wiring tables written (enrolment set). |
 | 21 Aug 2026 | File count reconciled before packaging: `grep -c html` = 73 (72 screen files + 00-INDEX.html), 72 per-size register rows. |
 | 21 Aug 2026 | File 1 (viewer app) FAILED owner check; owner conversion to 72 separated size files is the baseline. Corrections 1–4 applied: register per-size rows folded in, bespoke wide layouts (7 screens), full data-wire join, canon-ruled states on SN-04/SN-08. Enrolment rows ✅ through Wire. Returned for acceptance. |
+| 22 Aug 2026 | `RULINGS-CP-03` citations: SN-06 contact; SN-08 frame one; SN-10–12 step 9; SN-13 step 10; SN-14 step 11; SN-15 step 13. SN-51 acceptance and SN-52 account security added. Numbers not reused. |
+| 22 Aug 2026 | SN-19, SN-51, SN-52 Coded. Hosted function walk SN-01→SN-52→SN-15 and gate shortfall. Verified left ⬜ — browser screens not walked. Design still owes SN-51/52 drawings. |
+| 22 Aug 2026 | SN-33–50 dashboards deposited: `CP-01-CLIENT-DASHBOARD__2026-08-22` + `CP-01-MASTER-DASHBOARD__2026-08-22`, 62 files, corrected breakpoints. Drawn/Wire ✅. Coded and Verified stay ⬜. |
+| 22 Aug 2026 | SN-16–18 and SN-20–32 Coded (gate, renewal, viewer). Verified left ⬜. FACE_SERVICE stub + two-frame compare: frame two against frame one, both rows persist, band only. |
+| 22 Aug 2026 | SN-33–50 Coded. Pointers only — wire endpoints remain RED. CD09/MD09 and SN-45 outcome stay flagged. vec.chainpass.io does not resolve; hosted FACE_SERVICE stays on the stub. |
+| 25 Aug 2026 | **LIVE FACE CUT-OVER.** `vec.chainpass.io` DNS + TLS fixed; hosted `FACE_SERVICE_URL` → `https://vec.chainpass.io/embed`; six face-caller functions redeployed on the live contract. `enrol-baseline`/`_shared/enrol-baseline`/`face-client`/`face-service-stub` now send/accept `JSON { image: base64 }`; the hosted stub accepts it too. **BLOCKER:** live `/embed` `detect_face` decodes SCRFD scores as boxes and flags `multiple_faces_detected` on a single face — the matcher cannot be trusted to return a green band until the detector decode is fixed. CD09/MD09 and SN-45 outcome stay flagged. |
+| 25 Aug 2026 | DrawCode source deposited: `CP-01-SN Verification Viewer.dc.html` (SHA-256 `c35f348088962cd121da791f1f1ae3962cf2ed4c8f75f33844c7283137397627`). Eight labels in one file: V01 Camera · V02 Processing · V03 Success · V04 Failed · V05 Last attempt used · V06 Failures column · V07 Side-by-side review · V08 The facial stack. Phone 390 prototype, not a three-breakpoint recut. Does not replace the 21 Aug SN-25…32 separated-size set. |

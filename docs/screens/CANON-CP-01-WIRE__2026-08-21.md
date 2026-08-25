@@ -1,6 +1,6 @@
 # CANON-CP-01-WIRE__2026-08-21.md
 
-**Canon:** CANON-CP-01 v2 (amended 20 Aug 2026) · **contract:** SPEC-DS-01 §3 · **repo:** `chainpass-app`
+**Canon:** CANON-CP-01 (amended 22 Aug 2026 · `RULINGS-CP-03`) · **contract:** SPEC-DS-01 §3 · **repo:** `chainpass-app`
 
 ⚠️ **Set 1 of 4 — the enrolment set (SN-01 … SN-24).** Viewer (SN-25…32), client dashboard
 (SN-33…41) and master dashboard (SN-42…50) follow in the same file as each set lands.
@@ -94,14 +94,14 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 
 ---
 
-## CANON-CP-01-SN-06 — CP07 Register · username
+## CANON-CP-01-SN-06 — CP07 Register · contact
 
 | Field | Value |
 |---|---|
 | Route | /enrol/register |
-| Canon | §2 step 4 · §2.3 (collection spec) · §2.9 (the courier rule — no field the platform did not send out) |
+| Canon | §2 step 4 · §2.3 (collection spec — username only if the spec includes it) · §2.9 (the courier rule — no field the platform did not send out) |
 | Reads | platform.collection_spec |
-| Writes | POST /enrol/register → username, email/phone per spec |
+| Writes | POST /enrol/register → contact; username only when the spec requires it |
 | Settings used | — |
 | Nav in | CP03 · CP04 |
 | Nav out | CP08 |
@@ -131,9 +131,9 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /enrol/verify |
-| Canon | §2 step 6 · §2.2 · §2.7 (session locked end to end, item 5) |
+| Canon | §2 step 6 · §2.2 · §2.7 (frame one · provider match percentage recorded, never returned) |
 | Reads | provider adapter per §5 (registered row, not a build) |
-| Writes | provider session open; document and face go to the provider, never to the platform (§2.2) |
+| Writes | provider session open; frame one held; kyc_match_percent recorded on the session |
 | Settings used | `settings:provider_active` |
 | Nav in | CP08 |
 | Nav out | CP06 on success · CP16 on last attempt · CP17 on re-baseline |
@@ -152,7 +152,7 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Writes | origination row — written at issue, never by application code (§2.8 item 3) |
 | Settings used | — |
 | Nav in | CP05 |
-| Nav out | CP09 |
+| Nav out | SN-51 (acceptance) |
 | Gate | ⬜ Abandonment unruled — from here a live V.A.I. exists with unsigned documents and no baseline |
 | Fixed-390 | no |
 
@@ -163,11 +163,11 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /enrol/requirements |
-| Canon | §2 step 8 · §4D.1 item 5 · §4D.2 |
+| Canon | §2 step 9 · §4D.1 item 5 · §4D.2 · Pro only |
 | Reads | platform.requirements (§4C.3) · credential.requirements_on_file |
 | Writes | none |
 | Settings used | — |
-| Nav in | CP06 |
+| Nav in | SN-51 |
 | Nav out | CP10 · CP11 · CP24 when nothing is outstanding |
 | Gate | — |
 | Fixed-390 | no |
@@ -179,7 +179,7 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /enrol/declaration |
-| Canon | §2 step 8 · §4D.1 |
+| Canon | §2 step 9 · §4D.1 · own affirmation, not the terms checkbox |
 | Reads | document version, immutable and versioned (§14.2 items 2-3) |
 | Writes | POST /enrol/sign → signature stamped to the exact version seen (§14.2 item 4) |
 | Settings used | — |
@@ -195,7 +195,7 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /enrol/agreement |
-| Canon | §2 step 8 · §4C.2 (a user does not have to sign anything, but anything they do sign, they agreed in advance is binding) |
+| Canon | §2 step 9 · §4C.2 (a user does not have to sign anything, but anything they do sign, they agreed in advance is binding) |
 | Reads | document version |
 | Writes | POST /enrol/sign → signature bound to the face, stamped to the version |
 | Settings used | — |
@@ -211,11 +211,11 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /enrol/baseline |
-| Canon | §2 step 9 · §2.7 |
-| Reads | none |
-| Writes | baseline committed at ChainPass. The platform never receives, stores or matches the biometric. |
+| Canon | §2 step 10 · §2.7 · two frames · gated on terms checkbox |
+| Reads | held_capture (frame one) · acceptance_capture (frame two) · terms_accepted_at |
+| Writes | baseline committed at ChainPass from both frames. The platform never receives, stores or matches the biometric. |
 | Settings used | — |
-| Nav in | CP11 |
+| Nav in | SN-51 (Access / V.A.I.) · CP11 (Pro) |
 | Nav out | CP13 |
 | Gate | — |
 | Fixed-390 | no |
@@ -227,12 +227,12 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /enrol/done |
-| Canon | §2 step 10 · §10 (one calendar year — `settings:term_length`) |
+| Canon | §2 step 11 · §10 (`settings:credential_term`) |
 | Reads | credential.expires |
 | Writes | none |
 | Settings used | `settings:term_length` |
 | Nav in | CP24 |
-| Nav out | CP14 |
+| Nav out | SN-52 |
 | Gate | — |
 | Fixed-390 | no |
 
@@ -243,13 +243,45 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /enrol/return — **one fixed URL, zero parameters** (SPEC-CP-01 §2.5) |
-| Canon | §2 step 11 · §2.9 · §2.4 · §2.4a · SPEC-CP-01 §2.3-§2.6 |
+| Canon | §2 step 13 · §2.9 · §2.4 · §2.4a · SPEC-CP-01 §2.3-§2.6 |
 | Reads | cookie `cp_enrol` → 🔴 `enrolment_sessions` — no migration creates this table (SPEC-CP-01 §6 item 4). **Never reads the credential off the return trip** (SPEC-CP-01 §0). |
 | Writes | webhook side: verify signature, match correlation id, write fields, status `complete`, idempotent (SPEC-CP-01 §2.3). Session key → vault, blind-tagged, **never a column beside the V.A.I.** (§2.4c item 1) and **never to the browser** (SPEC-CP-01 §2.4). |
 | Settings used | `settings:handoff_poll_window` (15s proposed) · `settings:handback_nonce_ttl` (60s proposed) — **both settings, never constants** (§15 item 12) |
-| Nav in | CP13 · ChainPass redirect · handback nonce on a lost cookie (SPEC-CP-01 §2.6) |
+| Nav in | SN-52 · ChainPass redirect · handback nonce on a lost cookie (SPEC-CP-01 §2.6) |
 | Nav out | platform account · finishing state while the row is `pending` (**the redirect will sometimes beat the webhook — not an error**) · timeout leaves the row pending server-side |
 | Gate | 🔴 Handoff payload has no published shape (SPEC-CP-01 §6 item 1) · ⬜ signature scheme unruled (item 2) · ⬜ poll/TTL unruled (item 3) |
+| Fixed-390 | no |
+
+---
+
+## CANON-CP-01-SN-51 — CP27 Acceptance · terms and frame two
+
+| Field | Value |
+|---|---|
+| Route | /enrol/accept |
+| Canon | §2 step 8 · §14.3 · `RULINGS-CP-03` §1 · §8 |
+| Reads | platform terms version at ChainPass |
+| Writes | terms checkbox → `terms_accepted_at`; frame two → `acceptance_capture`. No box, no second capture, no baseline. |
+| Settings used | — |
+| Nav in | CP06 |
+| Nav out | Access / V.A.I. → CP24 · Pro → CP09 |
+| Gate | Design drawing owed. Built from canon text. |
+| Fixed-390 | no |
+
+---
+
+## CANON-CP-01-SN-52 — CP28 Account security
+
+| Field | Value |
+|---|---|
+| Route | /enrol/security |
+| Canon | §2 step 12 · §2.10 · `RULINGS-CP-03` §7 |
+| Reads | `security_question_options` |
+| Writes | three hashed answers · three hashed recovery codes · recovery contact. Last ChainPass screen. |
+| Settings used | `settings:recovery_code_count` · `settings:security_question_count` |
+| Nav in | CP13 |
+| Nav out | CP14 |
+| Gate | Design drawing owed. Custody is ChainPass. |
 | Fixed-390 | no |
 
 ---
@@ -355,7 +387,7 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Field | Value |
 |---|---|
 | Route | /terms/first-visit |
-| Canon | §14.3 · §14.2 · §14.2b item 2 · §14.2c item 4 (the notice is the platform's own words; ChainPass never summarises a legal change) |
+| Canon | §14.3 (acceptance-era — originating platform at enrolment step 8; any other platform on first visit) · §14.2 · §14.2b item 2 · §14.2c item 4 |
 | Reads | platform.terms current version — **the document itself, held at ChainPass, immutable and versioned** (§14.2 items 2-3) |
 | Writes | POST /terms/sign → face-bound, versioned, timestamped, pullable forever (§14.3 item 3) |
 | Settings used | — |
