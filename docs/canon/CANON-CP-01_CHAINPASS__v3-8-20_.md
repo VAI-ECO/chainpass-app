@@ -465,6 +465,7 @@ cannot be "I could not afford it."**
 | 1 | ⚠️⚠️ **ONCE. EVER. PER PERSON.** **Not per platform. Not per year.** ⚠️ **The credential is the person, so it cannot be reset by joining somewhere else.** |
 | 2 | ⚠️ **Negotiated with the platform.** ⚠️ **Vairify's window is `settings:deferral_window_hours`.** |
 | 3 | ⚠️⚠️ **THE CLOCK STARTS AT VERIFICATION, NOT AT PAYMENT.** **Deferring buys `settings:deferral_window_hours` of use and costs `settings:deferral_window_hours` of the term.** ⚠️ **There is no free look.** |
+| 3a | ⚠️⚠️ **BOTH STAND — 25 AUGUST.** **Payment is first (§2 step 2). The clock still starts at verification (item 3).** ⚠️ **The pay-versus-clock collision is closed. Neither rule yields.** |
 | 4 | ⚠️ **A MODAL states the terms at the moment of choosing.** ⚠️ **He clicks that he does not want to pay — and he is told this is the only time.** |
 | 5 | ⚠️ **"The next time there is no grace period."** |
 
