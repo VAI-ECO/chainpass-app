@@ -21,7 +21,7 @@ Deno.test("normalises confidence shape to band via settings", async () => {
   const supabase = createClient(url, key);
   const i = await normaliseMatchOutput(supabase, { match: true, confidence: 0.9 });
   if (i.band !== "green") throw new Error("green");
-  if (publicMatchShape(i).band !== "green") throw new Error("public");
+  if (publicMatchShape(i, 2).band !== "green") throw new Error("public");
 });
 
 Deno.test("normalises result shape to band", async () => {

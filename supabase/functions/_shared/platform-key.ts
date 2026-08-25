@@ -6,6 +6,7 @@ export type PlatformRow = {
   service_level: number | null;
   status: string | null;
   api_key_hash: string | null;
+  response_level: number | null;
 };
 
 export async function sha256Hex(value: string): Promise<string> {
@@ -32,7 +33,7 @@ export async function resolvePlatformByApiKey(
 
   const { data, error } = await supabase
     .from("platforms")
-    .select("id, display_name, service_level, status, api_key_hash")
+    .select("id, display_name, service_level, status, api_key_hash, response_level")
     .eq("api_key_hash", api_key_hash)
     .maybeSingle();
 

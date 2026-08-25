@@ -7,6 +7,7 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { bandFromSimilarity } from "./band-compare.ts";
 import { getSettingNumber } from "./settings.ts";
+import { parseResponseLevel, shapePublicResponse, internalFromBand } from "./response-level.ts";
 
 export type InternalMatchResult = {
   band: "green" | "yellow" | "red";
@@ -53,7 +54,14 @@ export function normaliseProviderVerdict(raw: Record<string, unknown>): Internal
   return { passed, session_key };
 }
 
-/** Public API documented shape — band only for match endpoints. */
-export function publicMatchShape(internal: InternalMatchResult): { band: string } {
-  return { band: internal.band };
+/** Public API documented shape — one of three, from platforms.response_level. */
+export function publicMatchShape(
+  internal: InternalMatchResult,
+  responseLevel: unknown = 1
+): Record<string, unknown> {
+  const sim = internal._similarity ?? 0;
+  return shapePublicResponse(
+    parseResponseLevel(responseLevel),
+    internalFromBand(internal.band, sim)
+  );
 }

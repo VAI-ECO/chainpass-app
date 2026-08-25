@@ -1,6 +1,6 @@
 /**
- * §7 / §16.3 item 5 — a band is returned, never a number or percentage.
- * Strip any accidental similarity / score / confidence / percent fields.
+ * §7 / §16.3 — band always; percentage only when response_level is 3.
+ * Strip accidental similarity / score / confidence fields.
  */
 
 const FORBIDDEN_KEYS = new Set([
@@ -8,7 +8,6 @@ const FORBIDDEN_KEYS = new Set([
   "score",
   "confidence",
   "percent",
-  "percentage",
   "match_score",
   "distance",
 ]);
@@ -34,13 +33,14 @@ export function assertNoPercentageInBody(body: Record<string, unknown>): void {
   }
 }
 
-/** Final public JSON for gate endpoints — drops forbidden keys. */
+/** Final public JSON for gate endpoints — drops forbidden keys. Numeric percentage may leave (level 3). */
 export function publicGateBody(
   body: Record<string, unknown>
 ): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(body)) {
     if (FORBIDDEN_KEYS.has(k)) continue;
+    if (k === "percentage" && typeof v !== "number") continue;
     out[k] = v;
   }
   assertNoPercentageInBody(out);

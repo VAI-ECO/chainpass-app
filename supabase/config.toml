@@ -150,5 +150,8 @@ verify_jwt = false
 [functions.master-settings]
 verify_jwt = false
 
+[functions.master-platforms]
+verify_jwt = false
+
 [functions.face-stub]
 verify_jwt = false

@@ -98,7 +98,7 @@ export default function MasterSettings() {
           ))
         )}
         <p className="my-2 leading-[1.45]">
-          A platform reads a band, never a number. The arithmetic never leaves.
+          Cut-offs stay global. What a platform is told is its response level.
         </p>
         <EnrolPrimaryButton onClick={() => setPane("list")}>Back</EnrolPrimaryButton>
         <EnrolNote>§7.3 · SN-44 bands.</EnrolNote>

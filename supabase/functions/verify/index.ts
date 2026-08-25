@@ -11,6 +11,11 @@ import { compareCaptureToBaseline } from "../_shared/band-compare.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 import { publicGateBody } from "../_shared/gate-response.ts";
 import { outcomeFromBand } from "../_shared/gate-visits.ts";
+import {
+  internalFromBand,
+  parseResponseLevel,
+  shapePublicResponse,
+} from "../_shared/response-level.ts";
 
 /**
  * POST /v1/verify — §16.5 in-session verify (≥2).
@@ -66,8 +71,10 @@ serve(async (req) => {
     }
 
     // Consumption burns THIS platform's block — originator earns nothing here (§14.5).
-    const { band } = await compareCaptureToBaseline(supabase, vai, capture);
+    const { band, similarity } = await compareCaptureToBaseline(supabase, vai, capture);
     const status = outcomeFromBand(band);
+    const level = parseResponseLevel(platform.response_level);
+    const shaped = shapePublicResponse(level, internalFromBand(band, similarity));
 
     const cons = await recordGateConsumption(supabase, {
       platform_id: platform.id,
@@ -79,7 +86,7 @@ serve(async (req) => {
       return json({ status: "block_depleted", admin_state: "depleted" }, 402);
     }
 
-    return json({ status, band });
+    return json({ status, ...shaped });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

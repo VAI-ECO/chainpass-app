@@ -5,6 +5,11 @@ import { getSettingNumber } from "../_shared/settings.ts";
 import { resolveAttemptEngine } from "../_shared/attempt-engine.ts";
 import { bandFromSimilarity } from "../_shared/band-compare.ts";
 import { recordRedAndResolve } from "../_shared/reds-threshold.ts";
+import {
+  internalFromBand,
+  parseResponseLevel,
+  shapePublicResponse,
+} from "../_shared/response-level.ts";
 
 interface FaceServiceResult {
   vector: number[];
@@ -99,7 +104,7 @@ serve(async (req) => {
     const keyHash = await hashServiceKey(serviceKeyHeader);
     const { data: platform, error: platformError } = await supabase
       .from("platforms")
-      .select("id")
+      .select("id, response_level")
       .eq("api_key_hash", keyHash)
       .single();
 
@@ -301,11 +306,16 @@ serve(async (req) => {
     });
 
     // Step 13: Return result — engine and bands are settings, never constants
+    const level = parseResponseLevel(platform.response_level);
+    const shaped = shapePublicResponse(
+      level,
+      internalFromBand(band, similarity)
+    );
     console.log(`[Result] ${result} band=${band} for V.A.I. ${vai} engine=${engineUsed}`);
     return new Response(
       JSON.stringify({
-        result,
-        band,
+        ...shaped,
+        ...(result === "rebaseline_required" ? { status: result } : {}),
         attempt: attemptIndex,
         attempt_max: maxAttempts,
         engine_used: engineUsed,
