@@ -6,7 +6,7 @@ import {
   computeConsumptionProjection,
   purchaseBlock,
 } from "../_shared/consumption.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 
 /**
  * /v1/blocks — remaining + alert vs settings:blocks_alert_threshold; purchase.
@@ -48,7 +48,7 @@ serve(async (req) => {
 
     if (req.method === "GET" || req.method === "POST") {
       const projection = await computeConsumptionProjection(supabase, platform.id);
-      const alertAt = await getSettingNumber(supabase, "blocks_alert_threshold");
+      const alertAt = await getSettingNumber(supabase, "blocks_alert_threshold") ?? refuseUnset("blocks_alert_threshold");
       const alert_low = projection.remaining <= alertAt;
       return new Response(
         JSON.stringify({

@@ -12,7 +12,10 @@ export const SdkSnippets = () => {
   const [amountCents, setAmountCents] = useState<number | null>(null);
 
   useEffect(() => {
-    getSettingNumber(SETTING_PRICE_VAI_PRO).then((p) => setAmountCents(Math.round(p * 100)));
+    getSettingNumber(SETTING_PRICE_VAI_PRO).then((p) => {
+      if (p == null) return;
+      setAmountCents(Math.round(p * 100));
+    });
   }, []);
 
   const copyToClipboard = (text: string) => {

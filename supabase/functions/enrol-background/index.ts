@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
-import { getSetting } from "../_shared/settings.ts";
+import { getSetting, refuseUnset } from "../_shared/settings.ts";
 import { requireComplyCubeApiKey } from "../_shared/enrol-capture.ts";
 import {
   extractKycSupplierIdentity,
@@ -68,7 +68,7 @@ serve(async (req) => {
       return json({ status: "not_required", check_did_not_run: true });
     }
 
-    const cost = await getSetting(supabase, "background_check_cost");
+    const cost = await getSetting(supabase, "background_check_cost") ?? refuseUnset("background_check_cost");
 
     const { data: supplier } = await supabase
       .from("service_registry")

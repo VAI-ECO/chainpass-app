@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 
 const getServiceClient = () => {
   const url = Deno.env.get("SUPABASE_URL");
@@ -33,7 +33,7 @@ serve(async (req) => {
     }
 
     const supabase = getServiceClient();
-    const sessionHours = await getSettingNumber(supabase, "enrol_session_hours");
+    const sessionHours = await getSettingNumber(supabase, "enrol_session_hours") ?? refuseUnset("enrol_session_hours");
     const expiresAt = new Date(
       Date.now() + sessionHours * 60 * 60 * 1000
     ).toISOString();

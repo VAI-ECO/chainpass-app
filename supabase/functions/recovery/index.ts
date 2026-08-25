@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { extractApiKey, resolvePlatformByApiKey } from "../_shared/platform-key.ts";
 import { hashSecret, normalizeAnswer } from "../_shared/enrol-security.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 
 /**
  * POST /v1/recovery — §14.6 surface 9.
@@ -56,7 +56,7 @@ serve(async (req) => {
 
     if (action === "set_questions") {
       const questions = Array.isArray(body.questions) ? body.questions : [];
-      const required = await getSettingNumber(supabase, "security_question_count");
+      const required = await getSettingNumber(supabase, "security_question_count") ?? refuseUnset("security_question_count");
       if (questions.length !== required) {
         return json({ error: "question_count_mismatch", required }, 400);
       }

@@ -1,7 +1,7 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { compareCaptureToBaseline, type Band } from "./band-compare.ts";
 import { recordRedAndResolve } from "./reds-threshold.ts";
-import { getSetting } from "./settings.ts";
+import { getSetting, refuseUnset } from "./settings.ts";
 import { normaliseMatchOutput } from "./bank-adapter.ts";
 
 export type VisitRow = {
@@ -126,7 +126,7 @@ export async function signFirstVisitTerms(
 
   if (aErr) throw new Error(`agreements insert failed: ${aErr.message}`);
 
-  const engine = await getSetting(supabase, "engine_attempt_default");
+  const engine = await getSetting(supabase, "engine_attempt_default") ?? refuseUnset("engine_attempt_default");
 
   const { error: pErr } = await supabase.from("agreement_proofs").insert({
     agreement_id: agreement.id,

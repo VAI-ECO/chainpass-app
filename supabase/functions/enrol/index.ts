@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { verifyEnrolmentToken } from "../_shared/enrolment-token.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 
 /**
  * POST /v1/enrol — open enrolment from a SIGNED TOKEN (§2.5).
@@ -66,7 +66,7 @@ serve(async (req) => {
     }
 
     const sessionId = crypto.randomUUID();
-    const sessionHours = await getSettingNumber(supabase, "enrol_session_hours");
+    const sessionHours = await getSettingNumber(supabase, "enrol_session_hours") ?? refuseUnset("enrol_session_hours");
     const expires = new Date(
       Date.now() + sessionHours * 60 * 60 * 1000
     ).toISOString();

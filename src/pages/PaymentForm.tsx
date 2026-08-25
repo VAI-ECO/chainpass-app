@@ -178,7 +178,7 @@ export default function PaymentForm() {
               <CardContent className="p-6 space-y-4">
                 <h3 className="font-semibold text-lg">Order Summary</h3>
                 <div className="space-y-3">
-                  <div className="flex justify-between"><div><p className="font-medium">V.A.I. Creation</p><p className="text-xs text-muted-foreground">Annual verification</p></div><p className="font-medium">${basePrice === null ? "…" : basePrice.toFixed(2)}</p></div>
+                  <div className="flex justify-between"><div><p className="font-medium">V.A.I. Creation</p><p className="text-xs text-muted-foreground">Annual verification</p></div><p className="font-medium">${basePrice === null ? "UNSET" : basePrice.toFixed(2)}</p></div>
                   {appliedCoupon && basePrice !== null && finalPrice !== null && <div className="flex justify-between text-success"><p className="font-medium">Discount ({appliedCoupon.code})</p><p className="font-medium">-${(basePrice - finalPrice).toFixed(2)}</p></div>}
                   <div className="border-t pt-3"><div className="flex justify-between items-center"><p className="font-semibold text-lg">Total</p><div className="text-right">{appliedCoupon && basePrice !== null && finalPrice !== null && basePrice !== finalPrice && <p className="text-sm text-muted-foreground line-through">${basePrice.toFixed(2)}</p>}<p className="font-bold text-2xl gradient-primary bg-clip-text text-transparent">${finalPrice === null ? "…" : finalPrice.toFixed(2)}</p></div></div></div>
                 </div>

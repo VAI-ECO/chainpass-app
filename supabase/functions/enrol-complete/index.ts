@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 
 /**
  * POST /v1/enrol/complete — after step 10 face match; before retrieval at 11.
@@ -57,7 +57,7 @@ serve(async (req) => {
     const term_years = await getSettingNumber(
       supabase,
       "credential_year_length_years"
-    );
+    ) ?? refuseUnset("credential_year_length_years");
 
     return json({
       status: "congratulations",

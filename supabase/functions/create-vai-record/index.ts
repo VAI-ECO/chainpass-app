@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { randomBytes } from "https://deno.land/std@0.177.0/node/crypto.ts";
 import { corsHeaders } from "../_shared/cors.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 
 const MAX_RETRIES = 10;
 
@@ -94,8 +94,8 @@ serve(async (req) => {
       });
     }
 
-    const trialHours = await getSettingNumber(supabase, "deferral_window_hours");
-    const termYears = await getSettingNumber(supabase, "credential_year_length_years");
+    const trialHours = await getSettingNumber(supabase, "deferral_window_hours") ?? refuseUnset("deferral_window_hours");
+    const termYears = await getSettingNumber(supabase, "credential_year_length_years") ?? refuseUnset("credential_year_length_years");
     const now = new Date();
     const expiresAt = new Date(now);
     expiresAt.setUTCFullYear(expiresAt.getUTCFullYear() + termYears);

@@ -146,7 +146,7 @@ export class ChainPassComplianceService {
         return {
           action: 'redirect_renewal',
           url: result.actions.renewalUrl!,
-          message: result.actions.message || `Your V.A.I. requires reactivation ($${price})`
+          message: result.actions.message || `Your V.A.I. requires reactivation (${price == null ? "UNSET" : "$" + price})`
         };
       }
 

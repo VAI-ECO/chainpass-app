@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import { serverToServerPayload } from "../_shared/enrol-handoff.ts";
 
 /**
@@ -60,8 +60,8 @@ serve(async (req) => {
       .select("id", { count: "exact", head: true })
       .eq("vai", session.vai.trim());
     if (cErr) throw new Error(cErr.message);
-    const questionCount = await getSettingNumber(supabase, "security_question_count");
-    const recoveryCodeCount = await getSettingNumber(supabase, "recovery_code_count");
+    const questionCount = await getSettingNumber(supabase, "security_question_count") ?? refuseUnset("security_question_count");
+    const recoveryCodeCount = await getSettingNumber(supabase, "recovery_code_count") ?? refuseUnset("recovery_code_count");
     if ((qCount ?? 0) < questionCount || (cCount ?? 0) < recoveryCodeCount) {
       return json({ error: "security_required_before_handoff" }, 403);
     }

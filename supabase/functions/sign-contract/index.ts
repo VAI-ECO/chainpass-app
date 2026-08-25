@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
-import { getSetting, getSettingNumber } from "../_shared/settings.ts";
+import { getSetting, getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import {
   bindShownToCurrent,
   resolveCurrentVersion,
@@ -95,7 +95,7 @@ serve(async (req) => {
       if (facialMatchConfidence === undefined) {
         return json({ success: false, error: "facialMatchConfidence is required" }, 400);
       }
-      const minConfidence = await getSettingNumber(supabase, "band_green_min");
+      const minConfidence = await getSettingNumber(supabase, "band_green_min") ?? refuseUnset("band_green_min");
       const confidence01 =
         facialMatchConfidence > 1 ? facialMatchConfidence / 100 : facialMatchConfidence;
       if (confidence01 < minConfidence) {
@@ -176,7 +176,7 @@ serve(async (req) => {
       .single();
     if (aErr) throw new Error(aErr.message);
 
-    const engine = await getSetting(supabase, "engine_attempt_default");
+    const engine = await getSetting(supabase, "engine_attempt_default") ?? refuseUnset("engine_attempt_default");
     const { data: proof, error: pErr } = await supabase
       .from("agreement_proofs")
       .insert({

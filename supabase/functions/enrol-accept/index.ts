@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
-import { getSetting } from "../_shared/settings.ts";
+import { getSetting, refuseUnset } from "../_shared/settings.ts";
 import {
   bindShownToCurrent,
   resolveCurrentVersion,
@@ -140,7 +140,7 @@ serve(async (req) => {
       .single();
     if (aErr) throw new Error(aErr.message);
 
-    const engine = await getSetting(supabase, "engine_attempt_default");
+    const engine = await getSetting(supabase, "engine_attempt_default") ?? refuseUnset("engine_attempt_default");
     const { error: pErr } = await supabase.from("agreement_proofs").insert({
       agreement_id: agr.id,
       agreement_version_id: bound.agreement_version_id,

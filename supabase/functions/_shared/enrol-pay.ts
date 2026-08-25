@@ -3,7 +3,7 @@
  * Never literals (§1.1a / §15 item 12).
  */
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
-import { getSettingNumber } from "./settings.ts";
+import { getSettingNumber, refuseUnset } from "./settings.ts";
 
 export type PayQuote = {
   required_credential_level: number;
@@ -40,8 +40,8 @@ export async function buildPayQuote(
   if (!pa) throw new Error("platform_agreements missing — cannot quote pay");
 
   const level = pa.required_credential_level ?? 1;
-  const priceStandard = await getSettingNumber(supabase, "price_vai");
-  const pricePro = await getSettingNumber(supabase, "price_vai_pro");
+  const priceStandard = await getSettingNumber(supabase, "price_vai") ?? refuseUnset("price_vai");
+  const pricePro = await getSettingNumber(supabase, "price_vai_pro") ?? refuseUnset("price_vai_pro");
   const price = level >= 3 ? pricePro : priceStandard;
   const upsell_difference =
     level < 3 ? pricePro - priceStandard : null;
@@ -51,7 +51,7 @@ export async function buildPayQuote(
     const window_hours =
       typeof pa.deferral_window_hours === "number" && pa.deferral_window_hours > 0
         ? pa.deferral_window_hours
-        : await getSettingNumber(supabase, "deferral_window_hours");
+        : await getSettingNumber(supabase, "deferral_window_hours") ?? refuseUnset("deferral_window_hours");
     deferral = { offered: true, window_hours, once_ever: true };
   }
 

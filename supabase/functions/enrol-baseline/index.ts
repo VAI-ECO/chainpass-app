@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
-import { getSetting, getSettingNumber } from "../_shared/settings.ts";
+import { getSetting, getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import { embedBothAndCompare, requireFaceService } from "../_shared/enrol-baseline.ts";
 
 /**
@@ -84,8 +84,8 @@ serve(async (req) => {
       );
     }
 
-    const greenMin = await getSettingNumber(supabase, "band_green_min");
-    const yellowMin = await getSettingNumber(supabase, "band_yellow_min");
+    const greenMin = await getSettingNumber(supabase, "band_green_min") ?? refuseUnset("band_green_min");
+    const yellowMin = await getSettingNumber(supabase, "band_yellow_min") ?? refuseUnset("band_yellow_min");
     const compared = await embedBothAndCompare(
       face,
       session.held_capture,
@@ -95,7 +95,7 @@ serve(async (req) => {
     );
     const frameOne = compared.frameOne;
     const frameTwo = compared.frameTwo;
-    const defaultModel = await getSetting(supabase, "engine_attempt_default");
+    const defaultModel = await getSetting(supabase, "engine_attempt_default") ?? refuseUnset("engine_attempt_default");
 
     let is_trial = false;
     if (session.platform_id) {

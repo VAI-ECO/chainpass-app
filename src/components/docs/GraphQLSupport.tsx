@@ -257,7 +257,10 @@ export const GraphQLSupport = () => {
   const [isExecuting, setIsExecuting] = useState(false);
 
   useEffect(() => {
-    getSettingNumber(SETTING_PRICE_VAI_PRO).then((p) => setAmountCents(Math.round(p * 100)));
+    getSettingNumber(SETTING_PRICE_VAI_PRO).then((p) => {
+      if (p == null) return;
+      setAmountCents(Math.round(p * 100));
+    });
   }, []);
 
   useEffect(() => {

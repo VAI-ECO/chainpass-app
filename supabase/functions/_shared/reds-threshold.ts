@@ -1,16 +1,16 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
-import { getSettingNumber } from "./settings.ts";
+import { getSettingNumber, refuseUnset } from "./settings.ts";
 
 /**
  * §9.1 item 2 — lifetime reds vs settings:reds_threshold.
  * Past the threshold, the next red returns rebaseline_required instead of another red.
- * Never invents the count — UNSET fails loud via getSettingNumber.
+ * Never invents the count — UNSET is null from the reader; this caller refuses.
  */
 export async function recordRedAndResolve(
   supabase: SupabaseClient,
   vai: string
 ): Promise<"no_match" | "rebaseline_required"> {
-  const threshold = await getSettingNumber(supabase, "reds_threshold");
+  const threshold = await getSettingNumber(supabase, "reds_threshold") ?? refuseUnset("reds_threshold");
 
   const { data: cred, error } = await supabase
     .from("credentials")

@@ -46,7 +46,7 @@ serve(async (req) => {
     }
 
     const capRaw = await getSetting(supabase, "rebaseline_cap_per_period");
-    if (capRaw !== "UNSET") {
+    if (capRaw != null) {
       const cap = Number(capRaw);
       if (!Number.isNaN(cap) && (cred.rebaseline_count ?? 0) >= cap) {
         return json({ error: "refused" }, 403);

@@ -1,5 +1,5 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
-import { getSettingNumber } from "./settings.ts";
+import { getSettingNumber, refuseUnset } from "./settings.ts";
 
 export type Band = "green" | "yellow" | "red";
 
@@ -117,8 +117,8 @@ export async function compareCaptureToBaseline(
   }
 
   const similarity = similarityResult as number;
-  const greenMin = await getSettingNumber(supabase, "band_green_min");
-  const yellowMin = await getSettingNumber(supabase, "band_yellow_min");
+  const greenMin = await getSettingNumber(supabase, "band_green_min") ?? refuseUnset("band_green_min");
+  const yellowMin = await getSettingNumber(supabase, "band_yellow_min") ?? refuseUnset("band_yellow_min");
 
   if (yellowMin > greenMin) {
     throw new Error(

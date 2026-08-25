@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import { resolveAttemptEngine } from "../_shared/attempt-engine.ts";
 import { bandFromSimilarity } from "../_shared/band-compare.ts";
 import { recordRedAndResolve } from "../_shared/reds-threshold.ts";
@@ -135,7 +135,7 @@ serve(async (req) => {
     const windowMinutes = await getSettingNumber(
       supabase,
       "facial_attempt_window_minutes"
-    );
+    ) ?? refuseUnset("facial_attempt_window_minutes");
     const windowStart = new Date(
       Date.now() - windowMinutes * 60 * 1000
     ).toISOString();
@@ -150,7 +150,7 @@ serve(async (req) => {
       console.error("[Rate Limit] Error checking attempts:", attemptsError);
     }
 
-    const maxAttempts = await getSettingNumber(supabase, "attempt_count_n");
+    const maxAttempts = await getSettingNumber(supabase, "attempt_count_n") ?? refuseUnset("attempt_count_n");
     const priorCount = recentAttempts?.length ?? 0;
     if (priorCount >= maxAttempts) {
       console.log(`[Rate Limit] Exceeded for V.A.I. ${vai} on platform ${platformId}`);
@@ -274,8 +274,8 @@ serve(async (req) => {
     console.log(`[Similarity] Cosine similarity: ${similarity}`);
 
     // Step 10: Band from settings — never FACE_MATCH_THRESHOLD or a constant.
-    const greenMin = await getSettingNumber(supabase, "band_green_min");
-    const yellowMin = await getSettingNumber(supabase, "band_yellow_min");
+    const greenMin = await getSettingNumber(supabase, "band_green_min") ?? refuseUnset("band_green_min");
+    const yellowMin = await getSettingNumber(supabase, "band_yellow_min") ?? refuseUnset("band_yellow_min");
     if (yellowMin > greenMin) {
       throw new Error(
         "settings.band_yellow_min must be <= settings.band_green_min"

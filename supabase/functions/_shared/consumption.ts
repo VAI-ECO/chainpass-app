@@ -1,5 +1,5 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
-import { getSettingNumber } from "./settings.ts";
+import { getSettingNumber, refuseUnset } from "./settings.ts";
 
 /**
  * §14.5 / §16.6 step 5 — block size from settings or platform agreement.
@@ -21,7 +21,7 @@ export async function resolveBlockSize(
     return pa.consumption_block_size;
   }
 
-  return getSettingNumber(supabase, "consumption_block_size");
+  return getSettingNumber(supabase, "consumption_block_size").then((n) => n ?? refuseUnset("consumption_block_size"));
 }
 
 /**
@@ -57,7 +57,7 @@ export async function computeConsumptionProjection(
 }> {
   const hours =
     windowHours ??
-    (await getSettingNumber(supabase, "blocks_burn_window_hours"));
+    ((await getSettingNumber(supabase, "blocks_burn_window_hours")) ?? refuseUnset("blocks_burn_window_hours"));
 
   const { data: blocks, error } = await supabase
     .from("blocks")

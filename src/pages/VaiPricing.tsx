@@ -47,7 +47,7 @@ export default function VaiPricing() {
   if (price === null || trialHours === null || termYears === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-950 p-4 text-gray-400">
-        Loading settings…
+        UNSET
       </div>
     );
   }

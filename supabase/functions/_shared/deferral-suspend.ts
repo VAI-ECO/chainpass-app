@@ -1,5 +1,5 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
-import { getSettingNumber } from "./settings.ts";
+import { getSettingNumber, refuseUnset } from "./settings.ts";
 import { emitEvent } from "./emit-event.ts";
 
 /**
@@ -13,7 +13,7 @@ export async function suspendExpiredDeferrals(
   const suspendAfterHours = await getSettingNumber(
     supabase,
     "deferral_suspend_after"
-  );
+  ) ?? refuseUnset("deferral_suspend_after");
 
   const { data: rows, error } = await supabase
     .from("credentials")

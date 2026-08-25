@@ -1,5 +1,5 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
-import { getSettingNumber } from "./settings.ts";
+import { getSettingNumber, refuseUnset } from "./settings.ts";
 import { accrueCommission } from "./commission.ts";
 
 /**
@@ -12,7 +12,7 @@ export async function advanceCredentialYearFromVerification(
   verified_at: Date = new Date()
 ): Promise<void> {
   // Window length from settings — prior multi-year figure superseded.
-  const years = await getSettingNumber(supabase, "credential_year_length_years");
+  const years = await getSettingNumber(supabase, "credential_year_length_years") ?? refuseUnset("credential_year_length_years");
   const start = verified_at;
   const end = new Date(start);
   end.setUTCFullYear(end.getUTCFullYear() + years);

@@ -9,7 +9,7 @@ import {
   normalizeAnswer,
 } from "../_shared/enrol-security.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 
 /**
  * POST /v1/enrol/security — CANON-CP-02 §1 step 11 retrieval.
@@ -54,8 +54,8 @@ serve(async (req) => {
       return json({ error: "face_match_required_before_retrieval" }, 403);
     }
 
-    const questionCount = await getSettingNumber(supabase, "security_question_count");
-    const recoveryCodeCount = await getSettingNumber(supabase, "recovery_code_count");
+    const questionCount = await getSettingNumber(supabase, "security_question_count") ?? refuseUnset("security_question_count");
+    const recoveryCodeCount = await getSettingNumber(supabase, "recovery_code_count") ?? refuseUnset("recovery_code_count");
     if (!Number.isInteger(questionCount) || questionCount < 1) {
       throw new Error("settings.security_question_count must be a positive integer");
     }

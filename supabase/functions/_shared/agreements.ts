@@ -1,5 +1,5 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
-import { getSetting } from "./settings.ts";
+import { getSetting, refuseUnset } from "./settings.ts";
 import { compareCaptureToBaseline } from "./band-compare.ts";
 import { outcomeFromBand } from "./gate-visits.ts";
 
@@ -102,7 +102,7 @@ export async function verifyAgreementParty(
     return { status: "no_match", band };
   }
 
-  const engine = await getSetting(supabase, "engine_attempt_default");
+  const engine = await getSetting(supabase, "engine_attempt_default") ?? refuseUnset("engine_attempt_default");
   const { error: pErr } = await supabase.from("agreement_proofs").insert({
     agreement_id: agr.id,
     agreement_version_id: agr.content_version_id, // VERSION id, never agreement id alone

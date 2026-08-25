@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import { corsHeaders } from "../_shared/cors.ts";
 
 interface FaceServiceResult {
@@ -134,11 +134,11 @@ serve(async (req) => {
     console.log(`[Session] V.A.I.: ${vai}, Platform: ${platformId}`);
 
     // Step 3: Rate limit check (per session) — count + window are settings
-    const maxRecent = await getSettingNumber(supabase, "facial_signature_max_recent");
+    const maxRecent = await getSettingNumber(supabase, "facial_signature_max_recent") ?? refuseUnset("facial_signature_max_recent");
     const windowMinutes = await getSettingNumber(
       supabase,
       "facial_signature_window_minutes"
-    );
+    ) ?? refuseUnset("facial_signature_window_minutes");
     const windowStart = new Date(
       Date.now() - windowMinutes * 60 * 1000
     ).toISOString();

@@ -45,9 +45,8 @@ export async function accrueCommission(
     typeof rules[rateKey] === "number" ? (rules[rateKey] as number) : null;
 
   if (rate == null) {
-    try {
-      rate = await getSettingNumber(supabase, `commission_${rateKey}`);
-    } catch {
+    rate = await getSettingNumber(supabase, `commission_${rateKey}`);
+    if (rate == null) {
       return { skipped: "no_rate" };
     }
   }
@@ -55,11 +54,7 @@ export async function accrueCommission(
   let cap: number | null =
     typeof rules.cap === "number" ? (rules.cap as number) : null;
   if (cap == null) {
-    try {
-      cap = await getSettingNumber(supabase, "commission_cap");
-    } catch {
-      cap = null;
-    }
+    cap = await getSettingNumber(supabase, "commission_cap");
   }
 
   let amount = rate;

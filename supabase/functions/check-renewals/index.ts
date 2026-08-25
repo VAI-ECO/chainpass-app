@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { emitEvent } from "../_shared/emit-event.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import { suspendExpiredDeferrals } from "../_shared/deferral-suspend.ts";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -52,8 +52,8 @@ serve(async (req) => {
 
     console.log(`[check-renewals] Processing ${credentials.length} credentials`);
 
-    const renewalWindowDays = await getSettingNumber(supabase, "renewal_window");
-    const termYears = await getSettingNumber(supabase, "credential_year_length_years");
+    const renewalWindowDays = await getSettingNumber(supabase, "renewal_window") ?? refuseUnset("renewal_window");
+    const termYears = await getSettingNumber(supabase, "credential_year_length_years") ?? refuseUnset("credential_year_length_years");
 
     let expiringEmitted = 0;
     let expiredSet = 0;

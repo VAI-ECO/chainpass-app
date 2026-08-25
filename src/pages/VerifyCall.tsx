@@ -24,7 +24,7 @@ export default function VerifyCall() {
 
   useEffect(() => {
     getSettingNumber("attempt_count_n")
-      .then((n) => setAttemptMax(String(n)))
+      .then((n) => setAttemptMax(n == null ? "settings:attempt_count_n" : String(n)))
       .catch(() => setAttemptMax("settings:attempt_count_n"));
   }, []);
 

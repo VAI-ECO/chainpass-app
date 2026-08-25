@@ -93,7 +93,7 @@ export default function PaymentSelection() {
             <CardTitle className="text-2xl md:text-3xl lg:text-4xl">Create Your V.A.I.</CardTitle>
             <div className="space-y-2">
               <div className="text-4xl md:text-5xl lg:text-6xl font-bold gradient-primary bg-clip-text text-transparent">
-                {loadError ? loadError : price === null ? "…" : `$${price}`}
+                {loadError ? loadError : price === null ? "UNSET" : `$${price}`}
               </div>
               <p className="text-sm md:text-base text-muted-foreground">Annual verification</p>
               <p className="text-base md:text-lg text-foreground">Usable on any ChainPass V.A.I. platform</p>

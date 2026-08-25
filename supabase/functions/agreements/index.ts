@@ -9,7 +9,7 @@ import {
   openAgreement,
   verifyAgreementParty,
 } from "../_shared/agreements.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 import { publicGateBody } from "../_shared/gate-response.ts";
 
@@ -70,7 +70,7 @@ serve(async (req) => {
         notice,
       });
 
-      const hours = await getSettingNumber(supabase, "agreement_open_hours");
+      const hours = await getSettingNumber(supabase, "agreement_open_hours") ?? refuseUnset("agreement_open_hours");
       const expires_at = new Date(Date.now() + hours * 60 * 60 * 1000).toISOString();
 
       const agr = await openAgreement(supabase, {

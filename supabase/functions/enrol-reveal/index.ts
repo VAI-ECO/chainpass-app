@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
-import { getSettingNumber } from "../_shared/settings.ts";
+import { getSettingNumber, refuseUnset } from "../_shared/settings.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 const VAI_ALPHABET = "ABCDEFGHJKLMNPQRTUVWXY23456789";
@@ -83,13 +83,13 @@ serve(async (req) => {
 
     const vai = await generateVAI(supabase);
     const yearStart = new Date();
-    const termYears = await getSettingNumber(supabase, "credential_year_length_years");
+    const termYears = await getSettingNumber(supabase, "credential_year_length_years") ?? refuseUnset("credential_year_length_years");
     const yearEnd = new Date(yearStart);
     yearEnd.setUTCFullYear(yearEnd.getUTCFullYear() + termYears);
     const retentionYears = await getSettingNumber(
       supabase,
       "provider_retention_years"
-    );
+    ) ?? refuseUnset("provider_retention_years");
     const retentionEnd = new Date(yearStart);
     retentionEnd.setUTCFullYear(retentionEnd.getUTCFullYear() + retentionYears);
 
@@ -101,7 +101,7 @@ serve(async (req) => {
       const suspendAfterHours = await getSettingNumber(
         supabase,
         "deferral_suspend_after"
-      );
+      ) ?? refuseUnset("deferral_suspend_after");
       deferral_expires_at = new Date(
         yearStart.getTime() + suspendAfterHours * 60 * 60 * 1000
       ).toISOString();
