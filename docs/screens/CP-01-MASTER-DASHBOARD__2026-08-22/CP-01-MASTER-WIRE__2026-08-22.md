@@ -19,7 +19,7 @@
 |---|---|---|
 | 1 | **Any outcome for a fraud finding** | **Ruling 6 — UNRULED: nothing, a flag, an order to re-baseline, or a credential state.** The report control on SN-45 is present and inert with the reason stated. **The reverse channel does not exist.** |
 | 2 | **A score anywhere on the review screen** | **17 August item 4 — staff are looking for obvious fraud, not a score and not a second opinion on the match.** |
-| 3 | **A queue the member waits on** | **Items 5–6 — she never waits on it. It is the provider's own record, not a gate.** |
+| 3 | **A queue the member waits on** | **Items 5–6 — the member never waits on it. It is the provider's own record, not a gate.** |
 | 4 | **Altering an audit entry or a signed agreement version** | **§14.7 never-list 1 — including the provider's own admin. Immutability is the storage.** Both controls drawn inert. |
 | 5 | **An operator unlock of a locked credential** | The cleared-by field accepts one value and the database refuses another. Drawn inert — a constraint, not a withheld permission. |
 | 6 | **A reason for a credential state, exposed to a platform** | **§14.8 item 6 — one word, never why.** |

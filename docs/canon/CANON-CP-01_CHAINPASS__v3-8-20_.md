@@ -29,7 +29,7 @@ IS NOT ASSOCIATED WITH ANY INDUSTRY ITS PLATFORMS SERVE.**
 
 ⚠️ **Adult platforms struggle to obtain payment processing. ChainPass is an identity company and is not associated with any industry its platforms serve** — §0 of this canon. **It can hold a processor relationship the platforms cannot.**
 
-⚠️⚠️ **SHE ALREADY GAVE CHAINPASS HER VERIFIED IDENTITY. GIVING CHAINPASS A CARD REVEALS NOTHING NEW. GIVING IT TO THE PLATFORM LINKS HER CARD TO AN ADULT PLATFORM.**
+⚠️⚠️ **THE MEMBER ALREADY GAVE CHAINPASS THE MEMBER VERIFIED IDENTITY. GIVING CHAINPASS A CARD REVEALS NOTHING NEW. GIVING IT TO THE PLATFORM LINKS THE MEMBER CARD TO AN ADULT PLATFORM.**
 
 Source: `RULINGS-VA-03` §3 · §6.
 
@@ -97,7 +97,7 @@ toward a credential, never ChainPass's price list** — `REF-TIERS-01` §9.1.
 
 ### ⚠️⚠️ ONE ENROLMENT FLOW. THE LEVEL IS A GATE — RULED 22 AUGUST
 
-⚠️⚠️ **ONE ENROLMENT FLOW. ONE CREDENTIAL. THE LEVEL DOES NOT CHANGE HOW SHE ENROLS.** ⚠️
+⚠️⚠️ **ONE ENROLMENT FLOW. ONE CREDENTIAL. THE LEVEL DOES NOT CHANGE HOW THE MEMBER ENROLS.** ⚠️
 **Common to every level: register · contact · KYC capture · reveal · acceptance (terms and
 second capture). Pro adds the platform's own requirements on top — nothing else differs.**
 
@@ -106,7 +106,7 @@ second capture). Pro adds the platform's own requirements on top — nothing els
 | 1 | ⚠️⚠️ **DO NOT BUILD SEPARATE FLOWS FOR ACCESS, V.A.I. AND PRO. THERE IS ONE FLOW.** |
 | 2 | ⚠️⚠️ **THE PLATFORM SETS THE GATE. A PLATFORM THAT REQUIRES V.A.I. REJECTS AN ACCESS HOLDER AT ITS DOOR.** |
 | 3 | ⚠️ **Rejection at a platform door is a platform switch, not a ChainPass build.** |
-| 4 | ⚠️ **The value of a higher level is what a platform lets her do inside, not a different enrolment.** |
+| 4 | ⚠️ **The value of a higher level is what a platform lets the member do inside, not a different enrolment.** |
 | 5 | ⚠️⚠️ **ACCESS AND V.A.I. PLATFORMS: UP TO THREE PLATFORM REQUIREMENTS AT THEIR DOOR. PRO: UNCAPPED — §4C · `RULINGS-CP-03` §3.** |
 
 ## 1.2 — ⚠️ The upsell
@@ -155,12 +155,12 @@ THE CODE IS MEASURED AGAINST THIS BLOCK.**
 13 ⚠️ KEY DELETED                      ChainPass deletes its copy — §2.4
 ```
 
-## 2.1 — ⚠️⚠️ THE WARNING COMES BEFORE HE PAYS
+## 2.1 — ⚠️⚠️ THE WARNING COMES BEFORE THE MEMBER PAYS
 
 > ⚠️ **"I don't want them to pay and then tell them we're going to plaster law enforcement
 > all over the place."**
 
-⚠️⚠️ **A DISCLOSURE HE LEARNS ABOUT AFTER THE MONEY IS SPENT IS NOT A CHOICE. HE CANNOT WALK
+⚠️⚠️ **A DISCLOSURE THE MEMBER LEARNS ABOUT AFTER THE MONEY IS SPENT IS NOT A CHOICE. THE MEMBER CANNOT WALK
 AWAY WITHOUT LOSING THE FEE.**
 
 **Screen 2 states, plainly:**
@@ -168,9 +168,9 @@ AWAY WITHOUT LOSING THE FEE.**
 | # | |
 |---|---|
 | 1 | ⚠️ **A background check will run.** |
-| 2 | ⚠️ **He will be asked to declare law enforcement affiliation.** |
-| 3 | ⚠️⚠️ **NEITHER EXCLUDES HIM.** |
-| 4 | ⚠️ **A result may show on the platform, and he will be shown exactly what that looks like before he answers** — §7 |
+| 2 | ⚠️ **The member will be asked to declare law enforcement affiliation.** |
+| 3 | ⚠️⚠️ **NEITHER EXCLUDES THE MEMBER.** |
+| 4 | ⚠️ **A result may show on the platform, and the member will be shown exactly what that looks like before the member answers** — §7 |
 
 > ⚠️ **"If they choose to do it anyway, they already know. So our danger is not showing, and
 > somebody getting arrested."**
@@ -179,7 +179,7 @@ AWAY WITHOUT LOSING THE FEE.**
 
 ## 2.2 — ⚠️ The provider is EMBEDDED, not a redirect
 
-⚠️⚠️ **HE NEVER LEAVES CHAINPASS.** **The provider's flow runs in a frame.**
+⚠️⚠️ **THE MEMBER NEVER LEAVES CHAINPASS.** **The provider's flow runs in a frame.**
 
 ⚠️ **The pilot proved this and it converts better than a redirect out and back.**
 
@@ -187,15 +187,15 @@ AWAY WITHOUT LOSING THE FEE.**
 
 ## 2.3 — ⚠️⚠️ REGISTRATION HAPPENS AT CHAINPASS, BEFORE THE HANDOFF
 
-⚠️⚠️ **THIS CLOSES A REAL HOLE.** **Without it he leaves with a seven-character number on a
-screen and nothing anywhere** — no account, no email, and one person one V.A.I. means he
+⚠️⚠️ **THIS CLOSES A REAL HOLE.** **Without it the member leaves with a seven-character number on a
+screen and nothing anywhere** — no account, no email, and one person one V.A.I. means the member
 cannot get another.
 
 | # | |
 |---|---|
 | 1 | ⚠️ **CONTACT — AND WHATEVER THE PLATFORM'S COLLECTION SPEC ADDS. MINIMUM: A CONTACT PLUS TERMS ACCEPTED BEFORE BASELINE — TERMS AT THE ACCEPTANCE PAGE — §14.3.** ❌ ⚠️⚠️ **NEVER A LEGAL NAME.** ⚠️ **Username only when the platform's collection spec includes it — not a ChainPass requirement.** |
 | 1b | ⚠️⚠️ **THE COLLECTION SPEC LIVES ON THE PLATFORM AGREEMENT AND SUPPORTS "AT LEAST ONE OF" GROUPS. IT IS NOT A FLAT LIST.** ⚠️ **Vairify's group is {email, phone}. Another platform picks differently. A Standard age-gate platform may collect nothing at all.** |
-| 2 | ⚠️ **He chooses which receives the OTP.** |
+| 2 | ⚠️ **The member chooses which receives the OTP.** |
 | 3 | ⚠️⚠️ **THE NUMBER SCREEN COMES AFTER THE OTP, SO THERE IS SOMEWHERE TO SEND IT.** |
 | 4 | ⚠️⚠️ **THE PLATFORM HAS NO REGISTRATION FORM FOR IDENTITY OR SECURITY. CHAINPASS COLLECTS CONTACT HERE; TERMS AT STEP 8; THE THREE SECURITY QUESTIONS AND RECOVERY CONTACT AT STEP 12 — §2.10.** ⚠️ **One custodian, one record, no copy in a platform's database.** |
 
@@ -207,13 +207,13 @@ the product.**
 
 ## 2.3a — ⚠️⚠️ ISSUED AT REVEAL. ACTIVATION IS SEPARATE — RULED 22 AUGUST
 
-⚠️⚠️ **THE NUMBER IS HERS THE MOMENT IDENTITY IS PROVEN AT STEP 7, WHETHER SHE GOES FURTHER OR
-NOT.** ⚠️ **The reveal is not her ID — it is the reveal of her V.A.I. number.**
+⚠️⚠️ **THE NUMBER IS THE MEMBER'S THE MOMENT IDENTITY IS PROVEN AT STEP 7, WHETHER THE MEMBER GOES FURTHER OR
+NOT.** ⚠️ **The reveal is not the member ID — it is the reveal of the member V.A.I. number.**
 
 | # | |
 |---|---|
 | 1 | ⚠️ **In substance the screen says: ChainPass has identified you. This number is yours. Complete registration and terms to activate it.** |
-| 2 | ⚠️⚠️ **AN ISSUED-BUT-UNACTIVATED CREDENTIAL IS A REAL STATE ON THE CREDENTIAL ROW AND NEEDS A SCREEN THAT PLAINLY STATES WHAT SHE HAS AND WHAT IS MISSING.** |
+| 2 | ⚠️⚠️ **AN ISSUED-BUT-UNACTIVATED CREDENTIAL IS A REAL STATE ON THE CREDENTIAL ROW AND NEEDS A SCREEN THAT PLAINLY STATES WHAT THE MEMBER HAS AND WHAT IS MISSING.** |
 | 3 | ⚠️ **Nothing downstream may assume the number appears later than step 7.** |
 
 ## 2.4 — ⚠️⚠️ THE SESSION KEY IS DELETED AT THE HANDOFF, NOT AT ISSUANCE
@@ -221,9 +221,9 @@ NOT.** ⚠️ **The reveal is not her ID — it is the reveal of her V.A.I. numb
 ⚠️ **Between coming back from the provider and being handed off, ChainPass still holds its
 copy.**
 
-⚠️⚠️ **SO A POWER CUT, A DEAD PHONE OR A CRASHED BROWSER IS RECOVERABLE.** **She re-runs the
+⚠️⚠️ **SO A POWER CUT, A DEAD PHONE OR A CRASHED BROWSER IS RECOVERABLE.** **The member re-runs the
 provider, the provider sees a duplicate and returns the same session key, ChainPass matches
-it, and she lands back where she was.**
+it, and the member lands back where the member was.**
 
 ⚠️ **The deletion is still commercially irrational and still happens. Only the trigger is
 precise.**
@@ -258,7 +258,7 @@ the platform lost its keys
         ↓
 ⚠️ THE MEMBER SHOWS UP, LIVE, AT A CAMERA
         ↓
-she runs the provider flow
+the member runs the provider flow
         ↓
 ⚠️ THE PROVIDER'S DUPLICATE DETECTION FIRES · returns the same session key
         ↓
@@ -269,8 +269,8 @@ ChainPass matches the V.A.I.
 
 | # | |
 |---|---|
-| 1 | ⚠️⚠️ **RECOVERY, NEVER RETRIEVAL. NO ENDPOINT RETURNS KEYS** — §14.6. ⚠️⚠️ **RECOVERY REQUIRES THE MEMBER, LIVE. A LOST DATABASE COMES BACK ONE PERSON AT A TIME AS THEY SHOW UP.** ⚠️ **That punishes the platform's negligence without punishing her.** |
-| 2 | ⚠️ **Nothing is re-issued from storage because nothing is stored. The key is re-derived from her face and her document, which is strictly better than a backup.** |
+| 1 | ⚠️⚠️ **RECOVERY, NEVER RETRIEVAL. NO ENDPOINT RETURNS KEYS** — §14.6. ⚠️⚠️ **RECOVERY REQUIRES THE MEMBER, LIVE. A LOST DATABASE COMES BACK ONE PERSON AT A TIME AS THEY SHOW UP.** ⚠️ **That punishes the platform's negligence without punishing the member.** |
+| 2 | ⚠️ **Nothing is re-issued from storage because nothing is stored. The key is re-derived from the member face and the member document, which is strictly better than a backup.** |
 | 3 | ⚠️ **This is §2.4's recovery mechanism generalised: the same duplicate-detection path that saves a crashed enrolment saves a platform's lost database.** |
 | 4 | ⚠️⚠️ **ONE PROVIDER TODAY, SO RECOVERY IS UNAMBIGUOUS.** ⬜ ⚠️⚠️ **AT TWO OR MORE PROVIDERS THIS BREAKS: THE PROVIDER IS ENCODED ONLY IN THE KEY, WHICH IS THE THING THAT IS LOST. THE DERIVATION MUST BE SOLVED BEFORE A SECOND PROVIDER IS ADDED — §3'S OPEN SPEC, NOW LOAD-BEARING.** |
 
@@ -284,7 +284,7 @@ CONSTRUCTION. OFFERED TO EVERY PLATFORM AT ONBOARDING — THEY SET IT UP ON THEI
 | # | |
 |---|---|
 | 1 | ⚠️⚠️ **A SIDECAR, NOT A TABLE. SESSION KEYS NEVER SIT IN THE PLATFORM'S MAIN DATABASE AS A COLUMN BESIDE THE V.A.I.** ⚠️ **The module is its own encrypted store, deployed separately. The app asks it "session key for this V.A.I."; it answers. Breach the main database and you hold V.A.I. numbers and no keys.** |
-| 2 | ⚠️⚠️ **DISASSOCIATED MEANS THE JOIN IS COMPUTED, NEVER STORED.** ⚠️ **Keys are indexed by a blind tag — `HMAC(platform_secret, VAI)` — and the secret lives in their runtime, not in the vault file.** ⚠️⚠️ **A HACKER WHO STEALS THE VAULT FILE HOLDS CIPHERTEXT UNDER KEYS HE DOESN'T HAVE, INDEXED BY TAGS HE CANNOT COMPUTE. THE FILE ALONE IS NOISE.** |
+| 2 | ⚠️⚠️ **DISASSOCIATED MEANS THE JOIN IS COMPUTED, NEVER STORED.** ⚠️ **Keys are indexed by a blind tag — `HMAC(platform_secret, VAI)` — and the secret lives in their runtime, not in the vault file.** ⚠️⚠️ **A HACKER WHO STEALS THE VAULT FILE HOLDS CIPHERTEXT UNDER KEYS THE MEMBER DOESN'T HAVE, INDEXED BY TAGS THE MEMBER CANNOT COMPUTE. THE FILE ALONE IS NOISE.** |
 | 3 | ⚠️⚠️ **LOSS-PROOFING IS THE MODULE'S JOB.** **Automatic encrypted replication to a second location of theirs, and optionally a sealed copy lodged at ChainPass.** ⚠️ **Loss requires losing the vault, the replica and the runtime secret simultaneously.** |
 | 4 | ⚠️⚠️ **THE SEALED COPY AT CHAINPASS IS OPAQUE TO CHAINPASS. IT IS UNDER THEIR VAULT KEY — WE STORE NOISE AS A FAVOUR.** ⚠️ **The vault key is generated on their machine at install. We never see it.** ⚠️⚠️ **THE DELETION STORY HOLDS: WE HOLD NO SESSION KEY AND NO READABLE ANYTHING.** |
 | 5 | ⚠️ **Recovery is "restore the replica." No ceremony, no member participation.** ⚠️ **§2.4b — recovery through the person — remains the path of last resort when everything is gone.** |
@@ -300,13 +300,13 @@ SCREENSHOT.**
 
 ## 2.6 — ⚠️⚠️ THE BIOMETRIC CONSENT — RULED 20 AUGUST
 
-⚠️⚠️ **CHAINPASS'S OWN AGREEMENT WITH HER, SIGNED AT STEP 2, BEFORE ANY CAPTURE. IT IS THE
+⚠️⚠️ **CHAINPASS'S OWN AGREEMENT WITH THE MEMBER, SIGNED AT STEP 2, BEFORE ANY CAPTURE. IT IS THE
 ONE SIGNING IN THE WHOLE SYSTEM THAT CAN NEVER BE WAIVED.**
 
 | # | |
 |---|---|
 | 1 | ⚠️⚠️ **CONSENT OBTAINED AFTER A CAPTURE IS NOT CONSENT.** ⚠️ **BIPA and GDPR both require it before collection.** |
-| 2 | ⚠️ **It is distinct from the signature agreement (§4C.2), which is the platform's, and from the platform's own terms, which she accepts at the acceptance page — §14.3.** |
+| 2 | ⚠️ **It is distinct from the signature agreement (§4C.2), which is the platform's, and from the platform's own terms, which the member accepts at the acceptance page — §14.3.** |
 | 3 | ⚠️⚠️ **THREE CONSENT LAYERS EXIST AND ALL THREE ARE MANDATORY: CHAINPASS↔PLATFORM AT ONBOARDING · CHAINPASS↔HOLDER AT ENROLMENT · PLATFORM↔HOLDER TERMS AT ACCEPTANCE (CHAINPASS-ADMINISTERED) AND ON FIRST VISIT TO ANY OTHER PLATFORM.** |
 
 ## 2.7 — ⚠️⚠️ THE BASELINE IS THE ROOT OF TRUST — RULED 20 AUGUST · 22 AUGUST
@@ -330,7 +330,7 @@ one camera session opens at step 6
    └─ FAIL → both frames discarded. Nothing was ever committed.
         ↓
 step 8 — acceptance page
-   ├─ she checks the platform terms box (required — she need not read them)
+   ├─ the member checks the platform terms box (required — the member need not read them)
    └─ ⚠️⚠️ FRAME TWO — second capture runs only after the box is checked
         ↓
 step 10 — both frames commit to the baseline
@@ -345,7 +345,7 @@ step 10 — both frames commit to the baseline
 | 3 | ⚠️⚠️ **BOTH FRAMES BUILD THE BASELINE. NOT ONE HELD FRAME COMMITTED LATER.** |
 | 4 | ⚠️ **ChainPass owns native-resolution frames it captured itself.** ⚠️⚠️ **NO DEPENDENCY ON THE PROVIDER RETURNING AN IMAGE. THE VERDICT AND THE PERCENTAGE ARE WHAT THE PROVIDER OWES.** |
 | 5 | ⚠️⚠️ **EACH CAPTURE MUST COME FROM AN UNBROKEN CAMERA SESSION AT ITS STEP. NO EXIT, NO BACKGROUNDING, NO RESUME BETWEEN PROVIDER AND FRAME ONE, OR BETWEEN TERMS CHECK AND FRAME TWO.** |
-| 5a | ⚠️⚠️ **A BREAK VOIDS THE CAPTURE AT THAT STEP, NOT THE ENROLMENT — RULED 20 AUGUST.** ⚠️ **She resubmits at the broken step.** ⚠️⚠️ **THE PROVIDER DOES NOT CHARGE FOR A RESUBMIT. IF ONE EVER DOES, CHAINPASS EATS THE COST.** |
+| 5a | ⚠️⚠️ **A BREAK VOIDS THE CAPTURE AT THAT STEP, NOT THE ENROLMENT — RULED 20 AUGUST.** ⚠️ **The member resubmits at the broken step.** ⚠️⚠️ **THE PROVIDER DOES NOT CHARGE FOR A RESUBMIT. IF ONE EVER DOES, CHAINPASS EATS THE COST.** |
 | 6 | ⚠️⚠️ **THE LAW ENFORCEMENT DECLARATION IS ITS OWN AFFIRMATION — NOT BUNDLED BEHIND THE TERMS CHECKBOX. ONE FACE CAPTURE MAY COVER BOTH — `RULINGS-CP-03` §9.** |
 
 ⚠️ **This is consistent with the facial stack ruling of 17 August: the enrolment captures are
@@ -391,7 +391,7 @@ HANDS BACK ITS OWN VERIFIED DATA.**
 | ⚠️⚠️ **CHAINPASS'S** | **The legal name · the document · the baseline · the band arithmetic** | ❌ ⚠️⚠️ **NEVER. DISCLOSING THEM IS THE ONE THING THE PRODUCT CANNOT DO.** |
 
 ⚠️ **The test is what each company needs to do its job. ChainPass verifies identity forever
-without ever knowing an email address. A platform needs to reach her, bill her and display
+without ever knowing an email address. A platform needs to reach the member, bill the member and display
 a handle, and has no use for a document.**
 
 ⚠️⚠️ **THIS IS WHAT MAKES THE ARRANGEMENT INFRASTRUCTURE RATHER THAN A VAIRIFY FAVOUR. IT
@@ -447,17 +447,17 @@ platform decides what a hit means. The person explains THERE.**
 # 4A — ⚠️⚠️ DEFERRED PAYMENT
 
 > ⚠️ **"If a provider says 'I want you verified,' we don't want that guy to not get verified
-> because he doesn't have the money. There's no excuse."**
+> because the member doesn't have the money. There's no excuse."**
 
-## 4A.1 — ⚠️ Why it exists — and it is for HER, not for him
+## 4A.1 — ⚠️ Why it exists — and it is for the platform, not for the member
 
-⚠️⚠️ **THE FEATURE STARTS FROM A PLATFORM NEED.** **She asks for verification and the answer
+⚠️⚠️ **THE FEATURE STARTS FROM A PLATFORM NEED.** **The platform asks for verification and the answer
 cannot be "I could not afford it."**
 
 > ⚠️⚠️ **"IN A WAY, IT'S FREE, IT'S SECURE, AND THERE'S NO EXCUSE. IF THEY SAY NO, THAT IN
 > ITSELF IS A SHIELD."**
 
-⚠️ **A refusal is now information.** **He had a way through and did not take it.**
+⚠️ **A refusal is now information.** **The member had a way through and did not take it.**
 
 ## 4A.2 — The terms
 
@@ -467,7 +467,7 @@ cannot be "I could not afford it."**
 | 2 | ⚠️ **Negotiated with the platform.** ⚠️ **Vairify's window is `settings:deferral_window_hours`.** |
 | 3 | ⚠️⚠️ **THE CLOCK STARTS AT VERIFICATION, NOT AT PAYMENT.** **Deferring buys `settings:deferral_window_hours` of use and costs `settings:deferral_window_hours` of the term.** ⚠️ **There is no free look.** |
 | 3a | ⚠️⚠️ **BOTH STAND — 25 AUGUST.** **Payment is first (§2 step 2). The clock still starts at verification (item 3).** ⚠️ **The pay-versus-clock collision is closed. Neither rule yields.** |
-| 4 | ⚠️ **A MODAL states the terms at the moment of choosing.** ⚠️ **He clicks that he does not want to pay — and he is told this is the only time.** |
+| 4 | ⚠️ **A MODAL states the terms at the moment of choosing.** ⚠️ **The member clicks that the member does not want to pay — and the member is told this is the only time.** |
 | 5 | ⚠️ **"The next time there is no grace period."** |
 
 ## 4A.3 — ⚠️⚠️ AT `settings:deferral_suspend_after`
@@ -482,7 +482,7 @@ cannot be "I could not afford it."**
 
 > ⚠️ **"We will let them know. Both sides."**
 
-⚠️ **She needs to know he is inside a deferral, and after `settings:deferral_suspend_after` that he chose not to
+⚠️ **The platform needs to know the member is inside a deferral, and after `settings:deferral_suspend_after` that the member chose not to
 complete it.** ⚠️⚠️ **DEFERRAL IS A STATE ON THE CREDENTIAL, VISIBLE TO BOTH PARTIES.**
 
 ## 4A.5 — ⬜ Owed
@@ -501,15 +501,15 @@ complete it.** ⚠️⚠️ **DEFERRAL IS A STATE ON THE CREDENTIAL, VISIBLE TO 
 | ❌ Rejected | Why |
 |---|---|
 | **"Invalid"** | ⚠️ **A claim about the NUMBER — reads as a typo or a fake, something that never existed** |
-| **"Expired"** | ⚠️ **A claim about his CONDUCT, and it sorts the lapse for her** |
-| ✅ **"Not active"** | ⚠️⚠️ **A FACT ABOUT A CREDENTIAL. VAIRIFY SAYS NOTHING ABOUT HIM.** |
+| **"Expired"** | ⚠️ **A claim about the member's CONDUCT, and it sorts the lapse for the platform** |
+| ✅ **"Not active"** | ⚠️⚠️ **A FACT ABOUT A CREDENTIAL. VAIRIFY SAYS NOTHING ABOUT THE MEMBER.** |
 
 ⚠️ **It covers deferral lapsed · expired · suspended · banned — in one word, unsorted.**
 
 ## 4B.2 — ⚠️⚠️ WHY THIS IS A SAFETY MECHANISM, NOT AN ERROR STATE
 
-> ⚠️ **"Guy beats up a girl. Doesn't get a V.A.I. But leaves a trace. He goes to see another
-> girl. His V.A.I. has expired. He says 'oh, I had it, my V.A.I. is expired.' That tells you
+> ⚠️ **"Guy beats up a girl. Doesn't get a V.A.I. But leaves a trace. The member goes to see another
+> girl. The member's V.A.I. has expired. The member says 'oh, I had it, my V.A.I. is expired.' That tells you
 > something's wrong."**
 
 | # | |
@@ -519,15 +519,15 @@ complete it.** ⚠️⚠️ **DEFERRAL IS A STATE ON THE CREDENTIAL, VISIBLE TO 
 | 3 | ⚠️⚠️ **THE HISTORY EXISTS AND IS UNREACHABLE. A CREDENTIAL MUST BE ACTIVE TO HAVE A HISTORY.** |
 | 4 | ⚠️⚠️ **AND IT CANNOT BE ESCAPED BY LAPSING. COMING BACK MEANS THE SAME V.A.I. ONE PERSON, ONE V.A.I., FOR LIFE.** |
 
-## 4B.3 — ⚠️ What she sees, and what she does not
+## 4B.3 — ⚠️ What the member sees, and what the member does not
 
-| ✅ She sees | ❌ She never sees |
+| ✅ The member sees | ❌ The member never sees |
 |---|---|
 | ⚠️ **`Not active`** | **Which kind of lapse it was** |
 | | **Anything behind it. The trace stays sealed.** |
 
 ⚠️⚠️ **THE SIGNAL IS THE STATE, NOT THE CONTENTS. THAT IS WHAT MAKES IT SURVIVE LEGALLY —
-VAIRIFY SAYS NOTHING ABOUT HIM, ONLY THAT THE CREDENTIAL IS NOT ACTIVE.**
+VAIRIFY SAYS NOTHING ABOUT THE MEMBER, ONLY THAT THE CREDENTIAL IS NOT ACTIVE.**
 
 ⚠️ **This is Vairify's rendering. ChainPass supplies the state.**
 
@@ -590,21 +590,21 @@ MEMBER — CHAINPASS WOULD NOT HAVE ASKED FOR THEM UNLESS VAIRIFY SAID SO.**
 **AV Chexx confirms adult performers are of age.**
 
 ```
-⚠️ SHE WALKS INTO A STUDIO
+⚠️ THE MEMBER WALKS INTO A STUDIO
         ↓
-⚠️ SHE GIVES THEM HER V.A.I. NUMBER
+⚠️ THE MEMBER GIVES THEM THE MEMBER V.A.I. NUMBER
         ↓
 ⚠️ THEY TYPE IT IN
         ↓
-⚠️ SHE SCANS HER FACE
+⚠️ THE MEMBER SCANS THE MEMBER FACE
         ↓
-⚠️⚠️ SHE IS LEGAL — AND THEY NEVER LEARN HER NAME
+⚠️⚠️ THE MEMBER IS LEGAL — AND THEY NEVER LEARN THE MEMBER NAME
 ```
 
 ⚠️ **They want ChainPass to keep those records.**
 
 ⚠️⚠️ **THEY DO NOT ASK FOR A LAW ENFORCEMENT DISCLOSURE. THEY ASK FOR A RELEASE ALLOWING
-THEM TO GIVE HER INFORMATION TO REGULATING AUTHORITIES.**
+THEM TO GIVE THE MEMBER INFORMATION TO REGULATING AUTHORITIES.**
 
 ⚠️ **Same credential. Same face. Same signature agreement. A different document.**
 
@@ -626,19 +626,19 @@ PLATFORM ELECTED FOR ENROLMENT** — `RULINGS-CP-02` §5.1 · `CANON-SA-07` *(va
 
 | # | |
 |---|---|
-| 1 | ⚠️⚠️ **HE IS DECLARING TO CHAINPASS — A NEUTRAL IDENTITY PROVIDER — NEVER TO THE PLATFORM.** |
-| 2 | ⚠️⚠️ **A PLATFORM-BRANDED DECLARATION LETS AN OFFICER ARGUE HE DECLARED TO THE PLATFORM. IN A JURISDICTION WHERE THE WORK IS ILLEGAL, THAT IS THE GAP HE NEEDS.** |
+| 1 | ⚠️⚠️ **THE MEMBER IS DECLARING TO CHAINPASS — A NEUTRAL IDENTITY PROVIDER — NEVER TO THE PLATFORM.** |
+| 2 | ⚠️⚠️ **A PLATFORM-BRANDED DECLARATION LETS AN OFFICER ARGUE THE MEMBER DECLARED TO THE PLATFORM. IN A JURISDICTION WHERE THE WORK IS ILLEGAL, THAT IS THE GAP THE MEMBER NEEDS.** |
 | 3 | ⚠️ **This must be legible on the page and in the record, not only in the schema.** |
 
-## 4D.1 — ⚠️ It is his statement, not a check
+## 4D.1 — ⚠️ It is the member's statement, not a check
 
 | # | |
 |---|---|
-| 1 | ⚠️ **He states whether he is affiliated with law enforcement.** |
+| 1 | ⚠️ **The member states whether the member is affiliated with law enforcement.** |
 | 2 | ⚠️⚠️ **NOTHING VERIFIES IT. THE COPY MUST NOT IMPLY ANYTHING DOES.** |
 | 3 | ⚠️ **Signed under penalty of perjury.** ⚠️⚠️ **STATE THE DOCUMENTED FACT, NEVER A PROMISED OUTCOME.** ❌ **"Would stand up in court" is cut and stays cut.** |
 | 4 | ⚠️ **Nobody is excluded. Law enforcement may hold a V.A.I. and use any platform.** |
-| 5 | ⚠️⚠️ **HE IS SHOWN BOTH OUTCOMES SIDE BY SIDE BEFORE HE ANSWERS.** **A civilian profile and a declared one, as they will actually look.** ⚠️ **Rendered, not described.** |
+| 5 | ⚠️⚠️ **THE MEMBER IS SHOWN BOTH OUTCOMES SIDE BY SIDE BEFORE THE MEMBER ANSWERS.** **A civilian profile and a declared one, as they will actually look.** ⚠️ **Rendered, not described.** |
 | 6 | ⚠️⚠️ **ITS OWN AFFIRMATION — NOT BUNDLED BEHIND THE TERMS CHECKBOX AT STEP 8. ONE FACE CAPTURE MAY COVER BOTH — `RULINGS-CP-03` §9.** |
 
 ## 4D.2 — ⚠️⚠️ THE TWO COLOURS
@@ -655,19 +655,19 @@ PLATFORM ELECTED FOR ENROLMENT** — `RULINGS-CP-02` §5.1 · `CANON-SA-07` *(va
 > ⚠️⚠️ **"LAW ENFORCEMENT IS MORE DANGEROUS THAN VIOLENT CRIME."**
 
 ⚠️ **An undeclared officer is an arrest, a charge and a record.** ⚠️ **A man with a history
-is a risk she can assess and decline.**
+is a risk the member can assess and decline.**
 
-⚠️⚠️ **ONE ENDS HER LIVELIHOOD. THE OTHER IS A DECISION SHE MAKES AT A DOOR.**
+⚠️⚠️ **ONE ENDS THE MEMBER LIVELIHOOD. THE OTHER IS A DECISION THE MEMBER MAKES AT A DOOR.**
 
 ### ⚠️ No badge, no label
 
-⚠️⚠️ **VAIRIFY NEVER CHARACTERISES HIM. THE ONLY WORDS ON THE PAGE ARE HIS OWN.**
+⚠️⚠️ **VAIRIFY NEVER CHARACTERISES THE MEMBER. THE ONLY WORDS ON THE PAGE ARE THE MEMBER'S OWN.**
 
 | # | |
 |---|---|
 | 1 | ⚠️ **The profile carries the colour.** |
-| 2 | ⚠️ **There is a place for him to explain, in his words.** |
-| 3 | ⚠️ **If he writes nothing, the colour stands alone.** ⚠️ **That is worse for him than any label, which is the incentive.** |
+| 2 | ⚠️ **There is a place for the member to explain, in the member's words.** |
+| 3 | ⚠️ **If the member writes nothing, the colour stands alone.** ⚠️ **That is worse for the member than any label, which is the incentive.** |
 
 ⬜ ⚠️ **A first-time member needs one line explaining what a coloured profile means. WHERE IT
 LIVES IS UNRULED.**
@@ -684,7 +684,7 @@ DOES NOT DECIDE WHETHER A MAN'S RECORD IS VISIBLE.**
 year. A system that honours a ruling once and quietly overturns it makes the Council
 decorative.**
 
-⬜ ⚠️ **What the panel sees: the fact of a hit and his explanation.** ⚠️⚠️ **NOT THE OFFENCE —
+⬜ ⚠️ **What the panel sees: the fact of a hit and the member's explanation.** ⚠️⚠️ **NOT THE OFFENCE —
 THAT DETAIL IS THE THING CHAINPASS DELIBERATELY NEVER RECEIVES.**
 
 ---
@@ -864,7 +864,7 @@ requires.**
 
 ## 11.3 — ⚠️⚠️ WHEN TWO PEOPLE MEET, NEITHER LEARNS WHAT THE OTHER LACKS
 
-> ⚠️ **"He's just notified that all the requirements have not been met, and the other person
+> ⚠️ **"The member is just notified that all the requirements have not been met, and the other person
 > has been notified."**
 
 | Who | What they learn |
@@ -902,7 +902,7 @@ PERSON.**
 | 6 | ⚠️⚠️ **R11 — ChainPass holds `credentials.complycube_client_id`, `not null`, read after enrolment by `revalidate:156,189`, `renew-credential:96`, `drain-queue:57,64,73`. THAT IS THE KEY IT MUST DELETE AT STEP 15. THE PATENT GATE IS UNMET.** | **Owner** |
 | 7 | ⚠️⚠️ **NO-PLATFORM ENROLMENT — WHOSE TERMS?** — `RULINGS-CP-02` §8 item 1 | **Owner** |
 | 8 | ✅ ⚠️ **REGISTER-STEP TERMS ACCEPTANCE — RESOLVED: ACCEPTANCE PAGE, STEP 8 — `RULINGS-CP-03` §1 · §8.** | — |
-| 9 | ⚠️ **SKINNED PAGE DISCLOSURE — WHAT MUST SHE BE TOLD ABOUT CHAINPASS HOLDING THE DATA?** — `RULINGS-CP-02` §8 item 3 | **Owner · MA-05** |
+| 9 | ⚠️ **SKINNED PAGE DISCLOSURE — WHAT MUST THE MEMBER BE TOLD ABOUT CHAINPASS HOLDING THE DATA?** — `RULINGS-CP-02` §8 item 3 | **Owner · MA-05** |
 | 10 | ⚠️ **EMAIL MAGIC LINK AS OTP ALTERNATIVE MID-ENROLMENT** — `RULINGS-CP-02` §6 item 6 | **Owner** |
 | 11 | ✅ ⚠️ **`CANON-MI-25` / `CANON-MI-33` — CUSTODY AT CHAINPASS — `RULINGS-CP-03` §7 · `FLAG-VAIRIFY-RULINGS-CP-03`. VAIRIFY CANON FLAGGED, NOT EDITED FROM HERE.** | — |
 
@@ -930,7 +930,7 @@ MAY ASK.**
 | Level | | What the platform may ask |
 |---|---|---|
 | **1** | ⚠️ **ACCESS** | ⚠️ **The door. One question at the gate: is this person real and of age.** ⚠️⚠️ **THIS IS THE STANDARD CREDENTIAL AT WORK — §4C.1.** |
-| **2** | ⚠️ **V.A.I.** | **The door plus inside. Repeated yes/no while she is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** ⚠️ **Up to three platform requirements at the door — §4C.3.** |
+| **2** | ⚠️ **V.A.I.** | **The door plus inside. Repeated yes/no while the member is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** ⚠️ **Up to three platform requirements at the door — §4C.3.** |
 | **3** | ⚠️ **PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED — §4C.2, §4C.3.** |
 
 ⚠️⚠️ **ENDPOINTS CHECK `agreement level ≥ endpoint's required level` AND NOTHING ELSE. ONE
@@ -967,7 +967,7 @@ IT.**
 | 5 | ⚠️⚠️ **A PLATFORM CANNOT REACH BACKWARDS. NOTHING IT DOES TODAY CHANGES WHAT SOMEONE AGREED TO LAST YEAR.** |
 | 6 | ⚠️ **The version history reads as a changelog — every version, its hash, when it went live, when it was superseded, and how many V.A.I.s are bound to it.** |
 | 7 | ⚠️⚠️ **AN OPEN AGREEMENT EXPIRES ON A TIMER. ONE PROOF ON AN EXPIRED TWO-PARTY AGREEMENT IS VOID. NOBODY HALF-SIGNS A CONTRACT.** |
-| 8 | ⚠️⚠️ **TERMS SIGNING RUNS ON THIS SAME MACHINERY — SUBTYPE `terms`. AT ENROLMENT ON THE ACCEPTANCE PAGE FOR THE ORIGINATING PLATFORM — §2 · §14.3. AT FIRST VISIT FOR ANY OTHER PLATFORM SHE ENTERS LATER. ONE PROOF SYSTEM. NEVER A SECOND SUBSYSTEM.** |
+| 8 | ⚠️⚠️ **TERMS SIGNING RUNS ON THIS SAME MACHINERY — SUBTYPE `terms`. AT ENROLMENT ON THE ACCEPTANCE PAGE FOR THE ORIGINATING PLATFORM — §2 · §14.3. AT FIRST VISIT FOR ANY OTHER PLATFORM THE MEMBER ENTERS LATER. ONE PROOF SYSTEM. NEVER A SECOND SUBSYSTEM.** |
 
 ⚠️ **This is §4C.2 expressed as an interface. The signature agreement is the standing
 consent that anything administered here is legally signed; this is the thing administered.**
@@ -996,7 +996,7 @@ READS IT FROM ITS DASHBOARD AND BY API.**
 | 3 | ⚠️⚠️ **A PLATFORM SEES ONLY ITS OWN. NEVER ANOTHER PLATFORM'S DOCUMENTS AND NEVER ANOTHER PLATFORM'S SIGNATURES.** |
 | 4 | ⚠️ **Pullable by API at any time, forever.** ⚠️⚠️ **A PLATFORM'S STORAGE FAILURE LOSES NOTHING, BECAUSE THE PLATFORM WAS NEVER THE CUSTODIAN.** |
 
-⚠️ **The member sees her own signed agreements too — which document, which version, when,
+⚠️ **The member sees the member own signed agreements too — which document, which version, when,
 and the document as it read at that moment.**
 
 ## 14.2b — ⚠️⚠️ PLATFORM ONBOARDING UPLOADS — RULED 20 AUGUST
@@ -1038,8 +1038,8 @@ TERMS, NO AGREEMENT, NO API KEY. NO PLATFORM MAY OPT OUT.**
 | # | |
 |---|---|
 | 1 | ⚠️ **A platform with no terms of its own takes ChainPass's minimum standard terms as the default.** |
-| 2 | ⚠️⚠️ **AT ENROLMENT, TERMS ARE ACCEPTED ON THE ACCEPTANCE PAGE — STEP 8 — WITH THE SECOND CAPTURE. CHAINPASS DISPLAYS THE TEXT, COLLECTS THE CHECKBOX, AND HOLDS THE RECORD. NO LEVEL EXEMPT. SHE NEED NOT READ THEM; THE BOX MUST BE CHECKED — `RULINGS-CP-03` §8.** |
-| 3 | ⚠️⚠️ **HER V.A.I. IS GOOD EVERYWHERE. SHE CANNOT ENTER A GIVEN PLATFORM WITHOUT HAVING ACCEPTED THAT PLATFORM'S TERMS — AT ENROLMENT FOR THE ORIGINATING PLATFORM, ON FIRST VISIT FOR ANY OTHER.** |
+| 2 | ⚠️⚠️ **AT ENROLMENT, TERMS ARE ACCEPTED ON THE ACCEPTANCE PAGE — STEP 8 — WITH THE SECOND CAPTURE. CHAINPASS DISPLAYS THE TEXT, COLLECTS THE CHECKBOX, AND HOLDS THE RECORD. NO LEVEL EXEMPT. THE MEMBER NEED NOT READ THEM; THE BOX MUST BE CHECKED — `RULINGS-CP-03` §8.** |
+| 3 | ⚠️⚠️ **THE MEMBER V.A.I. IS GOOD EVERYWHERE. THE MEMBER CANNOT ENTER A GIVEN PLATFORM WITHOUT HAVING ACCEPTED THAT PLATFORM'S TERMS — AT ENROLMENT FOR THE ORIGINATING PLATFORM, ON FIRST VISIT FOR ANY OTHER.** |
 | 4 | ⚠️⚠️ **A TERMS UPDATE RE-FIRES THE SIGNING ON NEXT VISIT. A CHANGED AGREEMENT IS A NEW AGREEMENT.** |
 | 5 | ⚠️ **Compliance is ChainPass's function. A platform does not administer its own terms acceptance.** |
 | 6 | ⚠️ **The proof is versioned, timestamped and retrievable forever.** |
@@ -1068,7 +1068,7 @@ the picker's supplier (§4) · whatever comes next.**
 | ⚠️ **ORIGINATION COMMISSION** | **ChainPass pays the originating platform, per its agreement** — §2.8 |
 
 ⚠️⚠️ **A CREDENTIAL HOLDER ARRIVING AT A NEW PLATFORM COSTS THAT PLATFORM CONSUMPTION AND
-EARNS IT NOTHING. THE ORIGINATOR KEEPS EARNING WHEREVER SHE GOES.**
+EARNS IT NOTHING. THE ORIGINATOR KEEPS EARNING WHEREVER THE ORIGINATOR GOES.**
 
 ## 14.5a — ⚠️⚠️ COMMISSIONS PAY THROUGH TROLLEY — RULED 20 AUGUST
 
@@ -1189,7 +1189,7 @@ SECOND PLATFORM AWAY FROM BEING A BUG.**
 | 2 | ⚠️⚠️ **THE SCREEN IS A SIDE-BY-SIDE. THE BASELINE AND THE SELFIE, TOGETHER, AT SIZE.** |
 | 3 | ⚠️ **ChainPass staff review it themselves.** |
 | 4 | ⚠️⚠️ **WHAT THEY ARE LOOKING FOR IS OBVIOUS FRAUD. NOT A SCORE, NOT A SECOND OPINION ON THE MATCH.** |
-| 5 | ⚠️⚠️ **THE MEMBER NEVER WAITS ON IT.** **She has already gone past the scanner with a one-time number or an OTP, or she is locked and heading to re-verification.** |
+| 5 | ⚠️⚠️ **THE MEMBER NEVER WAITS ON IT.** **The member has already gone past the scanner with a one-time number or an OTP, or the member is locked and heading to re-verification.** |
 | 6 | ⚠️ **It is ChainPass's own record, not a gate.** |
 
 ### ⚠️⚠️ FRAUD FOUND HAS NOWHERE TO GO
@@ -1367,7 +1367,7 @@ column is absent from this schema and must be added** — audit item 4.
 ## 16.4 — ⚠️ RENEWAL, AS A FLOW
 
 ```
-on her renewal payment:
+on the member renewal payment:
    document_expires_at > now()  AND  the provider retention window still live — §10.1
         ├─ ⚠️⚠️ YES → IN-HOUSE. face vs. stored baseline. verified_at updated. cost ≈ 0.
         └─ NO  → a fresh provider run. new document · new expiry · new baseline APPENDED.
@@ -1382,7 +1382,7 @@ THREE-YEAR NUMBER.**
 
 | Endpoint | Level | |
 |---|---|---|
-| `POST /v1/verify` | ≥ 2 | Live capture vs. baseline. Repeatable, any time she is inside. |
+| `POST /v1/verify` | ≥ 2 | Live capture vs. baseline. Repeatable, any time the member is inside. |
 | `POST /v1/photo-match` | ≥ 2 | ⚠️ Static uploaded image vs. baseline. ⬜ **Pending owner confirm.** |
 | `POST /v1/agreements` | 3 | type · vai_1 · vai_2? · the document per §14.2 → agreement_id |
 | `POST /v1/agreements/{id}/verify` | 3 | face capture per party → proof row on match. Single closes on one proof, dual on two. |
@@ -1473,7 +1473,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 | **20 Aug** | 15 | ⚠️⚠️ **§14.2b–c ADDED — ONBOARDING UPLOADS AND THE VERSION NOTICE.** Agreements and terms are uploaded at onboarding; terms may be elected for signing at registration; a new version carries the platform's own typed notice, stamped and immutable. | ⚠️ **The documents are configuration, declared with everything else.** ⚠️⚠️ **THE NOTICE IS THE PLATFORM'S WORDS — CHAINPASS NEVER CHARACTERISES A LEGAL CHANGE ON ANYONE'S BEHALF.** |
 | **20 Aug** | 14 | ⚠️⚠️ **§14.5a–§14.8 ADDED — TROLLEY, THE CLIENT API, ONE-API-TWO-DASHBOARDS, AND THE VAIRIFY SEAM.** | ⚠️⚠️ **COMMISSIONS PAY THROUGH TROLLEY SO CHAINPASS NEVER KNOWS WHO IT PAYS. THE API IS THE PRODUCT AND BOTH DASHBOARDS ARE CLIENTS OF IT. THE SESSION KEY IS NEVER AN ENDPOINT. VAIRIFY IS A CLIENT LIKE ANY OTHER — NOTHING VAIRIFY-SHAPED IN CHAINPASS CODE.** |
 | **20 Aug** | 12 | ⚠️⚠️ **§14.2 REVERSED — CHAINPASS HOLDS THE DOCUMENT ITSELF, IMMUTABLE AND VERSIONED. EVERY V.A.I. IS STAMPED TO THE EXACT VERSION IT SIGNED. §14.2a ADDED — NO HANDOFF; THE RECORD STAYS AT CHAINPASS AND THE PLATFORM READS IT FROM ITS DASHBOARD.** | ⚠️⚠️ **A PROOF THAT SAYS "THESE TWO AGREED TO DOCUMENT X" IS WORTH NOTHING IF THE PLATFORM HOLDS X AND CAN REWRITE IT. THE BLANK-ENVELOPE RULE CERTIFIED THE PEOPLE AND LEFT THE CONTENT EXPOSED.** ⚠️ **It also survives a platform closing, losing its database, or refusing to produce a document.** |
-| **20 Aug** | 13 | ⚠️⚠️ **§2.7 ITEM 5 SPLIT. THE LOCK BINDS THE CAPTURE TO THE PROVIDER'S CHECK. A BREAK VOIDS THE CAPTURE, NOT THE ENROLMENT — SHE RESUBMITS.** | ⚠️⚠️ **§2.7 SAID A BREAK VOIDS EVERYTHING AND §2.4 SAID AN INTERRUPTION IS RECOVERABLE. BOTH WERE IN THE CANON AND DESIGN DREW BOTH.** ⚠️ **The provider does not charge for a resubmit; if one does, ChainPass eats it.** |
+| **20 Aug** | 13 | ⚠️⚠️ **§2.7 ITEM 5 SPLIT. THE LOCK BINDS THE CAPTURE TO THE PROVIDER'S CHECK. A BREAK VOIDS THE CAPTURE, NOT THE ENROLMENT — THE MEMBER RESUBMITS.** | ⚠️⚠️ **§2.7 SAID A BREAK VOIDS EVERYTHING AND §2.4 SAID AN INTERRUPTION IS RECOVERABLE. BOTH WERE IN THE CANON AND DESIGN DREW BOTH.** ⚠️ **The provider does not charge for a resubmit; if one does, ChainPass eats it.** |
 | **20 Aug** | 11 | ⚠️⚠️ **§2.4 — THE PATENT GATE FLAGGED AGAINST §12 ITEM 6.** | ⚠️⚠️ **CHAINPASS STILL HOLDS `complycube_client_id`, NOT NULL, READ BY FOUR FUNCTIONS AFTER ENROLMENT. THE SECTION DESCRIBES AN INTENTION, NOT A BUILD.** |
 
 ---

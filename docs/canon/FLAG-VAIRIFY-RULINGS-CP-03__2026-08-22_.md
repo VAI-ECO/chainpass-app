@@ -13,7 +13,7 @@ Collected at enrolment step 12. Vairify reads lockout state; it does not own the
 
 | Section | Contradiction |
 |---|---|
-| **§2.1 item 1** | **"Three, chosen by her, at registration."** Registration/setup is ChainPass step 12, not Vairify registration. |
+| **§2.1 item 1** | **"Three, chosen by the member, at registration."** Registration/setup is ChainPass step 12, not Vairify registration. |
 | **§1.1 item 5** | **"Shown once at onboarding."** Onboarding in MI-25/MI-33 means Vairify's first screen; ruling 7 places issuance at ChainPass account security. |
 | **§3 items 1–3** | **Lockout enforcement "in the database" with RLP and CHECK on `cleared_by`.** Schema and constraint must live on ChainPass; Vairify canon still describes Vairify as custodian. |
 | **§4 (whole block)** | **"VAIRIFY SETS A PENDING STATE"** on `security_question_lockouts`. Pending/cleared rows are ChainPass's; Vairify should set pending via ChainPass API or read ChainPass state, not own the table. |

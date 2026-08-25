@@ -46,7 +46,7 @@ export default function EnrolAccept() {
             await videoRef.current.play();
           }
         } catch {
-          /* camera opens when she checks the box */
+          /* camera opens when the member checks the box */
         }
         setState("default");
       } catch (e) {

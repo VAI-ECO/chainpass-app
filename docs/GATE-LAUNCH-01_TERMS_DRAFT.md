@@ -66,7 +66,7 @@ physical risk is not a generated artifact |
 
 | # | |
 |---|---|
-| 1 | ⚠️⚠️ **Present `0-DRAFT` to a real member as terms she accepts** |
+| 1 | ⚠️⚠️ **Present `0-DRAFT` to a real member as terms the member accepts** |
 | 2 | ⚠️⚠️ **Make `terms_doc_ref` or `terms_version` NULLABLE to bypass the gate** |
 | 3 | ⚠️ **Treat the COALESCE label `'minimum standard terms'` as resolving to a document** |
 | 4 | ⚠️ **Edit or delete the draft row after any acceptance record exists** — versions are

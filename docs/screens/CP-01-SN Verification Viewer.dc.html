@@ -353,7 +353,7 @@ button:focus-visible{outline:2px solid #5170FF;outline-offset:2px}
             </div>
             <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:20px">
               <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              <div style="font-size:14.5px;line-height:1.55;color:#42465a;text-wrap:pretty">She is not waiting on this. She has already gone past the scanner with a one-time number or a code, or she is locked and on her way to re-verification. This is a record of what happened, not a gate.</div>
+              <div style="font-size:14.5px;line-height:1.55;color:#42465a;text-wrap:pretty">The member is not waiting on this. The member has already gone past the scanner with a one-time number or a code, or the member is locked and on the way to re-verification. This is a record of what happened, not a gate.</div>
             </div>
             <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:24px;border-color:#5170FF">
               <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
@@ -502,7 +502,7 @@ class Component extends DCLogic {
       healthDot: "width:12px;height:12px;display:block;flex:none;background:" + (this.state.matcherUp ? "#5170FF" : "#F94E00"),
       recoveryPath: this.state.matcherUp
         ? "Nothing to recover. While the signal reads healthy, a platform proceeds normally and no fallback is offered."
-        : "ChainPass states the path, not the platform: no attempt is spent while we are down, the member is told to come back rather than that she failed, the platform lets her in the way it already does when a face cannot be checked, and attempts resume from the count she had when the signal clears.",
+        : "ChainPass states the path, not the platform: no attempt is spent while we are down, the member is told to come back rather than that the member failed, the platform lets the member in the way it already does when a face cannot be checked, and attempts resume from the count the member had when the signal clears.",
       toggleMatcher: this.toggleMatcher,
       isStack: this.state.id === "stack",
       railA: this.rail(this.A, 0),

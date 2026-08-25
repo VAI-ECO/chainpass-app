@@ -166,7 +166,7 @@ body{margin:0;background:#e8e6e1;font-family:var(--vf-sans);padding:24px;display
 <!-- CONTENT CAP: .vf-page is width:min(100% - 32px,1200px), margin-inline:auto — the gutter survives at the low edge of every band. -->
 <!-- LIST SURFACES. Real wide treatment: tables at full width with horizontal scroll on the phone, KPI grids at 2-up from 768 and 4-up from 1024. NOT the default flow column. -->
 <!-- EVERY FIGURE IS A SETTINGS POINTER. No number in copy on any screen. -->
-<!-- A platform reads only its own, scoped to the key. NEVER a legal name, a document, a baseline or a percentage anywhere a platform can read — §14.7. -->
+<!-- A platform reads only its own, scoped to the key. NEVER verification inputs anywhere a platform can read. Only attestations leave — §14.7. -->
 <p class="vf-statecap">CP-01-SN-33-T · default — §14.6 item 1. Traffic: verifications run, gate passes and fails, enrolments originated, active credentials through their door. A platform reads only its own — every endpoint is scoped to the key.</p>
 <div class="vf-screen" data-screen-label="CP-01-SN-33-T" data-sn="CP-01-SN-33" data-size="T" data-state="default" data-theme="dark">
   <nav class="vf-topnav"><span class="vf-wordmark"><b>CHAIN</b><span>PASS</span></span><span>Client dashboard</span></nav>
@@ -191,7 +191,7 @@ body{margin:0;background:#e8e6e1;font-family:var(--vf-sans);padding:24px;display
             <dl class="vf-rows">
               <div class="vf-row"><dt>Your platform</dt><dd class="is-ok" data-wire="api.key_scope">Everything in §14.6</dd></div>
               <div class="vf-row"><dt>Another platform</dt><dd class="is-quiet">Nothing — not a permission, a scope</dd></div>
-              <div class="vf-row"><dt>A legal name, a document, a baseline</dt><dd class="is-quiet">Never readable by any platform</dd></div>
+              <div class="vf-row"><dt>Verification inputs</dt><dd class="is-quiet">Never readable by any platform</dd></div>
               <div class="vf-row"><dt>A percentage</dt><dd class="is-quiet">Never readable by any platform</dd></div>
             </dl>
             <p class="vf-hint">The dashboard has no private endpoints. There is nothing it can do that the API cannot.</p>

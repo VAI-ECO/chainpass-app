@@ -31,7 +31,7 @@ export default function ClientCommission() {
       <EnrolRow label="Rail" value="commission.rail" />
       <p className="my-2 leading-[1.45]">
         Every credential originated pays again at every renewal. The originator keeps
-        earning wherever she goes. The rate is never readable here.
+        earning wherever the originator goes. The rate is never readable here.
       </p>
       <EnrolNote>§14.6 item 5 · §14.5a · §14.7 never-list 2.</EnrolNote>
     </EnrolShell>

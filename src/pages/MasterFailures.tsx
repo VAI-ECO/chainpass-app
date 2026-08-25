@@ -16,7 +16,7 @@ export default function MasterFailures() {
       <EnrolRow label="Report fraud" value="inert — the outcome is UNRULED" />
       <p className="my-2 leading-[1.45]">
         Staff are looking for obvious fraud, not a score and not a second opinion on the
-        match. She never waits on this queue. It is the provider's own record, not a gate.
+        match. The member never waits on this queue. It is the provider's own record, not a gate.
       </p>
       <EnrolTitle>The outcome is unruled</EnrolTitle>
       <p className="my-2 leading-[1.45]">

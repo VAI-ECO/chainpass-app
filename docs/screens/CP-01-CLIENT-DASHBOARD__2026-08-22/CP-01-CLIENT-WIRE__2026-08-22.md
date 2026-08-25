@@ -18,7 +18,7 @@
 | # | Not drawn | Ruling |
 |---|---|---|
 | 1 | **A session-key endpoint, or any way to read one** | **§14.6 rule 2 — not an endpoint and never will be. It leaves once at the handoff and the copy is deleted.** SN-33 and SN-40 state the absence rather than omitting it: not withheld, we do not have it. |
-| 2 | **A legal name, a document, a baseline or a percentage** | **§14.7 never-list 2 — never anywhere a platform can read.** Stated on SN-36 and SN-37, where someone would look for one. |
+| 2 | **Verification inputs** | **§14.7 never-list 2 — never anywhere a platform can read.** Stated on SN-36 and SN-37, where someone would look for one. |
 | 3 | **Another platform's data, at any depth** | **§14.6 rule 1 — every endpoint is scoped to the key.** A scope, not a permission. |
 | 4 | **Any private dashboard capability** | **§14.7 — no private endpoints; nothing it can do that the API cannot.** |
 | 5 | **Editing a published agreement version** | **§14.7 never-list 1 — immutability is the storage, not a permission**, and it holds against the provider's own admin. |

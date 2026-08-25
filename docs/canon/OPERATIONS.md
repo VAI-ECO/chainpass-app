@@ -36,7 +36,7 @@ EXPAND.**
 | ⚠️ **CLAUDE CODE** | ⚠️⚠️ **CHECKS THE DIFF. DOES NOT WRITE.** | ⚠️⚠️ **NEVER WRITES A LINE OF PRODUCTION CODE.** |
 | ⚠️ **CLAUDE CHAT** | ⚠️ **HOLDS THE RULINGS.** **Turns findings into numbered instructions. Writes canon and briefs.** | ⚠️ **No repository access.** |
 | ⚠️ **CLAUDE DESIGN** | ⚠️ **DRAWS SCREENS.** | ⚠️ **Never rules. Flags and draws around.** |
-| ⚠️⚠️ **THE OWNER** | ⚠️⚠️ **RULES. NOTHING PROCEEDS PAST A DECISION THAT IS HIS.** | — |
+| ⚠️⚠️ **THE OWNER** | ⚠️⚠️ **RULES. NOTHING PROCEEDS PAST A DECISION THAT IS THE OWNER'S.** | — |
 
 ## 1.1 — ⚠️⚠️ WHY THE PEN MOVED
 
