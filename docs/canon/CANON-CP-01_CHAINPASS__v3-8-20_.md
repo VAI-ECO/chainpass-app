@@ -120,58 +120,40 @@ opens beyond the one door they came through.**
 
 ---
 
-# 2 — ⚠️⚠️ THE SEQUENCE — ⚠️⚠️ AMENDED 20 AUGUST · 22 AUGUST
+# 2 — ⚠️⚠️ THE SEQUENCE — ⚠️⚠️ AMENDED 25 AUGUST · `CANON-CP-02` §1 GOVERNS
 
-⚠️⚠️ **THIS REPLACES EVERY EARLIER VERSION, INCLUDING THE NINE-SCREEN ORDER OF 16 AUGUST.
+⚠️⚠️ **THIS BLOCK IS `CANON-CP-02` §1. IT REPLACES THE EARLIER SEQUENCE IN THIS FILE.
 THE CODE IS MEASURED AGAINST THIS BLOCK.**
 
 ```
-1  ⚠️ LANDING                          what is about to happen
-        ↓                              the platform ID rides in a SIGNED TOKEN — §2.5
-2  ⚠️ WHAT WE KEEP, WHAT WE NEVER HAVE
-        ↓                              ⚠️⚠️ AND THE WARNING — §2.1
-        ↓                              ⚠️⚠️ AND THE BIOMETRIC CONSENT — §2.6
-3  ⚠️⚠️ PAY                            requirements · price · upsell
-        ↓                              ⚠️ the platform's deferral offer — §4A
-4  ⚠️ REGISTER                         ⚠️ contact — §2.3 · collection spec
-        ↓                              ⚠️⚠️ NEVER A LEGAL NAME · ONE PAGE
-5  ⚠️ OTP                              ⚠️⚠️ CONTROL IS PROVEN BEFORE A PROVIDER IS PAID
+1  ⚠️ LANDING                          the platform's client lands — signed token — §2.5
         ↓
-6  ⚠️ THE KYC PROVIDER                 embedded, not a redirect — §2.2
-        ↓                              ⚠️⚠️ FRAME ONE — CHAINPASS CAPTURE FROM THE LIVE
-        ↓                              FEED · PROVIDER MATCH PERCENTAGE RECORDED — §2.7
-7  ⚠️⚠️ THE V.A.I. IS REVEALED         ⚠️ issued at identity proof — §2.3a
-        ↓                              ⚠️ activation is separate from issuance
-        ↓                              ⚠️ origination stamped, trigger-locked — §2.8
-8  ⚠️⚠️ ACCEPTANCE                      platform terms · second capture — §2.3 · §14.3
-        ↓                              ⚠️⚠️ ACCESS AND V.A.I.: ONE PAGE, THEN BASELINE
-        ↓                              ⚠️ PRO: FULL REQUIREMENT ORDER FOLLOWS — §4C
-9  ⚠️ THE PLATFORM'S REQUIREMENTS      Pro only — signature agreement — §4C.2
-        ↓                              + law enforcement declaration — §4D
-        ↓                              + whatever else that platform picked — §4C.3
-10 ⚠️⚠️ THE BASELINE IS COMMITTED      ⚠️ two frames — §2.7 · gated on terms checkbox
-        ↓                              ⚠️⚠️ AFTER EVERY DOCUMENT IS SIGNED — PRO
-        ↓                              ⚠️ the session key is deleted at the handoff — §2.4
-11 ⚠️ CONGRATULATIONS                  your V.A.I. · good for `settings:credential_year_length_years` — §10
-        ↓                              → go to the platform
-12 ⚠️ ACCOUNT SECURITY                 ⚠️ three security questions · recovery contact — §2.10
-        ↓                              ⚠️⚠️ THE LAST CHAINPASS SCREEN
-13 ⚠️ THE HANDOFF                      ⚠️ V.A.I. + username + email/phone ONLY — §2.9
+2  ⚠️⚠️ PAY                            first after landing — `CANON-CP-02` §1
+        ↓                              ⚠️ the platform's deferral offer — §4A
+3  ⚠️ SESSION KEY                      created here — `CANON-CP-02` §1
+        ↓
+4  ⚠️ THE KYC PROVIDER                 outside the walls — document + live face check
+        ↓
+5  ⚠️ BASELINE PHOTO                   ChainPass owns the camera
+        ↓
+6  ⚠️ BACKGROUND / CUSTOM CHECKS       real details checked outside — §4
+        ↓
+7  ⚠️⚠️ THE V.A.I. IS CREATED          7 characters — no name in it — §2.3a
+        ↓
+8  ⚠️ CONTACT AND OTP                  collection spec — never a legal name — §2.3
+        ↓
+9  ⚠️ SIGN                             law enforcement · signature · terms — §4C · §4D · §14.3
+        ↓
+10 ⚠️ FACE MATCH                       one match — confirms it is the same person
+        ↓
+11 ⚠️ RETRIEVAL PAGE                   questions + backup codes — platform-branded — §2.10
+        ↓
+11a ⚠️ FINAL V.A.I. PAGE               shown once more · remember on this device? — `CANON-CP-02` §1.1
+        ↓
+12 ⚠️ THE HANDOFF                      V.A.I. + session key
+        ↓
+13 ⚠️ KEY DELETED                      ChainPass deletes its copy — §2.4
 ```
-
-## 2.0 — ⚠️⚠️ WHAT CHANGED FROM THE NINE-SCREEN ORDER, AND WHY
-
-| # | Was | Is | Why |
-|---|---|---|---|
-| 1 | **Register and OTP at 5 and 6, after the provider** | ⚠️⚠️ **AT 4 AND 5, BEFORE THE PROVIDER** | ⚠️ **A provider call costs money. Nobody pays for a verification on someone who cannot prove control of a contact.** |
-| 2 | **Name collected** | ⚠️⚠️ **USERNAME. SELF-CHOSEN.** | ⚠️⚠️ **THE LEGAL NAME NEVER LEAVES CHAINPASS — §2.9, THE COURIER RULE.** |
-| 3 | **"Scan your face" as its own screen at 8** | ⚠️⚠️ **DELETED AS A STANDALONE SCREEN. FRAME ONE AT STEP 6; FRAME TWO AT STEP 8.** | ⚠️⚠️ **§2.7 · `RULINGS-CP-03` §2. TWO FRAMES, NOT ONE HELD FRAME.** |
-| 4 | **Baseline set at 8, before Congratulations** | ⚠️⚠️ **COMMITTED AT 10, AFTER EVERY DOCUMENT IS SIGNED — PRO — OR AFTER STEP 8 FOR ACCESS AND V.A.I.** | ⚠️ **Nothing becomes the permanent root of trust until terms are accepted and signings are done.** |
-| 5 | **The V.A.I. appears at 9** | ⚠️⚠️ **REVEALED AT 7, BEFORE ACCEPTANCE AND REQUIREMENTS** | ⚠️⚠️ **A SIGNED DOCUMENT WITH NOTHING TO ATTACH TO IS NOT A RECORD.** |
-| 6 | **No consent screen** | ⚠️ **§2.6 at step 2** | ⚠️⚠️ **CONSENT AFTER A CAPTURE IS NOT CONSENT.** |
-| 7 | **Terms at pay, register or first platform visit** | ⚠️⚠️ **AT ACCEPTANCE, STEP 8 — TERMS CHECKBOX AND SECOND CAPTURE. REGISTER IS CONTACT ONLY — `RULINGS-CP-03` §1.** | ⚠️⚠️ **CHAINPASS IS THE COMPLIANCE GATEKEEPER. NO TERMS ACCEPTED, NO SECOND CAPTURE, NO BASELINE.** |
-| 8 | **Security questions at the platform** | ⚠️⚠️ **AT CHAINPASS, STEP 12 — §2.10** | ⚠️⚠️ **ONE CUSTODIAN. CHAINPASS RECOVERS THE ACCOUNT — `RULINGS-CP-03` §7.** |
-| 9 | **Handoff at step 11** | ⚠️ **STEP 13, AFTER ACCOUNT SECURITY** | ⚠️ **Recovery contact is the last ChainPass screen; then the platform begins.** |
 
 ## 2.1 — ⚠️⚠️ THE WARNING COMES BEFORE HE PAYS
 
@@ -1471,6 +1453,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **25 Aug** | 27 | ⚠️⚠️ **§2 SEQUENCE REPLACED WITH `CANON-CP-02` §1. THIRTEEN STEPS PLUS 11a. PAY AT STEP 2. SESSION KEY AT STEP 3. FACE MATCH AT STEP 10. RETRIEVAL PAGE AT 11. FINAL V.A.I. PAGE AT 11a. HANDOFF 12. KEY DELETED 13. SUPERSEDED STEPS DELETED, NOT MARKED. §2.0 DELETED.** | Owner: `CANON-CP-02` governs enrolment and supersedes `CANON-CP-01` §2. |
 | **23 Aug** | 26 | ⚠️⚠️ **§0 ADDED — THE GRT AS A CHAINPASS SERVICE. 95% remitted at spend. ChainPass never holds the balance as its own. Peg is one Rose, one dollar.** | `RULINGS-VA-03` §3, §6. |
 | **23 Aug** | 25 | **One name per control.** `credential_term` → `credential_year_length_years`. `deferral_window` → `deferral_window_hours`. Term stays one year as a field. Face attempts read `attempt_count_n`. The hardcoded 365, +1 year, and 5 are deleted. | RULINGS-VA-02 §6 · §8 · §9. Two names is how the mint and the copy drift. |
 | **23 Aug** | 24 | **"four minutes" deleted from the §2 sequence block.** A canon step is not a stopwatch. | RULINGS-VA-02 §10. |
