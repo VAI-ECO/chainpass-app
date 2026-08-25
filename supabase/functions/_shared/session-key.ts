@@ -1,6 +1,6 @@
-/** Owner ruling 25 August: the session key is 32 characters, alphanumeric. */
+/** Owner ruling 25 August: the session key is 30 characters, alphanumeric. CANON-CP-02 §1 step 3. */
 
-export const SESSION_KEY_LENGTH = 32;
+export const SESSION_KEY_LENGTH = 30;
 
 const ALPHANUM =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -17,7 +17,7 @@ export function generateSessionKey(): string {
 
 export function assertSessionKeyLength(value: string): void {
   if (value.length !== SESSION_KEY_LENGTH) {
-    throw new Error("session_key must be 32 characters");
+    throw new Error("session_key must be 30 characters");
   }
   if (!/^[A-Za-z0-9]+$/.test(value)) {
     throw new Error("session_key must be alphanumeric");
