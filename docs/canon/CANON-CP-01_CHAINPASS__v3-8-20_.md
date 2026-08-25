@@ -757,7 +757,7 @@ stays at ChainPass and only the judgement leaves.**
 | 1 | ⚠️⚠️ **MANUAL IS NOT UNIVERSAL. IT IS A FEATURE OF PRO.** |
 | 2 | ⚠️ **ChainPass sets it.** |
 | 3 | ⚠️ **A platform opts in BY API and builds its own end.** |
-| 4 | ⚠️ **Triggered by RED.** |
+| 4 | ⚠️ **Triggered by YELLOW or RED.** — `RULINGS-VA-05` §7 |
 
 ---
 ---
@@ -1444,6 +1444,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **25 Aug** | 30 | ⚠️⚠️ **§8 item 4 — MANUAL TRIGGERED BY RED OR YELLOW. `RULINGS-VA-05` §7.** | Item 9 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 29 | ⚠️⚠️ **§2.10 — RETRIEVAL PAGE AT STEP 11 IS A CHAINPASS PAGE, PLATFORM-BRANDED. Brand is `platforms.brand`. One template. `CANON-CP-02` §5 item 3.** | Item 8 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 28 | ⚠️⚠️ **§3 — SESSION KEY LENGTH IS 32 CHARACTERS, ALPHANUMERIC. Owner ruling. Encoding remains open.** | Item 3 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 27 | ⚠️⚠️ **§2 SEQUENCE REPLACED WITH `CANON-CP-02` §1. THIRTEEN STEPS PLUS 11a. PAY AT STEP 2. SESSION KEY AT STEP 3. FACE MATCH AT STEP 10. RETRIEVAL PAGE AT 11. FINAL V.A.I. PAGE AT 11a. HANDOFF 12. KEY DELETED 13. SUPERSEDED STEPS DELETED, NOT MARKED. §2.0 DELETED.** | Owner: `CANON-CP-02` governs enrolment and supersedes `CANON-CP-01` §2. |
