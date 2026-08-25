@@ -21,6 +21,11 @@ export async function getSetting(key: string): Promise<string> {
 
 export async function getSettingNumber(key: string): Promise<number> {
   const raw = await getSetting(key);
+  if (raw === "UNSET" || raw === "") {
+    throw new Error(
+      `settings.${key} is UNSET. Set it on SN-44 before this path can run.`
+    );
+  }
   const n = parseFloat(raw);
   if (Number.isNaN(n)) {
     throw new Error(`settings.${key} must be a number, got: ${raw}`);
@@ -30,3 +35,4 @@ export async function getSettingNumber(key: string): Promise<number> {
 
 export const SETTING_PRICE_VAI_PRO = "price_vai_pro";
 export const SETTING_DEFERRAL_WINDOW_HOURS = "deferral_window_hours";
+export const SETTING_CREDENTIAL_YEAR_LENGTH_YEARS = "credential_year_length_years";

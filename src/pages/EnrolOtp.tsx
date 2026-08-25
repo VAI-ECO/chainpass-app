@@ -63,7 +63,7 @@ export default function EnrolOtp() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 5 of 11">
+    <EnrolShell stepLabel="Step 5 of 13">
       <EnrolTitle>Confirm your contact</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         A code has been sent to the address you gave. Enter it to continue.

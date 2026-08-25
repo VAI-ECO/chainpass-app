@@ -91,6 +91,7 @@ export default function EnrolCapture() {
         capture,
         ...(providerKey ? { provider_session_key: providerKey } : {}),
       });
+      await invokeEnrol("enrol-background", { session_id: sessionId });
       navigate("/enrol/reveal");
     } catch (e) {
       setError(e instanceof Error ? e.message : "unknown_error");
@@ -123,7 +124,7 @@ export default function EnrolCapture() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 6 of 11">
+    <EnrolShell stepLabel="Step 6 of 13">
       <EnrolTitle>The verification company</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         You are now with an approved provider. Your document and your face go to them — never to this platform, and never through it.

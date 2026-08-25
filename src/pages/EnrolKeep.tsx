@@ -23,7 +23,7 @@ export default function EnrolKeep() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 2 of 11">
+    <EnrolShell stepLabel="Step 2 of 13">
       <EnrolTitle>What we keep</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         ChainPass keeps your face and the result of the check. The platform receives a number and a session key — not your name, not your document, not your photograph.

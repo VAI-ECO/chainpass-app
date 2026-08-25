@@ -1,10 +1,11 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Camera, CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useVAIStore } from "@/store/vaiStore";
 import { toast } from "sonner";
+import { getSettingNumber } from "@/lib/settings";
 
 interface FacialVerificationProps {
   vaiNumber: string;
@@ -26,8 +27,15 @@ export function FacialVerification({
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [attempts, setAttempts] = useState(0);
+  const [maxAttempts, setMaxAttempts] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    getSettingNumber("attempt_count_n")
+      .then(setMaxAttempts)
+      .catch((e: Error) => toast.error(e.message));
+  }, []);
 
   const startCamera = async () => {
     try {
@@ -82,8 +90,8 @@ export function FacialVerification({
       return;
     }
 
-    if (attempts >= 3) {
-      toast.error("Maximum attempts reached. Please try again in 5 minutes.");
+    if (maxAttempts != null && attempts >= maxAttempts) {
+      toast.error("Maximum attempts reached. Wait, then try again.");
       onVerificationFailed();
       return;
     }
@@ -215,7 +223,7 @@ export function FacialVerification({
                 onClick={startCamera}
                 size="lg"
                 className="w-full h-16 text-lg font-semibold"
-                disabled={attempts >= 3}
+                disabled={maxAttempts != null && attempts >= maxAttempts}
               >
                 <Camera className="w-6 h-6 mr-3" />
                 Start Facial Recognition
@@ -223,19 +231,6 @@ export function FacialVerification({
               <p className="text-sm text-center text-muted-foreground">
                 Click to begin identity verification
               </p>
-              
-              {/* Skip Link */}
-              <div className="text-center">
-                <button
-                  onClick={() => {
-                    toast.success("Verification bypassed");
-                    onVerificationSuccess(95);
-                  }}
-                  className="text-sm text-muted-foreground hover:text-primary underline"
-                >
-                  Skip facial verification (testing)
-                </button>
-              </div>
             </div>
           )}
 
@@ -273,7 +268,7 @@ export function FacialVerification({
                 <Button
                   onClick={verifyFace}
                   className="flex-1 bg-primary hover:bg-primary/90"
-                  disabled={attempts >= 3}
+                  disabled={maxAttempts != null && attempts >= maxAttempts}
                 >
                   <CheckCircle2 className="w-5 h-5 mr-2" />
                   Verify Identity
@@ -313,7 +308,7 @@ export function FacialVerification({
           )}
         </div>
 
-        {attempts >= 3 && (
+        {maxAttempts != null && attempts >= maxAttempts && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <div className="flex gap-3">
               <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />

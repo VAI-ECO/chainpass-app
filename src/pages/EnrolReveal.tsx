@@ -56,7 +56,7 @@ export default function EnrolReveal() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 7 of 11">
+      <EnrolShell stepLabel="Step 7 of 13">
         <EnrolTitle>No credential issued</EnrolTitle>
         <p className="my-2 leading-[1.45]">Verification did not complete, so no V.A.I. exists.</p>
       </EnrolShell>
@@ -78,7 +78,7 @@ export default function EnrolReveal() {
 
   if (!vai) {
     return (
-      <EnrolShell stepLabel="Step 7 of 11">
+      <EnrolShell stepLabel="Step 7 of 13">
         <EnrolTitle>This is your V.A.I.</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           The identifier is issued only after the provider passes. It is live before any document is signed.
@@ -89,7 +89,7 @@ export default function EnrolReveal() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 7 of 11">
+    <EnrolShell stepLabel="Step 7 of 13">
       <EnrolTitle>This is your V.A.I.</EnrolTitle>
       <p
         className="my-3.5 text-center text-[34px] font-bold tracking-[0.14em]"
@@ -102,7 +102,7 @@ export default function EnrolReveal() {
       </p>
       <EnrolRow label="Originated by" value="this platform" />
       <EnrolRow label="Term" value="settings:credential_year_length_years" />
-      <EnrolPrimaryButton onClick={() => navigate("/enrol/requirements")}>
+      <EnrolPrimaryButton onClick={() => navigate("/enrol/accept")}>
         Continue
       </EnrolPrimaryButton>
       <EnrolNote>

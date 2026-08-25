@@ -433,7 +433,9 @@ const FacialVerification = () => {
 
   if (state === "failed") {
     const remainingAttempts = (maxAttempts ?? 0) - attempts;
-    const showTips = attempts >= 3;
+    // Tips near the end of the dial — never a hardcoded attempt index.
+    const showTips =
+      maxAttempts != null && attempts >= Math.max(1, maxAttempts - 1);
     
     return (
       <div className="min-h-screen bg-[#1a1a2e] text-white flex items-center justify-center p-6">
@@ -453,7 +455,7 @@ const FacialVerification = () => {
             </p>
             {confidence && (
               <p className="text-sm text-muted-foreground">
-                Match Confidence: {confidence.toFixed(1)}% (95% required)
+                Match: below the green band — retry or last attempt per settings:attempt_count_n
               </p>
             )}
             <p className="text-sm text-yellow-500">

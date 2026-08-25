@@ -85,7 +85,7 @@ export default function ExistingVai() {
             onVerificationFailed={() =>
               toast({
                 title: "Verification failed",
-                description: "Confidence below 95%. Please try again.",
+                description: "Face did not match the green band. Please try again.",
                 variant: "destructive",
               })
             }

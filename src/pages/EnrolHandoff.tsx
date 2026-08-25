@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   EnrolAlert,
   EnrolNote,
@@ -11,6 +11,7 @@ import {
   type EnrolUiState,
 } from "@/components/enrol/EnrolShell";
 import { QUERY_FORBIDDEN, getEnrolmentSessionId, invokeEnrol } from "@/lib/enrol";
+import { getSettingNumber } from "@/lib/settings";
 
 export default function EnrolHandoff() {
   const sessionId = getEnrolmentSessionId();
@@ -18,6 +19,13 @@ export default function EnrolHandoff() {
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const [returnUrl, setReturnUrl] = useState<string | null>(null);
+  const [pollSeconds, setPollSeconds] = useState<number | null>(null);
+
+  useEffect(() => {
+    getSettingNumber("handoff_poll_window")
+      .then(setPollSeconds)
+      .catch(() => setPollSeconds(null));
+  }, []);
 
   async function handoff() {
     if (!sessionId) {
@@ -55,6 +63,16 @@ export default function EnrolHandoff() {
     }
   }
 
+  // Loading / finishing race — poll interval is settings:handoff_poll_window (seconds).
+  useEffect(() => {
+    if (state !== "loading" || pollSeconds == null || pollSeconds <= 0) return;
+    const id = window.setInterval(() => {
+      handoff().catch(() => undefined);
+    }, pollSeconds * 1000);
+    return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- poll only while loading
+  }, [state, pollSeconds, sessionId]);
+
   if (state === "loading") {
     return (
       <EnrolShell stepLabel="Finishing">
@@ -62,6 +80,7 @@ export default function EnrolHandoff() {
         <p className="my-2 leading-[1.45]">
           Your credential has been issued. We are waiting for the platform to confirm it has been received.
         </p>
+        <EnrolRow label="Poll every" value="settings:handoff_poll_window" />
         <EnrolSkeleton />
         <EnrolNote>
           SPEC-CP-01 §2.5: the redirect will sometimes beat the webhook. This is not an error.
@@ -72,7 +91,7 @@ export default function EnrolHandoff() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 11 of 11">
+      <EnrolShell stepLabel="Step 13 of 13">
         <EnrolTitle>No session found</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           This browser holds no enrolment session. If you started on another device, return using the link the platform sent you.
@@ -96,7 +115,7 @@ export default function EnrolHandoff() {
 
   if (!done) {
     return (
-      <EnrolShell stepLabel="Step 11 of 11">
+      <EnrolShell stepLabel="Step 13 of 13">
         <EnrolTitle>Back at the platform</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           Your credential is delivered server to server. Nothing about it travels in this URL.
@@ -107,7 +126,7 @@ export default function EnrolHandoff() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 11 of 11">
+    <EnrolShell stepLabel="Step 13 of 13">
       <EnrolTitle>Back at the platform</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         Your credential has been delivered to the platform, server to server. Nothing about it travelled in your browser.

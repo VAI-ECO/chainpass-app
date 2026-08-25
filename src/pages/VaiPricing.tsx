@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import {
   getSettingNumber,
+  SETTING_CREDENTIAL_YEAR_LENGTH_YEARS,
   SETTING_DEFERRAL_WINDOW_HOURS,
   SETTING_PRICE_VAI_PRO,
 } from "@/lib/settings";
@@ -13,16 +14,19 @@ export default function VaiPricing() {
   const navigate = useNavigate();
   const [price, setPrice] = useState<number | null>(null);
   const [trialHours, setTrialHours] = useState<number | null>(null);
+  const [termYears, setTermYears] = useState<number | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     Promise.all([
       getSettingNumber(SETTING_PRICE_VAI_PRO),
       getSettingNumber(SETTING_DEFERRAL_WINDOW_HOURS),
+      getSettingNumber(SETTING_CREDENTIAL_YEAR_LENGTH_YEARS),
     ])
-      .then(([p, h]) => {
+      .then(([p, h, y]) => {
         setPrice(p);
         setTrialHours(h);
+        setTermYears(y);
       })
       .catch((e: Error) => setLoadError(e.message));
   }, []);
@@ -40,7 +44,7 @@ export default function VaiPricing() {
       </div>
     );
   }
-  if (price === null || trialHours === null) {
+  if (price === null || trialHours === null || termYears === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-950 p-4 text-gray-400">
         Loading settings…
@@ -64,12 +68,14 @@ export default function VaiPricing() {
             <div>
               <p className="text-sm text-purple-300 uppercase tracking-wide">Personal V.A.I.</p>
               <h2 className="text-white text-3xl font-bold">${price}</h2>
-              <p className="text-gray-400 text-sm">Valid 1 year • works everywhere</p>
+              <p className="text-gray-400 text-sm">
+                Valid {termYears} {termYears === 1 ? "year" : "years"} • works everywhere
+              </p>
             </div>
             <div className="text-gray-300 text-sm space-y-2">
               {[
                 "Permanent V.A.I. number",
-                "95% biometric verification",
+                "Biometric verification against your baseline",
                 "Age & compliance verified",
                 "All partner platforms included",
               ].map((item) => (

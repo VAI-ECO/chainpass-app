@@ -49,12 +49,49 @@ import EnrolRegister from "./pages/EnrolRegister";
 import EnrolOtp from "./pages/EnrolOtp";
 import EnrolCapture from "./pages/EnrolCapture";
 import EnrolReveal from "./pages/EnrolReveal";
+import EnrolAccept from "./pages/EnrolAccept";
 import EnrolRequirements from "./pages/EnrolRequirements";
 import EnrolDeclaration from "./pages/EnrolDeclaration";
 import EnrolSign from "./pages/EnrolSign";
 import EnrolBaseline from "./pages/EnrolBaseline";
 import EnrolComplete from "./pages/EnrolComplete";
+import EnrolSecurity from "./pages/EnrolSecurity";
 import EnrolHandoff from "./pages/EnrolHandoff";
+import VerifyShortfall from "./pages/VerifyShortfall";
+import VerifyLastAttempt from "./pages/VerifyLastAttempt";
+import VerifyRebaseline from "./pages/VerifyRebaseline";
+import VerifyNotActive from "./pages/VerifyNotActive";
+import RenewCredential from "./pages/RenewCredential";
+import VerifyCrossPlatform from "./pages/VerifyCrossPlatform";
+import TermsFirstVisit from "./pages/TermsFirstVisit";
+import AdminRows from "./pages/AdminRows";
+import UnruledPlate from "./pages/UnruledPlate";
+import VerifyCall from "./pages/VerifyCall";
+import VerifyChecking from "./pages/VerifyChecking";
+import VerifyGreen from "./pages/VerifyGreen";
+import VerifyBand from "./pages/VerifyBand";
+import VerifyFourthState from "./pages/VerifyFourthState";
+import ReviewFailures from "./pages/ReviewFailures";
+import ReviewSideBySide from "./pages/ReviewSideBySide";
+import SupplierObligations from "./pages/SupplierObligations";
+import ClientOverview from "./pages/ClientOverview";
+import ClientBlocks from "./pages/ClientBlocks";
+import ClientAgreements from "./pages/ClientAgreements";
+import ClientProofs from "./pages/ClientProofs";
+import ClientCommission from "./pages/ClientCommission";
+import ClientConfig from "./pages/ClientConfig";
+import ClientHealth from "./pages/ClientHealth";
+import ClientKeys from "./pages/ClientKeys";
+import ClientUnruled from "./pages/ClientUnruled";
+import MasterPlatforms from "./pages/MasterPlatforms";
+import MasterProviders from "./pages/MasterProviders";
+import MasterSettings from "./pages/MasterSettings";
+import MasterFailures from "./pages/MasterFailures";
+import MasterCredentials from "./pages/MasterCredentials";
+import MasterRevenue from "./pages/MasterRevenue";
+import MasterHealth from "./pages/MasterHealth";
+import MasterAudit from "./pages/MasterAudit";
+import MasterUnruled from "./pages/MasterUnruled";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
@@ -114,12 +151,49 @@ const App = () => (
               <Route path="/enrol/otp" element={<EnrolOtp />} />
               <Route path="/enrol/capture" element={<EnrolCapture />} />
               <Route path="/enrol/reveal" element={<EnrolReveal />} />
+              <Route path="/enrol/accept" element={<EnrolAccept />} />
               <Route path="/enrol/requirements" element={<EnrolRequirements />} />
               <Route path="/enrol/declaration" element={<EnrolDeclaration />} />
               <Route path="/enrol/sign" element={<EnrolSign />} />
               <Route path="/enrol/baseline" element={<EnrolBaseline />} />
               <Route path="/enrol/complete" element={<EnrolComplete />} />
+              <Route path="/enrol/security" element={<EnrolSecurity />} />
               <Route path="/enrol/handoff" element={<EnrolHandoff />} />
+              <Route path="/verify/shortfall" element={<VerifyShortfall />} />
+              <Route path="/verify/last-attempt" element={<VerifyLastAttempt />} />
+              <Route path="/verify/rebaseline" element={<VerifyRebaseline />} />
+              <Route path="/verify/not-active" element={<VerifyNotActive />} />
+              <Route path="/renew" element={<RenewCredential />} />
+              <Route path="/verify/cross-platform" element={<VerifyCrossPlatform />} />
+              <Route path="/terms/first-visit" element={<TermsFirstVisit />} />
+              <Route path="/admin/rows" element={<AdminRows />} />
+              <Route path="/unruled" element={<UnruledPlate />} />
+              <Route path="/verify/call" element={<VerifyCall />} />
+              <Route path="/verify/checking" element={<VerifyChecking />} />
+              <Route path="/verify/green" element={<VerifyGreen />} />
+              <Route path="/verify/band" element={<VerifyBand />} />
+              <Route path="/verify/fourth-state" element={<VerifyFourthState />} />
+              <Route path="/review/failures" element={<ReviewFailures />} />
+              <Route path="/review/side-by-side" element={<ReviewSideBySide />} />
+              <Route path="/supplier/obligations" element={<SupplierObligations />} />
+              <Route path="/client" element={<ClientOverview />} />
+              <Route path="/client/blocks" element={<ClientBlocks />} />
+              <Route path="/client/agreements" element={<ClientAgreements />} />
+              <Route path="/client/proofs" element={<ClientProofs />} />
+              <Route path="/client/commission" element={<ClientCommission />} />
+              <Route path="/client/config" element={<ClientConfig />} />
+              <Route path="/client/health" element={<ClientHealth />} />
+              <Route path="/client/keys" element={<ClientKeys />} />
+              <Route path="/client/unruled" element={<ClientUnruled />} />
+              <Route path="/master" element={<MasterPlatforms />} />
+              <Route path="/master/providers" element={<MasterProviders />} />
+              <Route path="/master/settings" element={<MasterSettings />} />
+              <Route path="/master/failures" element={<MasterFailures />} />
+              <Route path="/master/credentials" element={<MasterCredentials />} />
+              <Route path="/master/revenue" element={<MasterRevenue />} />
+              <Route path="/master/health" element={<MasterHealth />} />
+              <Route path="/master/audit" element={<MasterAudit />} />
+              <Route path="/master/unruled" element={<MasterUnruled />} />
               <Route path="/vairify-signup" element={<VairifySignup />} />
               <Route path="/onboarding/complete" element={<OnboardingComplete />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

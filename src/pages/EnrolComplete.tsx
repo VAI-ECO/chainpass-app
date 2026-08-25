@@ -54,7 +54,7 @@ export default function EnrolComplete() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 10 of 11">
+      <EnrolShell stepLabel="Step 11 of 13">
         <EnrolTitle>Nothing to confirm</EnrolTitle>
         <p className="my-2 leading-[1.45]">No credential was issued in this session.</p>
       </EnrolShell>
@@ -69,14 +69,14 @@ export default function EnrolComplete() {
           Your credential exists but this page could not load it. Return to the platform and you will be admitted.
         </p>
         {error ? <EnrolAlert>{error}</EnrolAlert> : null}
-        <EnrolPrimaryButton onClick={() => navigate("/enrol/handoff")}>Return</EnrolPrimaryButton>
+        <EnrolPrimaryButton onClick={() => navigate("/enrol/security")}>Return</EnrolPrimaryButton>
       </EnrolShell>
     );
   }
 
   if (!vai) {
     return (
-      <EnrolShell stepLabel="Step 10 of 11">
+      <EnrolShell stepLabel="Step 11 of 13">
         <EnrolTitle>You are verified</EnrolTitle>
         <EnrolPrimaryButton onClick={finish}>Confirm</EnrolPrimaryButton>
       </EnrolShell>
@@ -84,7 +84,7 @@ export default function EnrolComplete() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 10 of 11">
+    <EnrolShell stepLabel="Step 11 of 13">
       <EnrolTitle>You are verified</EnrolTitle>
       <p className="my-3.5 text-center text-[34px] font-bold tracking-[0.14em]">{vai}</p>
       <EnrolRow
@@ -102,8 +102,8 @@ export default function EnrolComplete() {
       <p className="my-2 leading-[1.45]">
         Keep your V.A.I. You will not be asked for a document again.
       </p>
-      <EnrolPrimaryButton onClick={() => navigate("/enrol/handoff")}>
-        Return to the platform
+      <EnrolPrimaryButton onClick={() => navigate("/enrol/security")}>
+        Continue
       </EnrolPrimaryButton>
       <EnrolNote>§10: one term, renewable. The term length is a setting.</EnrolNote>
     </EnrolShell>

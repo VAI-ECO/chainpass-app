@@ -131,7 +131,7 @@ export default function EnrolSign() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 8 of 11 · agreement">
+    <EnrolShell stepLabel="Step 9 of 13 · agreement">
       <EnrolTitle>Signature agreement</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         This is the document that makes your face your signature. You do not have to sign anything — but anything you do sign, you agree in advance is binding.

@@ -65,7 +65,7 @@ export default function EnrolRequirements() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 8 of 11">
+      <EnrolShell stepLabel="Step 9 of 13">
         <EnrolTitle>Nothing outstanding</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           Every requirement this platform sets is already on file.
@@ -90,7 +90,7 @@ export default function EnrolRequirements() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 8 of 11">
+    <EnrolShell stepLabel="Step 9 of 13">
       <EnrolTitle>What this platform requires</EnrolTitle>
       {items.map((item) => (
         <EnrolRow

@@ -106,7 +106,7 @@ export default function EnrolEntry() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 1 of 11">
+      <EnrolShell stepLabel="Step 1 of 13">
         <EnrolTitle>Verify once. Use it everywhere.</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           This platform has not finished onboarding — no collection spec is on file, so there is nothing to begin.
@@ -136,7 +136,7 @@ export default function EnrolEntry() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 1 of 11">
+    <EnrolShell stepLabel="Step 1 of 13">
       <EnrolTitle>Verify once. Use it everywhere.</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         A ChainPass credential is issued to you, not to this platform. Verify here and the same credential works on every participating platform.

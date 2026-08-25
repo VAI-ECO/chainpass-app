@@ -79,7 +79,7 @@ export default function EnrolConsent() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 2 of 11 · consent">
+    <EnrolShell stepLabel="Step 2 of 13 · consent">
       <EnrolTitle>Your face becomes your credential</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         You are consenting to a facial baseline being created and held at ChainPass, and to it being matched whenever a participating platform asks whether you are present.

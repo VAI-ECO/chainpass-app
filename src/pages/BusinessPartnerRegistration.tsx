@@ -249,7 +249,7 @@ const BusinessPartnerRegistration = () => {
                 </Button>
 
                 <p className="text-sm text-muted-foreground text-center">
-                  * Required fields. Applications are typically reviewed within 2-3 business days.
+                  * Required fields. We review every application and will be in touch.
                 </p>
               </form>
             </Form>

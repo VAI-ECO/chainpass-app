@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   EnrolAlert,
@@ -19,6 +19,19 @@ export default function EnrolRegister() {
   const [error, setError] = useState<string | null>(null);
   const [username, setUsername] = useState("");
   const [contact, setContact] = useState("");
+  const [askUsername, setAskUsername] = useState(false);
+
+  useEffect(() => {
+    if (!sessionId) return;
+    invokeEnrol("enrol-register", { session_id: sessionId, action: "spec" })
+      .then((data) => {
+        const required = Array.isArray(data.required) ? data.required : [];
+        setAskUsername(required.includes("username"));
+      })
+      .catch(() => {
+        setAskUsername(false);
+      });
+  }, [sessionId]);
 
   function splitContact(raw: string): { email?: string; phone?: string } {
     const v = raw.trim();
@@ -39,7 +52,7 @@ export default function EnrolRegister() {
       const { email, phone } = splitContact(contact);
       await invokeEnrol("enrol-register", {
         session_id: sessionId,
-        username,
+        ...(askUsername && username ? { username } : {}),
         ...(email ? { email } : {}),
         ...(phone ? { phone } : {}),
       });
@@ -72,19 +85,21 @@ export default function EnrolRegister() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 4 of 11">
+    <EnrolShell stepLabel="Step 4 of 13">
       <EnrolTitle>Your details for this platform</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         Only what this platform asked for at onboarding. ChainPass carries these fields and keeps none it was not sent.
       </p>
-      <EnrolField
-        type="text"
-        placeholder="Username"
-        aria-label="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        autoComplete="username"
-      />
+      {askUsername ? (
+        <EnrolField
+          type="text"
+          placeholder="Username"
+          aria-label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          autoComplete="username"
+        />
+      ) : null}
       <EnrolField
         type="text"
         placeholder="Email or phone"
