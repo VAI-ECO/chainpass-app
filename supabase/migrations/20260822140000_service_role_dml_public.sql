@@ -1,0 +1,6 @@
+-- Hosted service_role had only REFERENCES/TRIGGER/TRUNCATE on most public tables
+-- (sessions was granted in 20260822110000). Functions cannot SELECT/INSERT/UPDATE.
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO service_role;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO service_role;
