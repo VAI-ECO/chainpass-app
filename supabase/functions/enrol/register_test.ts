@@ -17,7 +17,10 @@ Deno.test("rejects legal name fields", () => {
 });
 
 Deno.test("contact alone is enough — username is not ChainPass's requirement", () => {
-  const r = validateRegistrationFields({ email: "a@b.c" }, null);
+  const r = validateRegistrationFields(
+    { email: "a@b.c", terms_accepted: true },
+    null
+  );
   if (r.email !== "a@b.c") throw new Error("email");
   if (r.username !== null) throw new Error("username must be optional");
   let threw = false;
@@ -41,7 +44,7 @@ Deno.test("username required only when collection_fields.required includes it", 
   }
   if (!threw) throw new Error("expected username required when spec says so");
   const r = validateRegistrationFields(
-    { username: "neo", email: "a@b.c" },
+    { username: "neo", email: "a@b.c", terms_accepted: true },
     { required: ["username"] }
   );
   if (r.username !== "neo") throw new Error("username from spec");
