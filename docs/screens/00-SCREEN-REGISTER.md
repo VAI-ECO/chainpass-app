@@ -186,10 +186,6 @@ files carry the contract defaults deliberately — stated per screen in the wiri
 | 6 | Deferral visibility — §4A.4 makes it visible to both parties, §4B and §15 item 9 forbid telling a platform why | ⬜ unruled | Owner |
 | 7 | Branding — ChainPass mark or skinned per platform | ⬜ unruled | Owner |
 | 8 | Abandonment — not in the record at any step; step 7 onward is a live V.A.I. with no baseline | ⬜ unruled | Owner |
-| 9 | Dashboard authentication (CD09, MD09) | ⬜ unruled | Owner |
-| 10 | Block pricing and payout schedule mechanics (CD09) | ⬜ unruled | Owner |
-| 11 | The Access price — §14.1 prices level 1 nowhere (MD09) | ⬜ unruled | Owner |
-| 12 | Level 2's public name (MD09) | ⬜ unruled | Owner |
 | 13 | The reviewer's outcome and the reverse fraud-found channel (MD09, V07) | ⬜ unruled | Owner |
 | 14 | CP25 body copy is stale against §14.2 — still says ChainPass holds a reference, not the document | 🔴 **correction owed** | Design, on owner's word |
 | 15 | Numbering alias vs hard restamp — SPEC-DS-01 §1 against OPERATIONS §9 item 2 | ⬜ unruled | Owner |
@@ -198,6 +194,7 @@ files carry the contract defaults deliberately — stated per screen in the wiri
 
 | Date | Entry |
 |---|---|
+| 25 Aug 2026 | Flags 9, 10, 11, 12 deleted. Level 2's name is closed by CANON-CP-01 §14.1 and RULINGS-CP-01 Ruling 5. |
 | 21 Aug 2026 | Enrolment set ACCEPTED by owner (folder CP-01-ENROLMENT-DELIVERY__2026-08-21__ACCEPTED). |
 | 21 Aug 2026 | Viewer set delivered: SN-25…32 as 24 separated size files, same grammar. V06/V07/V08 bespoke wide at -T/-D; V01–V05 contract defaults, deliberate. Wire tables appended. Rows ✅ through Wire. Not yet accepted. |
 | 21 Aug 2026 | Register opened. 50 live screens rowed, phone reference ✅, 24 wiring tables written (enrolment set). |

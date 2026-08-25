@@ -1290,8 +1290,8 @@ step 3 and the warning at step 2; `CP-03` §8.2 had neither, which is why §2 go
 | ⚠️⚠️ **LEVEL** | **CHAINPASS** | **1 Access · 2 V.A.I. · 3 Pro** |
 
 ⚠️⚠️ **LEVEL 2 IS WRITTEN "V.A.I. PLUS" ALWAYS IN FULL WHERE THAT NAME IS USED. BARE
-"PLUS" IS VAIRIFY'S PACKAGE AND NEVER CHAINPASS'S.** ⬜ **The public name is still open —
-`MKT-CP-01` §5 item 2.**
+"PLUS" IS VAIRIFY'S PACKAGE AND NEVER CHAINPASS'S.** Closed by §14.1 and `RULINGS-CP-01`
+Ruling 5.
 
 ## 16.2 — ⚠️⚠️ THE SCHEMA
 
@@ -1444,7 +1444,8 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
-| **25 Aug** | 30 | ⚠️⚠️ **§8 item 4 — MANUAL TRIGGERED BY RED OR YELLOW. `RULINGS-VA-05` §7.** | Item 9 of the 25 Aug CP-02 enrolment prompt. |
+| **25 Aug** | 31 | ⚠️⚠️ **§16.1 — LEVEL 2'S NAME IS CLOSED. §14.1 AND `RULINGS-CP-01` RULING 5 GOVERN.** | Item 10 of the 25 Aug CP-02 enrolment prompt. |
+| **25 Aug** | 30 | ⚠️⚠️ **§8 item 4 — MANUAL TRIGGERED BY YELLOW OR RED. `RULINGS-VA-05` §7.** | Item 9 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 29 | ⚠️⚠️ **§2.10 — RETRIEVAL PAGE AT STEP 11 IS A CHAINPASS PAGE, PLATFORM-BRANDED. Brand is `platforms.brand`. One template. `CANON-CP-02` §5 item 3.** | Item 8 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 28 | ⚠️⚠️ **§3 — SESSION KEY LENGTH IS 32 CHARACTERS, ALPHANUMERIC. Owner ruling. Encoding remains open.** | Item 3 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 27 | ⚠️⚠️ **§2 SEQUENCE REPLACED WITH `CANON-CP-02` §1. THIRTEEN STEPS PLUS 11a. PAY AT STEP 2. SESSION KEY AT STEP 3. FACE MATCH AT STEP 10. RETRIEVAL PAGE AT 11. FINAL V.A.I. PAGE AT 11a. HANDOFF 12. KEY DELETED 13. SUPERSEDED STEPS DELETED, NOT MARKED. §2.0 DELETED.** | Owner: `CANON-CP-02` governs enrolment and supersedes `CANON-CP-01` §2. |
