@@ -40,6 +40,7 @@ export type EmbeddedFrame = {
   vector: number[];
   model: string | undefined;
   model_version: string | undefined;
+  model_checksum: string | undefined;
 };
 
 export async function embedFrame(
@@ -81,6 +82,12 @@ export async function embedFrame(
     vector: result.vector,
     model: typeof result.model === "string" ? result.model : undefined,
     model_version: typeof result.model_version === "string" ? result.model_version : undefined,
+    model_checksum:
+      typeof result.model_checksum === "string"
+        ? result.model_checksum
+        : typeof result.checksum === "string"
+          ? result.checksum
+          : undefined,
   };
 }
 
