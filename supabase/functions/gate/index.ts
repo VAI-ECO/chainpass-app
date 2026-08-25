@@ -15,6 +15,7 @@ import {
 } from "../_shared/gate-visits.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 import { publicGateBody } from "../_shared/gate-response.ts";
+import { trialApprovedBody } from "../_shared/response-level.ts";
 import {
   askingPartyNotMet,
   holderShortfall,
@@ -27,6 +28,7 @@ import {
  * POST /v1/gate — §16.3 items 1–5.
  * Every resolved call writes verification_ledger and decrements the block.
  * Responses carry a band, never a percentage (§7).
+ * Trial mode returns `trial_approved` and no band (CANON-CP-04 §2).
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -119,6 +121,12 @@ serve(async (req) => {
 
     if (!capture) {
       return json({ error: "capture required for return visit" }, 400);
+    }
+
+    if (platform.trial_mode) {
+      const cons = await finish(supabase, platform.id, vai, "trial_approved");
+      if (cons.depleted) return json({ status: "block_depleted" }, 402);
+      return json(trialApprovedBody(platform.response_level as 1 | 2 | 3 | undefined));
     }
 
     const { status, band } = await faceGateAgainstBaseline(supabase, vai, capture);

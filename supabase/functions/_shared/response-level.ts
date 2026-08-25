@@ -44,6 +44,14 @@ export function shapePublicResponse(
   return { band: internal.band, percentage: internal.percentage };
 }
 
+/**
+ * CANON-CP-04 §2. Trial is one state at every response level.
+ * Never match, never a band, never a percentage.
+ */
+export function trialApprovedBody(_level?: ResponseLevel): Record<string, unknown> {
+  return { status: "trial_approved" };
+}
+
 function isBand(v: unknown): v is Band {
   return v === "green" || v === "yellow" || v === "red";
 }

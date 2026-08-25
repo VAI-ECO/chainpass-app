@@ -15,6 +15,7 @@ import {
   internalFromBand,
   parseResponseLevel,
   shapePublicResponse,
+  trialApprovedBody,
 } from "../_shared/response-level.ts";
 
 /**
@@ -70,10 +71,23 @@ serve(async (req) => {
       return json({ status: "credential_inactive" }, 403);
     }
 
+    const level = parseResponseLevel(platform.response_level);
+    if (platform.trial_mode) {
+      const cons = await recordGateConsumption(supabase, {
+        platform_id: platform.id,
+        vai,
+        call_type: "verify",
+        result: "trial_approved",
+      });
+      if (cons.depleted) {
+        return json({ status: "block_depleted", admin_state: "depleted" }, 402);
+      }
+      return json(trialApprovedBody(level));
+    }
+
     // Consumption burns THIS platform's block — originator earns nothing here (§14.5).
     const { band, similarity } = await compareCaptureToBaseline(supabase, vai, capture);
     const status = outcomeFromBand(band);
-    const level = parseResponseLevel(platform.response_level);
     const shaped = shapePublicResponse(level, internalFromBand(band, similarity));
 
     const cons = await recordGateConsumption(supabase, {

@@ -17,6 +17,31 @@ Deno.test("publicGateBody strips similarity and string percent; keeps numeric pe
   if (safe.band !== "green") throw new Error("band lost");
 });
 
+Deno.test("trial_approved is a status with no band", () => {
+  const safe = publicGateBody({ status: "trial_approved" });
+  if (safe.status !== "trial_approved") throw new Error("status lost");
+  if ("band" in safe) throw new Error("trial must not carry a band");
+  if ("percentage" in safe) throw new Error("trial must not carry a percentage");
+});
+
+Deno.test("trial is one state at every response level", async () => {
+  const { trialApprovedBody } = await import("../_shared/response-level.ts");
+  const a = trialApprovedBody(1);
+  const b = trialApprovedBody(2);
+  const c = trialApprovedBody(3);
+  const dump = JSON.stringify(a);
+  if (dump !== JSON.stringify(b) || dump !== JSON.stringify(c)) {
+    throw new Error(`bodies differ: ${JSON.stringify(a)} ${JSON.stringify(b)} ${JSON.stringify(c)}`);
+  }
+  if (a.status !== "trial_approved") throw new Error("status");
+  if ("band" in a || "match" in a || "percentage" in a) {
+    throw new Error("trial must not look like a real response");
+  }
+  console.log("level 1", JSON.stringify(a));
+  console.log("level 2", JSON.stringify(b));
+  console.log("level 3", JSON.stringify(c));
+});
+
 Deno.test("assertNoPercentageInBody throws on %", () => {
   let threw = false;
   try {

@@ -148,3 +148,50 @@ export function EnrolAlert({ children }: { children: ReactNode }) {
     </p>
   );
 }
+
+const trialInk = "#1a2418";
+const trialPaper = "#f4f0e6";
+const trialChrome = "#3d4a38";
+
+/** SN-86 — trial viewer chrome. Distinct from the everyday blue shell. */
+export function TrialBanner() {
+  return (
+    <p
+      role="status"
+      className="sticky top-0 z-20 m-0 px-4 py-3 text-center text-[13px] font-semibold uppercase tracking-[0.12em]"
+      style={{ background: "#c45c12", color: "#fff" }}
+    >
+      TRIAL — NOT VERIFIED
+    </p>
+  );
+}
+
+export function TrialShell({
+  stepLabel,
+  children,
+}: {
+  stepLabel?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className="min-h-screen"
+      style={{ background: trialChrome, color: trialInk, fontSize: 16 }}
+    >
+      <TrialBanner />
+      <main className="mx-auto w-full max-w-[390px] px-4 py-4 md:max-w-[720px] lg:max-w-[960px]">
+        <section className="rounded-[10px] p-6" style={{ background: trialPaper }}>
+          {stepLabel ? (
+            <p
+              className="mb-2 text-[13px] uppercase tracking-[0.06em]"
+              style={{ color: "#5c5346" }}
+            >
+              {stepLabel}
+            </p>
+          ) : null}
+          {children}
+        </section>
+      </main>
+    </div>
+  );
+}

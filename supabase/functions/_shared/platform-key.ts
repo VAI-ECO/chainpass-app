@@ -7,6 +7,7 @@ export type PlatformRow = {
   status: string | null;
   api_key_hash: string | null;
   response_level: number | null;
+  trial_mode: boolean;
 };
 
 export async function sha256Hex(value: string): Promise<string> {
@@ -33,7 +34,7 @@ export async function resolvePlatformByApiKey(
 
   const { data, error } = await supabase
     .from("platforms")
-    .select("id, display_name, service_level, status, api_key_hash, response_level")
+    .select("id, display_name, service_level, status, api_key_hash, response_level, trial_mode")
     .eq("api_key_hash", api_key_hash)
     .maybeSingle();
 
@@ -50,7 +51,7 @@ export async function resolvePlatformByApiKey(
     throw new Error("platform has no service_level configured");
   }
 
-  return data as PlatformRow;
+  return { ...data, trial_mode: data.trial_mode === true } as PlatformRow;
 }
 
 /** Extract Bearer token or X-Api-Key from the request. */

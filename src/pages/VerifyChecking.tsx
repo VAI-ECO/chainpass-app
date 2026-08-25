@@ -21,6 +21,10 @@ function routeForOutcome(data: LocState, navigate: ReturnType<typeof useNavigate
   const status = typeof data.status === "string" ? data.status : "";
   const result = typeof data.result === "string" ? data.result : "";
 
+  if (status === "trial_approved" || result === "trial_approved") {
+    navigate("/verify/trial", { replace: true, state: { status: "trial_approved" } });
+    return true;
+  }
   if (status === "rebaseline_required" || result === "rebaseline_required") {
     navigate("/verify/fourth-state", { replace: true });
     return true;

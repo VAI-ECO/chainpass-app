@@ -49,7 +49,12 @@ export default function VerifyCall() {
       }
       const band = typeof data.band === "string" ? data.band : "";
       const status = typeof data.status === "string" ? data.status : "";
-      if (status === "rebaseline_required") {
+      if (status === "trial_approved") {
+        navigate("/verify/trial", {
+          replace: true,
+          state: { status: "trial_approved", vai: vai.trim().toUpperCase(), capture },
+        });
+      } else if (status === "rebaseline_required") {
         navigate("/verify/fourth-state", { replace: true });
       } else if (band === "green" || status === "granted") {
         navigate("/verify/green", { replace: true });
