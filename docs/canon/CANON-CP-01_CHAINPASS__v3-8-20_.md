@@ -769,26 +769,14 @@ stays at ChainPass and only the judgement leaves.**
 
 > ⚠️ **"We just need to make the APIs, and they can make whatever they want."**
 
-## 9.1 — ⚠️ ChainPass owns three things
+## 9.1 — ⚠️ ChainPass owns four things
 
 | # | |
 |---|---|
 | 1 | ⚠️ **The band on every face check** — §7 |
 | 2 | ⚠️⚠️ **COUNTING REDS PER CREDENTIAL OVER TIME.** **Past a threshold, the next failure returns a FOURTH state — re-baseline required — instead of another red.** |
 | 3 | ⚠️⚠️ **RUNNING THE FRESH KYC VERIFICATION WHEN THAT HAPPENS.** ⚠️ **THE COST IS ON US.** |
-
-## 9.2 — ⚠️⚠️ EVERYTHING ELSE IS THE PLATFORM'S
-
-**The OTP for getting back into a platform account · whether a platform password exists at
-all · how that platform routes her when she is short.**
-
-> ⚠️ **A porn site using V.A.I. Standard with its own passwords is doing its own account
-> recovery at its door.** ⚠️⚠️ **IT ONLY EVER ASKS CHAINPASS "IS THIS THE PERSON." CHAINPASS NEVER KNOWS
-> THERE WAS AN OTP.**
-
-⚠️ **The split: ChainPass owns the credential, the face, and account security (security
-questions, recovery codes, lockout state) — §2.10 · `RULINGS-CP-03` §7. The platform owns
-getting a user back into its own app session when it chose a password.**
+| 4 | ⚠️⚠️ **RECOVERY.** **Questions, one-time passwords, lock state — ChainPass, not the platform.** — §2.10 · §14.6 surface 9 |
 
 ---
 
