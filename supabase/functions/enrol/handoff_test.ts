@@ -1,8 +1,11 @@
 /**
- * Handoff deletes session key once; payload is V.A.I. + username + email/phone only.
+ * Handoff: S2S payload carries the session key; browser JSON does not.
  * deno test --allow-read supabase/functions/enrol/handoff_test.ts
  */
-Deno.test("enrol-handoff deletes provider_session_key and omits legal name", async () => {
+import { serverToServerPayload } from "../_shared/enrol-handoff.ts";
+import { generateSessionKey } from "../_shared/session-key.ts";
+
+Deno.test("enrol-handoff deletes session_key after the S2S POST", async () => {
   const text = await Deno.readTextFile(
     new URL("../enrol-handoff/index.ts", import.meta.url)
   );
@@ -10,7 +13,7 @@ Deno.test("enrol-handoff deletes provider_session_key and omits legal name", asy
     throw new Error("handoff must null provider_session_key (§2.4a)");
   }
   if (!/session_key:\s*null/.test(text)) {
-    throw new Error("handoff must null credential_keys.session_key (§2.4a)");
+    throw new Error("handoff must null sessions.session_key and credential_keys.session_key");
   }
   if (!/superseded_at/.test(text)) {
     throw new Error("handoff must keep the credential_keys row (superseded_at stamped)");
@@ -21,15 +24,31 @@ Deno.test("enrol-handoff deletes provider_session_key and omits legal name", asy
   if (/legal_name|full_name|first_name|last_name/.test(text)) {
     throw new Error("handoff must not carry legal name fields (§2.9)");
   }
-  const payloadMatch = text.match(/const payload = \{([\s\S]*?)\};/);
-  if (!payloadMatch) throw new Error("payload object missing");
-  const payload = payloadMatch[1];
-  if (!/vai:/.test(payload) || !/username:/.test(payload) || !/email:/.test(payload) || !/phone:/.test(payload)) {
-    throw new Error("payload must be V.A.I. + username + email/phone");
+  if (!/serverToServerPayload/.test(text)) {
+    throw new Error("handoff must POST the server-to-server payload");
   }
-  if (/session_key/.test(payload)) {
-    throw new Error("session_key must not ride in the browser payload");
+  if (/payload,/.test(text) && /return json\(\{[\s\S]*payload/.test(text)) {
+    const ret = text.slice(text.lastIndexOf("return json({"));
+    if (/payload/.test(ret) && /session_key: payload/.test(ret)) {
+      throw new Error("browser JSON must not return the S2S payload");
+    }
   }
+});
+
+Deno.test("server-to-server payload is V.A.I. + session key + contact + T&C", () => {
+  const session_key = generateSessionKey();
+  const payload = serverToServerPayload({
+    vai: "ABC12DE",
+    session_key,
+    username: "neo",
+    contact_email: "a@b.c",
+    contact_phone: null,
+    terms_accepted_at: "2026-08-25T00:00:00Z",
+  });
+  console.log(JSON.stringify(payload, null, 2));
+  if (payload.session_key.length !== 30) throw new Error("session key is 30");
+  if (payload.vai !== "ABC12DE") throw new Error("vai");
+  if (payload.terms_affirmed !== true) throw new Error("terms_affirmed");
 });
 
 Deno.test("handoff completes at step 13 and refuses without security", async () => {
@@ -58,4 +77,3 @@ Deno.test("handoff completes at step 13 and refuses without security", async () 
     throw new Error("handoff must never return KYC percentage");
   }
 });
-

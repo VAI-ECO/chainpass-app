@@ -4,10 +4,13 @@ import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
+import { serverToServerPayload } from "../_shared/enrol-handoff.ts";
 
 /**
- * POST /v1/enrol/handoff — §2.4 / §2.4a / §2.9 step 13.
- * Browser payload: V.A.I. + username + email/phone only. session_key is nulled, never shown.
+ * POST /v1/enrol/handoff — CANON-CP-02 §1 steps 12–13.
+ * Step 12: server-to-server payload includes the session key.
+ * Step 13: delete the session key after that POST, never before.
+ * The browser JSON does not carry the key.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -35,7 +38,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, vai, username, contact_email, contact_phone, provider_session_key, enrolment_step, platform_id, return_url, state, paid_at"
+        "id, vai, username, contact_email, contact_phone, provider_session_key, session_key, enrolment_step, platform_id, return_url, state, paid_at, terms_accepted_at"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -44,7 +47,7 @@ serve(async (req) => {
     const unpaidHandoff = refuseUnpaid(session);
     if (unpaidHandoff) return json(unpaidHandoff, 403);
     if (!session.vai) return json({ error: "vai_required" }, 403);
-    if (session.enrolment_step < 12) {
+    if (session.enrolment_step < 11) {
       return json({ error: "security_required_before_handoff" }, 403);
     }
     const { count: qCount, error: qErr } = await supabase
@@ -66,17 +69,33 @@ serve(async (req) => {
       return json({ status: "no_longer_held", step: 13, session_key: null }, 410);
     }
 
-    const payload = {
-      vai: session.vai.trim(),
-      username: session.username,
-      email: session.contact_email,
-      phone: session.contact_phone,
-    };
+    const payload = serverToServerPayload(session);
+
+    const { data: plat } = await supabase
+      .from("platforms")
+      .select("webhook_url")
+      .eq("id", session.platform_id)
+      .maybeSingle();
+    const webhookUrl =
+      typeof plat?.webhook_url === "string" && plat.webhook_url.trim()
+        ? plat.webhook_url.trim()
+        : null;
+    if (webhookUrl) {
+      const posted = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "enrolment.handoff", step: 12, payload }),
+      });
+      if (!posted.ok) {
+        return json({ error: "handoff_webhook_failed", status: posted.status }, 502);
+      }
+    }
 
     const { error: uErr } = await supabase
       .from("sessions")
       .update({
         provider_session_key: null,
+        session_key: null,
         enrolment_step: 13,
         state: "complete",
       })
@@ -95,8 +114,7 @@ serve(async (req) => {
     return json({
       status: "handed_off",
       step: 13,
-      payload,
-      session_key: null,
+      handoff_step: 12,
       return_url: session.return_url,
     });
   } catch (e) {

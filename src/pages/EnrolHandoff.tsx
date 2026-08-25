@@ -91,7 +91,7 @@ export default function EnrolHandoff() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 13 of 13">
+      <EnrolShell stepLabel="Step 12 of 13">
         <EnrolTitle>No session found</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           This browser holds no enrolment session. If you started on another device, return using the link the platform sent you.
@@ -115,7 +115,7 @@ export default function EnrolHandoff() {
 
   if (!done) {
     return (
-      <EnrolShell stepLabel="Step 13 of 13">
+      <EnrolShell stepLabel="Step 12 of 13">
         <EnrolTitle>Back at the platform</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           Your credential is delivered server to server. Nothing about it travels in this URL.
@@ -131,9 +131,9 @@ export default function EnrolHandoff() {
       <p className="my-2 leading-[1.45]">
         Your credential has been delivered to the platform, server to server. Nothing about it travelled in your browser.
       </p>
-      <EnrolRow label="Delivered" value="V.A.I. · username · contact" />
+      <EnrolRow label="Delivered" value="V.A.I. · session key · documents · T&C" />
       <EnrolRow label="Carried in the browser" value="the enrolment session, nothing else" />
-      <EnrolRow label="Session key" value="null" />
+      <EnrolRow label="Session key after delivery" value="deleted" />
       {returnUrl ? (
         <EnrolPrimaryButton onClick={() => { window.location.assign(returnUrl); }}>
           Continue to your account
@@ -145,7 +145,8 @@ export default function EnrolHandoff() {
         SPEC-CP-01 §0: the handoff is server to server. A page built to read the credential off the return trip is built wrong.
       </EnrolNote>
       <EnrolWarn>
-        ⚠ Handoff payload has no published shape beyond V.A.I. + username + email/phone. session_key is nulled at ChainPass.
+        The platform received the V.A.I., the session key, documents and T&C affirmation
+        server to server. The key is then deleted. It never rode in this browser.
       </EnrolWarn>
     </EnrolShell>
   );
