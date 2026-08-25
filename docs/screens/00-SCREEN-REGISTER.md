@@ -13,13 +13,13 @@ plates with no responsive treatment to draw, so their Tablet cell is ✅ by natu
 
 | SN | Canon | Screen | Phone | Tablet | Desktop | States | Wire | Coded | Verified |
 |---|---|---|---|---|---|---|---|---|---|
-| CANON-CP-01-SN-01 | §2 step 1 · §2.5 | CP01 Landing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-02 | §2 step 2 · §2.1 | CP02 What we keep, and the warning | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-03 | §2 step 2 · §2.6 | CP23 Biometric consent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-04 | §2 step 3 · §1.1a · §4C | CP03 Pay | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-05 | §2 step 3 · §4A | CP04 Deferred payment · modal | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-06 | §2 step 4 · §2.3 · §2.9 | CP07 Register · contact | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
-| CANON-CP-01-SN-07 | §2 step 5 | CP08 OTP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
+| CANON-CP-01-SN-01 | §2 step 1 · §2.5 | CP01 Landing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| CANON-CP-01-SN-02 | §2 step 2 · §2.1 | CP02 What we keep, and the warning | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| CANON-CP-01-SN-03 | §2 step 2 · §2.6 | CP23 Biometric consent | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| CANON-CP-01-SN-04 | §2 step 3 · §1.1a · §4C | CP03 Pay | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| CANON-CP-01-SN-05 | §2 step 3 · §4A | CP04 Deferred payment · modal | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| CANON-CP-01-SN-06 | §2 step 4 · §2.3 · §2.9 | CP07 Register · contact | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| CANON-CP-01-SN-07 | §2 step 5 | CP08 OTP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | CANON-CP-01-SN-08 | §2 step 6 · §2.2 · §2.7 | CP05 The verification company · frame one | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 | CANON-CP-01-SN-09 | §2 step 7 · §2.8 | CP06 The V.A.I. is revealed | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
 | CANON-CP-01-SN-10 | §2 step 9 · §4D.1 item 5 · §4D.2 | CP09 Both outcomes, rendered | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ |
@@ -209,4 +209,5 @@ files carry the contract defaults deliberately — stated per screen in the wiri
 | 22 Aug 2026 | SN-16–18 and SN-20–32 Coded (gate, renewal, viewer). Verified left ⬜. FACE_SERVICE stub + two-frame compare: frame two against frame one, both rows persist, band only. |
 | 22 Aug 2026 | SN-33–50 Coded. Pointers only — wire endpoints remain RED. CD09/MD09 and SN-45 outcome stay flagged. vec.chainpass.io does not resolve; hosted FACE_SERVICE stays on the stub. |
 | 25 Aug 2026 | **LIVE FACE CUT-OVER.** `vec.chainpass.io` DNS + TLS fixed; hosted `FACE_SERVICE_URL` → `https://vec.chainpass.io/embed`; six face-caller functions redeployed on the live contract. `enrol-baseline`/`_shared/enrol-baseline`/`face-client`/`face-service-stub` now send/accept `JSON { image: base64 }`; the hosted stub accepts it too. **BLOCKER:** live `/embed` `detect_face` decodes SCRFD scores as boxes and flags `multiple_faces_detected` on a single face — the matcher cannot be trusted to return a green band until the detector decode is fixed. CD09/MD09 and SN-45 outcome stay flagged. |
+| 25 Aug 2026 | **SCRFD decode shipped** on `vai-face-embed`: per-stride scores + bbox deltas + NMS. `POST https://vec.chainpass.io/embed` returns vector length 512 on a real single face. **Browser walk** SN-01–07 Verified. Stopped at SN-08: `COMPLYCUBE_API_KEY` unset, so frame one / reveal / SN-51 terms were not walked. 0-DRAFT still forbids completing enrolment against a live identity. |
 | 25 Aug 2026 | DrawCode source deposited: `CP-01-SN Verification Viewer.dc.html` (SHA-256 `c35f348088962cd121da791f1f1ae3962cf2ed4c8f75f33844c7283137397627`). Eight labels in one file: V01 Camera · V02 Processing · V03 Success · V04 Failed · V05 Last attempt used · V06 Failures column · V07 Side-by-side review · V08 The facial stack. Phone 390 prototype, not a three-breakpoint recut. Does not replace the 21 Aug SN-25…32 separated-size set. |
