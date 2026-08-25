@@ -54,8 +54,9 @@ date.
 
 **A ruling made today moved this document earlier in the flow.**
 
-⚠️⚠️ **TERMS ACCEPTANCE IS NOW ADMINISTERED BY CHAINPASS AT THE REGISTER STEP — USERNAME,
-EMAIL AND/OR PHONE, TERMS — AND IT APPLIES TO EVERY MEMBER ON EVERY PLATFORM.**
+⚠️⚠️ **TERMS ACCEPTANCE IS ADMINISTERED BY CHAINPASS ON THE ACCEPTANCE PAGE — STEP 8 —
+WITH THE SECOND CAPTURE. SUPERSEDES THE REGISTER-STEP PLACEMENT. APPLIES TO EVERY MEMBER
+ON EVERY PLATFORM — `RULINGS-CP-03` §1.**
 
 > ⚠️⚠️ **"CHAINPASS IS THE GATEKEEPER MAKING SURE EVERYONE IS COMPLIANT. THAT WOULD BE ITS
 > JOB."** — owner, 22 August
@@ -64,7 +65,7 @@ EMAIL AND/OR PHONE, TERMS — AND IT APPLIES TO EVERY MEMBER ON EVERY PLATFORM.*
 
 | # | |
 |---|---|
-| 1 | ⚠️⚠️ **THE TERMS ARE NO LONGER A PAY-STEP CONCERN. THEY ARE A REGISTER-STEP CONCERN — EARLIER, AND UNIVERSAL.** |
+| 1 | ⚠️⚠️ **THE TERMS ARE NO LONGER A PAY-STEP OR REGISTER-STEP CONCERN. THEY ARE AN ACCEPTANCE-PAGE CONCERN — WITH THE SECOND CAPTURE.** |
 | 2 | ⚠️ **The platform supplies the text. ChainPass displays it, collects the acceptance and holds the record.** Compliance is ChainPass's function, not the platform's. |
 | 3 | ⚠️ **The surface may be platform-branded or co-branded.** The custody is ChainPass's regardless of whose logo is on the page. |
 | 4 | ⚠️⚠️ **WHATEVER SHE IS TOLD ABOUT WHO HOLDS HER DATA MUST BE TRUE. A PAGE THAT LOOKS ENTIRELY LIKE THE PLATFORM WHILE CHAINPASS STORES THE RECORD MUST DISCLOSE THAT. THAT IS THE AUDIT PROTECTION — NOT THE LOGO.** |
@@ -160,8 +161,8 @@ Seed file: `supabase/seeds/20260822_vairify_terms_draft.sql`.
 | # | |
 |---|---|
 | 1 | Does ChainPass write minimum standard terms once, for every platform, or does each platform supply its own with no default? §14.3 item 1 says a default exists. **It does not.** |
-| 2 | Terms acceptance is now at register and applies to everyone. **Does a member who enrols with no platform behind her accept ChainPass's own terms?** There is no ruling. |
-| 3 | Where does the acceptance record live? `agreement_proofs` holds a face-pass row per version. **Is accepting terms at register a face pass, or a different act with a different record?** |
+| 2 | Terms acceptance is on the acceptance page and applies to everyone. **Does a member who enrols with no platform behind her accept ChainPass's own terms?** There is no ruling. |
+| 3 | Where does the acceptance record live? `agreement_proofs` holds a face-pass row per version. **The second capture on the acceptance page is the face pass. The checkbox gates that capture.** |
 | 4 | The platform brands the surface and ChainPass holds the data. **What exactly must the page disclose, and in whose words?** |
 
 ---

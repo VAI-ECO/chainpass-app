@@ -315,9 +315,9 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 | 2 | ⚠️ **735 type errors, uninventoried** | `tsconfig.app.json` |
 | 3 | ⚠️⚠️ **DATEGUARD FIELD RENAMES. FIVE EDGE FUNCTIONS IN THE ALARM PATH QUERY NAMES THAT NO LONGER EXIST.** | `supabase/functions/` |
 | 4 | ⚠️ **The contact handoff is not in the contract.** **Nine items, none is this, and it is a column.** | `PLAN-DB-02` §6 |
-| 5 | ⚠️ **No operator log table. Five canon lines require a write with nowhere to land.** | The schema |
+| 5 | ⚠️ **Operator log: `settings_audit` lands SN-44 saves. Other admin actions still need a shared log.** | The schema |
 | 6 | ⚠️ **`user_roles.role` is `admin · moderator · member`. No SUPER, no SUPPORT.** | The schema |
-| 7 | ⚠️ **`platform_settings` is a singleton with one field. Nineteen settings have nowhere to live.** | The schema |
+| 7 | ⚠️ **`platform_settings` singleton (legacy). Live dials are `public.settings` key·value — SN-44 Master Settings is the surface.** | SN-44 · `master-settings` |
 | 8 | ⚠️ **ChainPass: the completion primary key blocks append-only renewals. RLS on 2 tables of 16.** | `chainpass-schema.sql` |
 
 ---
@@ -330,6 +330,11 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **24 Aug** | 4 | ⚠️⚠️ **MORE DIALS LIVE — handoff poll · blocks burn window · contracts face attempts · testing 95% skip removed.** | Owner no-number ruling |
+| **24 Aug** | 3 | ⚠️⚠️ **WINDOWS + DEFERRAL — `enrol_session_hours` · facial attempt/signature windows · `deferral_suspend_after` on reveal + check-renewals suspend.** | Owner no-number ruling · §4A.3 |
+| **24 Aug** | 2 | ⚠️⚠️ **SETTINGS WIRING — handoff counts · `renewal_window` on check-renewals · `recovery_otp_max_attempts` · `blocks_alert_threshold` on blocks status · `credentials.reds_count` + fourth-state via `reds_threshold` · verify-vai-facial bands from settings (no `FACE_MATCH_THRESHOLD`).** | Owner no-number ruling |
+| **24 Aug** | 1 | ⚠️⚠️ **SN-44 LIVE — `master-settings` list/set · `settings_audit` · named missing keys seeded UNSET. §11 item 7 restated: dials live on `public.settings`, not the legacy singleton.** | Settings control matrix · owner no-number ruling |
+| **25 Aug** | 5 | ⚠️⚠️ **LIVE FACE SERVICE WIRED.** `vec.chainpass.io` serves `vai-face-embed` over HTTPS with a Let's Encrypt cert; hosted `FACE_SERVICE_URL` flipped to `https://vec.chainpass.io/embed` (KEY unchanged). `enrol-baseline` (+ `_shared/enrol-baseline`, `_shared/face-service-stub`, `_shared/face-client`) now POST the live contract `JSON { image: base64 }`; the stub accepts it too. Six face-callers redeployed. **Container model pack on disk: `glintr100_int8.onnx` (recogniser, AuraFace build) · `scrfd_10g_bnkps.onnx` (SCRFD detector) · `2d106det.onnx` (106-pt landmarks) — bind-mounted read-only from `/root/models/face-matching`, source `https://huggingface.co/fal/AuraFace-v1`, SHA-256s in `/app/models/checksums.txt`.** **OPEN:** live `/embed` is SUSPECT — its `detect_face` reads SCRFD's score map as boxes and returns `multiple_faces_detected` on a genuine single-face photo; `POST /embed` 401 without bearer, 400 on the face. Match stack (SCRFD + 2d106det + ArcFace/glintr100) is present; the decode path is not trustworthy. | Live cutover, 25 Aug |
 | **23 Aug** | 7 | ⚠️⚠️ **§7 naming: the third feed scope is NATIONAL.** | `RULINGS-VA-01` 23 Aug. |
 | **22 Aug** | 6 | ⚠️⚠️ **`RULINGS-CP-03` FILED — terms on acceptance, two-frame baseline, Pro uncapped, recovery at ChainPass. Verify test added §3.** | Owner's spoken word, 22 Aug |
 | **22 Aug** | 5 | ⚠️⚠️ **`RULINGS-CP-02` FILED — enrolment, levels, branding. Folded into `CANON-CP-01` changelog #22. Verify test added §3.** | Owner's spoken word, 22 Aug |

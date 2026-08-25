@@ -54,7 +54,7 @@ Build + design |
 | ⚠️⚠️ **Owner** | Decides whether ChainPass minimum standard terms or platform-specific terms
 apply; approves the text |
 | ⚠️⚠️ **Counsel** | Writes the legal clauses — data custody, acceptance, platform-branded
-surface disclosure (§14.2b–c, owner ruling 22 Aug on register-step terms) |
+surface disclosure (§14.2b–c, owner ruling 22 Aug — terms on the acceptance page, `RULINGS-CP-03` §1) |
 | Build | Inserts the ruled row, updates `platform_agreements`, verifies display and acceptance
 record |
 | ⚠️ **Agents** | ⚠️⚠️ **DO NOT DRAFT THE TERMS.** Legal text on a platform serving people at

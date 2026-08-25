@@ -70,7 +70,7 @@ real.**
 |---|---|
 | 1 | ⚠️⚠️ **ADMINISTER ANYTHING A PERSON CAN SIGN — CONSENT CONTRACTS, DISCLOSURES, RELEASES, BACKGROUND CHECKS — WITNESSED AGAINST A VERIFIED IDENTITY, HELD IMMUTABLY BY CHAINPASS** — §4C.4, §14.2. |
 | 2 | ⚠️⚠️ **YOUR AGREEMENTS SURVIVE YOU. VERSION-STAMPED, IMMUTABLE, RETRIEVABLE FOREVER — A RECORD NO DISPUTE CAN REWRITE AND NO STORAGE FAILURE CAN LOSE** — §14.2a. |
-| 3 | ⚠️ **Up to `settings:pro_custom_requirement_cap` custom requirements, yours to pick. A new requirement is a row, not a build** — §4C.3. |
+| 3 | ⚠️ **As many custom requirements as you elect — Pro is uncapped. A new requirement is a row, not a build** — §4C.3 · `RULINGS-CP-03` §3. |
 | 4 | ⚠️ **Any Pro can meet any Pro — ChainPass reconciles missing requirements, so your members are never dead-ended** — §11. |
 
 ## 3.2 — For the individual
