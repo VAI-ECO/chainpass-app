@@ -56,7 +56,7 @@ export default function EnrolComplete() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 11 of 13">
+        <EnrolShell stepLabel="After step 10">
         <EnrolTitle>Nothing to confirm</EnrolTitle>
         <p className="my-2 leading-[1.45]">No credential was issued in this session.</p>
       </EnrolShell>
@@ -78,7 +78,7 @@ export default function EnrolComplete() {
 
   if (!vai) {
     return (
-      <EnrolShell stepLabel="Step 11 of 13">
+        <EnrolShell stepLabel="After step 10">
         <EnrolTitle>You are verified</EnrolTitle>
         <EnrolPrimaryButton onClick={finish}>Confirm</EnrolPrimaryButton>
       </EnrolShell>
@@ -86,7 +86,7 @@ export default function EnrolComplete() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 11 of 13">
+        <EnrolShell stepLabel="After step 10">
       <EnrolTitle>You are verified</EnrolTitle>
       <p className="my-3.5 text-center text-[34px] font-bold tracking-[0.14em]">{vai}</p>
       <EnrolRow

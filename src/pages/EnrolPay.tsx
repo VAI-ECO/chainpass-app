@@ -67,7 +67,7 @@ export default function EnrolPay() {
     setError(null);
     try {
       await invokeEnrol("enrol-pay", { session_id: sessionId, choice });
-      navigate("/enrol/register");
+      navigate("/enrol/capture");
     } catch (e) {
       const message = e instanceof Error ? e.message : "unknown_error";
       setError(message);
@@ -88,7 +88,7 @@ export default function EnrolPay() {
 
   if (state === "empty") {
     return (
-      <EnrolShell stepLabel="Step 3 of 13">
+        <EnrolShell stepLabel="Step 2 of 13">
         <EnrolTitle>No level is available</EnrolTitle>
         <p className="my-2 leading-[1.45]">
           This platform&apos;s service level is not set, so there is nothing to buy.
@@ -153,7 +153,7 @@ export default function EnrolPay() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 3 of 13">
+        <EnrolShell stepLabel="Step 2 of 13">
       <EnrolTitle>Choose your level</EnrolTitle>
       <EnrolRow
         label="Plus"

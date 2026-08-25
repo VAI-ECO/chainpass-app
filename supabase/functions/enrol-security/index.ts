@@ -12,7 +12,7 @@ import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
- * POST /v1/enrol/security — §2 step 12 · RULINGS-CP-03 §7.
+ * POST /v1/enrol/security — CANON-CP-02 §1 step 11 retrieval.
  * Counts from settings:security_question_count and settings:recovery_code_count.
  * Never a constant in this function.
  */
@@ -50,8 +50,8 @@ serve(async (req) => {
     const unpaidSec = refuseUnpaid(session);
     if (unpaidSec) return json(unpaidSec, 403);
     if (!session.vai) return json({ error: "vai_required_first" }, 403);
-    if ((session.enrolment_step ?? 1) < 11) {
-      return json({ error: "congratulations_required_before_security" }, 403);
+    if ((session.enrolment_step ?? 1) < 10) {
+      return json({ error: "face_match_required_before_retrieval" }, 403);
     }
 
     const questionCount = await getSettingNumber(supabase, "security_question_count");
@@ -134,11 +134,11 @@ serve(async (req) => {
 
     const { error: uErr } = await supabase
       .from("sessions")
-      .update({ enrolment_step: Math.max(session.enrolment_step ?? 1, 12) })
+      .update({ enrolment_step: Math.max(session.enrolment_step ?? 1, 11) })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    return json({ status: "secured", step: 12, codes });
+    return json({ status: "secured", step: 11, codes });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

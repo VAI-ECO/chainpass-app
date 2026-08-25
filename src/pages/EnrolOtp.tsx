@@ -34,7 +34,7 @@ export default function EnrolOtp() {
         session_id: sessionId,
         otp_code: code,
       });
-      navigate("/enrol/capture");
+      navigate("/enrol/accept");
     } catch (e) {
       setError(e instanceof Error ? e.message : "unknown_error");
       setState("error");
@@ -63,7 +63,7 @@ export default function EnrolOtp() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 5 of 13">
+    <EnrolShell stepLabel="Step 9 of 13">
       <EnrolTitle>Confirm your contact</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         A code has been sent to the address you gave. Enter it to continue.
@@ -84,7 +84,7 @@ export default function EnrolOtp() {
       <EnrolWarn>
         ⚠ Code length and expiry unruled. Drawn as a field without a fixed digit count. Resend endpoint is not in the wire — not invented.
       </EnrolWarn>
-      <EnrolNote>Control is proven here, before any provider is paid.</EnrolNote>
+      <EnrolNote>Control is proven here, after the V.A.I. is shown.</EnrolNote>
     </EnrolShell>
   );
 }

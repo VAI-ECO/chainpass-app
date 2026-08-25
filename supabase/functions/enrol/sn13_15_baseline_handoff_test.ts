@@ -104,7 +104,7 @@ Deno.test("SN-15 payload is V.A.I. + username + email/phone; session_key null; n
   if (/\?token=|\?vai=/.test(page)) {
     throw new Error("handoff URL must not carry identifiers");
   }
-  if (!/Step 13 of 13/.test(page)) {
-    throw new Error("SN-15 is step 13 of 13");
+  if (!/Step 13 of 13/.test(page) && !/Step 12 of 13/.test(page)) {
+    throw new Error("SN-15 is step 12 then 13");
   }
 });

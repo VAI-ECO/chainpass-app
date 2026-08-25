@@ -97,25 +97,25 @@ Deno.test("SN-06 register is contact — username only when the spec asks", asyn
   if (/username is mandatory/.test(shared)) {
     throw new Error("username must not be ChainPass-mandatory");
   }
-  if (!/Step 4 of 13/.test(page)) {
-    throw new Error("register step label must be 4 of 13");
+  if (!/Step 9 of 13/.test(page)) {
+    throw new Error("register step label must be 9 of 13");
   }
   if (!/enrol-register/.test(page)) {
     throw new Error("SN-06 must write through enrol-register");
   }
 });
 
-Deno.test("SN-07 OTP is control before provider", async () => {
+Deno.test("SN-07 OTP is control after the V.A.I. is shown", async () => {
   const otp = await read("../enrol-otp/index.ts");
   const capture = await read("../enrol-capture/index.ts");
-  if (!/otp_verified_at/.test(otp) || !/enrolment_step.*5/.test(otp)) {
-    throw new Error("enrol-otp must stamp step 5");
+  if (!/otp_verified_at/.test(otp) || !/enrolment_step.*9/.test(otp)) {
+    throw new Error("enrol-otp must stamp step 9");
   }
   if (/!session\.username/.test(otp)) {
     throw new Error("OTP must not require username after CP-03");
   }
-  if (!/otp_required_before_provider/.test(capture)) {
-    throw new Error("capture/provider must not run before OTP");
+  if (/otp_required_before_provider/.test(capture)) {
+    throw new Error("capture must not wait for OTP — OTP is after reveal");
   }
   const page = await read("../../../src/pages/EnrolOtp.tsx");
   if (!/enrol-otp/.test(page)) {
@@ -126,13 +126,15 @@ Deno.test("SN-07 OTP is control before provider", async () => {
   }
 });
 
-Deno.test("§2 step order in App routes matches canon 1–5 then capture", async () => {
+Deno.test("§2 step order in App routes is pay then capture then reveal then register", async () => {
   const app = await read("../../../src/App.tsx");
   const order = [
     'path="/enrol"',
     'path="/enrol/keep"',
     'path="/enrol/consent"',
     'path="/enrol/pay"',
+    'path="/enrol/capture"',
+    'path="/enrol/reveal"',
     'path="/enrol/register"',
     'path="/enrol/otp"',
   ];

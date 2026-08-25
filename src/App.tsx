@@ -69,6 +69,7 @@ import AdminRows from "./pages/AdminRows";
 import UnruledPlate from "./pages/UnruledPlate";
 import VerifyCall from "./pages/VerifyCall";
 import VerifyChecking from "./pages/VerifyChecking";
+import VerifyTrial from "./pages/VerifyTrial";
 import VerifyGreen from "./pages/VerifyGreen";
 import VerifyBand from "./pages/VerifyBand";
 import VerifyFourthState from "./pages/VerifyFourthState";
@@ -148,10 +149,10 @@ const App = () => (
               <Route path="/enrol/keep" element={<EnrolKeep />} />
               <Route path="/enrol/consent" element={<EnrolConsent />} />
               <Route path="/enrol/pay" element={<EnrolPay />} />
-              <Route path="/enrol/register" element={<EnrolRegister />} />
-              <Route path="/enrol/otp" element={<EnrolOtp />} />
               <Route path="/enrol/capture" element={<EnrolCapture />} />
               <Route path="/enrol/reveal" element={<EnrolReveal />} />
+              <Route path="/enrol/register" element={<EnrolRegister />} />
+              <Route path="/enrol/otp" element={<EnrolOtp />} />
               <Route path="/enrol/accept" element={<EnrolAccept />} />
               <Route path="/enrol/requirements" element={<EnrolRequirements />} />
               <Route path="/enrol/declaration" element={<EnrolDeclaration />} />
@@ -172,6 +173,7 @@ const App = () => (
               <Route path="/unruled" element={<UnruledPlate />} />
               <Route path="/verify/call" element={<VerifyCall />} />
               <Route path="/verify/checking" element={<VerifyChecking />} />
+              <Route path="/verify/trial" element={<VerifyTrial />} />
               <Route path="/verify/green" element={<VerifyGreen />} />
               <Route path="/verify/band" element={<VerifyBand />} />
               <Route path="/verify/fourth-state" element={<VerifyFourthState />} />

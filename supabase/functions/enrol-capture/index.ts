@@ -10,10 +10,9 @@ import {
 } from "../_shared/kyc-document.ts";
 
 /**
- * POST /v1/enrol/capture — §2.7 step 6.
- * ChainPass captures OWN frame from the same live camera session as the provider.
- * Held, not committed. Body: { session_id, capture, action?: "hold"|"void" }
- * No separate scan-your-face step.
+ * POST /v1/enrol/capture — CANON-CP-02 §1 steps 4–7.
+ * 4 KYC embed · 5 baseline held · 6 KYC completes · 7 image, result, key return.
+ * OTP is step 9, after reveal. Do not wait for it here.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -53,7 +52,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, otp_verified_at, biometric_consent_at, enrolment_step, held_capture, username, contact_email, paid_at, provider_session_key, document_expiry, issuing_country, issuing_province"
+        "id, biometric_consent_at, enrolment_step, held_capture, username, contact_email, paid_at, provider_session_key, session_key, document_expiry, issuing_country, issuing_province"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -64,8 +63,8 @@ serve(async (req) => {
     if (!session.biometric_consent_at) {
       return json({ error: "biometric_consent_required_first" }, 403);
     }
-    if (!session.otp_verified_at) {
-      return json({ error: "otp_required_before_provider" }, 403);
+    if ((session.enrolment_step ?? 1) < 3 || !session.session_key) {
+      return json({ error: "enrolment_step_order: session key at 3 before KYC at 4" }, 403);
     }
 
     if (action === "open_provider") {
@@ -124,9 +123,18 @@ serve(async (req) => {
       }
       const tokenData = await tokenResponse.json();
 
+      const { error: openErr } = await supabase
+        .from("sessions")
+        .update({
+          provider_session_key: clientData.id,
+          enrolment_step: Math.max(session.enrolment_step ?? 1, 4),
+        })
+        .eq("id", session_id);
+      if (openErr) throw new Error(openErr.message);
+
       return json({
         status: "provider_open",
-        step: 6,
+        step: 4,
         embed: true,
         redirect: false,
         token: tokenData.token,
@@ -146,7 +154,7 @@ serve(async (req) => {
       return json({
         status: "capture_voided",
         enrolment_intact: !!session.username,
-        step: 6,
+        step: 5,
       });
     }
 
@@ -194,13 +202,19 @@ serve(async (req) => {
           ? { provider_session_key }
           : {}),
         ...(kyc_match_percent != null ? { kyc_match_percent } : {}),
-        enrolment_step: Math.max(session.enrolment_step, 6),
+        enrolment_step: Math.max(session.enrolment_step, 7),
         state: "at_provider",
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    return json({ status: "capture_held", step: 6, committed: false });
+    return json({
+      status: "capture_held",
+      step: 7,
+      baseline_step: 5,
+      kyc_step: 6,
+      committed: false,
+    });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

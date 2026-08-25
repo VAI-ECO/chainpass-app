@@ -18,8 +18,13 @@ export default function EnrolRegister() {
   const [state, setState] = useState<EnrolUiState>("default");
   const [error, setError] = useState<string | null>(null);
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [contact, setContact] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [askUsername, setAskUsername] = useState(false);
+  const [askEmail, setAskEmail] = useState(false);
+  const [askPhone, setAskPhone] = useState(false);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -27,11 +32,18 @@ export default function EnrolRegister() {
       .then((data) => {
         const required = Array.isArray(data.required) ? data.required : [];
         setAskUsername(required.includes("username"));
+        setAskEmail(required.includes("email"));
+        setAskPhone(required.includes("phone"));
       })
       .catch(() => {
         setAskUsername(false);
+        setAskEmail(false);
+        setAskPhone(false);
       });
   }, [sessionId]);
+
+  const bothContactRequired = askEmail && askPhone;
+  const floorContact = !askEmail && !askPhone;
 
   function splitContact(raw: string): { email?: string; phone?: string } {
     const v = raw.trim();
@@ -49,12 +61,13 @@ export default function EnrolRegister() {
     setState("loading");
     setError(null);
     try {
-      const { email, phone } = splitContact(contact);
+      const fromFloor = floorContact ? splitContact(contact) : {};
       await invokeEnrol("enrol-register", {
         session_id: sessionId,
+        terms_accepted: termsAccepted,
         ...(askUsername && username ? { username } : {}),
-        ...(email ? { email } : {}),
-        ...(phone ? { phone } : {}),
+        ...(askEmail && email ? { email } : fromFloor.email ? { email: fromFloor.email } : {}),
+        ...(askPhone && phone ? { phone } : fromFloor.phone ? { phone: fromFloor.phone } : {}),
       });
       navigate("/enrol/otp");
     } catch (e) {
@@ -85,10 +98,11 @@ export default function EnrolRegister() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 4 of 13">
+    <EnrolShell stepLabel="Step 9 of 13">
       <EnrolTitle>Your details for this platform</EnrolTitle>
       <p className="my-2 leading-[1.45]">
-        Only what this platform asked for at onboarding. ChainPass carries these fields and keeps none it was not sent.
+        ChainPass needs one of phone or email, plus terms. This platform may ask for more.
+        Those extras come from the platform row, never from a constant in this page.
       </p>
       {askUsername ? (
         <EnrolField
@@ -100,17 +114,68 @@ export default function EnrolRegister() {
           autoComplete="username"
         />
       ) : null}
-      <EnrolField
-        type="text"
-        placeholder="Email or phone"
-        aria-label="Email or phone"
-        value={contact}
-        onChange={(e) => setContact(e.target.value)}
-        autoComplete="email"
-      />
-      <EnrolPrimaryButton onClick={submit}>Continue</EnrolPrimaryButton>
+      {bothContactRequired ? (
+        <>
+          <EnrolField
+            type="text"
+            placeholder="Email"
+            aria-label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+          />
+          <EnrolField
+            type="text"
+            placeholder="Phone"
+            aria-label="Phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            autoComplete="tel"
+          />
+        </>
+      ) : askEmail ? (
+        <EnrolField
+          type="text"
+          placeholder="Email"
+          aria-label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+        />
+      ) : askPhone ? (
+        <EnrolField
+          type="text"
+          placeholder="Phone"
+          aria-label="Phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          autoComplete="tel"
+        />
+      ) : (
+        <EnrolField
+          type="text"
+          placeholder="Email or phone"
+          aria-label="Email or phone"
+          value={contact}
+          onChange={(e) => setContact(e.target.value)}
+          autoComplete="email"
+        />
+      )}
+      <label className="my-3 flex items-start gap-2">
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={(e) => setTermsAccepted(e.target.checked)}
+          aria-label="I accept the terms and conditions"
+        />
+        <span>I accept the terms and conditions</span>
+      </label>
+      <EnrolPrimaryButton onClick={submit} disabled={!termsAccepted}>
+        Continue
+      </EnrolPrimaryButton>
       <EnrolNote>
-        §2.9, the courier rule: no field in the handoff the platform did not send out itself.
+        Floor is email or phone plus terms. Username, email and phone as extras come from
+        platforms.collection_fields.
       </EnrolNote>
     </EnrolShell>
   );

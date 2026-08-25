@@ -5,12 +5,8 @@ import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 /**
- * POST /v1/enrol/otp — §2 step 5.
- * Control proven BEFORE any provider is paid.
- * Body: { session_id, otp_code } — verify against settings-backed store.
- * Pilot: accepts code matching settings.enrol_otp_test_code when set; else requires
- * sessions row already having a pending hash in a side table. For now: store
- * otp_verified_at when code equals settings key enrol_otp_accept (admin-set).
+ * POST /v1/enrol/otp — CANON-CP-02 §1 step 9 (with contact).
+ * After reveal and register. Then documents and face match at 10.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -51,8 +47,8 @@ serve(async (req) => {
     if (!session.contact_email && !session.contact_phone) {
       return json({ error: "register_required_first" }, 403);
     }
-    if ((session.enrolment_step ?? 1) < 4) {
-      return json({ error: "enrolment_step_order: register at 4 before otp at 5" }, 403);
+    if ((session.enrolment_step ?? 1) < 9) {
+      return json({ error: "enrolment_step_order: contact at 9 before otp at 9" }, 403);
     }
 
     // OTP value from settings — never a constant in code.
@@ -73,12 +69,12 @@ serve(async (req) => {
       .from("sessions")
       .update({
         otp_verified_at: new Date().toISOString(),
-        enrolment_step: Math.max(session.enrolment_step, 5),
+        enrolment_step: Math.max(session.enrolment_step, 9),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    return json({ status: "otp_verified", step: 5 });
+    return json({ status: "otp_verified", step: 9 });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

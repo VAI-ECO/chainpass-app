@@ -6,8 +6,7 @@ import { buildPayQuote } from "../_shared/enrol-pay.ts";
 import { generateSessionKey } from "../_shared/session-key.ts";
 
 /**
- * POST /v1/enrol/pay — §2 step 3 PAY (before provider).
- * §2.1 warning+consent must already be at step 2.
+ * POST /v1/enrol/pay — CANON-CP-02 §1 step 2 PAY, then step 3 session key.
  * Figures from settings / platform_agreements — never literals (§1.1a).
  * Body: { session_id, choice: "pay" | "defer" }
  * GET-style quote: { session_id, quote_only: true }
@@ -48,7 +47,7 @@ serve(async (req) => {
     const quote = await buildPayQuote(supabase, session.platform_id);
 
     if (body.quote_only === true) {
-      return json({ status: "pay_quote", step: 3, quote });
+      return json({ status: "pay_quote", step: 2, quote });
     }
 
     const choice = body.choice === "defer" ? "defer" : body.choice === "pay" ? "pay" : "";
@@ -81,6 +80,7 @@ serve(async (req) => {
     return json({
       status: choice === "defer" ? "deferred" : "paid",
       step: 3,
+      pay_step: 2,
       quote,
       payment_choice: choice,
       price_charged,

@@ -72,8 +72,8 @@ Deno.test("SN-09 reveal requires held capture and issues V.A.I. before requireme
   if (!/held_capture_required/.test(reveal)) {
     throw new Error("reveal must require the held frame");
   }
-  if (!/step:\s*7/.test(reveal)) {
-    throw new Error("reveal is step 7");
+  if (!/step:\s*8/.test(reveal)) {
+    throw new Error("reveal is step 8");
   }
   if (!/vai_must_be_live_before_requirements/.test(req)) {
     throw new Error("requirements must wait for a live V.A.I.");
@@ -87,7 +87,7 @@ Deno.test("SN-09 reveal requires held capture and issues V.A.I. before requireme
   if (!/enrol-reveal/.test(page)) {
     throw new Error("SN-09 must write through enrol-reveal");
   }
-  if (!/enrol\/accept/.test(page)) {
-    throw new Error("SN-09 must continue to acceptance, not requirements");
+  if (!/enrol\/register/.test(page)) {
+    throw new Error("SN-09 must continue to register, not acceptance");
   }
 });

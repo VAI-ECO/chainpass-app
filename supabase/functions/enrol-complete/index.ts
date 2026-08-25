@@ -6,9 +6,8 @@ import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
- * POST /v1/enrol/complete — §2 step 11 congratulations.
- * After baseline committed (step 10); before account security (step 12).
- * Body: { session_id }
+ * POST /v1/enrol/complete — after step 10 face match; before retrieval at 11.
+ * Does not own a CP-02 step number.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -51,7 +50,6 @@ serve(async (req) => {
       .from("sessions")
       .update({
         congratulations_at: new Date().toISOString(),
-        enrolment_step: Math.max(session.enrolment_step, 11),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
@@ -63,7 +61,7 @@ serve(async (req) => {
 
     return json({
       status: "congratulations",
-      step: 11,
+      step: 10,
       vai: session.vai.trim(),
       term_years,
       term_setting: "credential_year_length_years",

@@ -20,9 +20,8 @@ async function generateVAI(supabase: ReturnType<typeof createClient>): Promise<s
 }
 
 /**
- * POST /v1/enrol/reveal — §2 step 7.
- * V.A.I. revealed on provider pass; origination stamped (immutable via trigger).
- * Body: { session_id, provider_passed: true }
+ * POST /v1/enrol/reveal — CANON-CP-02 §1 step 8. V.A.I. minted and bound to the image.
+ * Contact and OTP are step 9, after this.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -53,7 +52,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, platform_id, held_capture, otp_verified_at, vai, enrolment_step, background_check_at, document_expiry, issuing_country, issuing_province, payment_choice, paid_at"
+        "id, platform_id, held_capture, vai, enrolment_step, background_check_at, document_expiry, issuing_country, issuing_province, payment_choice, paid_at, session_key"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -61,7 +60,6 @@ serve(async (req) => {
     if (!session) return json({ error: "session_not_found" }, 404);
     const unpaidReveal = refuseUnpaid(session);
     if (unpaidReveal) return json(unpaidReveal, 403);
-    if (!session.otp_verified_at) return json({ error: "otp_required" }, 403);
     if (!session.held_capture) return json({ error: "held_capture_required" }, 403);
     if (!session.document_expiry) {
       return json({ error: "document_expiry_required" }, 403);
@@ -70,7 +68,7 @@ serve(async (req) => {
       return json({ error: "issuing_country_required" }, 403);
     }
     if (session.vai) {
-      return json({ status: "vai_already_revealed", vai: session.vai.trim(), step: 7 });
+      return json({ status: "vai_already_revealed", vai: session.vai.trim(), step: 8 });
     }
 
     const { data: needsCheck } = await supabase
@@ -131,11 +129,19 @@ serve(async (req) => {
       .from("sessions")
       .update({
         vai,
-        enrolment_step: Math.max(session.enrolment_step, 7),
+        enrolment_step: Math.max(session.enrolment_step, 8),
         state: "processing",
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
+
+    if (session.session_key) {
+      const { error: ckErr } = await supabase.from("credential_keys").insert({
+        vai,
+        session_key: session.session_key,
+      });
+      if (ckErr) throw new Error(ckErr.message);
+    }
 
     if (needsCheck) {
       const { error: rcErr } = await supabase.from("requirement_completions").insert({
@@ -156,7 +162,7 @@ serve(async (req) => {
       event: "origination",
     });
 
-    return json({ status: "vai_revealed", vai, step: 7 });
+    return json({ status: "vai_revealed", vai, step: 8 });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

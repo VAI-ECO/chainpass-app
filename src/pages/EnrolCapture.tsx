@@ -124,7 +124,7 @@ export default function EnrolCapture() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 6 of 13">
+    <EnrolShell stepLabel="Step 4 of 13">
       <EnrolTitle>The verification company</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         You are now with an approved provider. Your document and your face go to them — never to this platform, and never through it.

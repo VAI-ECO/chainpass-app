@@ -90,8 +90,8 @@ export default function EnrolAccept() {
         shown_version_id: shownVersionId,
         capture,
       });
-      const dest = data.next === "requirements" ? "/enrol/requirements" : "/enrol/baseline";
-      navigate(dest);
+      if (data.next === "requirements") navigate("/enrol/requirements");
+      else navigate("/enrol/baseline");
     } catch (e) {
       setError(e instanceof Error ? e.message : "unknown_error");
       setState("error");
@@ -117,7 +117,7 @@ export default function EnrolAccept() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 8 of 13">
+    <EnrolShell stepLabel="Step 10 of 13">
       <EnrolTitle>Accept the platform terms</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         You do not have to read them. The box must be checked before the second capture.

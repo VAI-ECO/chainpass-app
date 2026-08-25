@@ -2,13 +2,15 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
-import { validateRegistrationFields } from "../_shared/enrol-register.ts";
+import {
+  step9Collects,
+  validateRegistrationFields,
+} from "../_shared/enrol-register.ts";
 import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 /**
- * POST /v1/enrol/register — §2.3 step 4.
- * Contact from collection spec. Username only if the spec requires it. NEVER legal name.
- * Fields from platform_agreements.collection_fields with at-least-one-of groups.
+ * POST /v1/enrol/register — CANON-CP-02 §1 step 9.
+ * After reveal. Contact from platforms.contact_spec. Floor: email or phone + T&C.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -37,7 +39,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, platform_id, biometric_consent_at, warning_acked_at, paid_at, payment_choice, enrolment_step"
+        "id, platform_id, vai, biometric_consent_at, warning_acked_at, paid_at, payment_choice, enrolment_step"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -45,28 +47,38 @@ serve(async (req) => {
     if (!session) return json({ error: "session_not_found" }, 404);
     const unpaid = refuseUnpaid(session);
     if (unpaid) return json(unpaid, 403);
-    if ((session.enrolment_step ?? 1) < 3) {
-      return json({ error: "enrolment_step_order: pay at 3 before register at 4" }, 403);
+    if (!session.vai) {
+      return json({ error: "enrolment_step_order: V.A.I. at 8 before contact at 9" }, 403);
+    }
+    if ((session.enrolment_step ?? 1) < 8) {
+      return json({ error: "enrolment_step_order: V.A.I. at 8 before contact at 9" }, 403);
     }
 
-    const { data: pa } = await supabase
-      .from("platform_agreements")
-      .select("collection_fields")
-      .eq("platform_id", session.platform_id)
-      .order("created_at", { ascending: false })
-      .limit(1)
+    const { data: plat } = await supabase
+      .from("platforms")
+      .select("contact_spec, collection_fields")
+      .eq("id", session.platform_id)
       .maybeSingle();
 
-    const collection = (pa?.collection_fields ?? null) as {
+    const spec = (plat?.contact_spec ?? {}) as Record<string, unknown>;
+    const fallback = (plat?.collection_fields ?? {}) as Record<string, unknown>;
+    const collection = (
+      Object.keys(spec).length > 0 ? spec : fallback
+    ) as {
       required?: string[];
       groups?: Array<{ at_least_one_of: string[] }>;
-    } | null;
+    };
+
+    const collect = step9Collects(collection);
 
     if (action === "spec") {
       return json({
         status: "spec",
+        step: 9,
+        collect,
         required: collection?.required ?? [],
-        groups: collection?.groups ?? [{ at_least_one_of: ["email", "phone"] }],
+        groups: collection?.groups ?? [],
+        floor: ["email or phone", "terms and conditions"],
       });
     }
 
@@ -78,15 +90,18 @@ serve(async (req) => {
         username: fields.username,
         contact_email: fields.email,
         contact_phone: fields.phone,
-        enrolment_step: Math.max(session.enrolment_step, 4),
+        terms_accepted_at: new Date().toISOString(),
+        enrolment_step: Math.max(session.enrolment_step, 9),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    return json({ status: "registered", step: 4 });
+    return json({ status: "registered", step: 9, collect });
   } catch (e) {
     const message = e instanceof Error ? e.message : "unknown";
-    const status = /legal_name|mandatory|at_least_one|forbidden|required field/i.test(message)
+    const status = /legal_name|mandatory|at_least_one|forbidden|required field|terms_and_conditions/i.test(
+      message
+    )
       ? 400
       : 500;
     return json({ error: message }, status);

@@ -2,11 +2,9 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
-import { refuseUnpaid } from "../_shared/require-paid.ts";
-
 /**
- * POST /v1/enrol/consent — §2 step 2: warning (§2.1) + biometric consent (§2.6).
- * BEFORE any capture. Warning must be acknowledged before PAY at step 3.
+ * POST /v1/enrol/consent — biometric consent before the camera.
+ * Not a CP-02 numbered step. PAY is step 2; this gate sits before capture.
  * Body: { session_id, consent_biometric: true, warning_acknowledged: true }
  */
 serve(async (req) => {
@@ -46,8 +44,6 @@ serve(async (req) => {
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
-    const unpaid = refuseUnpaid(session);
-    if (unpaid) return json(unpaid, 403);
     if (session.held_capture) {
       return json({ error: "capture_already_exists_consent_too_late" }, 409);
     }
@@ -58,12 +54,11 @@ serve(async (req) => {
       .update({
         biometric_consent_at: now,
         warning_acked_at: now,
-        enrolment_step: Math.max(session.enrolment_step, 2),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    return json({ status: "consent_recorded", step: 2 });
+    return json({ status: "consent_recorded" });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

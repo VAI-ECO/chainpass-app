@@ -16,7 +16,7 @@ import {
 } from "../_shared/enrol-accept.ts";
 
 /**
- * POST /v1/enrol/accept — §2 step 8 · RULINGS-CP-03 §1 · §8.
+ * POST /v1/enrol/accept — CANON-CP-02 §1 step 10 · documents then face match.
  * Terms checkbox gates frame two. LE is not this checkbox.
  */
 serve(async (req) => {
@@ -47,7 +47,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, platform_id, vai, enrolment_step, held_capture, required_credential_level, acceptance_capture, paid_at"
+        "id, platform_id, vai, enrolment_step, held_capture, required_credential_level, acceptance_capture, paid_at, otp_verified_at"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -56,7 +56,10 @@ serve(async (req) => {
     const unpaidAccept = refuseUnpaid(session);
     if (unpaidAccept) return json(unpaidAccept, 403);
     if (!session.vai) return json({ error: "vai_required_first" }, 403);
-    if ((session.enrolment_step ?? 1) < 7 || !session.held_capture) {
+    if (!session.otp_verified_at) {
+      return json({ error: "otp_required_before_documents" }, 403);
+    }
+    if ((session.enrolment_step ?? 1) < 9 || !session.held_capture) {
       return json({ error: "reveal_required_before_acceptance" }, 403);
     }
 
@@ -77,7 +80,7 @@ serve(async (req) => {
         .update(voidAcceptanceCaptureOnBreak())
         .eq("id", session_id);
       if (vErr) throw new Error(vErr.message);
-      return json({ status: "acceptance_voided", step: 8, next });
+      return json({ status: "acceptance_voided", step: 10, next });
     }
 
     if (action === "view") {
@@ -91,7 +94,7 @@ serve(async (req) => {
       }
       return json({
         status: "view",
-        step: 8,
+        step: 10,
         shown_version_id: resolved.version.id,
         version: resolved.version.version,
         body: resolved.version.body,
@@ -123,7 +126,7 @@ serve(async (req) => {
     if (!bound.ok) return json({ error: "stale_document" }, 409);
 
     const { data: agr, error: aErr } = await supabase
-      .from("agreements")
+      .from("enrolment_agreements")
       .insert({
         platform_id: session.platform_id,
         type: "single",
@@ -152,12 +155,12 @@ serve(async (req) => {
         terms_accepted_at: new Date().toISOString(),
         acceptance_capture: capture,
         acceptance_capture_voided_at: null,
-        enrolment_step: Math.max(session.enrolment_step ?? 1, 8),
+        enrolment_step: Math.max(session.enrolment_step ?? 1, 10),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    return json({ status: "accepted", step: 8, next });
+    return json({ status: "accepted", step: 10, next });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

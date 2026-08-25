@@ -7,9 +7,8 @@ import { getSetting, getSettingNumber } from "../_shared/settings.ts";
 import { embedBothAndCompare, requireFaceService } from "../_shared/enrol-baseline.ts";
 
 /**
- * POST /v1/enrol/baseline — §2.7 step 10.
+ * POST /v1/enrol/baseline — CANON-CP-02 §1 step 10 face match against the step-5 baseline.
  * Two frames, gated on terms. FACE_SERVICE per frame; frame two compared to frame one.
- * Both embeddings persist. No invented merge.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -40,7 +39,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, vai, held_capture, held_capture_voided_at, acceptance_capture, acceptance_capture_voided_at, enrolment_step, requirements_signed_at, terms_accepted_at, required_credential_level, platform_id, kyc_match_percent, paid_at"
+        "id, vai, held_capture, held_capture_voided_at, acceptance_capture, acceptance_capture_voided_at, enrolment_step, requirements_signed_at, terms_accepted_at, required_credential_level, platform_id, kyc_match_percent, paid_at, otp_verified_at"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -49,6 +48,9 @@ serve(async (req) => {
     const unpaidBase = refuseUnpaid(session);
     if (unpaidBase) return json(unpaidBase, 403);
     if (!session.vai) return json({ error: "vai_required_first" }, 403);
+    if (!session.otp_verified_at) {
+      return json({ error: "otp_required_before_documents" }, 403);
+    }
     if (!session.terms_accepted_at) {
       return json({ error: "terms_checkbox_required" }, 403);
     }
@@ -95,12 +97,24 @@ serve(async (req) => {
     const frameTwo = compared.frameTwo;
     const defaultModel = await getSetting(supabase, "engine_attempt_default");
 
+    let is_trial = false;
+    if (session.platform_id) {
+      const { data: plat } = await supabase
+        .from("platforms")
+        .select("trial_mode")
+        .eq("id", session.platform_id)
+        .maybeSingle();
+      is_trial = plat?.trial_mode === true;
+    }
+
     const rows = [
       {
         vai: session.vai.trim(),
         vector: frameOne.vector,
         model: frameOne.model ?? defaultModel,
         model_version: frameOne.model_version ?? "1",
+        engine: frameOne.model_checksum ?? null,
+        is_trial,
         enrollment_score: 0,
         source: "in_house",
         photo_ref: "frame_one",
@@ -110,6 +124,8 @@ serve(async (req) => {
         vector: frameTwo.vector,
         model: frameTwo.model ?? defaultModel,
         model_version: frameTwo.model_version ?? "1",
+        engine: frameTwo.model_checksum ?? null,
+        is_trial,
         enrollment_score: 0,
         source: "in_house",
         photo_ref: "frame_two",

@@ -103,7 +103,7 @@ export default function EnrolDeclaration() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 9 of 13 · declaration">
+    <EnrolShell stepLabel="Step 10 of 13 · declaration">
       <EnrolTitle>Law enforcement declaration</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         You are stating whether you are affiliated with law enforcement. This platform requires the declaration; ChainPass administers it.
