@@ -8,16 +8,7 @@ CREATE TABLE IF NOT EXISTS public.service_state (
   mode text NOT NULL DEFAULT 'auto'
     CHECK (mode IN ('auto', 'declared_down', 'declared_up')),
   override_reason text,
-  override_expires_at timestamptz,
-  last_probe_at timestamptz,
-  last_probe_ok boolean,
-  consecutive_failures integer NOT NULL DEFAULT 0,
-  consecutive_successes integer NOT NULL DEFAULT 0,
-  served_as text NOT NULL DEFAULT 'down'
-    CHECK (served_as IN ('up', 'down')),
-  CONSTRAINT service_state_declared_reason CHECK (
-    mode = 'auto' OR override_reason IS NOT NULL
-  )
+  override_expires_at timestamptz
 );
 
 CREATE TABLE IF NOT EXISTS public.service_state_log (
@@ -29,6 +20,16 @@ CREATE TABLE IF NOT EXISTS public.service_state_log (
   to_state text NOT NULL,
   why text
 );
+
+ALTER TABLE public.service_state ADD COLUMN IF NOT EXISTS last_probe_at timestamptz;
+ALTER TABLE public.service_state ADD COLUMN IF NOT EXISTS last_probe_ok boolean;
+ALTER TABLE public.service_state ADD COLUMN IF NOT EXISTS consecutive_failures integer NOT NULL DEFAULT 0;
+ALTER TABLE public.service_state ADD COLUMN IF NOT EXISTS consecutive_successes integer NOT NULL DEFAULT 0;
+ALTER TABLE public.service_state ADD COLUMN IF NOT EXISTS served_as text;
+
+UPDATE public.service_state SET served_as = 'down' WHERE served_as IS NULL;
+ALTER TABLE public.service_state ALTER COLUMN served_as SET DEFAULT 'down';
+ALTER TABLE public.service_state ALTER COLUMN served_as SET NOT NULL;
 
 INSERT INTO public.service_state (subsystem, mode, served_as)
 VALUES ('matcher', 'auto', 'down'), ('image_serve', 'auto', 'down')
