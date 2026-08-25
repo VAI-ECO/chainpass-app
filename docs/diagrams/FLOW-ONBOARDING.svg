@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 820" width="680" height="820" role="img">
+  <title>FLOW-ONBOARDING &#183; two barriers</title>
+  <desc>Real identity is checked outside ChainPass walls at the KYC company and at background or custom checks. Documents stay above the first line. A photo and a yes or no come back. Inside ChainPass the baseline photo is taken, a 7-character V.A.I. with no name is created, the user signs then one face match confirms it is them, and recovery questions and backup codes are set. The handoff crosses only the V.A.I. and the session key. Name, document and photograph never cross. The platform receives the person as a V.A.I. and nothing else. After the handoff ChainPass deletes the session key.</desc>
+
+  <defs>
+    <marker id="arr-up" viewBox="0 0 10 10" refX="5" refY="2" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M1 9 L5 1 L9 9" fill="none" stroke="#5F5E5A" stroke-width="1.6"/>
+    </marker>
+    <marker id="arr-down" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M1 1 L5 9 L9 1" fill="none" stroke="#5F5E5A" stroke-width="1.6"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M1 1 L5 9 L9 1" fill="none" stroke="#854F0B" stroke-width="1.6"/>
+    </marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M1 1 L5 9 L9 1" fill="none" stroke="#534AB7" stroke-width="1.6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="680" height="820" fill="#FFFcf8"/>
+
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">
+    <rect x="24" y="14" width="10" height="10" fill="#F1EFE8" stroke="#5F5E5A"/>
+    <text x="40" y="23" fill="#444441">gray = outside &#183; real ID checked here</text>
+    <rect x="24" y="30" width="10" height="10" fill="#EEEDFE" stroke="#534AB7"/>
+    <text x="40" y="39" fill="#3C3489">purple = ChainPass</text>
+    <rect x="340" y="14" width="10" height="10" fill="#FAEEDA" stroke="#854F0B"/>
+    <text x="356" y="23" fill="#633806">amber = the handoff</text>
+    <rect x="340" y="30" width="10" height="10" fill="#E1F5EE" stroke="#0F6E56"/>
+    <text x="356" y="39" fill="#085041">teal = the platform</text>
+  </g>
+
+  <!-- 1 outside -->
+  <rect x="40" y="56" width="600" height="168" fill="none" stroke="#5F5E5A" stroke-width="1.6" stroke-dasharray="7 5" rx="8"/>
+  <rect x="58" y="48" width="268" height="16" fill="#FFFcf8"/>
+  <text x="62" y="60" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600" fill="#444441">1 &#183; Outside the walls &#183; where real ID is checked</text>
+
+  <rect x="56" y="80" width="276" height="88" rx="6" fill="#F1EFE8" stroke="#5F5E5A"/>
+  <text font-family="ui-sans-serif, system-ui, sans-serif">
+    <tspan x="194" y="114" text-anchor="middle" font-size="14" font-weight="600" fill="#444441">The KYC company</tspan>
+    <tspan x="194" y="136" text-anchor="middle" font-size="12" fill="#5F5E5A">your document + a live face check</tspan>
+  </text>
+
+  <rect x="348" y="80" width="276" height="88" rx="6" fill="#F1EFE8" stroke="#5F5E5A"/>
+  <text font-family="ui-sans-serif, system-ui, sans-serif">
+    <tspan x="486" y="114" text-anchor="middle" font-size="14" font-weight="600" fill="#444441">Background / custom checks</tspan>
+    <tspan x="486" y="136" text-anchor="middle" font-size="12" fill="#5F5E5A">your real details, checked out here</tspan>
+  </text>
+
+  <text x="340" y="202" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#5F5E5A">your identity documents stay above this line</text>
+
+  <!-- barrier 1 -->
+  <line x1="40" y1="248" x2="640" y2="248" stroke="#5F5E5A" stroke-width="1.4" stroke-dasharray="6 5"/>
+  <line x1="220" y1="236" x2="220" y2="226" stroke="#5F5E5A" stroke-width="1.4" marker-end="url(#arr-up)"/>
+  <text x="228" y="232" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#5F5E5A">real details out</text>
+  <line x1="460" y1="226" x2="460" y2="236" stroke="#5F5E5A" stroke-width="1.4" marker-end="url(#arr-down)"/>
+  <text x="470" y="232" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#5F5E5A">photo + yes or no back</text>
+
+  <!-- 2 inside ChainPass -->
+  <rect x="40" y="260" width="600" height="268" fill="none" stroke="#534AB7" stroke-width="1.6" stroke-dasharray="7 5" rx="8"/>
+  <rect x="58" y="252" width="168" height="16" fill="#FFFcf8"/>
+  <text x="62" y="264" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600" fill="#3C3489">2 &#183; Inside ChainPass</text>
+
+  <rect x="56" y="284" width="568" height="48" rx="6" fill="#EEEDFE" stroke="#534AB7"/>
+  <text x="340" y="313" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="600" fill="#3C3489">ChainPass takes your baseline photo</text>
+
+  <rect x="56" y="340" width="568" height="52" rx="6" fill="#EEEDFE" stroke="#534AB7"/>
+  <text font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <tspan x="340" y="362" font-size="14" font-weight="600" fill="#3C3489">Your V.A.I. is created</tspan>
+    <tspan x="340" y="380" font-size="12" fill="#534AB7">7 characters &#183; no name in it</tspan>
+  </text>
+
+  <rect x="56" y="400" width="568" height="52" rx="6" fill="#EEEDFE" stroke="#534AB7"/>
+  <text font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <tspan x="340" y="422" font-size="14" font-weight="600" fill="#3C3489">You sign, then one face match</tspan>
+    <tspan x="340" y="440" font-size="12" fill="#534AB7">confirms it is really you</tspan>
+  </text>
+
+  <rect x="56" y="460" width="568" height="52" rx="6" fill="#EEEDFE" stroke="#534AB7"/>
+  <text font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <tspan x="340" y="482" font-size="14" font-weight="600" fill="#3C3489">recovery set &#183; questions + backup codes</tspan>
+  </text>
+
+  <!-- barrier 2 + handoff -->
+  <line x1="40" y1="560" x2="640" y2="560" stroke="#854F0B" stroke-width="1.4" stroke-dasharray="6 5"/>
+  <rect x="56" y="538" width="168" height="44" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="1.4"/>
+  <text x="140" y="565" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="700" fill="#633806">THE HANDOFF</text>
+  <text x="240" y="556" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#633806">crosses: V.A.I. + session key</text>
+  <text x="240" y="574" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#854F0B">never: name, document, photograph</text>
+  <line x1="140" y1="582" x2="140" y2="608" stroke="#854F0B" stroke-width="1.4" marker-end="url(#arr-amber)"/>
+  <line x1="620" y1="528" x2="620" y2="608" stroke="#534AB7" stroke-width="1.4" marker-end="url(#arr-purple)"/>
+
+  <!-- 3 platform -->
+  <rect x="40" y="616" width="360" height="140" fill="none" stroke="#0F6E56" stroke-width="1.6" stroke-dasharray="7 5" rx="8"/>
+  <rect x="56" y="608" width="148" height="16" fill="#FFFcf8"/>
+  <text x="60" y="620" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600" fill="#085041">3 &#183; The platform</text>
+  <rect x="56" y="640" width="328" height="96" rx="6" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <tspan x="220" y="680" font-size="14" font-weight="600" fill="#085041">you arrive as your V.A.I.</tspan>
+    <tspan x="220" y="702" font-size="13" fill="#0F6E56">nothing else</tspan>
+  </text>
+
+  <!-- 4 after -->
+  <rect x="420" y="616" width="220" height="140" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.6"/>
+  <text font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <tspan x="530" y="672" font-size="13" font-weight="600" fill="#3C3489">4 &#183; after</tspan>
+    <tspan x="530" y="696" font-size="13" fill="#534AB7">the session key is deleted</tspan>
+  </text>
+
+  <text x="656" y="806" text-anchor="end" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#5F5E5A">visualize: Client flow two barriers key</text>
+</svg>
