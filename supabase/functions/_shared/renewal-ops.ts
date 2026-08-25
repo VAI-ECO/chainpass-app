@@ -38,6 +38,8 @@ export async function appendRenewalBaseline(
     vector: number[];
     model: string;
     model_version: string;
+    engine?: string | null;
+    is_trial?: boolean;
   }
 ): Promise<void> {
   const { error } = await supabase.from("baselines").insert({
@@ -45,6 +47,8 @@ export async function appendRenewalBaseline(
     vector: args.vector,
     model: args.model,
     model_version: args.model_version,
+    engine: args.engine ?? null,
+    is_trial: args.is_trial === true,
     enrollment_score: 0,
     source: "in_house",
   });
