@@ -56,6 +56,7 @@ import EnrolSign from "./pages/EnrolSign";
 import EnrolBaseline from "./pages/EnrolBaseline";
 import EnrolComplete from "./pages/EnrolComplete";
 import EnrolSecurity from "./pages/EnrolSecurity";
+import EnrolFinal from "./pages/EnrolFinal";
 import EnrolHandoff from "./pages/EnrolHandoff";
 import VerifyShortfall from "./pages/VerifyShortfall";
 import VerifyLastAttempt from "./pages/VerifyLastAttempt";
@@ -158,6 +159,7 @@ const App = () => (
               <Route path="/enrol/baseline" element={<EnrolBaseline />} />
               <Route path="/enrol/complete" element={<EnrolComplete />} />
               <Route path="/enrol/security" element={<EnrolSecurity />} />
+              <Route path="/enrol/final" element={<EnrolFinal />} />
               <Route path="/enrol/handoff" element={<EnrolHandoff />} />
               <Route path="/verify/shortfall" element={<VerifyShortfall />} />
               <Route path="/verify/last-attempt" element={<VerifyLastAttempt />} />

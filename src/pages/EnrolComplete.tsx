@@ -11,6 +11,7 @@ import {
   type EnrolUiState,
 } from "@/components/enrol/EnrolShell";
 import { getEnrolmentSessionId, invokeEnrol } from "@/lib/enrol";
+import { ENROL_VAI_SHOWN_KEY } from "@/lib/remember-vai";
 
 export default function EnrolComplete() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export default function EnrolComplete() {
         return;
       }
       setVai(issued);
+      sessionStorage.setItem(ENROL_VAI_SHOWN_KEY, issued);
       setTermYears(typeof data.term_years === "number" ? data.term_years : null);
       setState("default");
     } catch (e) {

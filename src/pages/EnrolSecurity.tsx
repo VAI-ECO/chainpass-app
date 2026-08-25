@@ -122,11 +122,11 @@ export default function EnrolSecurity() {
         </label>
         <EnrolPrimaryButton
           disabled={!written}
-          onClick={() => navigate("/enrol/handoff")}
+          onClick={() => navigate("/enrol/final")}
         >
           Continue
         </EnrolPrimaryButton>
-        <EnrolNote>Last ChainPass screen. The platform begins after this.</EnrolNote>
+        <EnrolNote>The retrieval page is before the last V.A.I. page and the handoff.</EnrolNote>
       </EnrolShell>
     );
   }

@@ -10,6 +10,7 @@ import {
   type EnrolUiState,
 } from "@/components/enrol/EnrolShell";
 import { invokeEnrol } from "@/lib/enrol";
+import { getRememberedVai } from "@/lib/remember-vai";
 import { getSettingNumber } from "@/lib/settings";
 
 /** SN-25 — operational call. POST gate (or verify). */
@@ -17,7 +18,7 @@ export default function VerifyCall() {
   const navigate = useNavigate();
   const [state, setState] = useState<EnrolUiState>("default");
   const [error, setError] = useState<string | null>(null);
-  const [vai, setVai] = useState("");
+  const [vai, setVai] = useState(() => getRememberedVai() ?? "");
   const [capture, setCapture] = useState("");
   const [attemptMax, setAttemptMax] = useState("settings:attempt_count_n");
 
@@ -96,9 +97,12 @@ export default function VerifyCall() {
         value={capture}
         onChange={(e) => setCapture(e.target.value)}
       />
-      <EnrolPrimaryButton onClick={captureNow}>Capture</EnrolPrimaryButton>
+      <EnrolPrimaryButton onClick={captureNow} disabled={!capture.trim()}>
+        Capture
+      </EnrolPrimaryButton>
       <EnrolNote>
         §6: the capture goes to ChainPass and is matched against the baseline held there.
+        A remembered V.A.I. fills the number field. The face still runs.
       </EnrolNote>
     </EnrolShell>
   );
