@@ -413,9 +413,9 @@ alone.**
 |---|---|
 | 1 | ⚠️⚠️ **ENCODED, NOT IN THE CLEAR.** **A readable prefix tells whoever holds the key which provider verified that person. That is information about the person.** |
 | 2 | ⚠️⚠️ **IT MUST SURVIVE YEARS IN A PLATFORM'S DATABASE.** **It cannot depend on anything ChainPass keeps.** |
+| 3 | ⚠️⚠️ **THIRTY-TWO CHARACTERS. ALPHANUMERIC.** **Owner ruling, 25 August.** |
 
-⬜ ⚠️ **NO SPECIFICATION EXISTS.** **Format · encoding · how a provider is derived · what
-happens when a provider is added or removed.**
+⬜ ⚠️ **ENCODING STILL OPEN.** **How a provider is derived · what happens when a provider is added or removed.** ⚠️ **Length is not open. Length is 32.**
 
 ---
 
@@ -1454,6 +1454,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **25 Aug** | 28 | ⚠️⚠️ **§3 — SESSION KEY LENGTH IS 32 CHARACTERS, ALPHANUMERIC. Owner ruling. Encoding remains open.** | Item 3 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 27 | ⚠️⚠️ **§2 SEQUENCE REPLACED WITH `CANON-CP-02` §1. THIRTEEN STEPS PLUS 11a. PAY AT STEP 2. SESSION KEY AT STEP 3. FACE MATCH AT STEP 10. RETRIEVAL PAGE AT 11. FINAL V.A.I. PAGE AT 11a. HANDOFF 12. KEY DELETED 13. SUPERSEDED STEPS DELETED, NOT MARKED. §2.0 DELETED.** | Owner: `CANON-CP-02` governs enrolment and supersedes `CANON-CP-01` §2. |
 | **23 Aug** | 26 | ⚠️⚠️ **§0 ADDED — THE GRT AS A CHAINPASS SERVICE. 95% remitted at spend. ChainPass never holds the balance as its own. Peg is one Rose, one dollar.** | `RULINGS-VA-03` §3, §6. |
 | **23 Aug** | 25 | **One name per control.** `credential_term` → `credential_year_length_years`. `deferral_window` → `deferral_window_hours`. Term stays one year as a field. Face attempts read `attempt_count_n`. The hardcoded 365, +1 year, and 5 are deleted. | RULINGS-VA-02 §6 · §8 · §9. Two names is how the mint and the copy drift. |

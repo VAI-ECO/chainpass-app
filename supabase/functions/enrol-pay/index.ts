@@ -6,6 +6,7 @@ import {
   assertWarningBeforePay,
   buildPayQuote,
 } from "../_shared/enrol-pay.ts";
+import { generateSessionKey } from "../_shared/session-key.ts";
 
 /**
  * POST /v1/enrol/pay — §2 step 3 PAY (before provider).
@@ -74,6 +75,8 @@ serve(async (req) => {
     const price_charged =
       choice === "defer" ? "0" : String(quote.price);
 
+    const session_key = generateSessionKey();
+
     const { error: uErr } = await supabase
       .from("sessions")
       .update({
@@ -81,6 +84,7 @@ serve(async (req) => {
         payment_choice: choice,
         price_charged,
         required_credential_level: quote.required_credential_level,
+        session_key,
         enrolment_step: Math.max(session.enrolment_step ?? 1, 3),
       })
       .eq("id", session_id);
