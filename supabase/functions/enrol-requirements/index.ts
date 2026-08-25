@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 /**
  * POST /v1/enrol/requirements — §2 step 9 (Pro only).
@@ -44,11 +45,13 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, platform_id, vai, enrolment_step, held_capture")
+      .select("id, platform_id, vai, enrolment_step, held_capture, paid_at")
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaidReq = refuseUnpaid(session);
+    if (unpaidReq) return json(unpaidReq, 403);
     if (!session.vai) {
       return json({ error: "vai_must_be_live_before_requirements" }, 403);
     }

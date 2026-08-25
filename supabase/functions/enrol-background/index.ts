@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSetting } from "../_shared/settings.ts";
 import { requireComplyCubeApiKey } from "../_shared/enrol-capture.ts";
 import {
@@ -44,12 +45,14 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, platform_id, vai, enrolment_step, held_capture, provider_session_key, background_check_at"
+        "id, platform_id, vai, enrolment_step, held_capture, provider_session_key, background_check_at, paid_at"
       )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaidBg = refuseUnpaid(session);
+    if (unpaidBg) return json(unpaidBg, 403);
     if (session.vai) return json({ error: "vai_already_minted" }, 403);
     if (!session.held_capture) {
       return json({ error: "held_capture_required" }, 409);

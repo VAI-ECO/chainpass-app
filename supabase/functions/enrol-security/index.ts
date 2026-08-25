@@ -8,6 +8,7 @@ import {
   maskCode,
   normalizeAnswer,
 } from "../_shared/enrol-security.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
@@ -41,11 +42,13 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, vai, enrolment_step, contact_email, contact_phone")
+      .select("id, vai, enrolment_step, contact_email, contact_phone, paid_at")
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaidSec = refuseUnpaid(session);
+    if (unpaidSec) return json(unpaidSec, 403);
     if (!session.vai) return json({ error: "vai_required_first" }, 403);
     if ((session.enrolment_step ?? 1) < 11) {
       return json({ error: "congratulations_required_before_security" }, 403);

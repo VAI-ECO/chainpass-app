@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
@@ -34,12 +35,14 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, vai, username, contact_email, contact_phone, provider_session_key, enrolment_step, platform_id, return_url, state"
+        "id, vai, username, contact_email, contact_phone, provider_session_key, enrolment_step, platform_id, return_url, state, paid_at"
       )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaidHandoff = refuseUnpaid(session);
+    if (unpaidHandoff) return json(unpaidHandoff, 403);
     if (!session.vai) return json({ error: "vai_required" }, 403);
     if (session.enrolment_step < 12) {
       return json({ error: "security_required_before_handoff" }, 403);

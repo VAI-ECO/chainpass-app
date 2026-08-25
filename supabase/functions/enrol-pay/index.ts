@@ -2,10 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
-import {
-  assertWarningBeforePay,
-  buildPayQuote,
-} from "../_shared/enrol-pay.ts";
+import { buildPayQuote } from "../_shared/enrol-pay.ts";
 import { generateSessionKey } from "../_shared/session-key.ts";
 
 /**
@@ -47,15 +44,6 @@ serve(async (req) => {
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
-
-    try {
-      assertWarningBeforePay(session);
-    } catch (e) {
-      return json(
-        { error: e instanceof Error ? e.message : "warning_required" },
-        403
-      );
-    }
 
     const quote = await buildPayQuote(supabase, session.platform_id);
 

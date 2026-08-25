@@ -3,6 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { voidHeldCaptureOnBreak, requireComplyCubeApiKey, assertEmbeddedProviderSession } from "../_shared/enrol-capture.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 import {
   extractKycDocumentFields,
   fetchLatestKycCheck,
@@ -58,9 +59,8 @@ serve(async (req) => {
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
-    if (!session.paid_at) {
-      return json({ error: "pay_required_before_provider" }, 403);
-    }
+    const unpaid = refuseUnpaid(session);
+    if (unpaid) return json(unpaid, 403);
     if (!session.biometric_consent_at) {
       return json({ error: "biometric_consent_required_first" }, 403);
     }

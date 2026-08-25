@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSetting, getSettingNumber } from "../_shared/settings.ts";
 import { embedBothAndCompare, requireFaceService } from "../_shared/enrol-baseline.ts";
 
@@ -39,12 +40,14 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, vai, held_capture, held_capture_voided_at, acceptance_capture, acceptance_capture_voided_at, enrolment_step, requirements_signed_at, terms_accepted_at, required_credential_level, platform_id, kyc_match_percent"
+        "id, vai, held_capture, held_capture_voided_at, acceptance_capture, acceptance_capture_voided_at, enrolment_step, requirements_signed_at, terms_accepted_at, required_credential_level, platform_id, kyc_match_percent, paid_at"
       )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaidBase = refuseUnpaid(session);
+    if (unpaidBase) return json(unpaidBase, 403);
     if (!session.vai) return json({ error: "vai_required_first" }, 403);
     if (!session.terms_accepted_at) {
       return json({ error: "terms_checkbox_required" }, 403);

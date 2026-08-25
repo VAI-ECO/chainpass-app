@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 /**
  * POST /v1/enrol/consent — §2 step 2: warning (§2.1) + biometric consent (§2.6).
@@ -40,11 +41,13 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, enrolment_step, held_capture")
+      .select("id, enrolment_step, held_capture, paid_at")
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaid = refuseUnpaid(session);
+    if (unpaid) return json(unpaid, 403);
     if (session.held_capture) {
       return json({ error: "capture_already_exists_consent_too_late" }, 409);
     }

@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 /**
  * POST /v1/enrol/otp — §2 step 5.
@@ -45,9 +46,8 @@ serve(async (req) => {
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
-    if (!session.paid_at || !session.payment_choice) {
-      return json({ error: "pay_required_before_otp" }, 403);
-    }
+    const unpaid = refuseUnpaid(session);
+    if (unpaid) return json(unpaid, 403);
     if (!session.contact_email && !session.contact_phone) {
       return json({ error: "register_required_first" }, 403);
     }

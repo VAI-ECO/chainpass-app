@@ -3,6 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 const VAI_ALPHABET = "ABCDEFGHJKLMNPQRTUVWXY23456789";
 
@@ -52,12 +53,14 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, platform_id, held_capture, otp_verified_at, vai, enrolment_step, background_check_at, document_expiry, issuing_country, issuing_province, payment_choice"
+        "id, platform_id, held_capture, otp_verified_at, vai, enrolment_step, background_check_at, document_expiry, issuing_country, issuing_province, payment_choice, paid_at"
       )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaidReveal = refuseUnpaid(session);
+    if (unpaidReveal) return json(unpaidReveal, 403);
     if (!session.otp_verified_at) return json({ error: "otp_required" }, 403);
     if (!session.held_capture) return json({ error: "held_capture_required" }, 403);
     if (!session.document_expiry) {

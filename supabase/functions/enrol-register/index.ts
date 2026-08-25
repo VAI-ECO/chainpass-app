@@ -3,6 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { validateRegistrationFields } from "../_shared/enrol-register.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 
 /**
  * POST /v1/enrol/register — §2.3 step 4.
@@ -42,13 +43,8 @@ serve(async (req) => {
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
-    if (!session.biometric_consent_at || !session.warning_acked_at) {
-      return json({ error: "warning_and_consent_required_first" }, 403);
-    }
-    // §2 — PAY is step 3, before register (4) and provider (6)
-    if (!session.paid_at || !session.payment_choice) {
-      return json({ error: "pay_required_before_register" }, 403);
-    }
+    const unpaid = refuseUnpaid(session);
+    if (unpaid) return json(unpaid, 403);
     if ((session.enrolment_step ?? 1) < 3) {
       return json({ error: "enrolment_step_order: pay at 3 before register at 4" }, 403);
     }

@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { refuseUnpaid } from "../_shared/require-paid.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
@@ -34,11 +35,13 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, vai, enrolment_step, requirements_signed_at")
+      .select("id, vai, enrolment_step, requirements_signed_at, paid_at")
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
+    const unpaidComplete = refuseUnpaid(session);
+    if (unpaidComplete) return json(unpaidComplete, 403);
     if (!session.vai) return json({ error: "vai_required" }, 403);
     if ((session.enrolment_step ?? 1) < 10) {
       return json({ error: "baseline_must_be_committed_first" }, 403);
