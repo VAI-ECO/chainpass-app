@@ -1100,6 +1100,7 @@ CHAINPASS. HOW THEY DISPLAY IT IS THEIR BUILD, THEIR SECURITY, THEIR DELEGATION.
 | 6 | **Configuration — collection spec, requirements, service level, elected services, deferral** |
 | 7 | **The health signal — read-only** |
 | 8 | **Key management — issue, rotate, revoke** |
+| 9 | **Recovery — set questions, verify an answer, burn a one-time password, read lock state** |
 
 | # | Rule |
 |---|---|
