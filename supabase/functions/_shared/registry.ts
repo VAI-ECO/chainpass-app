@@ -142,15 +142,6 @@ export async function openAgreement(
     args.contract_id,
     args.platform_id
   );
-  if (contract.status === "draft") {
-    throw new Error("draft_never_served");
-  }
-  if (contract.status === "retired") {
-    throw new Error("retired_refused_at_open");
-  }
-  if (contract.status !== "live") {
-    throw new Error("contract_not_live");
-  }
   if (args.vais.length !== contract.parties) {
     throw new Error("parties_count_mismatch");
   }

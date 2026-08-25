@@ -36,8 +36,11 @@ Deno.test("open returns agreement_id and no contract text", async () => {
   if (/body:/.test(body) && /return \{[\s\S]*body/.test(body)) {
     throw new Error("open must not return contract body");
   }
-  if (!/draft_never_served/.test(body)) throw new Error("draft refused");
-  if (!/retired_refused_at_open/.test(body)) throw new Error("retired refused at open");
+  const mig = await Deno.readTextFile(
+    new URL("../../../supabase/migrations/20260826000002_agreements_live_only.sql", import.meta.url)
+  );
+  if (!/draft_never_served/.test(mig)) throw new Error("draft refused by database");
+  if (!/retired_refused_at_open/.test(mig)) throw new Error("retired refused at open by database");
 });
 
 Deno.test("agreement id shape AG- plus 26", () => {
