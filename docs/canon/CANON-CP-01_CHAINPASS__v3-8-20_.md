@@ -1397,7 +1397,7 @@ record_ledger        seq · table_name · row_key · row_hash · prev_hash · en
                         where the database role cannot reach — `SPEC-CP-02` §4.5
 
 service_state        subsystem (matcher|image_serve) · mode (auto|declared_down|declared_up)
-                     override_reason · override_expires_at
+                     override_reason
                      ⚠️ boots AUTO. unknown served as down. — `RULINGS-CP-05`
 
 service_state_log    who · when · from_state · to_state · why

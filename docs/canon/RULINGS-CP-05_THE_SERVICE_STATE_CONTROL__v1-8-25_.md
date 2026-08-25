@@ -27,7 +27,7 @@ dashboard. `CANON-MI-36` §2 step 1 requires a declaration and nothing existed t
 |---|---|---|
 | ⚠️⚠️ **AUTO** | ⚠️⚠️ **THE DEFAULT** | ChainPass's own probe drives the signal |
 | **DECLARED DOWN** | operator sets it | ⚠️ Regardless of what the probe says |
-| **DECLARED UP** | operator overrides a probe | ⚠️⚠️ **REASON MANDATORY. EXPIRY MANDATORY.** |
+| **DECLARED UP** | operator overrides a probe | ⚠️⚠️ **REASON MANDATORY.** |
 
 ## 2.1 — AUTO
 
@@ -52,8 +52,7 @@ dashboard. `CANON-MI-36` §2 step 1 requires a declaration and nothing existed t
 |---|---|
 | 1 | ⚠️ **For a broken probe against a working service.** |
 | 2 | ⚠️⚠️ **A REASON IS MANDATORY AND IS STORED.** |
-| 3 | ⚠️⚠️ **AN EXPIRY IS MANDATORY. IT CANNOT BE SET TO NEVER. ON EXPIRY THE CONTROL RETURNS TO AUTO WITHOUT ANYONE ACTING.** |
-| 4 | ⚠️⚠️ **AN OVERRIDE LEFT ON FOREVER IS HOW A DEAD MATCHER STAYS "UP" AND EVERY FACE FAILS WITH NO EXPLANATION.** |
+| 3 | ⚠️⚠️ **A MANUAL OVERRIDE IS PERSISTENT AND OVERRIDES AUTOMATIC. IT CLEARS WHEN THE PROBE AGREES WITH IT.** |
 
 ---
 
@@ -105,7 +104,7 @@ DOWN.**
 |---|---|
 | 1 | **Two controls, one per subsystem, each showing the live state and what is driving it — probe or declaration.** |
 | 2 | **The probe's last result and its timestamp, so an operator can see whether AUTO is working before overriding it.** |
-| 3 | ⚠️ **A declared-up override shows its expiry as a countdown.** |
+| 3 | ⚠️ **A declared-up override shows its age.** |
 | 4 | **The change log, most recent first.** |
 | 5 | ⚠️⚠️ **NO NUMBER ON THIS PANEL IS A CONSTANT. THE HYSTERESIS COUNTS, THE PROBE INTERVAL AND THE CACHE TTL ARE ALL SETTINGS WITH ADMIN FIELDS.** |
 
@@ -136,6 +135,7 @@ DOWN.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 6 | ⚠️⚠️ **§2.3 — expiry deleted. Override is persistent. It clears when the probe agrees. Reason stays mandatory. §6 item 3 shows the override's age, not a countdown.** | Owner ruled expiry out. |
 | **25 Aug** | 1 | Filed. | `CANON-MI-36` §2 requires a declaration and nothing in the product could make one. The signal was an output with no input. |
 | **25 Aug** | 2 | §2 — three states, AUTO the default. | ⚠️ **Manual-only means an outage lasts until someone notices. Automatic-only means a flapping probe moves every platform's door. AUTO with hysteresis, and a human who can override in both directions.** |
 | **25 Aug** | 3 | §2.3 — a declared-up override must carry a reason and an expiry, and cannot be set to never. | ⚠️⚠️ **AN OVERRIDE LEFT ON IS HOW A DEAD MATCHER STAYS "UP" AND EVERY FACE FAILS SILENTLY.** |
