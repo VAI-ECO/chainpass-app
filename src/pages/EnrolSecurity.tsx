@@ -12,6 +12,7 @@ import {
   type EnrolUiState,
 } from "@/components/enrol/EnrolShell";
 import { getEnrolmentSessionId, invokeEnrol } from "@/lib/enrol";
+import { retrievalHeading } from "@/lib/retrieval-brand";
 
 type Option = { id: string; question_text: string };
 
@@ -26,7 +27,7 @@ export default function EnrolSecurity() {
   const [picks, setPicks] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
   const [codes, setCodes] = useState<string[] | null>(null);
-  const [written, setWritten] = useState(false);
+  const [brand, setBrand] = useState("ChainPass");
 
   useEffect(() => {
     if (!sessionId) {
@@ -48,6 +49,9 @@ export default function EnrolSecurity() {
         setOptions(list);
         setQuestionCount(qn);
         setRecoveryCodeCount(cn);
+        if (typeof data.brand === "string" && data.brand.trim()) {
+          setBrand(data.brand.trim());
+        }
         setPicks(Array.from({ length: qn }, () => ""));
         setAnswers(Array.from({ length: qn }, () => ""));
         setState("default");
@@ -100,7 +104,7 @@ export default function EnrolSecurity() {
 
   if (codes) {
     return (
-      <EnrolShell stepLabel="Step 12 of 13">
+      <EnrolShell stepLabel="Step 11 of 13">
         <EnrolTitle>Your one-time passwords</EnrolTitle>
         <EnrolRow label="Count" value="settings:recovery_code_count" />
         <p className="my-2 leading-[1.45]">
@@ -132,8 +136,8 @@ export default function EnrolSecurity() {
   }
 
   return (
-    <EnrolShell stepLabel="Step 12 of 13">
-      <EnrolTitle>Set your recovery questions</EnrolTitle>
+    <EnrolShell stepLabel="Step 11 of 13">
+        <EnrolTitle>{retrievalHeading(brand)}</EnrolTitle>
       <EnrolRow label="Questions" value="settings:security_question_count" />
       <p className="my-2 leading-[1.45]">
         Answers are stored hashed. Nobody at a platform can read them. How many is

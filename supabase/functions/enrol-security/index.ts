@@ -42,7 +42,7 @@ serve(async (req) => {
 
     const { data: session, error } = await supabase
       .from("sessions")
-      .select("id, vai, enrolment_step, contact_email, contact_phone, paid_at")
+      .select("id, vai, enrolment_step, contact_email, contact_phone, paid_at, platform_id")
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -63,6 +63,18 @@ serve(async (req) => {
       throw new Error("settings.recovery_code_count must be a positive integer");
     }
 
+    const { data: plat } = session.platform_id
+      ? await supabase
+          .from("platforms")
+          .select("brand, display_name")
+          .eq("id", session.platform_id)
+          .maybeSingle()
+      : { data: null };
+    const brand =
+      (typeof plat?.brand === "string" && plat.brand.trim()) ||
+      (typeof plat?.display_name === "string" && plat.display_name.trim()) ||
+      "ChainPass";
+
     if (action === "options") {
       const { data: options, error: oErr } = await supabase
         .from("security_question_options")
@@ -71,7 +83,8 @@ serve(async (req) => {
       if (oErr) throw new Error(oErr.message);
       return json({
         status: "options",
-        step: 12,
+        step: 11,
+        brand,
         options: options ?? [],
         question_count: questionCount,
         recovery_code_count: recoveryCodeCount,

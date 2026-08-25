@@ -376,8 +376,9 @@ COLLECTED AND HELD BY CHAINPASS — NOT BY ANY PLATFORM.** ⚠️ **Tables:
 | # | |
 |---|---|
 | 1 | ⚠️ **Because ChainPass recovers the account. One custodian, one record, no copy in a platform's database.** |
-| 2 | ⚠️⚠️ **STEP 12 IS THE RECOVERY-CONTACT SCREEN — THE LAST CHAINPASS SCREEN. SHE CONTINUES, AND THE PLATFORM BEGINS AT THE HANDOFF.** |
+| 2 | ⚠️⚠️ **STEP 11 IS THE RETRIEVAL PAGE — QUESTIONS AND BACKUP CODES — BEFORE THE FINAL V.A.I. PAGE AND THE HANDOFF.** |
 | 3 | ⚠️ **OTP autofill on mobile: iOS one-time-code field; Android app-specific hash on the SMS send template — `RULINGS-CP-02` §6. Manual entry stays underneath. Email magic link ⬜ unruled.** |
+| 4 | ⚠️⚠️ **THE RETRIEVAL PAGE IS A CHAINPASS PAGE, PLATFORM-BRANDED — `CANON-CP-02` §5 item 3.** **VAIRIFY-branded for Vairify.** **Branding is a value on the platform row (`platforms.brand`). Never a per-customer build. One template.** |
 
 ## 2.9 — ⚠️⚠️ THE HANDOFF AND THE COURIER RULE — RULED 20 AUGUST
 
@@ -1443,6 +1444,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **25 Aug** | 29 | ⚠️⚠️ **§2.10 — RETRIEVAL PAGE AT STEP 11 IS A CHAINPASS PAGE, PLATFORM-BRANDED. Brand is `platforms.brand`. One template. `CANON-CP-02` §5 item 3.** | Item 8 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 28 | ⚠️⚠️ **§3 — SESSION KEY LENGTH IS 32 CHARACTERS, ALPHANUMERIC. Owner ruling. Encoding remains open.** | Item 3 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 27 | ⚠️⚠️ **§2 SEQUENCE REPLACED WITH `CANON-CP-02` §1. THIRTEEN STEPS PLUS 11a. PAY AT STEP 2. SESSION KEY AT STEP 3. FACE MATCH AT STEP 10. RETRIEVAL PAGE AT 11. FINAL V.A.I. PAGE AT 11a. HANDOFF 12. KEY DELETED 13. SUPERSEDED STEPS DELETED, NOT MARKED. §2.0 DELETED.** | Owner: `CANON-CP-02` governs enrolment and supersedes `CANON-CP-01` §2. |
 | **23 Aug** | 26 | ⚠️⚠️ **§0 ADDED — THE GRT AS A CHAINPASS SERVICE. 95% remitted at spend. ChainPass never holds the balance as its own. Peg is one Rose, one dollar.** | `RULINGS-VA-03` §3, §6. |
