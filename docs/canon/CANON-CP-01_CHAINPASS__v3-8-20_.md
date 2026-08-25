@@ -388,7 +388,7 @@ HANDS BACK ITS OWN VERIFIED DATA.**
 | Whose | What | Handed back |
 |---|---|---|
 | ⚠️ **THE PLATFORM'S** | **Username · email · phone** | ⚠️⚠️ **YES. THEY WERE ALWAYS THE PLATFORM'S. CHAINPASS WAS A COURIER.** |
-| ⚠️⚠️ **CHAINPASS'S** | **The legal name · the document · the baseline · the band arithmetic** | ❌ ⚠️⚠️ **NEVER. DISCLOSING THEM IS THE ONE THING THE PRODUCT CANNOT DO.** |
+| ⚠️⚠️ **CHAINPASS'S** | **The legal name · the document · the baseline** | ❌ ⚠️⚠️ **NEVER. DISCLOSING THEM IS THE ONE THING THE PRODUCT CANNOT DO.** |
 
 ⚠️ **The test is what each company needs to do its job. ChainPass verifies identity forever
 without ever knowing an email address. A platform needs to reach the member, bill the member and display
@@ -416,7 +416,7 @@ alone.**
 | 2 | ⚠️⚠️ **IT MUST SURVIVE YEARS IN A PLATFORM'S DATABASE.** **It cannot depend on anything ChainPass keeps.** |
 | 3 | ⚠️⚠️ **THIRTY-TWO CHARACTERS. ALPHANUMERIC.** **Owner ruling, 25 August.** |
 
-⬜ ⚠️ **ENCODING STILL OPEN.** **How a provider is derived · what happens when a provider is added or removed.** ⚠️ **Length is not open. Length is 32.**
+⬜ ⚠️ **ENCODING STILL OPEN.** **How a provider is derived · what happens when a provider is added or removed.** ⚠️ **Length is not open. Length is 30** — `CANON-CP-02` §1 step 3. The earlier 32-character line is superseded.
 
 ---
 
@@ -721,16 +721,19 @@ The face is captured and sent to ChainPass
 
 ---
 
-# 7 — ⚠️⚠️ THREE BANDS. NEVER A PERCENTAGE.
+# 7 — ⚠️⚠️ THREE BANDS. WHAT LEAVES IS THE RESPONSE LEVEL.
 
 ## 7.1 — ⚠️ The distinction that matters
 
 ⚠️⚠️ **CHAINPASS JUDGES IDENTITY. THAT IS ITS JOB.** **The platform does not.**
 
-⚠️⚠️ **A NUMBER ON A PLATFORM'S SCREEN MAKES THE PLATFORM THE JUDGE.** **So the arithmetic
-stays at ChainPass and only the judgement leaves.**
+⚠️⚠️ **THE ARITHMETIC IS COMPUTED AT CHAINPASS IN EVERY CASE.** **What the platform is told
+is `platforms.response_level` — `RULINGS-CP-04`.**
 
 ## 7.2 — The bands
+
+⚠️⚠️ **THE THREE BANDS EXTEND FROM VAI-CHECK TO LOGIN.** **Login was pass or fail; a no now
+carries which no it is — yellow or red.**
 
 | Band | Meaning |
 |---|---|
@@ -746,7 +749,9 @@ stays at ChainPass and only the judgement leaves.**
 | 2 | ⚠️⚠️ **GLOBAL. SET BY CHAINPASS. NOT PER PLATFORM.** |
 | 3 | ⚠️ **Adjustable without a deploy.** |
 
-⚠️⚠️ **THE PERCENTAGE NEVER LEAVES CHAINPASS. THE PLATFORM RECEIVES A BAND.**
+⚠️⚠️ **THE PERCENTAGE LEAVES WHEN THE PLATFORM'S RESPONSE LEVEL PERMITS IT.** **Cut-offs stay
+global and ChainPass's. A platform chooses what it is told, never where the lines fall.**
+ — `RULINGS-CP-04`.
 
 ---
 
@@ -770,14 +775,15 @@ stays at ChainPass and only the judgement leaves.**
 
 > ⚠️ **"We just need to make the APIs, and they can make whatever they want."**
 
-## 9.1 — ⚠️ ChainPass owns four things
+## 9.1 — ⚠️ ChainPass owns four things, and a fifth trigger
 
 | # | |
 |---|---|
 | 1 | ⚠️ **The band on every face check** — §7 |
 | 2 | ⚠️⚠️ **COUNTING REDS PER CREDENTIAL OVER TIME.** **Past a threshold, the next failure returns a FOURTH state — re-baseline required — instead of another red.** |
-| 3 | ⚠️⚠️ **RUNNING THE FRESH KYC VERIFICATION WHEN THAT HAPPENS.** ⚠️ **THE COST IS ON US.** |
+| 3 | ⚠️⚠️ **RUNNING THE FRESH KYC VERIFICATION WHEN THAT HAPPENS.** ⚠️ **THE COST IS ON US.** Forced re-baseline uses the two-date test — §10.2. |
 | 4 | ⚠️⚠️ **RECOVERY.** **Questions, one-time passwords, lock state — ChainPass, not the platform.** — §2.10 · §14.6 surface 9 |
+| 5 | ⚠️⚠️ **A USER-REQUESTED RE-BASELINE.** Always a fresh provider run. The two-date test does not apply. — `RULINGS-CP-06`. ⬜ Whether the user pays is unruled. |
 
 ---
 
@@ -799,7 +805,11 @@ stays at ChainPass and only the judgement leaves.**
 THREE-YEAR WINDOW IS SUPERSEDED — THE PROVIDER'S RETENTION WINDOW IS WHATEVER THAT PROVIDER
 SETS, NOT A CONSTANT CHAINPASS PICKS.**
 
-## 10.2 — ⚠️ The two outcomes
+## 10.2 — ⚠️ The two outcomes — FORCED RE-BASELINE ONLY
+
+⚠️⚠️ **THE TWO-DATE TEST APPLIES TO THE FORCED RE-BASELINE AT THE RED THRESHOLD.** A
+user-requested re-baseline is always the provider — `RULINGS-CP-06` §2. The two triggers
+are different and run differently.
 
 | Condition | What runs |
 |---|---|
@@ -933,6 +943,8 @@ MAY ASK.**
 | **2** | ⚠️ **V.A.I.** | **The door plus inside. Repeated yes/no while the member is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** ⚠️ **Up to three platform requirements at the door — §4C.3.** |
 | **3** | ⚠️ **PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED — §4C.2, §4C.3.** |
 
+⬜ ⚠️⚠️ **`CANON-CP-02` §0 NAMES "V.A.I. PASS + ACCESS". THE REGISTER HERE LISTS ACCESS · V.A.I. · PRO. RENAME, FOURTH LEVEL, OR THE ACCESS PAIR? FLAGGED. NOTHING RENAMED.** — `CANON-CP-02` §5 item 6.
+
 ⚠️⚠️ **ENDPOINTS CHECK `agreement level ≥ endpoint's required level` AND NOTHING ELSE. ONE
 INTEGER COMPARISON.**
 
@@ -948,7 +960,15 @@ difference, same V.A.I., nothing re-done** — §11.2. **Levels answer down.**
 DIFFERENT ENROLMENT BUILD.** ⚠️ **One enrolment flow for every level. Pro adds requirements
 on top at step 9 — §4C.3 · `RULINGS-CP-03` §1.**
 
-## 14.2 — ⚠️⚠️ CHAINPASS HOLDS THE DOCUMENT — RULED 20 AUGUST
+## 14.2 — ⚠️⚠️ THE CONTRACT REGISTRY — `SPEC-CP-02` v3
+
+⚠️⚠️ **THE AGREEMENT RUNS INSIDE CHAINPASS.** The platform sends a `contract_id` and V.A.I.
+numbers and receives an agreement number. Nothing else crosses. ChainPass displays the
+bytes, takes both answers on its own screens, and writes the record.
+
+⚠️ **Identifier, one-way door (`draft` → `live` → `retired`), five tables, chained ledger,
+ChainPass clock with UTC offset — `SPEC-CP-02`.** ⚠️⚠️ **WRITE-ONCE BY CONSTRAINT AND
+REVOKED PRIVILEGE. NEVER APPLICATION CODE.**
 
 ⚠️⚠️ **THIS REVERSES THE BLANK-ENVELOPE RULE. CHAINPASS NO LONGER HOLDS A REFERENCE. IT
 HOLDS THE DOCUMENT ITSELF, IMMUTABLE, VERSIONED, AND STAMPED TO EVERY V.A.I. THAT SIGNED
@@ -1057,7 +1077,7 @@ the picker's supplier (§4) · whatever comes next.**
 | 1 | ⚠️ **Every external service is an adapter behind one interface, registered as a row.** ⚠️⚠️ **PROVIDERS ARE ROWS — §5. THIS GENERALISES THAT RULE TO EVERY SUPPLIER.** |
 | 2 | ⚠️⚠️ **AN INTEGRATION BELONGS TO CHAINPASS, NOT TO ANY PLATFORM. A CUSTOMER CLOSING DOES NOT TEAR AN API UP. IT STAYS IN THE BANK.** |
 | 3 | ⚠️ **Platforms elect services at onboarding — Access and V.A.I. up to three requirements; Pro uncapped — §4C.3.** |
-| 4 | ⚠️⚠️ **THE ADAPTER NORMALISES EVERY ENGINE'S OUTPUT INTO ONE INTERNAL SHAPE, AND THE PUBLIC API RETURNS ONE DOCUMENTED SHAPE.** ⚠️ **The `{ match, confidence }` versus `{ result }` class of bug dies here, in one place, permanently.** |
+| 4 | ⚠️⚠️ **THE ADAPTER NORMALISES EVERY ENGINE'S OUTPUT INTO ONE INTERNAL SHAPE, AND THE PUBLIC API RETURNS ONE OF THREE DOCUMENTED SHAPES — `platforms.response_level`.** ⚠️ **The `{ match, confidence }` versus `{ result }` class of bug dies here, in one place, permanently. The adapter is the only place any of the three response shapes is read.** |
 
 ## 14.5 — ⚠️ THE THREE RAILS. NEVER MIXED.
 
@@ -1098,10 +1118,15 @@ CHAINPASS. HOW THEY DISPLAY IT IS THEIR BUILD, THEIR SECURITY, THEIR DELEGATION.
 | 3 | **Agreements — documents, versions, who signed which version and when** — §14.2 |
 | 4 | **Proofs — any signature record, pullable forever** — §14.2a |
 | 5 | **Commission ledger — accrued, scheduled, paid** — §14.5a |
-| 6 | **Configuration — collection spec, requirements, service level, elected services, deferral** |
+| 6 | **Configuration — collection spec, requirements, service level, elected services, deferral, response level** |
 | 7 | **The health signal — read-only** |
 | 8 | **Key management — issue, rotate, revoke** |
 | 9 | **Recovery — set questions, verify an answer, burn a one-time password, read lock state** |
+| 10 | **Registry — register · fetch · retire · open · display · record · search** — `SPEC-CP-02` §14.6. A draft is never served. A retired contract is refused at open. |
+| 11 | **Re-baseline request — open a session, and nothing else** — `RULINGS-CP-06`. The call does not perform the act. |
+
+⚠️ **Verify is one request shape and three response shapes, chosen by `platforms.response_level`.**
+⚠️⚠️ **CHAINPASS COMPUTES IDENTICALLY IN ALL THREE; ONLY WHAT IT RETURNS DIFFERS.**
 
 | # | Rule |
 |---|---|
@@ -1117,7 +1142,7 @@ IS BUILT TWICE.**
 | | | |
 |---|---|---|
 | ⚠️ **THE CLIENT DASHBOARD** | **ChainPass-hosted, optional.** ⚠️ **The default front door on §14.6 for the platform that will never build its own.** | ⚠️⚠️ **NO PRIVATE ENDPOINTS. NOTHING IT CAN DO THAT THE API CANNOT.** |
-| ⚠️⚠️ **THE MASTER DASHBOARD** | ⚠️⚠️ **CHAINPASS ONLY.** **Platforms as rows · providers as rows · every setting (bands, attempts, prices, windows, retention) · the failures column with the side-by-side · credentials by state · revenue by platform · the health switch · the reds counter · an immutable audit log of every admin action.** | ⚠️ **The settings named in §1.1a, §5, §7.3 and the 17 August rulings live here.** |
+| ⚠️⚠️ **THE MASTER DASHBOARD** | ⚠️⚠️ **CHAINPASS ONLY.** **Platforms as rows · the per-platform response-level control · providers as rows · every setting (bands, attempts, prices, windows, retention, re-baseline cap) · the failures column with the side-by-side · credentials by state · revenue by platform · the service-state panel (matcher and image serve, each AUTO / declared-down / declared-up) — `RULINGS-CP-05` · search by agreement number and by V.A.I. — `SPEC-CP-02` · a log of requested re-baselines — `RULINGS-CP-06` · the reds counter · an immutable audit log of every admin action.** | ⚠️ **A platform changes its response level here or asks ChainPass. No platform writes code for this — `RULINGS-CP-04`. No platform may declare ChainPass down — `RULINGS-CP-05` §4.** |
 
 ⚠️⚠️ **TWO PIECES ARE CHAINPASS-HOSTED REGARDLESS OF WHAT A PLATFORM BUILDS: THE AGREEMENT
 UPLOAD WITH ITS VERSION CHANGELOG — IMMUTABILITY NEVER DEPENDS ON A CLIENT CHOOSING TO
@@ -1126,7 +1151,7 @@ BUILD A VIEWER — AND THE MASTER DASHBOARD.**
 | # | ❌ Never, on any dashboard or endpoint |
 |---|---|
 | 1 | ⚠️⚠️ **ALTERING A SIGNED AGREEMENT VERSION — INCLUDING CHAINPASS'S OWN ADMIN. IMMUTABILITY IS THE STORAGE, NOT A PERMISSION.** |
-| 2 | ⚠️⚠️ **A LEGAL NAME, A DOCUMENT, A BASELINE OR A PERCENTAGE ANYWHERE A PLATFORM CAN READ** |
+| 2 | ⚠️⚠️ **A LEGAL NAME, A DOCUMENT, A BASELINE ANYWHERE A PLATFORM CAN READ** |
 
 ## 14.8 — ⚠️⚠️ THE VAIRIFY SEAM — WHAT RUNS BETWEEN THE TWO COMPANIES
 
@@ -1136,7 +1161,7 @@ AND STILL A CLIENT. EVERYTHING IT USES IS THE SAME API EVERY PLATFORM GETS.**
 | # | Interaction | Where ruled |
 |---|---|---|
 | 1 | **Enrolment redirect in, handoff out — V.A.I. + username + email/phone** | §2, §2.9 |
-| 2 | **The face check — capture sent, a BAND returned, never a number** | §6, §7 |
+| 2 | **The face check — capture sent, response shaped by `platforms.response_level`** | §6, §7 · `RULINGS-CP-04` |
 | 3 | **The third-attempt selfie — platform sends, ChainPass files it under failures** | 17 Aug |
 | 4 | **The two orders — serve a manual verification · re-scan through the provider** | 17 Aug |
 | 5 | **The prerequisite check — shortfall is a list and a destination, the other party learns nothing** | §11 |
@@ -1232,6 +1257,9 @@ credential state — is UNRULED.**
 
 ### 1 — ⚠️⚠️ CHAINPASS DECLARES THE OUTAGE
 
+⚠️ **The control that sets the signal is `RULINGS-CP-05`.** AUTO is the default. Unknown
+is served as down. Super only. The signal needs no credential to read.
+
 | # | |
 |---|---|
 | 1 | ⚠️⚠️ **A HEALTH SIGNAL. ONE ENDPOINT, ONE ANSWER.** |
@@ -1247,7 +1275,7 @@ credential state — is UNRULED.**
 |---|---|
 | 1 | ⚠️ **A comparison needs an engine. Serving a file does not.** |
 | 2 | ⚠️⚠️ **IF THEY SHIP TOGETHER, THE MATCHER GOING DOWN TAKES THE PHOTOGRAPH WITH IT — AND THE MANUAL FALLBACK DIES WITH THE THING IT IS A FALLBACK FOR.** |
-| 3 | ⚠️ **Separated, the platform's outage mode works** — `CANON-MI-22` PATH ONE. **Both parties agree, each sees the other's photograph, and nothing has been matched by anyone.** |
+| 3 | ⚠️ **Separated, the platform's outage mode works** — `CANON-MI-36` §2. **Both parties agree, each sees the other's photograph, and nothing has been matched by anyone.** |
 
 ### 3 — ⚠️ A STATED RECOVERY PATH
 
@@ -1278,8 +1306,8 @@ credential state — is UNRULED.**
 # 16 — ⚠️⚠️ THE TECHNICAL LAYER — FOLDED FROM `CANON-CP-03`, 20 AUGUST
 
 ⚠️⚠️ **THIS SECTION COMPLETES THE FOLD. `CANON-CP-03` IS DELETED AND NOTHING IT HELD IS
-LOST.** ⚠️ **The enrolment order it carried is superseded by §2 of this file — §2 has PAY at
-step 3 and the warning at step 2; `CP-03` §8.2 had neither, which is why §2 governs.**
+LOST.** ⚠️ **The enrolment order it carried is superseded by §2 of this file — `CANON-CP-02` §1
+governs: PAY at step 2; `CP-03` §8.2 had neither, which is why §2 governs.**
 
 ## 16.1 — ⚠️ THE VOCABULARY, ONE ADDRESS
 
@@ -1297,6 +1325,8 @@ Ruling 5.
 
 ```
 platforms            id · name · api_key_hash · service_level (1|2|3) · status · created_at
+                     response_level (1|2|3) ⚠️⚠️ DEFAULT 1. Admin-adjustable on the platform
+                     row. 1 yes/no · 2 colour · 3 colour and percentage — `RULINGS-CP-04`.
 
 platform_agreements  platform_id · commission_rules (jsonb) · payment_method
                      collection_fields (jsonb) · terms_doc_ref · terms_version
@@ -1321,9 +1351,8 @@ platform_visits      vai · platform_id · agreement_id · terms_version · sign
 
 agreements           id · platform_id · type (single|dual) · subtype (terms|contract)
                      vai_1 · vai_2 (nullable) · status (open|party1_verified|complete|expired|void)
-                     content_ref → ⚠️⚠️ SUPERSEDED BY §14.2: CHAINPASS HOLDS THE DOCUMENT.
-                       content storage + a VERSION table; the signature row points at a
-                       VERSION id, never an agreement id. §14.2c adds the notice per version.
+                     content_ref → ⚠️⚠️ SUPERSEDED BY `SPEC-CP-02`: the five-table registry
+                       below replaces this shape. Do not add columns here.
                      opened_at · closed_at · expires_at
 
 agreement_proofs     agreement_id · vai · verified_at · engine_used   ← one row per face pass
@@ -1342,6 +1371,41 @@ platform_services    platform_id · service_id                    ← elected at
 
 settings             key · value    ← ⚠️⚠️ EVERY NUMBER THE OWNER MIGHT ADJUST — §1.1a.
                                        ❌ NO CONSTANTS IN CODE.
+
+contracts            contract_id (CP-<PLATFORM>-<NNNN>-v<N>) · platform_id · family · version
+                     body · content_hash · language · parties (1|2)
+                     registered_at · registered_by · status (draft|live|retired)
+                     retired_at (set once) · supersedes
+                     ⚠️ status is the only mutable field. WRITE-ONCE by constraint + revoked
+                        privilege — `SPEC-CP-02` §4.1. Index agreements.contract_id.
+
+agreements           agreement_id (AG-<26 chars>, PK) · contract_id · content_hash
+                     platform_id · outcome (agreed|declined|expired)
+                     created_at · closed_at   ← ChainPass clock, UTC + local offset, ms
+                     ⚠️⚠️ APPEND-ONLY. NO FIELD IS EVER UPDATED. — `SPEC-CP-02` §4.2
+
+agreement_parties    agreement_id · vai (INDEXED) · party_order · answer · answered_at
+                     match_ref
+                     ⚠️ one row per V.A.I. per agreement — `SPEC-CP-02` §4.3
+
+serve_events         serve_id · agreement_id · contract_id · content_hash · vai
+                     served_at · delivery     ← ChainPass displayed the bytes
+
+record_ledger        seq · table_name · row_key · row_hash · prev_hash · entry_hash
+                     written_at (authoritative stamp)
+                     ⚠️ every write to the four tables appends. Daily signed head stored
+                        where the database role cannot reach — `SPEC-CP-02` §4.5
+
+service_state        subsystem (matcher|image_serve) · mode (auto|declared_down|declared_up)
+                     override_reason · override_expires_at
+                     ⚠️ boots AUTO. unknown served as down. — `RULINGS-CP-05`
+
+service_state_log    who · when · from_state · to_state · why
+                     ⚠️ APPEND-ONLY BY CONSTRAINT.
+
+identity_join_log    who · when · authority · vai
+                     ⚠️ the V.A.I. to legal-name join. Named authority. Every execution
+                        logged. Build the log before the join — `SPEC-CP-02` §7
 ```
 
 ⚠️⚠️ **KNOWN BLOCKERS CARRY OVER: THE COMPLETION PRIMARY KEY BLOCKS APPEND-ONLY RENEWALS,
@@ -1414,7 +1478,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | # | ❌ |
 |---|---|
-| 1 | ⚠️⚠️ **A PLATFORM RECEIVING A LEGAL NAME, A DOCUMENT, A BASELINE OR A PERCENTAGE** |
+| 1 | ⚠️⚠️ **A PLATFORM RECEIVING A LEGAL NAME, A DOCUMENT, A BASELINE** |
 | 2 | ⚠️⚠️ **A BASELINE COMMITTED BEFORE EVERY REQUIRED DOCUMENT IS SIGNED** |
 | 3 | ⚠️⚠️ **A BASELINE BUILT FROM FEWER THAN TWO FRAMES, OR WITHOUT THE TERMS CHECKBOX AT STEP 8** |
 | 4 | ⚠️⚠️ **AN ENROLMENT SESSION THAT CAN BE EXITED, RESUMED OR BACKGROUNDED BETWEEN THE PROVIDER AND THE BASELINE** |
@@ -1444,6 +1508,8 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **25 Aug** | 33 | ⚠️⚠️ **`CANON-CP-02` DEPOSITED — THIRTEEN-STEP SPINE GOVERNS §2. SESSION KEY LENGTH 30. `SPEC-CP-02` v3 — CONTRACT REGISTRY FIVE TABLES, WRITE-ONCE, AGREEMENT RUNS INSIDE CHAINPASS. `CANON-MI-36` TWO RECOVERY PATHS. `RULINGS-CP-05` SERVICE STATE CONTROL. `RULINGS-CP-06` USER-REQUESTED RE-BASELINE ALWAYS THE PROVIDER. `SPEC-FLOW-01` §0.1 SUPERSEDED: RETRIEVAL IS A CHAINPASS PAGE. "PASS" AS A LEVEL NAME FLAGGED AGAINST §14.1.** | Owner filings 25 Aug. |
+| **25 Aug** | 32 | ⚠️⚠️ **`RULINGS-CP-04` FOLDED IN — THREE RESPONSE LEVELS ON THE PLATFORM ROW. §7.3 PERCENTAGE LEAVES WHEN THE LEVEL PERMITS. NEVER-LIST DROPS THE PERCENTAGE; LEGAL NAME, DOCUMENT AND BASELINE STAY. §14.6 ONE REQUEST, THREE RESPONSES. §7.2 BANDS AT LOGIN. §14.7 MASTER CONTROL. §16.2 `response_level` DEFAULT 1.** | Owner ruling 25 Aug. |
 | **25 Aug** | 31 | ⚠️⚠️ **§16.1 — LEVEL 2'S NAME IS CLOSED. §14.1 AND `RULINGS-CP-01` RULING 5 GOVERN.** | Item 10 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 30 | ⚠️⚠️ **§8 item 4 — MANUAL TRIGGERED BY YELLOW OR RED. `RULINGS-VA-05` §7.** | Item 9 of the 25 Aug CP-02 enrolment prompt. |
 | **25 Aug** | 29 | ⚠️⚠️ **§2.10 — RETRIEVAL PAGE AT STEP 11 IS A CHAINPASS PAGE, PLATFORM-BRANDED. Brand is `platforms.brand`. One template. `CANON-CP-02` §5 item 3.** | Item 8 of the 25 Aug CP-02 enrolment prompt. |
@@ -1469,7 +1535,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 | **20 Aug** | 19 | ⚠️⚠️ **§16 ADDED — THE TECHNICAL LAYER: VOCABULARY, SCHEMA, GATE, RENEWAL, ENDPOINTS, BUILD ORDER, FOLDED VERBATIM FROM `CANON-CP-03`. §14.1 CORRECTED — THE LEVEL IS ON BOTH THE CREDENTIAL AND THE PLATFORM; ENTRY IS `credential_level ≥ required_level`.** | ⚠️⚠️ **AUDIT-02 ITEMS 1 AND 3. THE EARLIER FOLD TOOK THE API AND LEFT THE SCHEMA AND BUILD ORDER BEHIND — DELETING `CP-03` WOULD HAVE DELETED THE ONLY SCHEMA THE PROJECT HAD. AND §14.1'S "IDENTICAL AT EVERY LEVEL" CONTRADICTED §4C.1 IN THE SAME FILE.** |
 | **20 Aug** | 18 | ⚠️⚠️ **§1.1a — EVERY PRICE IS ADMIN-ADJUSTABLE, STATED AS A GENERAL RULE.** Covers credential prices, upgrade differences, block pricing, commission rates and caps, coupon values, and anything priced later. Never retroactive. | ⚠️⚠️ **THE TABLE MARKED TWO PRICES "ADMIN-CHANGEABLE" AND SAID NOTHING ABOUT THE REST. A RULE THAT LIVES ONLY BESIDE TWO ROWS GETS BUILT AS TWO EXCEPTIONS.** |
 | **20 Aug** | 17 | ⚠️⚠️ **§2.4c ADDED — THE VAULT MODULE. A DISASSOCIATED SIDECAR CHAINPASS SHIPS AND EVERY PLATFORM MAY ELECT AT ONBOARDING.** | ⚠️⚠️ **THE PROBLEM WAS NEVER ACCESS — IT WAS LOSS. BLIND-TAGGED, PLATFORM-KEYED, AUTO-REPLICATED: THE STOLEN FILE IS NOISE AND NEGLIGENCE HAS TO DEFEAT THREE COPIES AT ONCE.** ⚠️ **The sealed copy at ChainPass is opaque to ChainPass — the deletion story holds.** |
-| **20 Aug** | 16 | ⚠️⚠️ **§2.4a–b ADDED — SESSION KEY DELIVERY AND LOST-KEY RECOVERY.** Delivered once in the handoff payload; never an endpoint; recovery runs through the person via provider duplicate detection. | ⚠️⚠️ **A RE-SEND IS IMPOSSIBLE BY CONSTRUCTION — WE DELETED OUR COPY. AND THE KEY WAS ALWAYS A POINTER: WHAT IT POINTS TO SURVIVES AT THE PROVIDER, SO THE MEMBER HERSELF IS THE BACKUP.** ⚠️ **Multi-provider derivation flagged as blocking a second provider.** |
+| **20 Aug** | 16 | ⚠️⚠️ **§2.4a–b ADDED — SESSION KEY DELIVERY AND LOST-KEY RECOVERY.** Delivered once in the handoff payload; never an endpoint; recovery runs through the person via provider duplicate detection. | ⚠️⚠️ **A RE-SEND IS IMPOSSIBLE BY CONSTRUCTION — WE DELETED OUR COPY. AND THE KEY WAS ALWAYS A POINTER: WHAT IT POINTS TO SURVIVES AT THE PROVIDER, SO THE MEMBER THE USER IS THE BACKUP.** ⚠️ **Multi-provider derivation flagged as blocking a second provider.** |
 | **20 Aug** | 15 | ⚠️⚠️ **§14.2b–c ADDED — ONBOARDING UPLOADS AND THE VERSION NOTICE.** Agreements and terms are uploaded at onboarding; terms may be elected for signing at registration; a new version carries the platform's own typed notice, stamped and immutable. | ⚠️ **The documents are configuration, declared with everything else.** ⚠️⚠️ **THE NOTICE IS THE PLATFORM'S WORDS — CHAINPASS NEVER CHARACTERISES A LEGAL CHANGE ON ANYONE'S BEHALF.** |
 | **20 Aug** | 14 | ⚠️⚠️ **§14.5a–§14.8 ADDED — TROLLEY, THE CLIENT API, ONE-API-TWO-DASHBOARDS, AND THE VAIRIFY SEAM.** | ⚠️⚠️ **COMMISSIONS PAY THROUGH TROLLEY SO CHAINPASS NEVER KNOWS WHO IT PAYS. THE API IS THE PRODUCT AND BOTH DASHBOARDS ARE CLIENTS OF IT. THE SESSION KEY IS NEVER AN ENDPOINT. VAIRIFY IS A CLIENT LIKE ANY OTHER — NOTHING VAIRIFY-SHAPED IN CHAINPASS CODE.** |
 | **20 Aug** | 12 | ⚠️⚠️ **§14.2 REVERSED — CHAINPASS HOLDS THE DOCUMENT ITSELF, IMMUTABLE AND VERSIONED. EVERY V.A.I. IS STAMPED TO THE EXACT VERSION IT SIGNED. §14.2a ADDED — NO HANDOFF; THE RECORD STAYS AT CHAINPASS AND THE PLATFORM READS IT FROM ITS DASHBOARD.** | ⚠️⚠️ **A PROOF THAT SAYS "THESE TWO AGREED TO DOCUMENT X" IS WORTH NOTHING IF THE PLATFORM HOLDS X AND CAN REWRITE IT. THE BLANK-ENVELOPE RULE CERTIFIED THE PEOPLE AND LEFT THE CONTENT EXPOSED.** ⚠️ **It also survives a platform closing, losing its database, or refusing to produce a document.** |
