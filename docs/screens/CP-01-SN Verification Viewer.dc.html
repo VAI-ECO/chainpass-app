@@ -148,7 +148,7 @@ button:focus-visible{outline:2px solid #5170FF;outline-offset:2px}
             </div>
           </div>
           <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff;display:flex;flex-direction:column;gap:10px">
-            <button class="vbtn" onClick="{{ resolvePass }}">Answer comes back · pass</button>
+            <button class="vbtn" onClick="{{ resolveMatch }}">Answer comes back · match</button>
             <button class="valt" onClick="{{ resolveFail }}">Answer comes back · no match</button>
           </div>
         </div>
@@ -167,7 +167,7 @@ button:focus-visible{outline:2px solid #5170FF;outline-offset:2px}
               <div style="font-family:var(--font-heading);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#2f41a8">Active until 16 August 2027</div>
             </div>
             <div style="border-top:1px solid #dcdfe8">
-              <div class="vrow"><span class="vlab">Sent to the platform</span><span class="vval">Pass</span></div>
+              <div class="vrow"><span class="vlab">Sent to the platform</span><span class="vval">Match</span></div>
               <div class="vrow"><span class="vlab">A number</span><span class="vval" style="color:#8b909f">never sent</span></div>
               <div class="vrow"><span class="vlab">Your photograph</span><span class="vval" style="color:#8b909f">never sent</span></div>
               <div class="vrow"><span class="vlab">Attempts used</span><span class="vval">{{ attempt }} of {{ cap }}</span></div>
@@ -397,7 +397,7 @@ class Component extends DCLogic {
   A = [
     ["camera", "Camera", "CANON-CP-01 §7", "getUserMedia at 1280 × 720, front camera, canvas capture, an oval face guide, and the attempt counter on screen. The cap is an admin setting between one and three, so the copy reads attempt N of the cap and never a literal three. The testing skip link that appeared here and inside the modal is gone: nothing on this screen bypasses verification."],
     ["processing", "Processing", "CANON §6, §7.1", "The captured frame goes to ChainPass and the comparison runs at ChainPass against the baseline it holds. It does not run in a platform function against a platform-held selfie_url and complycube_client_id — the platform holds neither."],
-    ["success", "Success", "CANON §7.2, §7.3", "Pass. The percentage never leaves ChainPass, so no number is printed here or anywhere else in this flow."],
+    ["success", "Success", "CANON §7.2, §7.3", "Match. The percentage never leaves ChainPass, so no number is printed here or anywhere else in this flow."],
     ["failed", "Failed", "CANON §7.2", "No match, and nothing more. Retry does not reset the counter: the pilot's handleRetry set attempts back to zero, which defeated the cap. Attempts only go up."],
     ["maxed", "Last attempt used", "CANON-CP-01 §7, third-attempt selfie", "The cap is reached, whatever the cap is set to. The wording stays as the pilot had it: your verification will be manually reviewed. The premium engine and the selfie both belong to the last attempt, not to a fixed third — the engine is a setting per attempt, never a constant. On that attempt the photograph goes to ChainPass and lands in the failures column."]
   ];
@@ -455,7 +455,7 @@ class Component extends DCLogic {
   setFilter = (f) => () => this.setState({ filter: f });
 
   capture = () => { this.frame = this.grab(); this.setState({ id: "processing" }); };
-  resolvePass = () => this.setState({ id: "success" });
+  resolveMatch = () => this.setState({ id: "success" });
   resolveFail = () => this.setState(s => ({ id: s.attempt >= s.cap ? "maxed" : "failed" }));
   retry = () => this.setState(s => ({ id: "camera", attempt: Math.min(s.attempt + 1, s.cap) }));
   restart = () => this.setState({ id: "camera", attempt: 1 });
@@ -519,7 +519,7 @@ class Component extends DCLogic {
       pips: Array.from({ length: cap }, (_, k) => k + 1).map(n => "flex:1;height:6px;display:block;background:" + (n <= a ? "#161f4f" : "#c7cbd6")),
       remaining: cap - a,
       capture: this.capture,
-      resolvePass: this.resolvePass,
+      resolveMatch: this.resolveMatch,
       resolveFail: this.resolveFail,
       retry: this.retry,
       restart: this.restart,

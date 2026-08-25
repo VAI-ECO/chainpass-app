@@ -4,7 +4,7 @@ import { EnrolNote, EnrolRow, EnrolShell, EnrolTitle } from "@/components/enrol/
 export default function VerifyGreen() {
   return (
     <EnrolShell stepLabel="Result">
-      <p className="my-2 font-semibold">GREEN — pass</p>
+      <p className="my-2 font-semibold">GREEN — match</p>
       <EnrolTitle>Verified</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         The user present is the user the credential belongs to.

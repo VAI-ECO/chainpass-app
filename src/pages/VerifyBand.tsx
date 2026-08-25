@@ -23,7 +23,7 @@ export default function VerifyBand() {
         Last attempt
       </EnrolSecondaryButton>
       <EnrolNote>
-        §7.2: green pass, yellow below green, red not this user.
+        §7.2: green match, yellow below green, red not this user.
         {band ? ` This call returned ${band}.` : ""}
       </EnrolNote>
     </EnrolShell>
