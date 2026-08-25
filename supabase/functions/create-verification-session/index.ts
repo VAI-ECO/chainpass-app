@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 const getServiceClient = () => {
   const url = Deno.env.get("SUPABASE_URL");
@@ -32,8 +33,10 @@ serve(async (req) => {
     }
 
     const supabase = getServiceClient();
-
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+    const sessionHours = await getSettingNumber(supabase, "enrol_session_hours");
+    const expiresAt = new Date(
+      Date.now() + sessionHours * 60 * 60 * 1000
+    ).toISOString();
 
     const { data, error } = await supabase
       .from("verification_sessions")

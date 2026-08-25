@@ -2,6 +2,9 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
+import { resolveAttemptEngine } from "../_shared/attempt-engine.ts";
+import { bandFromSimilarity } from "../_shared/band-compare.ts";
+import { recordRedAndResolve } from "../_shared/reds-threshold.ts";
 
 interface FaceServiceResult {
   vector: number[];
@@ -123,27 +126,36 @@ serve(async (req) => {
 
     console.log(`[Verify] Starting facial verification for V.A.I.: ${vai}, platform: ${platformId}`);
 
-    // Step 2: Rate limit check
-    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    // Step 2: Rate limit check — window from settings:facial_attempt_window_minutes
+    const windowMinutes = await getSettingNumber(
+      supabase,
+      "facial_attempt_window_minutes"
+    );
+    const windowStart = new Date(
+      Date.now() - windowMinutes * 60 * 1000
+    ).toISOString();
     const { data: recentAttempts, error: attemptsError } = await supabase
       .from("facial_verification_attempts")
       .select("id")
       .eq("vai", vai)
       .eq("platform_id", platformId)
-      .gte("attempted_at", tenMinutesAgo);
+      .gte("attempted_at", windowStart);
 
     if (attemptsError) {
       console.error("[Rate Limit] Error checking attempts:", attemptsError);
     }
 
     const maxAttempts = await getSettingNumber(supabase, "attempt_count_n");
-    if (recentAttempts && recentAttempts.length >= maxAttempts) {
+    const priorCount = recentAttempts?.length ?? 0;
+    if (priorCount >= maxAttempts) {
       console.log(`[Rate Limit] Exceeded for V.A.I. ${vai} on platform ${platformId}`);
       return new Response(
         JSON.stringify({ error: "Too many attempts. Please try again later." }),
         { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+    const attemptIndex = priorCount + 1;
+    const engineUsed = await resolveAttemptEngine(supabase, attemptIndex);
 
     // Step 3: Load credential
     const { data: credential, error: credentialError } = await supabase
@@ -241,20 +253,7 @@ serve(async (req) => {
     // Step 8: Call face service
     const faceResult = await callFaceService(captureBlob);
 
-    // Step 9 & 10: Compare vectors using pgvector and threshold
-    const FACE_MATCH_THRESHOLD = Deno.env.get("FACE_MATCH_THRESHOLD");
-    if (!FACE_MATCH_THRESHOLD) {
-      throw new Error("FACE_MATCH_THRESHOLD environment variable is not configured. Cannot proceed.");
-    }
-
-    const dropThreshold = parseFloat(FACE_MATCH_THRESHOLD);
-    if (isNaN(dropThreshold)) {
-      throw new Error(`FACE_MATCH_THRESHOLD must be a number, got: ${FACE_MATCH_THRESHOLD}`);
-    }
-
-    // Calculate cosine similarity using pgvector
-    // The <=> operator returns cosine distance (0 = identical, 2 = opposite)
-    // Similarity = 1 - distance
+    // Step 9: Cosine similarity via pgvector
     const { data: similarityResult, error: similarityError } = await supabase
       .rpc("calculate_cosine_similarity", {
         baseline_vector: baseline.vector,
@@ -269,22 +268,29 @@ serve(async (req) => {
     const similarity = similarityResult as number;
     console.log(`[Similarity] Cosine similarity: ${similarity}`);
 
-    // Threshold is RELATIVE to enrollment_score, not global
-    const minAllowedSimilarity = baseline.enrollment_score - dropThreshold;
-    const match = similarity >= minAllowedSimilarity;
+    // Step 10: Band from settings — never FACE_MATCH_THRESHOLD or a constant.
+    const greenMin = await getSettingNumber(supabase, "band_green_min");
+    const yellowMin = await getSettingNumber(supabase, "band_yellow_min");
+    if (yellowMin > greenMin) {
+      throw new Error(
+        "settings.band_yellow_min must be <= settings.band_green_min"
+      );
+    }
+    const band = bandFromSimilarity(similarity, greenMin, yellowMin);
+    const match = band !== "red";
 
     console.log(
-      `[Threshold] enrollment_score=${baseline.enrollment_score}, ` +
-      `drop_threshold=${dropThreshold}, min_allowed=${minAllowedSimilarity}, ` +
-      `similarity=${similarity}, match=${match}`
+      `[Band] enrollment_score=${baseline.enrollment_score}, ` +
+        `similarity=${similarity}, green_min=${greenMin}, yellow_min=${yellowMin}, band=${band}`
     );
 
-    // Step 11: Determine result
-    // TODO: Escalation to rebaseline_required not yet implemented.
-    // Requires tracking repeated failures per VAI+platform and defining
-    // the failure count threshold before suggesting rebaseline.
-    // For now, all failures return no_match.
-    const result = match ? "match" : "no_match";
+    // Step 11: Red past settings:reds_threshold → fourth state.
+    let result: "match" | "no_match" | "rebaseline_required" = match
+      ? "match"
+      : "no_match";
+    if (band === "red") {
+      result = await recordRedAndResolve(supabase, vai);
+    }
 
     // Step 12: Log attempt
     await supabase.from("facial_verification_attempts").insert({
@@ -294,10 +300,16 @@ serve(async (req) => {
       attempted_at: new Date().toISOString(),
     });
 
-    // Step 13: Return result
-    console.log(`[Result] ${result} for V.A.I. ${vai}`);
+    // Step 13: Return result — engine and bands are settings, never constants
+    console.log(`[Result] ${result} band=${band} for V.A.I. ${vai} engine=${engineUsed}`);
     return new Response(
-      JSON.stringify({ result }),
+      JSON.stringify({
+        result,
+        band,
+        attempt: attemptIndex,
+        attempt_max: maxAttempts,
+        engine_used: engineUsed,
+      }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
 

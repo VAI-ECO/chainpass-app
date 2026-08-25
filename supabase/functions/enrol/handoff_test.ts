@@ -31,3 +31,31 @@ Deno.test("enrol-handoff deletes provider_session_key and omits legal name", asy
     throw new Error("session_key must not ride in the browser payload");
   }
 });
+
+Deno.test("handoff completes at step 13 and refuses without security", async () => {
+  const text = await Deno.readTextFile(
+    new URL("../enrol-handoff/index.ts", import.meta.url)
+  );
+  if (!/enrolment_step:\s*13/.test(text) || !/step:\s*13/.test(text)) {
+    throw new Error("handoff must complete at step 13");
+  }
+  if (!/no_longer_held/.test(text) || !/step:\s*13/.test(text)) {
+    throw new Error("no_longer_held must use step 13");
+  }
+  if (!/security_required_before_handoff/.test(text)) {
+    throw new Error("handoff must refuse without security rows");
+  }
+  if (!/getSettingNumber\(supabase,\s*"security_question_count"\)/.test(text)) {
+    throw new Error("handoff must read security_question_count");
+  }
+  if (!/getSettingNumber\(supabase,\s*"recovery_code_count"\)/.test(text)) {
+    throw new Error("handoff must read recovery_code_count");
+  }
+  if (/\(qCount ?? 0\) < 3/.test(text)) {
+    throw new Error("handoff must not hardcode question count 3");
+  }
+  if (/kyc_match_percent/.test(text)) {
+    throw new Error("handoff must never return KYC percentage");
+  }
+});
+

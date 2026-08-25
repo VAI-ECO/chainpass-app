@@ -27,6 +27,11 @@ export async function getSettingNumber(
   key: string
 ): Promise<number> {
   const raw = await getSetting(supabase, key);
+  if (raw === "UNSET" || raw === "") {
+    throw new Error(
+      `settings.${key} is UNSET. Set it on SN-44 before this path can run.`
+    );
+  }
   const n = parseFloat(raw);
   if (isNaN(n)) {
     throw new Error(`settings.${key} must be a number, got: ${raw}`);

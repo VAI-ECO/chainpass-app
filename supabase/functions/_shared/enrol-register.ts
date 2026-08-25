@@ -1,6 +1,6 @@
 /**
- * §2.3 registration fields — username mandatory; contact from platform collection_fields.
- * NEVER legal name.
+ * §2.3 registration fields — contact from platform collection_fields.
+ * Username only when the spec requires it. NEVER legal name.
  */
 
 const LEGAL_NAME_KEYS = new Set([
@@ -44,16 +44,16 @@ export function assertNoLegalNameFields(input: RegisterInput): void {
 
 /**
  * Validate against platform_agreements.collection_fields.
- * Default ChainPass group when empty: username + at_least_one_of {email, phone} (§2.3 1a).
+ * Default ChainPass group when empty: at_least_one_of {email, phone}. Username is not required.
  */
 export function validateRegistrationFields(
   input: RegisterInput,
   collection: CollectionFields | null | undefined
-): { username: string; email: string | null; phone: string | null } {
+): { username: string | null; email: string | null; phone: string | null } {
   assertNoLegalNameFields(input);
 
-  const username = typeof input.username === "string" ? input.username.trim() : "";
-  if (!username) throw new Error("username is mandatory (§2.3)");
+  const usernameRaw = typeof input.username === "string" ? input.username.trim() : "";
+  const username = usernameRaw ? usernameRaw : null;
 
   const email =
     typeof input.email === "string" && input.email.trim() ? input.email.trim() : null;
@@ -82,7 +82,10 @@ export function validateRegistrationFields(
       if (LEGAL_NAME_KEYS.has(key.toLowerCase())) {
         throw new Error(`collection_fields must not require legal name: ${key}`);
       }
-      if (key === "username") continue;
+      if (key === "username") {
+        if (!username) throw new Error("required field missing: username");
+        continue;
+      }
       const v = input[key];
       if (typeof v !== "string" || !v.trim()) {
         throw new Error(`required field missing: ${key}`);

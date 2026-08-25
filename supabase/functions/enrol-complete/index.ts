@@ -5,8 +5,8 @@ import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
- * POST /v1/enrol/complete — §2 step 10 congratulations.
- * After baseline committed (step 9); before handoff (step 11).
+ * POST /v1/enrol/complete — §2 step 11 congratulations.
+ * After baseline committed (step 10); before account security (step 12).
  * Body: { session_id }
  */
 serve(async (req) => {
@@ -40,7 +40,7 @@ serve(async (req) => {
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
     if (!session.vai) return json({ error: "vai_required" }, 403);
-    if ((session.enrolment_step ?? 1) < 9) {
+    if ((session.enrolment_step ?? 1) < 10) {
       return json({ error: "baseline_must_be_committed_first" }, 403);
     }
 
@@ -48,7 +48,7 @@ serve(async (req) => {
       .from("sessions")
       .update({
         congratulations_at: new Date().toISOString(),
-        enrolment_step: Math.max(session.enrolment_step, 10),
+        enrolment_step: Math.max(session.enrolment_step, 11),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
@@ -60,7 +60,7 @@ serve(async (req) => {
 
     return json({
       status: "congratulations",
-      step: 10,
+      step: 11,
       vai: session.vai.trim(),
       term_years,
       term_setting: "credential_year_length_years",

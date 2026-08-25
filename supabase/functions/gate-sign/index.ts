@@ -11,6 +11,13 @@ import { extractApiKey, resolvePlatformByApiKey } from "../_shared/platform-key.
 import { signFirstVisitTerms } from "../_shared/gate-visits.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 import { publicGateBody } from "../_shared/gate-response.ts";
+import {
+  holderShortfall,
+  levelShortItem,
+  listMissingPlatformRequirements,
+  SHORTFALL_PAGE,
+} from "../_shared/gate-shortfall.ts";
+import { signEnrolmentToken } from "../_shared/enrolment-token.ts";
 
 /**
  * POST /v1/gate/sign — first-visit terms + ledger/block (§16.3 items 3–5).
@@ -100,14 +107,28 @@ serve(async (req) => {
       });
       return json({ status: "credential_inactive", state: credential.state }, 403);
     }
+    const missing: import("../_shared/gate-shortfall.ts").ShortfallItem[] = [];
     if (!credentialMeetsRequiredLevel(credential.credential_level, required_level)) {
+      missing.push(levelShortItem(required_level));
+    }
+    missing.push(...(await listMissingPlatformRequirements(supabase, vai, platform.id)));
+    if (missing.length > 0) {
       await recordGateConsumption(supabase, {
         platform_id: platform.id,
         vai,
         call_type: "gate_sign",
-        result: "credential_level_refused",
+        result: "shortfall",
       });
-      return json({ status: "credential_level_refused" }, 403);
+      const enrolment_token = missing.some((m) => m.kind === "credential_level")
+        ? await signEnrolmentToken(platform.id)
+        : null;
+      return json(
+        holderShortfall({
+          missing,
+          route: { url: SHORTFALL_PAGE, enrolment_token },
+        }),
+        409
+      );
     }
 
     const result = await signFirstVisitTerms(supabase, {

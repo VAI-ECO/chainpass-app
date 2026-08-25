@@ -87,4 +87,7 @@ Deno.test("SN-09 reveal requires held capture and issues V.A.I. before requireme
   if (!/enrol-reveal/.test(page)) {
     throw new Error("SN-09 must write through enrol-reveal");
   }
+  if (!/enrol\/accept/.test(page)) {
+    throw new Error("SN-09 must continue to acceptance, not requirements");
+  }
 });

@@ -102,6 +102,9 @@ verify_jwt = false
 [functions.enrol-capture]
 verify_jwt = false
 
+[functions.enrol-background]
+verify_jwt = false
+
 [functions.enrol-reveal]
 verify_jwt = false
 
@@ -115,6 +118,12 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.enrol-handoff]
+verify_jwt = false
+
+[functions.enrol-accept]
+verify_jwt = false
+
+[functions.enrol-security]
 verify_jwt = false
 
 [functions.verify]
@@ -136,4 +145,10 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.health]
+verify_jwt = false
+
+[functions.master-settings]
+verify_jwt = false
+
+[functions.face-stub]
 verify_jwt = false

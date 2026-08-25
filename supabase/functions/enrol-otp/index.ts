@@ -48,7 +48,9 @@ serve(async (req) => {
     if (!session.paid_at || !session.payment_choice) {
       return json({ error: "pay_required_before_otp" }, 403);
     }
-    if (!session.username) return json({ error: "register_required_first" }, 403);
+    if (!session.contact_email && !session.contact_phone) {
+      return json({ error: "register_required_first" }, 403);
+    }
     if ((session.enrolment_step ?? 1) < 4) {
       return json({ error: "enrolment_step_order: register at 4 before otp at 5" }, 403);
     }

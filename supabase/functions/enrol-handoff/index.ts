@@ -2,9 +2,10 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
- * POST /v1/enrol/handoff — §2.4 / §2.4a / §2.9 step 11.
+ * POST /v1/enrol/handoff — §2.4 / §2.4a / §2.9 step 13.
  * Browser payload: V.A.I. + username + email/phone only. session_key is nulled, never shown.
  */
 serve(async (req) => {
@@ -40,11 +41,26 @@ serve(async (req) => {
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
     if (!session.vai) return json({ error: "vai_required" }, 403);
-    if (session.enrolment_step < 10) {
-      return json({ error: "congratulations_required_before_handoff" }, 403);
+    if (session.enrolment_step < 12) {
+      return json({ error: "security_required_before_handoff" }, 403);
     }
-    if (session.enrolment_step >= 11 || session.state === "complete") {
-      return json({ status: "no_longer_held", step: 11, session_key: null }, 410);
+    const { count: qCount, error: qErr } = await supabase
+      .from("security_questions")
+      .select("id", { count: "exact", head: true })
+      .eq("vai", session.vai.trim());
+    if (qErr) throw new Error(qErr.message);
+    const { count: cCount, error: cErr } = await supabase
+      .from("recovery_codes")
+      .select("id", { count: "exact", head: true })
+      .eq("vai", session.vai.trim());
+    if (cErr) throw new Error(cErr.message);
+    const questionCount = await getSettingNumber(supabase, "security_question_count");
+    const recoveryCodeCount = await getSettingNumber(supabase, "recovery_code_count");
+    if ((qCount ?? 0) < questionCount || (cCount ?? 0) < recoveryCodeCount) {
+      return json({ error: "security_required_before_handoff" }, 403);
+    }
+    if (session.enrolment_step >= 13 || session.state === "complete") {
+      return json({ status: "no_longer_held", step: 13, session_key: null }, 410);
     }
 
     const payload = {
@@ -58,7 +74,7 @@ serve(async (req) => {
       .from("sessions")
       .update({
         provider_session_key: null,
-        enrolment_step: 11,
+        enrolment_step: 13,
         state: "complete",
       })
       .eq("id", session_id);
@@ -75,7 +91,7 @@ serve(async (req) => {
 
     return json({
       status: "handed_off",
-      step: 11,
+      step: 13,
       payload,
       session_key: null,
       return_url: session.return_url,

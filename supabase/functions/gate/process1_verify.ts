@@ -16,6 +16,12 @@ import { signEnrolmentToken } from "../_shared/enrolment-token.ts";
 import { findPlatformVisit } from "../_shared/gate-visits.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 import { publicGateBody } from "../_shared/gate-response.ts";
+import {
+  askingPartyNotMet,
+  holderShortfall,
+  levelShortItem,
+  SHORTFALL_PAGE,
+} from "../_shared/gate-shortfall.ts";
 
 const url = Deno.env.get("SUPABASE_URL");
 const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -110,6 +116,26 @@ try {
   });
   const refusedBody = publicGateBody({ status: "level_refused" });
   log(`LEVEL_REFUSED_BODY=${JSON.stringify(refusedBody)}`);
+
+  const shortfallBody = publicGateBody(
+    holderShortfall({
+      missing: [levelShortItem(3)],
+      route: { url: SHORTFALL_PAGE, enrolment_token: "verify-token" },
+    })
+  );
+  log(`SHORTFALL_BODY=${JSON.stringify(shortfallBody)}`);
+  if (shortfallBody.status !== "shortfall") throw new Error("shortfall status");
+  if (!Array.isArray(shortfallBody.missing) || !shortfallBody.route) {
+    throw new Error("shortfall must list missing and a route");
+  }
+  if (JSON.stringify(shortfallBody).includes("credential_level_refused")) {
+    throw new Error("shortfall must not be named refused");
+  }
+  const askBody = publicGateBody(askingPartyNotMet());
+  log(`ASKING_PARTY_BODY=${JSON.stringify(askBody)}`);
+  if (askBody.status !== "not_met" || "missing" in askBody) {
+    throw new Error("asking party learns only not_met");
+  }
 
   // --- VERIFY: level-3 key passes all three ---
   const plat3 = await resolvePlatformByApiKey(supabase, KEY_L3);
@@ -227,7 +253,7 @@ try {
   log(`BLOCK_L3=${JSON.stringify(blk)}`);
 
   // --- VERIFY: no percentage in any response body ---
-  const bodies = [refusedBody, firstBody, secondBody, enrollBody];
+  const bodies = [refusedBody, firstBody, secondBody, enrollBody, shortfallBody, askBody];
   for (const b of bodies) {
     const raw = JSON.stringify(b);
     if (/%/.test(raw) || "similarity" in b || "percentage" in b) {

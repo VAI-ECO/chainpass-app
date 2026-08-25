@@ -85,13 +85,20 @@ Deno.test("SN-05 deferral only when platform_agreements.deferral_offered", async
   }
 });
 
-Deno.test("SN-06 register is username/email/phone — no legal name field", async () => {
+Deno.test("SN-06 register is contact — username only when the spec asks", async () => {
   const page = await read("../../../src/pages/EnrolRegister.tsx");
+  const shared = await read("../_shared/enrol-register.ts");
   if (/legal_name|full_name|first_name|last_name|given_name/.test(page)) {
     throw new Error("SN-06 must not collect legal name");
   }
-  if (!/username/.test(page) || !/Email or phone/.test(page)) {
-    throw new Error("SN-06 must collect username and email or phone");
+  if (!/Email or phone/.test(page)) {
+    throw new Error("SN-06 must collect email or phone");
+  }
+  if (/username is mandatory/.test(shared)) {
+    throw new Error("username must not be ChainPass-mandatory");
+  }
+  if (!/Step 4 of 13/.test(page)) {
+    throw new Error("register step label must be 4 of 13");
   }
   if (!/enrol-register/.test(page)) {
     throw new Error("SN-06 must write through enrol-register");
@@ -103,6 +110,9 @@ Deno.test("SN-07 OTP is control before provider", async () => {
   const capture = await read("../enrol-capture/index.ts");
   if (!/otp_verified_at/.test(otp) || !/enrolment_step.*5/.test(otp)) {
     throw new Error("enrol-otp must stamp step 5");
+  }
+  if (/!session\.username/.test(otp)) {
+    throw new Error("OTP must not require username after CP-03");
   }
   if (!/otp_required_before_provider/.test(capture)) {
     throw new Error("capture/provider must not run before OTP");

@@ -1,5 +1,6 @@
 import { SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { compareCaptureToBaseline, type Band } from "./band-compare.ts";
+import { recordRedAndResolve } from "./reds-threshold.ts";
 import { getSetting } from "./settings.ts";
 
 export type VisitRow = {
@@ -26,6 +27,8 @@ export async function findPlatformVisit(
   return data as VisitRow | null;
 }
 
+export type FaceGateStatus = "granted" | "no_match" | "rebaseline_required";
+
 /** Map band → gate outcome. Band always returned; never a percentage (§7). */
 export function outcomeFromBand(band: Band): "granted" | "no_match" {
   if (band === "red") return "no_match";
@@ -34,13 +37,18 @@ export function outcomeFromBand(band: Band): "granted" | "no_match" {
 
 /**
  * Face vs baseline for an existing visit. Returns status + band only.
+ * Red past settings:reds_threshold → rebaseline_required (fourth state).
  */
 export async function faceGateAgainstBaseline(
   supabase: SupabaseClient,
   vai: string,
   capture: string
-): Promise<{ status: "granted" | "no_match"; band: Band }> {
+): Promise<{ status: FaceGateStatus; band: Band }> {
   const { band } = await compareCaptureToBaseline(supabase, vai, capture);
+  if (band === "red") {
+    const status = await recordRedAndResolve(supabase, vai);
+    return { status, band };
+  }
   return { status: outcomeFromBand(band), band };
 }
 
@@ -58,7 +66,7 @@ export async function signFirstVisitTerms(
     /** Exact agreement_versions.id the member is signing (§14.2 item 4). */
     terms_version_id: string;
   }
-): Promise<{ status: "granted" | "no_match"; band: Band; agreement_id?: string }> {
+): Promise<{ status: FaceGateStatus; band: Band; agreement_id?: string }> {
   const { vai, platform_id, capture, terms_version_id } = args;
 
   if (!terms_version_id) {
@@ -72,6 +80,10 @@ export async function signFirstVisitTerms(
   }
 
   const { band } = await compareCaptureToBaseline(supabase, vai, capture);
+  if (band === "red") {
+    const status = await recordRedAndResolve(supabase, vai);
+    return { status, band };
+  }
   if (outcomeFromBand(band) === "no_match") {
     return { status: "no_match", band };
   }

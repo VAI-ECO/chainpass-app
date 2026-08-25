@@ -5,9 +5,12 @@ export type LedgerResult =
   | "enroll_required"
   | "credential_inactive"
   | "credential_level_refused"
+  | "shortfall"
+  | "not_met"
   | "terms_required"
   | "granted"
   | "no_match"
+  | "rebaseline_required"
   | "block_depleted"
   | "error";
 

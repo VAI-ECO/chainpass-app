@@ -6,10 +6,11 @@ import {
   computeConsumptionProjection,
   purchaseBlock,
 } from "../_shared/consumption.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
 
 /**
- * POST /v1/blocks/purchase — buy a block sized from settings/agreement.
- * GET  /v1/blocks/status  — remaining + computed burn / projected-empty (never stored).
+ * /v1/blocks — remaining + alert vs settings:blocks_alert_threshold; purchase.
+ * invoke() is always POST: body.purchase true → buy; otherwise status.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -31,17 +32,31 @@ serve(async (req) => {
     );
     const platform = await resolvePlatformByApiKey(supabase, apiKey);
 
-    if (req.method === "POST") {
+    const body =
+      req.method === "POST" || req.method === "PUT"
+        ? await req.json().catch(() => ({}))
+        : {};
+    const wantsPurchase =
+      body?.purchase === true || body?.action === "purchase";
+
+    if (req.method === "POST" && wantsPurchase) {
       const purchased = await purchaseBlock(supabase, platform.id);
       return new Response(JSON.stringify({ status: "purchased", ...purchased }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    if (req.method === "GET") {
+    if (req.method === "GET" || req.method === "POST") {
       const projection = await computeConsumptionProjection(supabase, platform.id);
+      const alertAt = await getSettingNumber(supabase, "blocks_alert_threshold");
+      const alert_low = projection.remaining <= alertAt;
       return new Response(
-        JSON.stringify({ status: "ok", ...projection }),
+        JSON.stringify({
+          status: "ok",
+          ...projection,
+          alert_low,
+          alert_threshold_key: "blocks_alert_threshold",
+        }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

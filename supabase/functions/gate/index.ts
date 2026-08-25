@@ -15,6 +15,13 @@ import {
 } from "../_shared/gate-visits.ts";
 import { recordGateConsumption } from "../_shared/gate-ledger.ts";
 import { publicGateBody } from "../_shared/gate-response.ts";
+import {
+  askingPartyNotMet,
+  holderShortfall,
+  levelShortItem,
+  listMissingPlatformRequirements,
+  SHORTFALL_PAGE,
+} from "../_shared/gate-shortfall.ts";
 
 /**
  * POST /v1/gate — §16.3 items 1–5.
@@ -80,10 +87,27 @@ serve(async (req) => {
       return json({ status: "credential_inactive", state: credential.state }, 403);
     }
 
+    const missing: import("../_shared/gate-shortfall.ts").ShortfallItem[] = [];
     if (!credentialMeetsRequiredLevel(credential.credential_level, required_level)) {
-      const cons = await finish(supabase, platform.id, vai, "credential_level_refused");
+      missing.push(levelShortItem(required_level));
+    }
+    missing.push(...(await listMissingPlatformRequirements(supabase, vai, platform.id)));
+    if (missing.length > 0) {
+      const cons = await finish(supabase, platform.id, vai, "shortfall");
       if (cons.depleted) return json({ status: "block_depleted" }, 402);
-      return json({ status: "credential_level_refused" }, 403);
+      if (body.asking_party === true) {
+        return json(askingPartyNotMet(), 409);
+      }
+      const enrolment_token = missing.some((m) => m.kind === "credential_level")
+        ? await signEnrolmentToken(platform.id)
+        : null;
+      return json(
+        holderShortfall({
+          missing,
+          route: { url: SHORTFALL_PAGE, enrolment_token },
+        }),
+        409
+      );
     }
 
     const visit = await findPlatformVisit(supabase, vai, platform.id);

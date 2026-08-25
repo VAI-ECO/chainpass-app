@@ -2,6 +2,8 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { emitEvent } from "../_shared/emit-event.ts";
+import { getSettingNumber } from "../_shared/settings.ts";
+import { suspendExpiredDeferrals } from "../_shared/deferral-suspend.ts";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -17,6 +19,8 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
+
+    const deferralsSuspended = await suspendExpiredDeferrals(supabase);
 
     const today = new Date();
 
@@ -40,12 +44,16 @@ serve(async (req) => {
           expiring_emitted: 0,
           expired_set: 0,
           document_expired_emitted: 0,
+          deferrals_suspended: deferralsSuspended,
         }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     console.log(`[check-renewals] Processing ${credentials.length} credentials`);
+
+    const renewalWindowDays = await getSettingNumber(supabase, "renewal_window");
+    const termYears = await getSettingNumber(supabase, "credential_year_length_years");
 
     let expiringEmitted = 0;
     let expiredSet = 0;
@@ -56,14 +64,16 @@ serve(async (req) => {
       const renewalDate = new Date(credential.next_renewal_date);
       const documentExpiryDate = new Date(credential.document_expiry);
 
-      // Calculate renewal cycle start (1 year before next renewal)
+      // Cycle start = term length before next renewal (never a hardcoded year).
       const renewalCycleStart = new Date(renewalDate);
-      renewalCycleStart.setFullYear(renewalCycleStart.getFullYear() - 1);
+      renewalCycleStart.setFullYear(
+        renewalCycleStart.getFullYear() - termYears
+      );
 
-      // CONDITION A: Renewal approaching (within 30 days)
+      // CONDITION A: Renewal approaching (within settings:renewal_window days)
       const daysUntilRenewal = Math.floor((renewalDate.getTime() - today.getTime()) / DAY_MS);
 
-      if (daysUntilRenewal >= 0 && daysUntilRenewal <= 30) {
+      if (daysUntilRenewal >= 0 && daysUntilRenewal <= renewalWindowDays) {
         // Check if we've already emitted credential.expiring for this renewal cycle
         const { data: existingEvents, error: eventsError } = await supabase
           .from("credential_events")
@@ -150,6 +160,7 @@ serve(async (req) => {
         expiring_emitted: expiringEmitted,
         expired_set: expiredSet,
         document_expired_emitted: documentExpiredEmitted,
+        deferrals_suspended: deferralsSuspended,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

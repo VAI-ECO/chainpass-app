@@ -16,26 +16,42 @@ Deno.test("rejects legal name fields", () => {
   if (!threw) throw new Error("expected legal_name reject");
 });
 
-Deno.test("username + at least one of email|phone", () => {
-  const r = validateRegistrationFields(
-    { username: "neo", email: "a@b.c" },
-    null
-  );
-  if (r.username !== "neo" || r.email !== "a@b.c") throw new Error("fields");
+Deno.test("contact alone is enough — username is not ChainPass's requirement", () => {
+  const r = validateRegistrationFields({ email: "a@b.c" }, null);
+  if (r.email !== "a@b.c") throw new Error("email");
+  if (r.username !== null) throw new Error("username must be optional");
   let threw = false;
   try {
-    validateRegistrationFields({ username: "neo" }, null);
+    validateRegistrationFields({}, null);
   } catch {
     threw = true;
   }
   if (!threw) throw new Error("expected at_least_one fail");
 });
 
+Deno.test("username required only when collection_fields.required includes it", () => {
+  let threw = false;
+  try {
+    validateRegistrationFields(
+      { email: "a@b.c" },
+      { required: ["username"] }
+    );
+  } catch {
+    threw = true;
+  }
+  if (!threw) throw new Error("expected username required when spec says so");
+  const r = validateRegistrationFields(
+    { username: "neo", email: "a@b.c" },
+    { required: ["username"] }
+  );
+  if (r.username !== "neo") throw new Error("username from spec");
+});
+
 Deno.test("full_name field name forbidden", () => {
   let threw = false;
   try {
     validateRegistrationFields(
-      { username: "x", email: "a@b.c", full_name: "Nope" },
+      { email: "a@b.c", full_name: "Nope" },
       null
     );
   } catch {

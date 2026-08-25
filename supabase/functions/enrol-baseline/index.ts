@@ -2,14 +2,13 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
-import { getSetting } from "../_shared/settings.ts";
-import { heldCaptureToBytes, requireFaceService } from "../_shared/enrol-baseline.ts";
+import { getSetting, getSettingNumber } from "../_shared/settings.ts";
+import { embedBothAndCompare, requireFaceService } from "../_shared/enrol-baseline.ts";
 
 /**
- * POST /v1/enrol/baseline — §2.7 step 9.
- * Commit the held frame AFTER every required document is signed.
- * Vector comes from FACE_SERVICE on the held frame — never from the client.
- * Body: { session_id, documents_signed: true }
+ * POST /v1/enrol/baseline — §2.7 step 10.
+ * Two frames, gated on terms. FACE_SERVICE per frame; frame two compared to frame one.
+ * Both embeddings persist. No invented merge.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -28,9 +27,6 @@ serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const session_id = typeof body.session_id === "string" ? body.session_id : "";
     if (!session_id) return json({ error: "session_id required" }, 400);
-    if (body.documents_signed !== true) {
-      return json({ error: "documents_must_be_signed_before_baseline" }, 403);
-    }
     if (body.vector !== undefined) {
       return json({ error: "client_vector_rejected — matcher is FACE_SERVICE, not a stub" }, 400);
     }
@@ -43,18 +39,34 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, vai, held_capture, held_capture_voided_at, enrolment_step, requirements_signed_at"
+        "id, vai, held_capture, held_capture_voided_at, acceptance_capture, acceptance_capture_voided_at, enrolment_step, requirements_signed_at, terms_accepted_at, required_credential_level, platform_id, kyc_match_percent"
       )
       .eq("id", session_id)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!session) return json({ error: "session_not_found" }, 404);
     if (!session.vai) return json({ error: "vai_required_first" }, 403);
-    if (!session.requirements_signed_at || (session.enrolment_step ?? 1) < 8) {
-      return json({ error: "requirements_must_be_signed_before_baseline" }, 403);
+    if (!session.terms_accepted_at) {
+      return json({ error: "terms_checkbox_required" }, 403);
     }
     if (!session.held_capture || session.held_capture_voided_at) {
       return json({ error: "held_capture_missing_or_voided" }, 409);
+    }
+    if (!session.acceptance_capture || session.acceptance_capture_voided_at) {
+      return json({ error: "acceptance_capture_missing_or_voided" }, 409);
+    }
+
+    let level = session.required_credential_level as number | null;
+    if (level == null && session.platform_id) {
+      const { data: plat } = await supabase
+        .from("platforms")
+        .select("service_level")
+        .eq("id", session.platform_id)
+        .maybeSingle();
+      level = plat?.service_level ?? null;
+    }
+    if (level === 3 && !session.requirements_signed_at) {
+      return json({ error: "requirements_must_be_signed_before_baseline" }, 403);
     }
 
     let face: { url: string; key: string };
@@ -67,52 +79,57 @@ serve(async (req) => {
       );
     }
 
-    const imageBytes = heldCaptureToBytes(session.held_capture);
-    const response = await fetch(face.url, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${face.key}`,
-        "Content-Type": "image/jpeg",
-      },
-      body: imageBytes,
-    });
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Face service request failed: ${response.status} - ${errorText}`);
-    }
-    const result = await response.json();
-    if (!result.vector || !Array.isArray(result.vector) || result.vector.length !== 512) {
-      throw new Error(
-        `Face service returned invalid vector (expected 512 floats, got ${result.vector?.length || 0})`
-      );
-    }
-    const model =
-      typeof result.model === "string"
-        ? result.model
-        : await getSetting(supabase, "engine_attempt_default");
-    const model_version =
-      typeof result.model_version === "string" ? result.model_version : "1";
+    const greenMin = await getSettingNumber(supabase, "band_green_min");
+    const yellowMin = await getSettingNumber(supabase, "band_yellow_min");
+    const compared = await embedBothAndCompare(
+      face,
+      session.held_capture,
+      session.acceptance_capture,
+      greenMin,
+      yellowMin
+    );
+    const frameOne = compared.frameOne;
+    const frameTwo = compared.frameTwo;
+    const defaultModel = await getSetting(supabase, "engine_attempt_default");
 
-    const { error: bErr } = await supabase.from("baselines").insert({
-      vai: session.vai.trim(),
-      vector: result.vector,
-      model,
-      model_version,
-      enrollment_score: 0,
-      source: "in_house",
-    });
+    const rows = [
+      {
+        vai: session.vai.trim(),
+        vector: frameOne.vector,
+        model: frameOne.model ?? defaultModel,
+        model_version: frameOne.model_version ?? "1",
+        enrollment_score: 0,
+        source: "in_house",
+        photo_ref: "frame_one",
+      },
+      {
+        vai: session.vai.trim(),
+        vector: frameTwo.vector,
+        model: frameTwo.model ?? defaultModel,
+        model_version: frameTwo.model_version ?? "1",
+        enrollment_score: 0,
+        source: "in_house",
+        photo_ref: "frame_two",
+      },
+    ];
+
+    const { error: bErr } = await supabase.from("baselines").insert(rows);
     if (bErr) throw new Error(bErr.message);
 
     const { error: uErr } = await supabase
       .from("sessions")
       .update({
-        held_capture: null,
-        enrolment_step: Math.max(session.enrolment_step, 9),
+        enrolment_step: Math.max(session.enrolment_step ?? 1, 10),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
-    return json({ status: "baseline_committed", step: 9 });
+    return json({
+      status: "baseline_committed",
+      step: 10,
+      frames_compared: compared.frames_compared,
+      band: compared.band,
+    });
   } catch (e) {
     return json({ error: e instanceof Error ? e.message : "unknown" }, 500);
   }

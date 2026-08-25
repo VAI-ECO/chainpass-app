@@ -148,7 +148,7 @@ try {
     .update({
       held_capture: "HELD_FRAME_DATA",
       held_capture_voided_at: null,
-      enrolment_step: 9,
+      enrolment_step: 12,
       vai: null,
     })
     .eq("id", sessionId);
@@ -167,7 +167,7 @@ try {
     .from("sessions")
     .update({
       vai,
-      enrolment_step: 9,
+      enrolment_step: 12,
       provider_session_key: "provider-sk-verify-1",
     })
     .eq("id", sessionId);
@@ -198,7 +198,7 @@ try {
   const ckCreated = preCk.created_at;
   await supabase
     .from("sessions")
-    .update({ provider_session_key: null, enrolment_step: 11, state: "complete" })
+    .update({ provider_session_key: null, enrolment_step: 13, state: "complete" })
     .eq("id", sessionId);
   await supabase
     .from("credential_keys")

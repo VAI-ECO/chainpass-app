@@ -3,6 +3,10 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 import { voidHeldCaptureOnBreak, requireComplyCubeApiKey, assertEmbeddedProviderSession } from "../_shared/enrol-capture.ts";
+import {
+  extractKycDocumentFields,
+  fetchLatestKycCheck,
+} from "../_shared/kyc-document.ts";
 
 /**
  * POST /v1/enrol/capture — §2.7 step 6.
@@ -48,7 +52,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, otp_verified_at, biometric_consent_at, enrolment_step, held_capture, username, contact_email, paid_at"
+        "id, otp_verified_at, biometric_consent_at, enrolment_step, held_capture, username, contact_email, paid_at, provider_session_key, document_expiry, issuing_country, issuing_province"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -155,14 +159,41 @@ serve(async (req) => {
         ? body.provider_session_key
         : null;
 
+    const kycRaw = body.kyc_match_percent;
+    const kyc_match_percent =
+      typeof kycRaw === "number" && Number.isFinite(kycRaw) ? kycRaw : null;
+
+    const clientId = provider_session_key || session.provider_session_key;
+    if (!clientId) {
+      return json({ error: "document_expiry_required" }, 403);
+    }
+    let document_expiry: string;
+    let issuing_country: string | null;
+    let issuing_province: string | null;
+    try {
+      const apiKey = requireComplyCubeApiKey();
+      const check = await fetchLatestKycCheck(clientId, apiKey);
+      const fields = extractKycDocumentFields(check);
+      document_expiry = fields.documentExpiry;
+      issuing_country = fields.issuingCountry;
+      issuing_province = fields.issuingProvince;
+    } catch (e) {
+      const message = e instanceof Error ? e.message : "document_expiry_missing";
+      return json({ error: message }, 403);
+    }
+
     const { error: uErr } = await supabase
       .from("sessions")
       .update({
         held_capture: capture,
         held_capture_voided_at: null,
+        document_expiry,
+        issuing_country,
+        issuing_province,
         ...(provider_session_key
           ? { provider_session_key }
           : {}),
+        ...(kyc_match_percent != null ? { kyc_match_percent } : {}),
         enrolment_step: Math.max(session.enrolment_step, 6),
         state: "at_provider",
       })

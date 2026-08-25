@@ -4,10 +4,10 @@ import { corsHeaders } from "../_shared/cors.ts";
 import { refusePlatformQuery } from "../_shared/refuse-platform-query.ts";
 
 /**
- * POST /v1/enrol/requirements — §2 step 8.
+ * POST /v1/enrol/requirements — §2 step 9 (Pro only).
  * quote_only: list platform requirements vs on-file (SN-10).
  * law_enforcement_declared: LE is a declaration, never an agreement_versions subtype (SN-11).
- * complete: mark step 8 after outstanding items are done (SN-12 follows sign-contract).
+ * complete: mark step 9 after outstanding items are done (SN-12 follows sign-contract).
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -52,8 +52,8 @@ serve(async (req) => {
     if (!session.vai) {
       return json({ error: "vai_must_be_live_before_requirements" }, 403);
     }
-    if ((session.enrolment_step ?? 1) < 7) {
-      return json({ error: "enrolment_step_order: reveal at 7 before requirements at 8" }, 403);
+    if ((session.enrolment_step ?? 1) < 8) {
+      return json({ error: "enrolment_step_order: acceptance at 8 before requirements at 9" }, 403);
     }
 
     const vai = session.vai.trim();
@@ -92,7 +92,7 @@ serve(async (req) => {
     if (body.quote_only === true) {
       return json({
         status: "requirements_quote",
-        step: 8,
+        step: 9,
         items,
         le_required: keys.includes("le_declaration") && !onFile.has("le_declaration"),
         signature_required:
@@ -125,7 +125,7 @@ serve(async (req) => {
 
       return json({
         status: "le_declared",
-        step: 8,
+        step: 9,
         law_enforcement_declared: true,
         version: ver?.version ?? null,
         body: ver?.body ?? null,
@@ -143,7 +143,7 @@ serve(async (req) => {
         .maybeSingle();
       return json({
         status: "le_quote",
-        step: 8,
+        step: 9,
         required: keys.includes("le_declaration") && !onFile.has("le_declaration"),
         version: ver?.version ?? null,
         effective_from: ver?.effective_from ?? null,
@@ -157,11 +157,11 @@ serve(async (req) => {
         .from("sessions")
         .update({
           requirements_signed_at: new Date().toISOString(),
-          enrolment_step: Math.max(session.enrolment_step, 8),
+          enrolment_step: Math.max(session.enrolment_step, 9),
         })
         .eq("id", session_id);
       if (uErr) throw new Error(uErr.message);
-      return json({ status: "requirements_signed", step: 8, versions_stamped: 0 });
+      return json({ status: "requirements_signed", step: 9, versions_stamped: 0 });
     }
 
     const version_ids = Array.isArray(body.version_ids)
@@ -207,7 +207,7 @@ serve(async (req) => {
         agreement_id: agr.id,
         agreement_version_id: ver.id,
         vai,
-        engine_used: "enrolment_step_8",
+        engine_used: "enrolment_step_9",
       });
       if (pErr) throw new Error(pErr.message);
     }
@@ -216,14 +216,14 @@ serve(async (req) => {
       .from("sessions")
       .update({
         requirements_signed_at: new Date().toISOString(),
-        enrolment_step: Math.max(session.enrolment_step, 8),
+        enrolment_step: Math.max(session.enrolment_step, 9),
       })
       .eq("id", session_id);
     if (uErr) throw new Error(uErr.message);
 
     return json({
       status: "requirements_signed",
-      step: 8,
+      step: 9,
       versions_stamped: version_ids.length,
     });
   } catch (e) {

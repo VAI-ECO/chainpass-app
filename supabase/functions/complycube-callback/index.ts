@@ -4,6 +4,7 @@ import { corsHeaders } from "../_shared/cors.ts";
 import { verifyWebhookSignature, parseWebhookPayload, getSignatureHeaderName } from "../_shared/complycube-webhook.ts";
 import { processEnrollment } from "../_shared/enrollment-processor.ts";
 import { emitEvent } from "../_shared/emit-event.ts";
+import { extractKycDocumentFields } from "../_shared/kyc-document.ts";
 
 const COMPLYCUBE_API_URL = "https://api.complycube.com/v1";
 
@@ -52,11 +53,8 @@ async function fetchComplyCubeData(clientId: string): Promise<ComplyCubeData> {
     throw new Error("No checks found for ComplyCube client");
   }
 
-  // Extract ONLY document expiry date - NO name, dob, address, document number, type, or country
-  const documentExpiry = latestCheck.extractedData?.documentDetails?.expirationDate;
-  if (!documentExpiry) {
-    throw new Error("No document expiration date found in ComplyCube check");
-  }
+  // Expiry + issuing place. Never name, dob, address, or document number.
+  const documentExpiry = extractKycDocumentFields(latestCheck).documentExpiry;
 
   console.log(`[ComplyCube] Document expiry: ${documentExpiry}`);
 

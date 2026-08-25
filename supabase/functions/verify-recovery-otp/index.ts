@@ -1,8 +1,7 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
-
-const MAX_ATTEMPTS = 5;
+import { getSettingNumber } from "../_shared/settings.ts";
 
 const getServiceClient = () => {
   const url = Deno.env.get("SUPABASE_URL");
@@ -35,6 +34,7 @@ serve(async (req) => {
     }
 
     const supabase = getServiceClient();
+    const maxAttempts = await getSettingNumber(supabase, "recovery_otp_max_attempts");
 
     const { data: request, error } = await supabase
       .from("recovery_requests")
@@ -52,7 +52,7 @@ serve(async (req) => {
       });
     }
 
-    if (request.otp_attempts >= MAX_ATTEMPTS) {
+    if (request.otp_attempts >= maxAttempts) {
       await supabase.from("recovery_requests").update({ status: "failed" }).eq("id", request.id);
       return new Response(JSON.stringify({ error: "Too many attempts" }), {
         status: 429,
@@ -100,4 +100,3 @@ serve(async (req) => {
     );
   }
 });
-

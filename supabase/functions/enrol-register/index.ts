@@ -6,7 +6,7 @@ import { validateRegistrationFields } from "../_shared/enrol-register.ts";
 
 /**
  * POST /v1/enrol/register — §2.3 step 4.
- * USERNAME · email · phone. NEVER legal name.
+ * Contact from collection spec. Username only if the spec requires it. NEVER legal name.
  * Fields from platform_agreements.collection_fields with at-least-one-of groups.
  */
 serve(async (req) => {
@@ -26,6 +26,7 @@ serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const session_id = typeof body.session_id === "string" ? body.session_id : "";
     if (!session_id) return json({ error: "session_id required" }, 400);
+    const action = body.action === "spec" ? "spec" : "register";
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -60,7 +61,20 @@ serve(async (req) => {
       .limit(1)
       .maybeSingle();
 
-    const fields = validateRegistrationFields(body, pa?.collection_fields ?? null);
+    const collection = (pa?.collection_fields ?? null) as {
+      required?: string[];
+      groups?: Array<{ at_least_one_of: string[] }>;
+    } | null;
+
+    if (action === "spec") {
+      return json({
+        status: "spec",
+        required: collection?.required ?? [],
+        groups: collection?.groups ?? [{ at_least_one_of: ["email", "phone"] }],
+      });
+    }
+
+    const fields = validateRegistrationFields(body, collection);
 
     const { error: uErr } = await supabase
       .from("sessions")

@@ -43,17 +43,22 @@ export async function purchaseBlock(
 
 /**
  * Burn rate and projected-empty — COMPUTED, never stored (§16.6 step 5 item 3).
+ * Window hours from settings:blocks_burn_window_hours — never a hardcoded 24.
  */
 export async function computeConsumptionProjection(
   supabase: SupabaseClient,
   platform_id: string,
-  windowHours = 24
+  windowHours?: number
 ): Promise<{
   remaining: number;
   burned_in_window: number;
   burn_per_hour: number;
   projected_empty_at: string | null;
 }> {
+  const hours =
+    windowHours ??
+    (await getSettingNumber(supabase, "blocks_burn_window_hours"));
+
   const { data: blocks, error } = await supabase
     .from("blocks")
     .select("size, consumed")
@@ -65,7 +70,7 @@ export async function computeConsumptionProjection(
     0
   );
 
-  const since = new Date(Date.now() - windowHours * 60 * 60 * 1000).toISOString();
+  const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
   const { data: ledger, error: lErr } = await supabase
     .from("verification_ledger")
     .select("id")
@@ -75,7 +80,7 @@ export async function computeConsumptionProjection(
   if (lErr) throw new Error(lErr.message);
 
   const burned_in_window = ledger?.length ?? 0;
-  const burn_per_hour = windowHours > 0 ? burned_in_window / windowHours : 0;
+  const burn_per_hour = hours > 0 ? burned_in_window / hours : 0;
 
   let projected_empty_at: string | null = null;
   if (burn_per_hour > 0 && remaining > 0) {

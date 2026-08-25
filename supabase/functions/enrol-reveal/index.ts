@@ -52,7 +52,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, platform_id, held_capture, otp_verified_at, vai, enrolment_step, background_check_at, document_expiry, issuing_country, issuing_province"
+        "id, platform_id, held_capture, otp_verified_at, vai, enrolment_step, background_check_at, document_expiry, issuing_country, issuing_province, payment_choice"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -94,6 +94,18 @@ serve(async (req) => {
 
     // Origination = platform whose API key opened enrolment (token → session.platform_id).
     // Immutable via DB trigger (§2.8).
+    const deferred = session.payment_choice === "defer";
+    let deferral_expires_at: string | null = null;
+    if (deferred) {
+      const suspendAfterHours = await getSettingNumber(
+        supabase,
+        "deferral_suspend_after"
+      );
+      deferral_expires_at = new Date(
+        yearStart.getTime() + suspendAfterHours * 60 * 60 * 1000
+      ).toISOString();
+    }
+
     const { error: cErr } = await supabase.from("credentials").insert({
       vai,
       state: "active",
@@ -107,6 +119,8 @@ serve(async (req) => {
       year_starts_at: yearStart.toISOString(),
       year_ends_at: yearEnd.toISOString(),
       verified_at: yearStart.toISOString(),
+      deferral_used: deferred,
+      deferral_expires_at,
     });
     if (cErr) throw new Error(cErr.message);
 

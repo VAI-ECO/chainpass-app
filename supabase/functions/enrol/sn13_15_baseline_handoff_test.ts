@@ -1,5 +1,5 @@
 /**
- * SN-13–15: face URL required; term from settings; handoff payload; no legal name.
+ * SN-13: two frames + terms; SN-14 term setting; SN-15 handoff payload.
  * deno test --allow-read --allow-env supabase/functions/enrol/sn13_15_baseline_handoff_test.ts
  */
 import { requireFaceService } from "../_shared/enrol-baseline.ts";
@@ -30,7 +30,7 @@ Deno.test("SN-13 fails loud without FACE_SERVICE_URL / KEY — no stub matcher",
   if (!threw || !threwKey) throw new Error("missing face secrets must fail loud");
 });
 
-Deno.test("SN-13 commits held frame via FACE_SERVICE after signings", async () => {
+Deno.test("SN-13 requires both frames and terms checkbox; no invented merge", async () => {
   const fn = await Deno.readTextFile(
     new URL("../enrol-baseline/index.ts", import.meta.url)
   );
@@ -40,11 +40,41 @@ Deno.test("SN-13 commits held frame via FACE_SERVICE after signings", async () =
   if (!/requireFaceService/.test(fn) || !/client_vector_rejected/.test(fn)) {
     throw new Error("baseline must reject a client vector and call the face service");
   }
-  if (!/documents_signed:\s*true/.test(page) || /vector:/.test(page)) {
+  if (!/terms_accepted_at/.test(fn)) {
+    throw new Error("baseline requires the terms checkbox");
+  }
+  if (!/acceptance_capture/.test(fn) || !/held_capture/.test(fn)) {
+    throw new Error("baseline requires both frames");
+  }
+  if (!/acceptance_capture_missing_or_voided/.test(fn)) {
+    throw new Error("must reject baseline without frame two");
+  }
+  if (/merge_threshold|averaged|mean_vector|merged_vector/.test(fn)) {
+    throw new Error("do not invent a merge formula");
+  }
+  if (!/compareFrameTwoAgainstFrameOne/.test(fn) && !/embedBothAndCompare/.test(fn)) {
+    throw new Error("frame two must be compared against frame one");
+  }
+  if (!/step:\s*10/.test(fn)) {
+    throw new Error("baseline is step 10");
+  }
+  if (!/two frames/.test(page) && !/both frames/.test(page)) {
+    throw new Error("page must say two frames");
+  }
+  if (/vector:/.test(page)) {
     throw new Error("SN-13 must not send a stub vector");
   }
+});
+
+Deno.test("SN-13 Access skips signature; Pro still requires signings", async () => {
+  const fn = await Deno.readTextFile(
+    new URL("../enrol-baseline/index.ts", import.meta.url)
+  );
   if (!/requirements_must_be_signed_before_baseline/.test(fn)) {
-    throw new Error("baseline waits for step 8 signings");
+    throw new Error("Pro path still waits for signings");
+  }
+  if (!/required_credential_level/.test(fn) && !/service_level/.test(fn)) {
+    throw new Error("Access/V.A.I. must not require Pro signings");
   }
 });
 
@@ -73,5 +103,8 @@ Deno.test("SN-15 payload is V.A.I. + username + email/phone; session_key null; n
   }
   if (/\?token=|\?vai=/.test(page)) {
     throw new Error("handoff URL must not carry identifiers");
+  }
+  if (!/Step 13 of 13/.test(page)) {
+    throw new Error("SN-15 is step 13 of 13");
   }
 });

@@ -133,14 +133,20 @@ serve(async (req) => {
     const platformId = session.platform_id;
     console.log(`[Session] V.A.I.: ${vai}, Platform: ${platformId}`);
 
-    // Step 3: Rate limit check (per session)
+    // Step 3: Rate limit check (per session) — count + window are settings
     const maxRecent = await getSettingNumber(supabase, "facial_signature_max_recent");
-    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const windowMinutes = await getSettingNumber(
+      supabase,
+      "facial_signature_window_minutes"
+    );
+    const windowStart = new Date(
+      Date.now() - windowMinutes * 60 * 1000
+    ).toISOString();
     const { data: recentAttempts, error: attemptsError } = await supabase
       .from("facial_signature_attempts")
       .select("id")
       .eq("session_id", session_id)
-      .gte("attempted_at", fiveMinutesAgo);
+      .gte("attempted_at", windowStart);
 
     if (attemptsError) {
       console.error("[Rate Limit] Error checking attempts:", attemptsError);
