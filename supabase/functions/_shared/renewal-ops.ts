@@ -57,7 +57,7 @@ export async function appendRenewalBaseline(
 
 /**
  * Provider dedup (§2.4b): same session key returned — no stored provider pointer.
- * We look up credential_keys by session_key match only when she re-presents it.
+ * We look up credential_keys by session_key match only when the user re-presents it.
  */
 export async function resolveSessionKeyDedup(
   supabase: SupabaseClient,
@@ -76,7 +76,7 @@ export async function resolveSessionKeyDedup(
   if (data?.session_key) {
     return { session_key: data.session_key, matched: true };
   }
-  // Append the key she got back from provider dedup (same key)
+  // Append the key the user got back from provider dedup (same key)
   await supabase.from("credential_keys").insert({
     vai,
     session_key: presented_session_key,
