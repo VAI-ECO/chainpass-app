@@ -112,17 +112,19 @@ Machine     MacBook-Pro, user bmac
 VAIRIFY     ~/vai-workspaces/vairify-app
 Branch      vairify-fixes
 
-  Canon     docs/canon/                 CANON-CP-01 · RULINGS-CP-01 · RULINGS-CP-02 · RULINGS-CP-03 · OPERATIONS · MKT-CP-01
-  Screens   docs/screens/               62 files, ~676 numbered screens
+  Canon     docs/canon/                 (Vairify canons; not the ChainPass CP/RULINGS list)
+  Screens   docs/screens/
   Schema    supabase/migrations/20260816000000_vairify_schema.sql
-            59 tables, applied to jejeywliehoxwhukphwk
+            applied to jejeywliehoxwhukphwk
   Functions supabase/functions/
 
 CHAINPASS   ~/vai-workspaces/chainpass-app
 Branch      chainpass-fixes
 
-  Schema    docs/chainpass-schema.sql   16 tables, live on Hetzner
-  ⚠️ NO CHAINPASS SCREENS EXIST IN EITHER REPOSITORY
+  Canon     docs/canon/                 CANON-CP-01 · CANON-CP-02 · CANON-CP-04 · CANON-MI-36 · FLAG-VAIRIFY-RULINGS-CP-03 · MKT-CP-01 · OPERATIONS · RULINGS-CP-01 · RULINGS-CP-02 · RULINGS-CP-03 · RULINGS-CP-04 · RULINGS-CP-05 · RULINGS-CP-06 · SPEC-FLOW-01
+  Screens   docs/screens/               9 entries (`ls docs/screens/ | wc -l` = 9); 166 files recursive
+  Schema    docs/chainpass-schema.sql · supabase/migrations/  live on pguwhjearlqqfworantq
+  Functions supabase/functions/
 
 SPLASH      ~/vai-workspaces/vairify-splash
 ```
@@ -330,6 +332,7 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 8 | ⚠️⚠️ **§2 — ChainPass canons indexed under CHAINPASS, not VAIRIFY. Screens line corrected: `docs/screens/` exists (9 top-level, 166 files). Eight previously unindexed files listed: CANON-CP-02, CANON-CP-04, CANON-MI-36, FLAG-VAIRIFY-RULINGS-CP-03, RULINGS-CP-04, RULINGS-CP-05, RULINGS-CP-06, SPEC-FLOW-01.** | CP RUN #1 BUILD UNIT 11 |
 | **24 Aug** | 4 | ⚠️⚠️ **MORE DIALS LIVE — handoff poll · blocks burn window · contracts face attempts · testing 95% skip removed.** | Owner no-number ruling |
 | **24 Aug** | 3 | ⚠️⚠️ **WINDOWS + DEFERRAL — `enrol_session_hours` · facial attempt/signature windows · `deferral_suspend_after` on reveal + check-renewals suspend.** | Owner no-number ruling · §4A.3 |
 | **24 Aug** | 2 | ⚠️⚠️ **SETTINGS WIRING — handoff counts · `renewal_window` on check-renewals · `recovery_otp_max_attempts` · `blocks_alert_threshold` on blocks status · `credentials.reds_count` + fourth-state via `reds_threshold` · verify-vai-facial bands from settings (no `FACE_MATCH_THRESHOLD`).** | Owner no-number ruling |
