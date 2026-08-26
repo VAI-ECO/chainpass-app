@@ -538,8 +538,8 @@ VAIRIFY SAYS NOTHING ABOUT THE MEMBER, ONLY THAT THE CREDENTIAL IS NOT ACTIVE.**
 
 | | | |
 |---|---|---|
-| ⚠️ **STANDARD — `settings:price_vai`** | **The credential. A verified person.** | **A platform that needs to know someone is real and of age** |
-| ⚠️ **PRO — `settings:price_vai_pro`** | ⚠️⚠️ **THE SIGNATURE AGREEMENT PLUS AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED** | **A platform that needs to administer real actions** |
+| ⚠️ **VAI ACCESS — `settings:price_vai`** | **The credential. A verified person.** | **A platform that needs to know someone is real and of age** |
+| ⚠️ **VAI PRO — `settings:price_vai_pro`** | ⚠️⚠️ **THE SIGNATURE AGREEMENT PLUS AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED** | **A platform that needs to administer real actions** |
 
 ⚠️⚠️ **A PORN SITE NEEDING ONLY AGE VERIFICATION IS A STANDARD CREDENTIAL. VAIRIFY IS A PRO
 ONE.**
@@ -1494,6 +1494,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 44 | ⚠️⚠️ **§4C table — STANDARD row → VAI ACCESS. PRO row → VAI PRO. Keys and figures untouched.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 5 |
 | **26 Aug** | 43 | ⚠️⚠️ **§4C heading → VAI ACCESS AND VAI PRO.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 4 |
 | **26 Aug** | 42 | ⚠️⚠️ **§16.2 — deleted the superseded `agreements` shape (`content_ref` · `vai_1`/`vai_2`). The `SPEC-CP-02` five-table registry remains.** | `CANON-CP-01` §14.2 · `SPEC-CP-02` |
 | **26 Aug** | 41 | ⚠️⚠️ **§12 item 6 closed. `credentials.complycube_client_id` already dropped by `20260821000005`. §2.4 patent-gate-unmet paragraph deleted. Schema unchanged this run.** | `CANON-CP-01` §2.4 · §12 item 6; migration already applied |
