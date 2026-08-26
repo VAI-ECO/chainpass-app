@@ -939,9 +939,9 @@ MAY ASK.**
 
 | Level | | What the platform may ask |
 |---|---|---|
-| **1** | ⚠️ **ACCESS** | ⚠️ **The door. One question at the gate: is this person real and of age.** ⚠️⚠️ **THIS IS THE STANDARD CREDENTIAL AT WORK — §4C.1.** |
-| **2** | ⚠️ **V.A.I.** | **The door plus inside. Repeated yes/no while the member is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** ⚠️ **Up to three platform requirements at the door — §4C.3.** |
-| **3** | ⚠️ **PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED — §4C.2, §4C.3.** |
+| **1** | ⚠️ **VAI GO** | ⚠️ **The door. One question at the gate: is this person real and of age.** ⚠️⚠️ **THIS IS THE STANDARD CREDENTIAL AT WORK — §4C.1.** |
+| **2** | ⚠️ **VAI ACCESS** | **The door plus inside. Repeated yes/no while the member is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** ⚠️ **Up to three platform requirements at the door — §4C.3.** |
+| **3** | ⚠️ **VAI PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED — §4C.2, §4C.3.** |
 
 ⬜ ⚠️⚠️ **`CANON-CP-02` §0 NAMES "V.A.I. PASS + ACCESS". THE REGISTER HERE LISTS ACCESS · V.A.I. · PRO. RENAME, FOURTH LEVEL, OR THE ACCESS PAIR? FLAGGED. NOTHING RENAMED.** — `CANON-CP-02` §5 item 6.
 
@@ -1507,6 +1507,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 37 | ⚠️⚠️ **§14.1 — three service levels renamed VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 4 |
 | **26 Aug** | 36 | ⚠️⚠️ **§16.1 — deleted "LEVEL 2 IS WRITTEN 'V.A.I. PLUS'".** | `RULINGS-CP-07` §3 item 2 |
 | **26 Aug** | 35 | ⚠️⚠️ **§16.1 LEVEL VALUES → VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 1 |
 | **25 Aug** | 34 | ⚠️⚠️ **§7.2 GREEN BAND RENAMED FROM PASS TO MATCH.** | Owner: the green band is Match. |
