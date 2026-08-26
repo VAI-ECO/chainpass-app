@@ -58,7 +58,7 @@
 
 | # | |
 |---|---|
-| 1 | ⚠️⚠️ **DOES NOT MOVE ANY INTEGER. `service_level` VALUES AND EVERY GATE CHECK ARE UNTOUCHED** |
+| 1 | ⚠️⚠️ **DOES NOT MOVE ANY INTEGER. THE MAPPING 1 VAI GO · 2 VAI ACCESS · 3 VAI PRO IS RULED AND CONFIRMED IN PLACE. `service_level` VALUES AND EVERY GATE CHECK ARE UNTOUCHED** |
 | 2 | ⚠️⚠️ **DOES NOT CHANGE A PRICE OR A SETTINGS KEY** |
 | 3 | ⚠️ **Does not rename the GREEN band** |
 | 4 | ⚠️ **Does not touch Vairify's PACKAGE names — Free · Plus · Premium are unaffected** |
@@ -69,6 +69,7 @@
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 7 | ⚠️⚠️ **§4 item 1 — integers ruled and confirmed in place, not left open.** | `RULINGS-CP-07_AMENDMENT-1` §5 item 3 |
 | **26 Aug** | 6 | ⚠️⚠️ **§2 — deleted the line that said the Match rename was not taken.** | `RULINGS-CP-07_AMENDMENT-1` §3 |
 | **26 Aug** | 5 | ⚠️⚠️ **§1 item 4 — integer mapping ruled: 1 VAI Go · 2 VAI Access · 3 VAI Pro. Open marker deleted.** | `RULINGS-CP-07_AMENDMENT-1` §1 |
 | **26 Aug** | 1 | **Filed. Levels named VAI Go · VAI Access · VAI Pro. ChainPass is the company, never a level.** | ⚠️ **Owner ruling. The prior names were unresolved across `CP-01` §16.1, §14.1 and `MKT-CP-01`, which produced a design flag** |
