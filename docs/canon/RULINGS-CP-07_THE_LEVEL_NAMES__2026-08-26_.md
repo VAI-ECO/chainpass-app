@@ -21,7 +21,7 @@
 | 1 | ⚠️⚠️ **MARKETING USES THE SHORT FORM: VAI GO · VAI ACCESS · VAI PRO.** |
 | 2 | ⚠️⚠️ **THE LEVEL IS ALWAYS WRITTEN IN FULL. BARE "GO", BARE "ACCESS" AND BARE "PRO" ARE NEVER A LEVEL NAME.** ⚠️ **Same rule that already forbids bare "Plus" for Vairify's package.** |
 | 3 | ⚠️ **VAI is always capital, per `OPERATIONS` §7.1.** |
-| 4 | ⬜ ⚠️⚠️ **WHICH INTEGER EACH NAME CARRIES IS NOT RULED BY THIS FILE.** ⚠️ **`CANON-CP-01` §16.1 currently maps 1 Access · 2 V.A.I. · 3 Pro, and `platforms.service_level (1|2|3)` and every gate check read those integers. THE NAMES CHANGE. THE NUMBERS DO NOT MOVE UNTIL THE OWNER SAYS SO.** |
+| 4 | ⚠️⚠️ **THE INTEGER MAPPING IS RULED: 1 VAI GO · 2 VAI ACCESS · 3 VAI PRO.** ⚠️ **`CANON-CP-01` §16.1 maps those names onto `platforms.service_level (1|2|3)` and every gate check reads those integers. THE NAMES ARE RULED. THE NUMBERS DO NOT MOVE.** |
 
 ---
 
@@ -43,7 +43,7 @@
 
 | # | Target | Change |
 |---|---|---|
-| 1 | `CANON-CP-01` §16.1 | The LEVEL row's values become **VAI Go · VAI Access · VAI Pro**. The integer mapping stays as it is until item 4 above is ruled |
+| 1 | `CANON-CP-01` §16.1 | The LEVEL row's values become **VAI Go · VAI Access · VAI Pro**. The integer mapping is ruled: 1 VAI Go · 2 VAI Access · 3 VAI Pro |
 | 2 | `CANON-CP-01` §16.1 | ⚠️⚠️ **DELETE** — "LEVEL 2 IS WRITTEN 'V.A.I. PLUS' ALWAYS IN FULL WHERE THAT NAME IS USED." The name is no longer V.A.I. Plus |
 | 3 | `CANON-CP-01` §16.1 | ⚠️ **DELETE** the open marker "The public name is still open — `MKT-CP-01` §5 item 2." It is closed by this file |
 | 4 | `CANON-CP-01` §14.1 | Three service levels renamed to match |
@@ -71,6 +71,7 @@
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 5 | ⚠️⚠️ **§1 item 4 — integer mapping ruled: 1 VAI Go · 2 VAI Access · 3 VAI Pro. Open marker deleted.** | `RULINGS-CP-07_AMENDMENT-1` §1 |
 | **26 Aug** | 1 | **Filed. Levels named VAI Go · VAI Access · VAI Pro. ChainPass is the company, never a level.** | ⚠️ **Owner ruling. The prior names were unresolved across `CP-01` §16.1, §14.1 and `MKT-CP-01`, which produced a design flag** |
 | **26 Aug** | 2 | ⚠️⚠️ **"PASS" REJECTED AS A LEVEL NAME.** | ⚠️ **It is already the meaning of the GREEN band in §7.2. One word, two meanings, one product** |
 | **26 Aug** | 3 | **The band rename to `Match` is not taken.** | ⚠️ **Naming the level Go removes the collision. A second rename adds churn for nothing** |
