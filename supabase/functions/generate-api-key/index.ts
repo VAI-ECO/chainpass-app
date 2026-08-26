@@ -1,5 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts';
+import { sha256Hex } from '../_shared/platform-key.ts';
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -42,8 +43,9 @@ Deno.serve(async (req) => {
       throw new Error('Business partner ID is required');
     }
 
-    // Generate a secure API key
+    // Generate a secure API key. Store the hash only — never plaintext.
     const apiKey = crypto.randomUUID() + '-' + crypto.randomUUID();
+    const apiKeyHash = await sha256Hex(apiKey);
 
     // Create an auth user for the business partner
     const tempPassword = crypto.randomUUID();
@@ -68,7 +70,7 @@ Deno.serve(async (req) => {
       const { data: updatedPartner, error: updateError } = await supabase
         .from('business_partners')
         .update({
-          api_key: apiKey,
+          api_key: apiKeyHash,
           status: 'approved',
           approved_at: new Date().toISOString(),
           approved_by: user.id,
