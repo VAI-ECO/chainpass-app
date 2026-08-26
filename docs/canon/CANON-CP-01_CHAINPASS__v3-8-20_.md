@@ -1317,8 +1317,7 @@ governs: PAY at step 2; `CP-03` §8.2 had neither, which is why §2 governs.**
 | **GROUP** | **Vairify launch cohorts** | Founding Council · First Movers · Early Access |
 | ⚠️⚠️ **LEVEL** | **CHAINPASS** | **1 VAI Go · 2 VAI Access · 3 VAI Pro** |
 
-⚠️⚠️ **LEVEL 2 IS WRITTEN "V.A.I. PLUS" ALWAYS IN FULL WHERE THAT NAME IS USED. BARE
-"PLUS" IS VAIRIFY'S PACKAGE AND NEVER CHAINPASS'S.** Closed by §14.1 and `RULINGS-CP-01`
+⚠️⚠️ **BARE "PLUS" IS VAIRIFY'S PACKAGE AND NEVER CHAINPASS'S.** Closed by §14.1 and `RULINGS-CP-01`
 Ruling 5.
 
 ## 16.2 — ⚠️⚠️ THE SCHEMA
@@ -1508,6 +1507,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 36 | ⚠️⚠️ **§16.1 — deleted "LEVEL 2 IS WRITTEN 'V.A.I. PLUS'".** | `RULINGS-CP-07` §3 item 2 |
 | **26 Aug** | 35 | ⚠️⚠️ **§16.1 LEVEL VALUES → VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 1 |
 | **25 Aug** | 34 | ⚠️⚠️ **§7.2 GREEN BAND RENAMED FROM PASS TO MATCH.** | Owner: the green band is Match. |
 | **25 Aug** | 33 | ⚠️⚠️ **`CANON-CP-02` DEPOSITED — THIRTEEN-STEP SPINE GOVERNS §2. SESSION KEY LENGTH 30. `SPEC-CP-02` v3 — CONTRACT REGISTRY FIVE TABLES, WRITE-ONCE, AGREEMENT RUNS INSIDE CHAINPASS. `CANON-MI-36` TWO RECOVERY PATHS. `RULINGS-CP-05` SERVICE STATE CONTROL. `RULINGS-CP-06` USER-REQUESTED RE-BASELINE ALWAYS THE PROVIDER. `SPEC-FLOW-01` §0.1 SUPERSEDED: RETRIEVAL IS A CHAINPASS PAGE. "PASS" AS A LEVEL NAME FLAGGED AGAINST §14.1.** | Owner filings 25 Aug. |
