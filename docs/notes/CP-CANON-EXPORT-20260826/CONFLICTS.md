@@ -1,172 +1,182 @@
-# CONFLICTS.md — THE CONFLICT REGISTER
+# CONFLICTS.md — ChainPass · CANON-AUDIT-01
 
-CANON-AUDIT-01 · chainpass-app · chainpass-fixes · 26 August 2026.
+No winner. No resolution column. Both addresses, both quotes.
 
-No RESOLUTION column. Both addresses, both quotes, no winner.
-
-HEAD at audit start: `dac60ee516ddbbbfe807a20f6627a6e08535ca88`.
+HEAD at audit: `8e680d058081410346cf0e228f0b864b0dfdaaf5`.
 
 ---
 
-## UNIT 3 item 1 — Two files ruling the same subject differently
+# UNIT 3.1 — Same subject, different ruling
 
 | # | Subject | Address A + quote | Address B + quote | Which is newer | What it blocks |
 |---|---|---|---|---|---|
-| 1 | Session-key length | `CANON-CP-01` §3 line 417: **THIRTY-TWO CHARACTERS. ALPHANUMERIC.** **Owner ruling, 25 August.** | `CANON-CP-02` §1 step 3: **ChainPass creates a 30-character alphanumeric session key.** Changelog #5: Session key length is **30**. | B: deposited 25 Aug 16:13 (`252956a`). A last-commit 26 Aug 05:22 but the 32-character line is still in the body. Same-file A also says Length is 30 at line 419. | Enrolment mint, schema check `session_key_30`, any remaining 32-char copy. |
-| 2 | Where terms are accepted | `RULINGS-CP-02` §1 item 1: **TERMS ACCEPTANCE MOVES TO THE REGISTER STEP — USERNAME · EMAIL AND/OR PHONE · TERMS. ONE PAGE.** | `RULINGS-CP-03` §1 item 1: **TERMS ACCEPTANCE LEAVES REGISTER. IT RUNS ON THE ACCEPTANCE PAGE — THE PAGE THAT CARRIES THE SECOND CAPTURE.** Header of A says §1 is superseded by B. The superseded ruling is still the body of A. | Same calendar day 22 Aug. B filed after A (A header: superseded by CP-03 §1). | Enrolment screen order; SN-06 vs SN-51. |
-| 3 | One flow vs three flows | `RULINGS-CP-02` §2 item 1: **ONE ENROLMENT FLOW. ONE CREDENTIAL. THE LEVEL DOES NOT CHANGE HOW THE MEMBER ENROLS.** Item 6: **DO NOT BUILD SEPARATE FLOWS FOR ACCESS, V.A.I. AND PRO.** | `CANON-CP-02` §0: **Every level walks the same spine. The flows differ in exactly three places.** Table: VAIRIFY FLOW · V.A.I. PRO · V.A.I. PASS + ACCESS. | B 25 Aug. A 22 Aug (last commit 26 Aug is empty changelog only). | Whether outside-the-walls, documents, and retrieval brand are three builds or one spine with switches. |
-| 4 | Enrolment branding | `RULINGS-CP-02` §5 item 1: **DEFAULT IS CHAINPASS. EVERY SCREEN, EVERY LEVEL.** Item 3: **ACCESS AND V.A.I. STAY CHAINPASS-BRANDED.** | `CANON-CP-02` §0 row 3: retrieval **VAIRIFY-branded** / **platform-branded**. §5 item 5: **BRANDING AT THE BOUNDARY IS CLOSED: PLATFORM-BRANDED CHAINPASS PAGES.** | B 25 Aug. | Skin setting, LE exception, SN-01 Gate "branding unruled". |
-| 5 | Last ChainPass screen | `RULINGS-CP-02` §4 item 3: **THE RECOVERY-CONTACT SCREEN IS THE LAST CHAINPASS SCREEN. THE MEMBER CONTINUES, AND THE PLATFORM BEGINS.** | `CANON-CP-02` §1 steps 11, 11a, 12, 13: retrieval, remember-on-device, handoff, key delete all still ChainPass after security. | B 25 Aug. | SN-52 "Last ChainPass screen" (WIRE line 280) vs 11a. |
-| 6 | Account-security step number | `RULINGS-CP-03` §7 item 3: **Collected at enrolment step 12 (account security).** `FLAG-VAIRIFY-RULINGS-CP-03` line 8: **Collected at enrolment step 12.** | `CANON-CP-02` §1 step 11: retrieval page. `CANON-CP-01` §2.10 item 2: **STEP 11 IS THE RETRIEVAL PAGE.** `CANON-CP-01` §2.3 item 4: questions **AT STEP 12 — §2.10** (same file, two step numbers). | CP-02 25 Aug vs CP-03/FLAG 22 Aug. CP-01 last-commit 26 Aug still carries both 11 and 12. | Handoff vs security order; FLAG vs CP-02. |
-| 7 | Level names | `CANON-CP-01` §14.1: **1 Access · 2 V.A.I. · 3 Pro.** | `CANON-CP-02` §0 column **V.A.I. PASS + ACCESS**. Both files flag the clash; neither renames. | Both 25 Aug. | MKT copy, SN-50, vocabulary. |
-| 8 | `vec.chainpass.io` | `SPEC-FLOW-01` §2.2: **NXDOMAIN AT FILING. TRAEFIK IS ALREADY LISTENING FOR THAT HOST.** | `OPERATIONS.md` changelog 25 Aug #5: **LIVE FACE SERVICE WIRED.** `vec.chainpass.io` serves `vai-face-embed` over HTTPS. `00-SCREEN-REGISTER` 22 Aug: vec does not resolve; 25 Aug: LIVE FACE CUT-OVER. | OPERATIONS/register 25 Aug later than SPEC-FLOW-01 filing the same day (SPEC-FLOW last-commit 16:13; OPERATIONS live-cutover changelog dated 25 Aug; OPERATIONS last-commit 26 Aug). | Treating NXDOMAIN as current. |
-| 9 | Patent-gate column | `CANON-CP-01` §2.4 / §12 item 6: **CHAINPASS STILL HOLDS `credentials.complycube_client_id`, NOT NULL, READ AFTER ENROLMENT BY FOUR FUNCTIONS.** | `supabase/migrations/20260821000005_drop_complycube_client_id.sql`: **DROP COLUMN IF EXISTS complycube_client_id.** | Migration dated 21 Aug; canon line still present in 26 Aug file. | Whether the patent gate is unmet in prose or dropped in schema. |
-| 10 | Provider-retention column | `CANON-CP-01` §16.2: ⬜ **§10.3's provider-retention column is absent from this schema and must be added.** | `supabase/migrations/20260823120000_provider_retention_setting.sql`: **§10.3 — provider retention is credentials.next_complycube_date (already live).** | Migration 23 Aug; canon 16.2 still says absent (file last-commit 26 Aug). | Renewal two-date test build. |
-| 11 | PAY step number | `00-SCREEN-REGISTER.md` flag 5: **§2 puts PAY at step 3, §4A.2 starts the deferral clock at step 6.** WIRE SN-04: **§2 puts PAY at step 3.** | `CANON-CP-02` §1 step 2: **PAY.** `CANON-CP-01` §2 block step 2: **PAY.** | Canon 25 Aug. Register/WIRE 21–25 Aug still cite step 3. | Enrolment app order vs register flags. |
-| 12 | Branding closed vs unruled | `00-SCREEN-REGISTER.md` flag 7: **Branding — ChainPass mark or skinned per platform** ⬜ unruled. | `CANON-CP-02` §5 item 5: branding at the boundary is **closed**. | CP-02 25 Aug. Register last-commit 25 Aug 12:14 (flags 9–12 deleted; flag 7 remains). | Design vs canon. |
-| 13 | Percentage on the viewer | `CANON-CP-01-WIRE` SN-27: **§7.2 · §7.1 · §7.3 (band only, never a percentage).** | `RULINGS-CP-04` §1 level 3: **A colour and a percentage.** `CANON-CP-01` §7.3: **THE PERCENTAGE LEAVES WHEN THE PLATFORM'S RESPONSE LEVEL PERMITS IT.** | RULINGS-CP-04 25 Aug. WIRE 21 Aug (last-commit 25 Aug 08:22). | SN-27 / trial viewer vs response_level 3. |
-| 14 | PLUS as a ChainPass gate | `RULINGS-CP-02` §2 item 4: **A PLUS-ONLY PLATFORM REJECTS AN ACCESS HOLDER AT ITS OWN DOOR — EVERY YES/NO FOR THAT PLATFORM IS SET TO PLUS.** | `CANON-CP-01` §16.1: **BARE "PLUS" IS VAIRIFY'S PACKAGE AND NEVER CHAINPASS'S.** `RULINGS-CP-01` Ruling 5: **bare "Plus" never appears on a ChainPass surface.** | Vocabulary map 20–21 Aug vs RULINGS-CP-02 22 Aug still using PLUS for a ChainPass door. | Copy and gate switches. |
-| 15 | TIER vs LEVEL for Pro | `CANON-CP-01` §4C.1: **PRO IS A PLATFORM TIER, NOT A CONSUMER UPGRADE.** | `CANON-CP-01` §16.1: word **LEVEL** belongs to **CHAINPASS** (1 Access · 2 V.A.I. · 3 Pro). **PACKAGE** belongs to Vairify. TIER is not in the map. Same file. | §16 folded 20 Aug; §4C.1 heading still "TIER". | Vocabulary sweep. |
-| 16 | Index of canons | `REF-CP-01` §1: CANON-CP-02, CP-04, MI-36, FLAG, RULINGS-CP-04/05/06, SPEC-FLOW-01 **indexed = no**. | `OPERATIONS.md` §2 CHAINPASS: those files **listed**. | OPERATIONS commit `8974fd1` 26 Aug 10:42. REF commit `edc7da6` 26 Aug 08:50. | Anyone using REF as the index. |
-| 17 | Trial viewer screen id | `CANON-CP-04` §4: **`SN-86`. A separate screen from `SN-25`–`SN-32`.** §8 item 4: `SCREEN-REGISTER-CHAINPASS` gains SN-86. | `00-SCREEN-REGISTER.md`: no SN-86 row. File `SCREEN-REGISTER-CHAINPASS` ABSENT (`find` for that name empty). | CP-04 25 Aug 20:56. Register 25 Aug 12:14. | Trial chrome; SN numbering. |
-| 18 | Price setting key on pay screen | WIRE SN-04: **`settings:price_vai` · `settings:price_pro`.** | `CANON-CP-01` §1.1a / `MKT-CP-01`: **`settings:price_vai_pro`.** | Canon 20–22 Aug. WIRE 21 Aug. | Pay screen read. |
-| 19 | Agreements table shape | `CANON-CP-01` §16.2 first `agreements` block: **id · platform_id · type (single\|dual) · vai_1 · vai_2 · content_ref.** | Same section, second `agreements` block: **agreement_id (AG-<26 chars>) · contract_id · outcome (agreed\|declined\|expired)** per `SPEC-CP-02` §4.2. | SPEC-CP-02 v3 25 Aug. Both blocks still in CP-01. | Schema, registry functions. |
-| 20 | RULINGS-CP-02 §9 still records terms at register as folded into canon | `RULINGS-CP-02` §9: `CANON-CP-01` §2, §14.3 **Terms acceptance at register, universal — ruling 1.** | `CANON-CP-01` §14.3 item 2: **AT ENROLMENT, TERMS ARE ACCEPTED ON THE ACCEPTANCE PAGE — STEP 8.** | CP-01 changelog #23 22 Aug folded CP-03 (acceptance). CP-02 §9 unamended. | Reading CP-02 §9 as current. |
+| 1 | Session key length | `CANON-CP-01` §3 L417: "THIRTY-TWO CHARACTERS. ALPHANUMERIC. Owner ruling, 25 August." Changelog #28 (25 Aug): "SESSION KEY LENGTH IS 32 CHARACTERS." | `CANON-CP-01` §3 L419: "Length is not open. Length is 30 — CANON-CP-02 §1 step 3. The earlier 32-character line is superseded." `CANON-CP-02` §1 L32: "ChainPass creates a 30-character alphanumeric session key." Changelog #33 (25 Aug): "SESSION KEY LENGTH 30." Live migration `supabase/migrations/20260825000004_session_key_30.sql` comments 30. | Same calendar day in CP-01. CP-02 deposited 25 Aug 16:13. CP-01 last commit 26 Aug 05:22 still carries both lengths. | Enrolment session mint, vault, handoff payload, any check that counts characters. |
+| 2 | Enrolment step numbers (same spine, different numbering) | `CANON-CP-01` §2 L127–156 ASCII: step 8 CONTACT AND OTP; step 9 SIGN; step 10 FACE MATCH; step 11 RETRIEVAL. | `CANON-CP-02` §1 L28–44: step 9 contact+OTP; step 10 documents THEN face match; step 11 retrieval. CP-01 §14.3 L1061: "TERMS ARE ACCEPTED ON THE ACCEPTANCE PAGE — STEP 8 — WITH THE SECOND CAPTURE." | CP-01 last commit 26 Aug is newer than CP-02 (25 Aug 16:13). CP-02 header L3: "Where CANON-CP-01 §2 disagrees, THIS FILE WINS." | Function comments, wires, and tests that bind a step number to a surface. |
+| 3 | One enrolment flow vs three flows | `RULINGS-CP-02` §2 L38–46: "ONE ENROLMENT FLOW. ONE CREDENTIAL. THE LEVEL DOES NOT CHANGE HOW THE MEMBER ENROLS." "DO NOT BUILD SEPARATE FLOWS FOR ACCESS, V.A.I. AND PRO." | `CANON-CP-02` title and §0 L11–19: "THE THREE ENROLMENT FLOWS." "Every level walks the same spine. The flows differ in exactly three places." Three columns: VAIRIFY FLOW · V.A.I. PRO · V.A.I. PASS + ACCESS. | CP-02 25 Aug vs RULINGS-CP-02 filed 22 Aug (git 26 Aug). | Whether a builder draws one walk or three. |
+| 4 | Retrieval-page brand | `RULINGS-CP-02` §5 L86–89: "DEFAULT IS CHAINPASS. EVERY SCREEN, EVERY LEVEL." "ACCESS AND V.A.I. STAY CHAINPASS-BRANDED." | `CANON-CP-02` §0 L19: "Retrieval page brand \| VAIRIFY-branded \| platform-branded \| platform-branded." `CANON-CP-01` §2.10 L381: "THE RETRIEVAL PAGE IS A CHAINPASS PAGE, PLATFORM-BRANDED" and "VAIRIFY-branded for Vairify." | CP-02 / CP-01 §2.10 25 Aug vs RULINGS-CP-02 22 Aug. | Screen skin at step 11. |
+| 5 | Terms placement | `RULINGS-CP-02` §1 L14–21 (body still live): "TERMS ACCEPTANCE IS ADMINISTERED BY CHAINPASS, AT REGISTER." "TERMS ACCEPTANCE MOVES TO THE REGISTER STEP." Header L5: "§1 IS SUPERSEDED BY RULINGS-CP-03 §1." | `RULINGS-CP-03` §1 L12–22: "TERMS ACCEPTANCE LEAVES REGISTER. IT RUNS ON THE ACCEPTANCE PAGE." `CANON-CP-01` §14.3 L1061: acceptance page. | CP-03 filed 22 Aug; git 25 Aug. CP-02 git 26 Aug still carries superseded §1 body. | Register vs acceptance screen. |
+| 6 | Level names | `CANON-CP-01` §14.1 L942–944: "1 ACCESS · 2 V.A.I. · 3 PRO." `RULINGS-CP-01` Ruling 5 L69–72: "Public name is V.A.I.; bare Plus never appears." | `CANON-CP-02` §0 L15: third column "V.A.I. PASS + ACCESS." `CANON-CP-01` §16.1 L1320: "LEVEL 2 IS WRITTEN V.A.I. PLUS ALWAYS IN FULL WHERE THAT NAME IS USED." `RULINGS-CP-02` §2 L41: "A PLUS-ONLY PLATFORM REJECTS AN ACCESS HOLDER." | CP-02 25 Aug flags PASS at §5 item 6. §16.1 still says V.A.I. PLUS. | Marketing copy, doors, settings keys. |
+| 7 | Dashboard identity | `RULINGS-CP-01` Ruling 1 L11–16: "The dashboard's ruled identity is the V.A.I. that signed the platform agreement." "Login is the face." Ruling 1a L30–32: "Passwords cost nothing and remain available always." | `CANON-CP-01` §14.6 L1135: "Client staff identity is the platform's problem. The API key is the identity ChainPass knows." | RULINGS-CP-01 21–22 Aug. CP-01 last commit 26 Aug still has rule 3. | Dashboard login. |
+| 8 | Account-security step number | `RULINGS-CP-03` §7 L83: "Collected at enrolment step 12 (account security)." `FLAG-VAIRIFY-RULINGS-CP-03` L7: "Collected at enrolment step 12." | `CANON-CP-02` §1 L41–43: retrieval is step 11; handoff is 12. `CANON-CP-01` §2.10 L379: "STEP 11 IS THE RETRIEVAL PAGE." | CP-02 25 Aug vs FLAG/CP-03 22 Aug (FLAG git 26 Aug). | Where questions are collected. |
+| 9 | Trial mode in parent canon | `CANON-CP-04` §2 L25: "`trial_approved`. NEVER `match`. NEVER `green`. NEVER `pass`." §6 L102: parent `CANON-CP-01` §16.2 "baselines gains a trial mark"; §7.2 "`trial_approved` is a state alongside the bands." | `CANON-CP-01` (1548 lines): `rg trial_approved` in this file returns no matches. | CP-04 filed 25 Aug 20:56. CP-01 last commit 26 Aug 05:22 does not carry the mark. | Gate response, viewer, schema. |
+| 10 | Access price key | `RULINGS-CP-01` Ruling 2 L54–56: "Value lives at `settings:price_access`." `MKT-CP-01` §1 L16: "Priced at launch from `settings:price_access`." | `CANON-CP-01` §1.1a L58–61 names only `settings:price_vai` and `settings:price_vai_pro`. `rg price_access CANON-CP-01` returns none. | RULINGS-CP-01 / MKT git older than CP-01 26 Aug, which still omits the key. | Access product row. |
 
 ---
 
-## UNIT 3 item 2 — Duplicate coverage (same subject, same way). DO NOT MERGE.
+# UNIT 3.2 — Duplicate coverage (same subject, same way). DO NOT MERGE.
 
 | # | Subject | Address A | Address B |
 |---|---|---|---|
-| 1 | Thirteen-step spine | `CANON-CP-02` §1 | `CANON-CP-01` §2 block ("THIS BLOCK IS CANON-CP-02 §1") |
-| 2 | Two-frame baseline | `RULINGS-CP-03` §2 | `CANON-CP-01` §2.7 |
-| 3 | Recovery tables on ChainPass | `RULINGS-CP-03` §7 | `CANON-CP-01` §2.10 |
-| 4 | Three response shapes | `RULINGS-CP-04` §1 | `CANON-CP-01` §7.1–§7.3 · §14.6 |
-| 5 | Shortfall is a list and a route | `CANON-CP-01` §11.2 | `RULINGS-CP-03` §5 · `RULINGS-CP-02` §7 |
-| 6 | Access/V.A.I. cap 3, Pro uncapped | `RULINGS-CP-03` §3 | `CANON-CP-01` §4C.3 · §1.1a item 5 |
-| 7 | Courier rule | `CANON-CP-01` §2.9 | `SPEC-FLOW-01` §3 · `CANON-CP-04` §6 item 1 |
-| 8 | Pronoun rule | `CANON-MI-36` §0 | `CANON-CP-04` §6 item 4 |
-| 9 | Access price in settings, unpublished | `RULINGS-CP-01` Ruling 2 | `MKT-CP-01` §1 |
-| 10 | Level 2 public name V.A.I. | `RULINGS-CP-01` Ruling 5 | `CANON-CP-01` §14.1 · §16.1 · `MKT-CP-01` §2 |
-| 11 | User-requested re-baseline always provider | `RULINGS-CP-06` §2 | `CANON-CP-01` §9.1 item 5 · §10.2 |
-| 12 | Service-state control | `RULINGS-CP-06` wait: `RULINGS-CP-05` | `CANON-CP-01` supplier obligation 1 · §16.2 `service_state` |
-| 13 | Contract registry five tables | `SPEC-CP-02` §4 | `CANON-CP-01` §14.2 · §16.2 (second agreements block) |
-| 14 | One enrolment flow / level is a gate | `RULINGS-CP-02` §2 | `CANON-CP-01` §1.1a · §14.1 |
-| 15 | LE declaration always ChainPass-branded | `RULINGS-CP-02` §5.1 | `CANON-CP-01` §4D.0 |
-| 16 | Trial `trial_approved` not a band | `CANON-CP-04` §2 | `SPEC-FLOW-01` trial notes in REF; `CANON-CP-01` §7.2 amendment named in CP-04 §8 |
+| 1 | Recovery tables live on ChainPass | `RULINGS-CP-03` §7 L81 | `CANON-CP-01` §2.10 L372–374 · `FLAG-VAIRIFY-RULINGS-CP-03` L5–7 |
+| 2 | Terms on the acceptance page | `RULINGS-CP-03` §1 L16 | `CANON-CP-01` §14.3 L1061 |
+| 3 | Three service levels Access · V.A.I. · Pro | `CANON-CP-01` §14.1 L940–944 | `MKT-CP-01` whole file · `CANON-CP-01` §16.1 L1318 |
+| 4 | Response level 1/2/3 | `RULINGS-CP-04` §1 | `CANON-CP-01` §16.2 L1328–1329 · changelog #32 |
+| 5 | Session key 30 (the closed length, ignoring the live 32 line) | `CANON-CP-02` §1 L32 | `CANON-CP-02` §3 L83 · changelog #5 L149 |
+| 6 | Pronoun ban | `CANON-MI-36` §0 L13 | `OPERATIONS.md` naming table (implicit via banned list) |
 
 ---
 
-## UNIT 3 item 3 — One file contradicting itself
+# UNIT 3.3 — One file contradicting itself
 
-| # | Subject | Address A + quote | Address B + quote | Which is newer | What it blocks |
-|---|---|---|---|---|---|
-| 1 | Session-key length inside CP-01 | §3 line 417: **THIRTY-TWO CHARACTERS.** | §3 line 419: **Length is not open. Length is 30.** Changelog #28: length is 32. Changelog #33: length 30. | #33 and line 419 are the later 25 Aug fold; line 417 and #28 remain. | Same as register row 1. |
-| 2 | Two `agreements` schemas | §16.2 first `agreements` (vai_1 / vai_2 / content_ref) | §16.2 second `agreements` (SPEC-CP-02 shape) | Second block is the 25 Aug fold; first block not deleted. | Registry build. |
-| 3 | Security step 11 vs 12 in CP-01 | §2.10 item 2: **STEP 11 IS THE RETRIEVAL PAGE.** | §2.3 item 4: questions **AT STEP 12 — §2.10.** | Both present after 25 Aug sequence replace. | Enrolment implementation. |
-| 4 | RULINGS-CP-02 live ruling vs superseded stamp | Header: **§1 (TERMS AT REGISTER) IS SUPERSEDED BY RULINGS-CP-03 §1.** | §1 body still commands terms at register. §9 still says folded into canon at register. | Header and CP-03 are later the same day. | Anyone reading §1 without the header. |
-| 5 | RULINGS-CP-05 expiry | Changelog 25 Aug #3: **a declared-up override must carry a reason and an expiry, and cannot be set to never.** | §2.3 (after 26 Aug #6): **Override is persistent. It clears when the probe agrees.** | 26 Aug commit `350ae7f`. Changelog #3 left in place as history. | Operators reading changelog #3 as current. |
-| 6 | Screen register SN-06 name | Line 16: **CP07 Register · contact** | Line 103: **CP07 Register · username** | Same file 22 Aug SN-06 contact citation vs per-size row username. | Collection spec vs username mandate. |
-| 7 | CP-01 footer vs changelog | Footer line 1548: **Amended 20 August 2026. v3.** Filename `v3-8-20`. | Changelog rows through **25 Aug** #34. | Changelog newer than footer/filename. | Version identity on deposit. |
-| 8 | OPERATIONS footer vs changelog | Line 327: **17 August 2026.** Line 356: **Amended 20 August 2026.** | Changelog through **26 Aug** #8. | Changelog newer. | Same. |
-
----
-
-## UNIT 3 item 4 — Stated version/date older than a file it supersedes
-
-| File | Stated inside | Supersedes / is superseded by | Newer file date |
+| # | File | Address A + quote | Address B + quote |
 |---|---|---|---|
-| `CANON-CP-01` filename `v3-8-20`, footer 20 Aug | `CANON-CP-02` deposited 25 Aug governs §2 | CP-02 is later; CP-01 filename/footer older than the file that supersedes its sequence. |
-| `MKT-CP-01` footer **20 August 2026.** | Own changelog 22 Aug (banned words, settings pointers) | Footer older than own amendment. |
-| `OPERATIONS.md` **Amended 20 August 2026.** | Own changelog 26 Aug §2 index | Footer older than own amendment. |
-| `RULINGS-CP-02` **Ruled 22 August 2026.** | `RULINGS-CP-03` same day supersedes §1; `CANON-CP-02` 25 Aug supersedes enrolment branding/last-screen | Parent-body older than later folds. |
-| `REF-CP-01` Built 26 Aug 08:50 | `OPERATIONS.md` §2 index 26 Aug 10:42 lists files REF still marks unindexed | REF older than the index it describes. |
-| `RULINGS-CP-05` **Deposited 25 August 2026.** | Own changelog **26 Aug** #6 (expiry deleted) | Deposit line older than last amendment. |
-| `FLAG-VAIRIFY` **22 August 2026.** | Last commit 26 Aug `a18cc24` (empty changelog) | Inside date older than last commit. |
+| 1 | `CANON-CP-01` | §3 L417: THIRTY-TWO CHARACTERS | §3 L419: Length is 30 |
+| 2 | `CANON-CP-01` | Changelog #28 (25 Aug) L1527: LENGTH IS 32 | Changelog #33 (25 Aug) L1512: LENGTH 30 |
+| 3 | `CANON-CP-01` | §2 ASCII L143: step 8 CONTACT AND OTP | §14.3 L1061: terms on acceptance page STEP 8 |
+| 4 | `CANON-CP-01` | §14.1 L943: level 2 public name **V.A.I.** | §16.1 L1320: LEVEL 2 IS WRITTEN "V.A.I. PLUS" |
+| 5 | `CANON-CP-01` | Header L10: AMENDED 20 AUGUST 2026. Footer L1548: Amended 20 August 2026. v3 | Changelog rows through 25 Aug; git `%ci` 2026-08-26 05:22:02 +0700 |
+| 6 | `RULINGS-CP-02` | Header L5: §1 SUPERSEDED BY RULINGS-CP-03 §1 | Body §1 L14–28 still rules terms at register |
+| 7 | `RULINGS-CP-05` | Changelog #3 L141 (25 Aug): "a declared-up override must carry a reason and an expiry" | Changelog #6 L139 (26 Aug): "expiry deleted. Override is persistent." Both rows remain. |
+| 8 | `OPERATIONS.md` | Footer L356: Amended 20 August 2026 | Changelog L335: 26 Aug row 8. Git 2026-08-26 10:42:00 +0700 |
+| 9 | `CANON-CP-02` | Header L3: this file wins where CP-01 §2 disagrees | Changelog L149: "wins over the earlier 32-character line in CANON-CP-01 §2.4" — live 32-character line is §3 L417, not §2.4 |
 
 ---
 
-## UNIT 3 item 5 — RULINGS line the parent canon does not carry
+# UNIT 3.4 — Stated version/date older than a file it supersedes
 
-| Ruling | Address | Parent | What parent lacks |
+| File that claims to supersede | Its stated / git date | File it supersedes | That file's git date |
 |---|---|---|---|
-| Dashboard passwords free / face optional and priced | `RULINGS-CP-01` Ruling 1a including `settings:dash_face_seat_1` / `_pack` / `_over_10` / `_unlimited` ⬜ | `CANON-CP-01` §14.6 rule 3: **Client staff identity is the platform's problem. The API key is the identity ChainPass knows.** No seat table. | Seat keys and password-default. |
-| Reviewer outcome | `RULINGS-CP-01` Ruling 6 OPEN | `CANON-CP-01` failures column names the gap ("FRAUD FOUND HAS NOWHERE TO GO") but does not carry a destination. | Same open; ruling exists only in RULINGS. |
-| OTP Android app-hash / email magic link | `RULINGS-CP-02` §6 items 2–6 | `CANON-CP-01` §2.10 item 3 one-line + ⬜ unruled | Android hash per build, email ⬜. |
-| Baseline merge algorithm | `RULINGS-CP-03` §10 item 1 | `CANON-CP-01` §2.7 two frames, no merge algorithm | Algorithm. |
-| Which response level Vairify runs | `RULINGS-CP-04` §4 item 1 | `CANON-CP-01` does not name Vairify's level | Owner ruling missing in parent. |
-| Outage notify vs poll | `RULINGS-CP-05` §7 item 2 | `CANON-CP-01` supplier obligations: one endpoint, platform reads | Push vs poll. |
-| User pays for requested re-baseline | `RULINGS-CP-06` §4 item 4 / §7 item 1 | `CANON-CP-01` §9.1 item 5 ⬜ only | Payment. |
+| `CANON-CP-02` ("THIS FILE WINS" vs CP-01 §2) | Deposited 25 Aug 2026 · git 2026-08-25 16:13:23 +0700 | `CANON-CP-01` §2 | git 2026-08-26 05:22:02 +0700 (newer than the file that claims to win) |
+| `RULINGS-CP-03` §1 (supersedes RULINGS-CP-02 §1) | Stated 22 August 2026 · git 2026-08-25 12:16:52 +0700 | `RULINGS-CP-02` | git 2026-08-26 10:42:00 +0700 (newer than the superseding file) |
+| `SPEC-FLOW-01` §0.1 (superseded same day by CP-02 §5 item 3) | Deposited 25 Aug · git 2026-08-25 16:13:07 +0700 | `CANON-CP-02` | git 2026-08-25 16:13:23 +0700 — SPEC-FLOW is slightly older than the file it says closed the other way |
 
 ---
 
-## UNIT 3 item 6 — Canon against live (local schema/routes/functions). REPORT. CHANGE NOTHING.
+# UNIT 3.5 — Ruling in a RULINGS-* file its parent canon does not carry
 
-See REPORT section 6. Register rows:
-
-| # | Subject | Address A + quote | Address B + quote | Which is newer | What it blocks |
-|---|---|---|---|---|---|
-| L1 | `enrolment_sessions` | WIRE SN-01 / SN-15: creates 🔴 `enrolment_sessions` — no migration creates this table. | `grep enrolment_sessions supabase/migrations docs/chainpass-schema.sql` → empty. | WIRE 21 Aug; schema still absent. | Enrolment cookie recovery. |
-| L2 | `POST /v1/photo-match` | `CANON-CP-01` §16.5: endpoint ≥ 2, static image vs baseline. ⬜ Pending owner confirm. | `grep -rn photo-match src supabase --include='*.ts'` → empty. | Canon 20 Aug; function never added. | In-session photo-match. |
-| L3 | Three diagrams | `RULINGS-CP-04` §2.3 item 11: **The three diagrams** · `grep -c "never a score\|never a number" docs/diagrams/` → 0 | `ls docs/diagrams/` → only `FLOW-ONBOARDING.svg`. | Ruling 25 Aug; diagrams folder has one file. | Verify instruction. |
-| L4 | `SCREEN-REGISTER-CHAINPASS` | `CANON-CP-04` §8 item 4 | `find` that name → ABSENT. Present: `docs/screens/00-SCREEN-REGISTER.md` | CP-04 25 Aug. | SN-86 filing. |
-| L5 | `complycube_client_id` | Canon §12 item 6 still names the column NOT NULL | Migration `20260821000005_drop_complycube_client_id.sql` drops it | Schema 21 Aug vs canon text still in 26 Aug file. | Patent-gate status. |
-| L6 | Provider retention | Canon §16.2 says column absent | Migration `20260823120000_provider_retention_setting.sql` says `credentials.next_complycube_date` already live | 23 Aug vs canon 16.2. | Two-date test. |
+| Ruling | Address | Parent | What parent carries instead |
+|---|---|---|---|
+| Access price pointer `settings:price_access` | `RULINGS-CP-01` Ruling 2 L54–56 | `CANON-CP-01` §1.1a | Only `price_vai` / `price_vai_pro` |
+| Face login as dashboard identity; passwords free default | `RULINGS-CP-01` Ruling 1 + 1a L11–32 | `CANON-CP-01` §14.6 rule 3 L1135 | "The API key is the identity ChainPass knows." |
+| Trial mark / `trial_approved` | `CANON-CP-04` (not a RULINGS file; parent fold listed at §6) | `CANON-CP-01` | No `trial_approved` string in the file |
+| Recovery collected at step 12 | `RULINGS-CP-03` §7 L83 | `CANON-CP-01` §2.10 L379 | Step 11 is the retrieval page |
 
 ---
 
-## UNIT 3 item 7 — Vocabulary greps (output pasted)
+# UNIT 3.6 — Canon vs live (repo schema / routes / functions). CHANGE NOTHING.
 
-Commands run from repo root, `docs/canon` unless noted.
+Live project named in OPERATIONS: `pguwhjearlqqfworantq`. This audit did not query production.
 
-**blockchain** (`docs/canon` `src` `supabase`, exclude `.git` `node_modules` `dist`): count **0**.
+Command: `rg -n "^      [a-z_]+: \{$" src/integrations/supabase/types.ts`
 
-**groundbreaking:**
+`types.ts` tables: `admin_activity_logs`, `admin_badges`, `admin_earned_badges`, `admin_performance_scores`, `alert_history`, `alert_settings`, `anomaly_detection_settings`, `api_usage_logs`, `archived_activity_logs`, `business_partners`, `coupon_usage`, `coupons`, `detected_anomalies`, `email_digest_*`, `email_notifications`, `error_logs`, `legal_agreements`, `payments`, `pricing_config`, `profiles`, `retention_policies`, `sandbox_test_scenarios`, `signature_attempts`, `signed_contracts`, `user_preferences`, `user_roles`, `vai_assignments`, `vai_status_updates`, `vairify_webhook_events`, `verification_records`, `webhook_*`, `has_role`.
+
+`rg credentials|baselines|platforms|service_state src/integrations/supabase/types.ts` → empty.
+
+| Canon address | Names | Live address | Finding |
+|---|---|---|---|
+| `CANON-CP-01` §16.2 L1327+ | `platforms`, `platform_agreements`, `credentials`, `baselines`, `service_state` (via RULINGS-CP-05) | `src/integrations/supabase/types.ts` | Those names are absent from generated types. Migrations in `supabase/migrations/` do mention `baselines`, `platforms`, `service_state` (e.g. `20260825000006_trial_mark.sql`, `20260825000008_service_state.sql`). types.ts does not match those migrations. |
+| `CANON-CP-01` §2.10 L372–374 | `security_questions`, `security_question_lockouts`, `security_question_attempts`, `security_question_options`, `recovery_codes` | `types.ts` | Absent from types.ts table list. |
+| `CANON-CP-01` L1450 | `POST /v1/photo-match` | `ls supabase/functions` | No `photo-match` function directory. |
+| `CANON-CP-01` L1449 | `POST /v1/verify` | `ls supabase/functions` | No `verify` directory. Enrol/gate functions exist (`enrol-*`, `gate`, `service-state`, `rebaseline-request`). |
+
+---
+
+# UNIT 3.7 — Vocabulary greps (output pasted)
+
+**blockchain** — none in `docs/canon/*.md` (`rg -n -i blockchain docs/canon`).
+
+**groundbreaking / revolutionary / innovative** — ban tables only:
+
 ```
-docs/canon/OPERATIONS.md:260:⚠️ **Banned: groundbreaking · innovative · "matters."**
 docs/canon/MKT-CP-01_THE_THREE_LEVELS__v2-8-21_.md:93:| 3 | ⚠️ **The banned list applies: no groundbreaking, innovative, "matters."** |
-```
-
-**revolutionary:** no matches in `docs/canon`.
-
-**innovative:** same two lines as groundbreaking.
-
-**matters:**
-```
 docs/canon/OPERATIONS.md:260:⚠️ **Banned: groundbreaking · innovative · "matters."**
-docs/canon/RULINGS-CP-02__2026-08-22_.md:122:... which matters here because the member is mid-enrolment ...
-docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:231:⚠️⚠️ **§12 ITEM 6 IS THE OPEN THAT MATTERS HERE. CHAINPASS STILL HOLDS
+```
+
+**matters** (non-ban uses):
+
+```
 docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:726:## 7.1 — ⚠️ The distinction that matters
-docs/canon/MKT-CP-01_THE_THREE_LEVELS__v2-8-21_.md:93:| 3 | ⚠️ **The banned list applies: no groundbreaking, innovative, "matters."** |
+docs/canon/RULINGS-CP-02__2026-08-22_.md:122:| 6 | … which matters here because the member is mid-enrolment …
 ```
 
-**affiliate:**
+**affiliate / discount**:
+
 ```
-docs/canon/OPERATIONS.md:256:| ⚠️ **Revenue sharing** | ⚠️⚠️ **AFFILIATE — BANNED PROJECT-WIDE** |
+docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:94:… "$99 every holder, no tiers and no discounts" IS STALE.
 docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:637:| 1 | ⚠️ **The member states whether the member is affiliated with law enforcement.** |
+docs/canon/OPERATIONS.md:256:| ⚠️ **Revenue sharing** | ⚠️⚠️ **AFFILIATE — BANNED PROJECT-WIDE** |
 ```
 
-**discount:**
+**TrueRevu** — OPERATIONS L253 ban row only: `| **TruRevu** | **wrong-capital product name** |`
+
+**chainpass.id** — OPERATIONS L254 ban row: `| **chainpass.io** | **the .id domain — lost, unrecoverable** |`
+
+**PACKAGE · TIER · LEVEL** — `CANON-CP-01` §16.1 L1316–1318 assigns PACKAGE to Vairify and LEVEL to ChainPass. `OPERATIONS.md` §8 L264 heading "THE THREE TIER LINES" then FREE · PLUS · PREMIUM (Vairify packages). `RULINGS-CP-02` uses LEVEL for ChainPass gates. `CANON-CP-01` §4C.1 L540: "PRO IS A PLATFORM TIER, NOT A CONSUMER UPGRADE" — TIER used for a ChainPass level.
+
+**Gendered** (`rg` word-boundary he/she empty). Named nouns:
+
 ```
-docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:94:⚠️⚠️ **`BRIEF-CP-01`'s "$99 every holder, no tiers and no discounts" IS STALE.**
+docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:449:… we don't want that guy to not get verified
+docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:511–513: Guy beats up a girl. … The member goes to see another girl.
+docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:657: A man with a history
+docs/canon/CANON-CP-01_CHAINPASS__v3-8-20_.md:1529: THE SISTER CASE. (changelog #4)
+docs/canon/RULINGS-CP-02__2026-08-22_.md:94–95: THE POLICEMAN COULD CLAIM
 ```
-
-**TrueRevu:** no matches in `docs/canon`.
-
-**TruRevu:**
-```
-docs/canon/OPERATIONS.md:253:| **TruRevu** | **wrong-capital product name** |
-```
-
-**chainpass.id:** `grep -rn chainpass.id docs/canon src supabase` → empty.
-
-**Gendered pronouns** `grep -rniE '\b(he|him|his|she|her|hers)\b' docs/canon --include='*.md'` → empty.
-
-PACKAGE / TIER / LEVEL: see register rows 14–15. `OPERATIONS.md` §8 headings **THE THREE TIER LINES** with FREE / PLUS / PREMIUM (Vairify packages). `RULINGS-CP-04` uses **LEVEL** for response shapes (1/2/3), colliding with credential LEVEL 1/2/3.
 
 ---
 
-## UNIT 3 items 8–9 — Other-product content and prices
+# UNIT 3.8 — Other-product (Vairify) content in this repo's canon. MOVE NOTHING.
 
-Named, not moved. Line ranges in REPORT section 7.
+| File | Lines | What sits here |
+|---|---|---|
+| `FLAG-VAIRIFY-RULINGS-CP-03__2026-08-22_.md` | 1–84 entire | Header L3: "Repo: vairify-app · do not edit from chainpass-app." Quotes `CANON-MI-25` and `CANON-MI-33`. |
+| `CANON-MI-36_THE_RECOVERY_PATHS__v1-8-25_.md` | 1–153 entire | Vairify-numbered file deposited in ChainPass canon. |
+| `OPERATIONS.md` | 264–272 | §8 THE THREE TIER LINES: FREE / PLUS / PREMIUM. |
+| `OPERATIONS.md` | 156 | `grep -c "SPLIT IS BY ACT" ~/vai-workspaces/vairify-app/docs/canon/CANON-00_GENERAL_RULES.md` |
+| `CANON-CP-01` | 1316–1321 | §16.1 PACKAGE \| Vairify \| Free · Plus · Premium |
+| `CANON-CP-02` | 99–108 | §4 WHAT VAIRIFY DOES |
+| `SPEC-FLOW-01` | 35–40, 100, 169–174 | Disguise icons; DateGuard / `CANON-00` §14.1; package page `MI-34`; `CANON-MI-22/33/34/35` |
+| `RULINGS-CP-04` | 49, 70 | §2.2 / item 4 Vairify's level; `CANON-00` §5 no face on Vairify |
+| `CANON-CP-01` | 0–34 | GRT as ChainPass service; Vairify is one customer — `RULINGS-VA-03` |
+
+---
+
+# UNIT 3.9 — Other-product price figures
+
+`rg price_plus|price_premium|\$19\.99 docs/canon` → none.
+
+`$19` appears as a **deleted** Access working number (`MKT-CP-01` L114; `RULINGS-CP-01` L57). That is a ChainPass Access figure, not a Vairify package key.
+
+`$99` in `CANON-CP-01` L94: labelled stale `BRIEF-CP-01` "every holder" — ChainPass credential, marked stale.
+
+No Vairify `price_plus` / `price_premium` figures in these 14 files.
+
+---
+
+# THE CONFLICT REGISTER
+
+Same rows as UNIT 3.1. No RESOLUTION column.
+
+| # | Subject | Address A + quote | Address B + quote | Which is newer | What it blocks |
+|---|---|---|---|---|---|
+| 1 | Session key length | CP-01 §3 L417 THIRTY-TWO | CP-01 L419 and CP-02 §1 L32 THIRTY | CP-01 git 26 Aug still holds both | Session mint / handoff |
+| 2 | Enrolment step numbers | CP-01 §2 ASCII contact=8 sign=9 | CP-02 §1 contact=9 docs+match=10 | CP-01 git newer; CP-02 claims to win | Step-bound functions |
+| 3 | One flow vs three | RULINGS-CP-02 §2 ONE FLOW | CP-02 §0 THREE FLOWS | CP-02 25 Aug vs CP-02-rulings 22/26 | Screen count |
+| 4 | Retrieval brand | RULINGS-CP-02 §5 DEFAULT CHAINPASS | CP-02 §0 VAIRIFY-branded / platform-branded | 25 Aug CP-02 | Skin |
+| 5 | Terms at register vs acceptance | RULINGS-CP-02 §1 body AT REGISTER | RULINGS-CP-03 §1 ACCEPTANCE PAGE | CP-03 supersedes; CP-02 body still live | Register screen |
+| 6 | Level names PASS / PLUS / V.A.I. | CP-01 §14.1 ACCESS · V.A.I. · PRO | CP-02 §0 V.A.I. PASS + ACCESS; CP-01 §16.1 V.A.I. PLUS | Flagged 25 Aug, not renamed | Copy and doors |
+| 7 | Dashboard identity | RULINGS-CP-01 face / V.A.I. | CP-01 §14.6 API key | Rulings 21 Aug; parent 26 Aug unchanged | Dashboard login |
+| 8 | Account-security step | RULINGS-CP-03 / FLAG step 12 | CP-02 retrieval 11 / handoff 12 | 25 Aug spine vs 22 Aug ruling | Recovery collection |
+| 9 | Trial state in parent | CP-04 `trial_approved` | CP-01 no `trial_approved` | CP-04 25 Aug; CP-01 26 Aug omit | Gate / schema |
+| 10 | `settings:price_access` | RULINGS-CP-01 / MKT-CP-01 | CP-01 §1.1a omits it | Parent newer, still omits | Access product |
