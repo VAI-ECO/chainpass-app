@@ -228,11 +228,6 @@ it, and the member lands back where the member was.**
 ⚠️ **The deletion is still commercially irrational and still happens. Only the trigger is
 precise.**
 
-⚠️⚠️ **§12 ITEM 6 IS THE OPEN THAT MATTERS HERE. CHAINPASS STILL HOLDS
-`credentials.complycube_client_id`, NOT NULL, READ AFTER ENROLMENT BY FOUR FUNCTIONS. THAT
-IS THE KEY IT MUST DELETE. UNTIL IT DOES, THE PATENT GATE IS UNMET AND THIS SECTION
-DESCRIBES AN INTENTION, NOT A BUILD.**
-
 ## 2.4a — ⚠️⚠️ HOW THE SESSION KEY IS DELIVERED — RULED 20 AUGUST
 
 ⚠️⚠️ **IT RIDES IN THE HANDOFF PAYLOAD ITSELF — THE SAME SERVER-TO-SERVER RESPONSE THAT
@@ -909,7 +904,7 @@ PERSON.**
 | 3 | ⚠️ **How many reds in what window triggers re-baseline** — §9.1 item 2 | **Owner** |
 | 4 | **Does the upsell ship at launch, or later?** — §1.2 | **Owner** |
 | 5 | **Does the provider retention column exist?** — §10.3 | **Check the schema** |
-| 6 | ⚠️⚠️ **R11 — ChainPass holds `credentials.complycube_client_id`, `not null`, read after enrolment by `revalidate:156,189`, `renew-credential:96`, `drain-queue:57,64,73`. THAT IS THE KEY IT MUST DELETE AT STEP 15. THE PATENT GATE IS UNMET.** | **Owner** |
+| 6 | ✅ ⚠️⚠️ **R11 — `credentials.complycube_client_id` DROPPED. Migration `20260821000005`. Patent gate met.** | — |
 | 7 | ⚠️⚠️ **NO-PLATFORM ENROLMENT — WHOSE TERMS?** — `RULINGS-CP-02` §8 item 1 | **Owner** |
 | 8 | ✅ ⚠️ **REGISTER-STEP TERMS ACCEPTANCE — RESOLVED: ACCEPTANCE PAGE, STEP 8 — `RULINGS-CP-03` §1 · §8.** | — |
 | 9 | ⚠️ **SKINNED PAGE DISCLOSURE — WHAT MUST THE MEMBER BE TOLD ABOUT CHAINPASS HOLDING THE DATA?** — `RULINGS-CP-02` §8 item 3 | **Owner · MA-05** |
@@ -1505,6 +1500,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 41 | ⚠️⚠️ **§12 item 6 closed. `credentials.complycube_client_id` already dropped by `20260821000005`. §2.4 patent-gate-unmet paragraph deleted. Schema unchanged this run.** | `CANON-CP-01` §2.4 · §12 item 6; migration already applied |
 | **26 Aug** | 40 | ⚠️⚠️ **§3 — deleted the losing length line. 32 stands. Encoding remains open.** | Owner ruling 25 Aug; UNIT 3 item 2 |
 | **26 Aug** | 39 | ⚠️⚠️ **§14.1 — Pass-as-level-name flag deleted. Closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | **26 Aug** | 38 | ⚠️⚠️ **§4C.1 — TIER replaced with LEVEL. TIER belongs to Vairify launch cohorts.** | `RULINGS-CP-07` §3 item 6 |
