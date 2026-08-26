@@ -33,8 +33,6 @@
 
 ⚠️⚠️ **THE BAND KEEPS ITS MEANING. THE LEVEL IS NAMED GO. NOTHING IS RENAMED IN §7.2.**
 
-⚠️ **The proposal to rename the band to `Match` is not taken. It is not needed once the level is Go.**
-
 ---
 
 # 3 — WHAT THIS CHANGES AT SOURCE
@@ -71,10 +69,10 @@
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 6 | ⚠️⚠️ **§2 — deleted the line that said the Match rename was not taken.** | `RULINGS-CP-07_AMENDMENT-1` §3 |
 | **26 Aug** | 5 | ⚠️⚠️ **§1 item 4 — integer mapping ruled: 1 VAI Go · 2 VAI Access · 3 VAI Pro. Open marker deleted.** | `RULINGS-CP-07_AMENDMENT-1` §1 |
 | **26 Aug** | 1 | **Filed. Levels named VAI Go · VAI Access · VAI Pro. ChainPass is the company, never a level.** | ⚠️ **Owner ruling. The prior names were unresolved across `CP-01` §16.1, §14.1 and `MKT-CP-01`, which produced a design flag** |
 | **26 Aug** | 2 | ⚠️⚠️ **"PASS" REJECTED AS A LEVEL NAME.** | ⚠️ **It is already the meaning of the GREEN band in §7.2. One word, two meanings, one product** |
-| **26 Aug** | 3 | **The band rename to `Match` is not taken.** | ⚠️ **Naming the level Go removes the collision. A second rename adds churn for nothing** |
 | **26 Aug** | 4 | ⬜ **The integer mapping left open.** | ⚠️⚠️ **`service_level (1\|2\|3)` IS READ BY EVERY GATE CHECK. A NAME CHANGE IS COPY. A NUMBER CHANGE IS A MIGRATION AND A BREAKING API CHANGE. THEY ARE NOT THE SAME RULING** |
 
 ---
