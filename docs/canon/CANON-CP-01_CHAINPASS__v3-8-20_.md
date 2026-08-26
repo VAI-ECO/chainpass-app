@@ -537,7 +537,7 @@ VAIRIFY SAYS NOTHING ABOUT THE MEMBER, ONLY THAT THE CREDENTIAL IS NOT ACTIVE.**
 
 > ⚠️⚠️ **STANDARD PROVES A PERSON. PRO LETS A PLATFORM DO THINGS WITH THAT PROOF.**
 
-## 4C.1 — ⚠️⚠️ PRO IS A PLATFORM TIER, NOT A CONSUMER UPGRADE
+## 4C.1 — ⚠️⚠️ PRO IS A PLATFORM LEVEL, NOT A CONSUMER UPGRADE
 
 ⚠️ **The price a person pays is decided by what the platform they are joining requires.**
 
@@ -1507,6 +1507,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 38 | ⚠️⚠️ **§4C.1 — TIER replaced with LEVEL. TIER belongs to Vairify launch cohorts.** | `RULINGS-CP-07` §3 item 6 |
 | **26 Aug** | 37 | ⚠️⚠️ **§14.1 — three service levels renamed VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 4 |
 | **26 Aug** | 36 | ⚠️⚠️ **§16.1 — deleted "LEVEL 2 IS WRITTEN 'V.A.I. PLUS'".** | `RULINGS-CP-07` §3 item 2 |
 | **26 Aug** | 35 | ⚠️⚠️ **§16.1 LEVEL VALUES → VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 1 |
