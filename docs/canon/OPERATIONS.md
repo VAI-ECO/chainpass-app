@@ -121,7 +121,7 @@ Branch      vairify-fixes
 CHAINPASS   ~/vai-workspaces/chainpass-app
 Branch      chainpass-fixes
 
-  Canon     docs/canon/                 CANON-CP-01 · CANON-CP-02 · CANON-CP-04 · CANON-MI-36 · FLAG-VAIRIFY-RULINGS-CP-03 · MKT-CP-01 · OPERATIONS · RULINGS-CP-01 · RULINGS-CP-02 · RULINGS-CP-03 · RULINGS-CP-04 · RULINGS-CP-05 · RULINGS-CP-06 · SPEC-FLOW-01
+  Canon     docs/canon/                 CANON-CP-01 · CANON-CP-02 · CANON-CP-04 · CANON-MI-36 · FLAG-VAIRIFY-RULINGS-CP-03 · MKT-CP-01 · OPERATIONS · RULINGS-CP-01 · RULINGS-CP-02 · RULINGS-CP-03 · RULINGS-CP-04 · RULINGS-CP-05 · RULINGS-CP-06 · RULINGS-CP-07 · SPEC-FLOW-01
   Screens   docs/screens/               9 entries (`ls docs/screens/ | wc -l` = 9); 166 files recursive
   Schema    docs/chainpass-schema.sql · supabase/migrations/  live on pguwhjearlqqfworantq
   Functions supabase/functions/
@@ -332,6 +332,7 @@ DATEGUARD · `SA-04` VAIPULSE · `MI-24` REGISTRATION.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 9 | ⚠️⚠️ **§2 — `RULINGS-CP-07` indexed under CHAINPASS.** | CP-CANON-FIX-01 UNIT 1 item 2 |
 | **26 Aug** | 8 | ⚠️⚠️ **§2 — ChainPass canons indexed under CHAINPASS, not VAIRIFY. Screens line corrected: `docs/screens/` exists (9 top-level, 166 files). Eight previously unindexed files listed: CANON-CP-02, CANON-CP-04, CANON-MI-36, FLAG-VAIRIFY-RULINGS-CP-03, RULINGS-CP-04, RULINGS-CP-05, RULINGS-CP-06, SPEC-FLOW-01.** | CP RUN #1 BUILD UNIT 11 |
 | **24 Aug** | 4 | ⚠️⚠️ **MORE DIALS LIVE — handoff poll · blocks burn window · contracts face attempts · testing 95% skip removed.** | Owner no-number ruling |
 | **24 Aug** | 3 | ⚠️⚠️ **WINDOWS + DEFERRAL — `enrol_session_hours` · facial attempt/signature windows · `deferral_suspend_after` on reveal + check-renewals suspend.** | Owner no-number ruling · §4A.3 |

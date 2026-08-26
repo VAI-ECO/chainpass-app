@@ -11,3 +11,6 @@ Created this file. ATTACH: `RULINGS-CP-07_THE_LEVEL_NAMES.md` found as `/Users/b
 - `ls docs/canon/`: 14 files (no CP-07 yet). No `00-CANON-INDEX`.
 - `grep -c "Match" docs/canon/CANON-CP-01*` before UNIT 2 item 10: **2** (L740 GREEN band; L1511 changelog #34). Must stay 2.
 - `grep -c "public name is still open"`: **0** already. UNIT 2 item 3 has nothing to delete.
+
+## L-U1-01
+Deposited byte-for-byte. `cmp` silent (identical). `ls docs/canon/ | grep CP-07` → `RULINGS-CP-07_THE_LEVEL_NAMES__2026-08-26_.md`. `wc -l` → 83. SHA-256 `149cccc3…`. File not edited.
