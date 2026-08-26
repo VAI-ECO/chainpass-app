@@ -43,15 +43,15 @@ remain available always.
 tiers, or surviving as an unlimited-seats cap (`settings:dash_face_unlimited`)? One word.
 
 **Nothing about this touches member-credential pricing (§1.1a: `settings:price_vai` / `settings:price_vai_pro`) or the still-open
-Access price (Ruling 2). The `settings:dash_face_seat_1` figure coincidentally matches marketing's old working
-Access number — they are different products and must never share a surface.**
+VAI Go price (Ruling 2). The `settings:dash_face_seat_1` figure coincidentally matches marketing's old working
+VAI Go number — they are different products and must never share a surface.**
 
 **Screens affected on ruling: SN-30/31/32 (viewer set flag 9), SN-33–41 (client dashboard),
 SN-42–50 (master). A login screen gets drawn; CD09/MD09 flag plates shrink by one line.**
 
 ---
 
-## RULING 2 — THE ACCESS PRICE ✅ CLOSED 21 AUG (POSTURE)
+## RULING 2 — THE VAI GO PRICE ✅ CLOSED 21 AUG (POSTURE)
 Value lives at `settings:price_access`, set at launch, held internally until announced —
 "give them the deal, inform later." No figure on any surface or in any document until then.
 `MKT-CP-01` v2 changelog #3 records the $19 working number deleted.
@@ -67,7 +67,7 @@ Ledger already carries `accrued | payable | settled` (§16.2); the accrued→pay
 carries a cadence constant.
 
 ## RULING 5 — LEVEL 2'S PUBLIC NAME ✅ CLOSED 21 AUG
-Canon had already ruled it: §14.1 vocabulary map — **1 Access · 2 V.A.I. · 3 Pro**. The
+Canon had already ruled it: §14.1 vocabulary map — **1 VAI Go · 2 VAI Access · 3 VAI Pro**. The
 contradiction lived in `MKT-CP-01` and is deleted in its v2 (changelog #2). Public name is
 **V.A.I.**; bare "Plus" never appears on a ChainPass surface.
 
@@ -84,6 +84,7 @@ plates on SN-45/SN-31 stand until it lands. Nothing blocks on it.
 # CHANGELOG
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 3 | ⚠️⚠️ **Level-1 Access copy deleted. Access is level 2. `settings:price_access` not renamed.** | `RULINGS-CP-07_AMENDMENT-1` §1 item 4 |
 | **22 Aug** | 2 | ⚠️⚠️ **SEAT PACK LABEL → `settings:dash_face_seat_pack`.** | CANON-00 §16. |
 | **22 Aug** | 1 | ⚠️⚠️ **REAL FIGURES STRIPPED FROM SEAT TABLE (KEYS ONLY). `settings:dash_face_seat_pack`, `settings:dash_face_unlimited`, `settings:price_vai`, `settings:price_vai_pro`. DELETED $19 ACCESS RECORD LEFT. ALREADY-POINTER ROWS LEFT.** | CANON-00 §16. |
 | **21 Aug** | 1 | Ruling 1 + 1a filed: authority of record, face optional/priced, passwords free. | Owner rulings in session. |

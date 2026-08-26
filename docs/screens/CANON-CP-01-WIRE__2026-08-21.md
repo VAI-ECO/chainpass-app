@@ -215,7 +215,7 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Reads | held_capture (frame one) · acceptance_capture (frame two) · terms_accepted_at |
 | Writes | baseline committed at ChainPass from both frames. The platform never receives, stores or matches the biometric. |
 | Settings used | — |
-| Nav in | SN-51 (Access / V.A.I.) · CP11 (Pro) |
+| Nav in | SN-51 (VAI Go / VAI Access) · CP11 (VAI Pro) |
 | Nav out | CP13 |
 | Gate | — |
 | Fixed-390 | no |
@@ -264,7 +264,7 @@ window, so no Gate # is quoted — naming a number I cannot read would be an inv
 | Writes | terms checkbox → `terms_accepted_at`; frame two → `acceptance_capture`. No box, no second capture, no baseline. |
 | Settings used | — |
 | Nav in | CP06 |
-| Nav out | Access / V.A.I. → CP24 · Pro → CP09 |
+| Nav out | VAI Go / VAI Access → CP24 · VAI Pro → CP09 |
 | Gate | Design drawing owed. Built from canon text. |
 | Fixed-390 | no |
 
@@ -600,4 +600,5 @@ All other loading/empty/error states are legitimately generic and are declared g
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 2 | ⚠️⚠️ **Level-1 Access nav labels → VAI Go / VAI Access.** | `RULINGS-CP-07_AMENDMENT-1` §1 item 4 |
 | **26 Aug** | 1 | ⚠️⚠️ **SN-27 — deleted "band only, never a percentage". Level 3 returns a colour and a percentage.** | `RULINGS-CP-04`; already in `CANON-CP-01` §7.3 |

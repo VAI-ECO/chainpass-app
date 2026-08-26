@@ -36,7 +36,7 @@ export function askingPartyNotMet(): { status: "not_met" } {
   return { status: "not_met" };
 }
 
-/** Access (1) and V.A.I. (2): at most three requirements. Pro (3): no cap. */
+/** VAI Go (1) and VAI Access (2): at most three requirements. VAI Pro (3): no cap. */
 export function assertAccessVaiRequirementCap(
   service_level: number,
   count: number
@@ -83,6 +83,6 @@ export async function listMissingPlatformRequirements(
 
 export function levelShortItem(required_level: number): ShortfallItem {
   const display_name =
-    required_level === 3 ? "Pro" : required_level === 2 ? "V.A.I." : "Access";
+    required_level === 3 ? "VAI Pro" : required_level === 2 ? "VAI Access" : "VAI Go";
   return { kind: "credential_level", key: "credential_level", display_name };
 }

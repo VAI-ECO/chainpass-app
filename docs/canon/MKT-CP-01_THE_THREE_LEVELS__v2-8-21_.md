@@ -107,11 +107,12 @@ real.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 4 | ⚠️⚠️ **Level-1 Access copy in the 21 Aug price-posture row renamed. `settings:price_access` not renamed.** | `RULINGS-CP-07_AMENDMENT-1` §1 item 4 |
 | **26 Aug** | 3 | ⚠️⚠️ **Level names → VAI Go · VAI Access · VAI Pro. 21 Aug level-2 public-name changelog row deleted.** | `RULINGS-CP-07` §3 item 7 |
 | **22 Aug** | 2 | ⚠️ **Banned-words list: already-purged terms deleted.** The list entries were stale. | Task 8 / Task 10 |
 | **22 Aug** | 1 | ⚠️⚠️ **REAL FIGURES → `settings:price_vai`, `settings:price_vai_pro`, `settings:pro_custom_requirement_cap`. `settings:price_access` ALREADY POINTER. ILLUSTRATIVE LEFT.** | CANON-00 §16. |
 | **20 Aug** | 1 | **Filed from the owner's tier walkthrough.** | ⚠️ **"The wording has to change, but that's real."** |
-| **21 Aug** | 3 | ⚠️ **THE ACCESS PRICE POSTURE CLOSED.** $19 working number deleted; value lives at `settings:price_access`, held internally until announced. | ⚠️ **Owner, 21 Aug: "give them the deal, inform later." The structure is ruled; the number is a launch decision, not a document value.** |
+| **21 Aug** | 3 | ⚠️ **THE VAI GO PRICE POSTURE CLOSED.** $19 working number deleted; value lives at `settings:price_access`, held internally until announced. | ⚠️ **Owner, 21 Aug: "give them the deal, inform later." The structure is ruled; the number is a launch decision, not a document value.** |
 
 ---
 

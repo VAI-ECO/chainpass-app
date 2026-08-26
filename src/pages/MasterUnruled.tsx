@@ -7,7 +7,7 @@ export default function MasterUnruled() {
       <EnrolTitle>A ninth surface, unnamed</EnrolTitle>
       <p className="my-2 leading-[1.45]">
         §14.7 lists eight master surfaces. This ninth is numbered and unnamed. Block
-        pricing, the Access price, and level 2's public name sit here as owner-open items.
+        pricing, the VAI Go price, and level 2's public name sit here as owner-open items.
       </p>
       <p className="my-2 leading-[1.45]">
         UNRULED. Nothing on this plate is drawn as if decided.

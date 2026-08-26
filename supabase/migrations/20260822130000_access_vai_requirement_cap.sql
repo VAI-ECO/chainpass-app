@@ -1,4 +1,4 @@
--- Access / V.A.I.: at most three platform_requirements. Pro: uncapped.
+-- VAI Go / VAI Access: at most three platform_requirements. VAI Pro: uncapped.
 -- Enforced on write, never at the gate (RULINGS-CP-03 / CANON-CP-01 §4C.3).
 
 CREATE OR REPLACE FUNCTION public.enforce_access_vai_requirement_cap()

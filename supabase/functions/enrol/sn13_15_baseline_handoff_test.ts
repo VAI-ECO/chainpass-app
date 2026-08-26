@@ -66,7 +66,7 @@ Deno.test("SN-13 requires both frames and terms checkbox; no invented merge", as
   }
 });
 
-Deno.test("SN-13 Access skips signature; Pro still requires signings", async () => {
+Deno.test("SN-13 VAI Go skips signature; VAI Pro still requires signings", async () => {
   const fn = await Deno.readTextFile(
     new URL("../enrol-baseline/index.ts", import.meta.url)
   );
@@ -74,7 +74,7 @@ Deno.test("SN-13 Access skips signature; Pro still requires signings", async () 
     throw new Error("Pro path still waits for signings");
   }
   if (!/required_credential_level/.test(fn) && !/service_level/.test(fn)) {
-    throw new Error("Access/V.A.I. must not require Pro signings");
+    throw new Error("VAI Go/VAI Access must not require VAI Pro signings");
   }
 });
 

@@ -1,4 +1,4 @@
-/** Access / V.A.I. = levels 1–2. Pro = 3. */
+/** VAI Go / VAI Access = levels 1–2. VAI Pro = 3. */
 
 export function nextAfterAcceptance(level: number | null | undefined): "baseline" | "requirements" {
   return level === 3 ? "requirements" : "baseline";

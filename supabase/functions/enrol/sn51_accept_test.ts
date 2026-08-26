@@ -34,14 +34,14 @@ Deno.test("LE is not this checkbox", async () => {
   }
 });
 
-Deno.test("Access and V.A.I. go to baseline; Pro keeps requirements", async () => {
+Deno.test("VAI Go and VAI Access go to baseline; VAI Pro keeps requirements", async () => {
   const helper = await read("../_shared/enrol-accept.ts");
   const page = await read("../../../src/pages/EnrolAccept.tsx");
   if (!/nextAfterAcceptance/.test(helper) || !/level === 3/.test(helper)) {
     throw new Error("accept must return a next route — Pro is level 3");
   }
   if (!/enrol\/baseline/.test(page) || !/enrol\/requirements/.test(page)) {
-    throw new Error("page must branch Access/V.A.I. vs Pro");
+    throw new Error("page must branch VAI Go/VAI Access vs VAI Pro");
   }
 });
 

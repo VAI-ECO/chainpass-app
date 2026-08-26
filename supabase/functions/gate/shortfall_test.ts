@@ -60,14 +60,14 @@ Deno.test("gate shortfall is 409 not 403; terms_required shape unchanged", async
   }
 });
 
-Deno.test("Access/V.A.I. cap is three; Pro uncapped — on write, not at the gate", async () => {
+Deno.test("VAI Go/VAI Access cap is three; VAI Pro uncapped — on write, not at the gate", async () => {
   let threw = false;
   try {
     assertAccessVaiRequirementCap(1, 4);
   } catch (e) {
     threw = e instanceof Error && e.message === "access_vai_requirement_cap";
   }
-  if (!threw) throw new Error("Access cap");
+  if (!threw) throw new Error("VAI Go cap");
   threw = false;
   try {
     assertAccessVaiRequirementCap(2, 4);

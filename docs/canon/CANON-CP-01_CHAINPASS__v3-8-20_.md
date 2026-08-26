@@ -103,11 +103,11 @@ second capture). Pro adds the platform's own requirements on top — nothing els
 
 | # | |
 |---|---|
-| 1 | ⚠️⚠️ **DO NOT BUILD SEPARATE FLOWS FOR ACCESS, V.A.I. AND PRO. THERE IS ONE FLOW.** |
-| 2 | ⚠️⚠️ **THE PLATFORM SETS THE GATE. A PLATFORM THAT REQUIRES V.A.I. REJECTS AN ACCESS HOLDER AT ITS DOOR.** |
+| 1 | ⚠️⚠️ **DO NOT BUILD SEPARATE FLOWS FOR VAI GO, VAI ACCESS AND VAI PRO. THERE IS ONE FLOW.** |
+| 2 | ⚠️⚠️ **THE PLATFORM SETS THE GATE. A PLATFORM THAT REQUIRES VAI ACCESS REJECTS A VAI GO HOLDER AT ITS DOOR.** |
 | 3 | ⚠️ **Rejection at a platform door is a platform switch, not a ChainPass build.** |
 | 4 | ⚠️ **The value of a higher level is what a platform lets the member do inside, not a different enrolment.** |
-| 5 | ⚠️⚠️ **ACCESS AND V.A.I. PLATFORMS: UP TO THREE PLATFORM REQUIREMENTS AT THEIR DOOR. PRO: UNCAPPED — §4C · `RULINGS-CP-03` §3.** |
+| 5 | ⚠️⚠️ **VAI GO AND VAI ACCESS PLATFORMS: UP TO THREE PLATFORM REQUIREMENTS AT THEIR DOOR. VAI PRO: UNCAPPED — §4C · `RULINGS-CP-03` §3.** |
 
 ## 1.2 — ⚠️ The upsell
 
@@ -329,7 +329,7 @@ step 8 — acceptance page
    └─ ⚠️⚠️ FRAME TWO — second capture runs only after the box is checked
         ↓
 step 10 — both frames commit to the baseline
-   ├─ ACCESS / V.A.I. — immediately after step 8
+   ├─ VAI GO / VAI ACCESS — immediately after step 8
    └─ PRO — after every required document is signed at step 9
 ```
 
@@ -561,10 +561,10 @@ is missing and routed to complete it.** — §11
 ⚠️ **A person does not have to sign anything.** ⚠️⚠️ **BUT ANYTHING THEY DO SIGN, THEY HAVE
 AGREED IN ADVANCE IS LEGAL.**
 
-## 4C.3 — ⚠️ ACCESS AND V.A.I. ARE CAPPED AT THREE. PRO IS UNCAPPED — RULED 22 AUGUST
+## 4C.3 — ⚠️ VAI GO AND VAI ACCESS ARE CAPPED AT THREE. VAI PRO IS UNCAPPED — RULED 22 AUGUST
 
-⚠️⚠️ **ACCESS AND V.A.I. PLATFORMS MAY REQUIRE UP TO THREE PLATFORM REQUIREMENTS AT THEIR
-DOOR. PRO PLATFORMS ARE UNCAPPED — `RULINGS-CP-03` §3.**
+⚠️⚠️ **VAI GO AND VAI ACCESS PLATFORMS MAY REQUIRE UP TO THREE PLATFORM REQUIREMENTS AT THEIR
+DOOR. VAI PRO PLATFORMS ARE UNCAPPED — `RULINGS-CP-03` §3.**
 
 ⚠️⚠️ **THIS IS WHY REQUIREMENTS ARE ROWS AND NOT CODE. A NEW PLATFORM IS A ROW AND
 `settings:platform_document_pack` DOCUMENTS, NOT A BUILD.**
@@ -1069,7 +1069,7 @@ the picker's supplier (§4) · whatever comes next.**
 |---|---|
 | 1 | ⚠️ **Every external service is an adapter behind one interface, registered as a row.** ⚠️⚠️ **PROVIDERS ARE ROWS — §5. THIS GENERALISES THAT RULE TO EVERY SUPPLIER.** |
 | 2 | ⚠️⚠️ **AN INTEGRATION BELONGS TO CHAINPASS, NOT TO ANY PLATFORM. A CUSTOMER CLOSING DOES NOT TEAR AN API UP. IT STAYS IN THE BANK.** |
-| 3 | ⚠️ **Platforms elect services at onboarding — Access and V.A.I. up to three requirements; Pro uncapped — §4C.3.** |
+| 3 | ⚠️ **Platforms elect services at onboarding — VAI Go and VAI Access up to three requirements; VAI Pro uncapped — §4C.3.** |
 | 4 | ⚠️⚠️ **THE ADAPTER NORMALISES EVERY ENGINE'S OUTPUT INTO ONE INTERNAL SHAPE, AND THE PUBLIC API RETURNS ONE OF THREE DOCUMENTED SHAPES — `platforms.response_level`.** ⚠️ **The `{ match, confidence }` versus `{ result }` class of bug dies here, in one place, permanently. The adapter is the only place any of the three response shapes is read.** |
 
 ## 14.5 — ⚠️ THE THREE RAILS. NEVER MIXED.
@@ -1494,6 +1494,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 46 | ⚠️⚠️ **Level-1 copy that said Access deleted. Access is level 2.** | `RULINGS-CP-07_AMENDMENT-1` §1 item 4 · §5 item 8 |
 | **26 Aug** | 45 | ⚠️⚠️ **§4C opening line — level names replaced, argument kept.** | `RULINGS-CP-07_AMENDMENT-1` §2 |
 | **26 Aug** | 44 | ⚠️⚠️ **§4C table — STANDARD row → VAI ACCESS. PRO row → VAI PRO. Keys and figures untouched.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 5 |
 | **26 Aug** | 43 | ⚠️⚠️ **§4C heading → VAI ACCESS AND VAI PRO.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 4 |
