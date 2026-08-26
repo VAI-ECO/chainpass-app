@@ -1341,12 +1341,6 @@ baselines            vai · embedding_ref · engine · created_at  ← ⚠️⚠
 platform_visits      vai · platform_id · agreement_id · terms_version · signed_at
                      UNIQUE (vai, platform_id)
 
-agreements           id · platform_id · type (single|dual) · subtype (terms|contract)
-                     vai_1 · vai_2 (nullable) · status (open|party1_verified|complete|expired|void)
-                     content_ref → ⚠️⚠️ SUPERSEDED BY `SPEC-CP-02`: the five-table registry
-                       below replaces this shape. Do not add columns here.
-                     opened_at · closed_at · expires_at
-
 agreement_proofs     agreement_id · vai · verified_at · engine_used   ← one row per face pass
 
 verification_ledger  platform_id · vai · call_type · result · billed_against_block · at
@@ -1500,6 +1494,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 42 | ⚠️⚠️ **§16.2 — deleted the superseded `agreements` shape (`content_ref` · `vai_1`/`vai_2`). The `SPEC-CP-02` five-table registry remains.** | `CANON-CP-01` §14.2 · `SPEC-CP-02` |
 | **26 Aug** | 41 | ⚠️⚠️ **§12 item 6 closed. `credentials.complycube_client_id` already dropped by `20260821000005`. §2.4 patent-gate-unmet paragraph deleted. Schema unchanged this run.** | `CANON-CP-01` §2.4 · §12 item 6; migration already applied |
 | **26 Aug** | 40 | ⚠️⚠️ **§3 — deleted the losing length line. 32 stands. Encoding remains open.** | Owner ruling 25 Aug; UNIT 3 item 2 |
 | **26 Aug** | 39 | ⚠️⚠️ **§14.1 — Pass-as-level-name flag deleted. Closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
