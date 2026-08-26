@@ -1500,7 +1500,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 | **26 Aug** | 39 | ⚠️⚠️ **§14.1 — Pass-as-level-name flag deleted. Closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | **26 Aug** | 38 | ⚠️⚠️ **§4C.1 — TIER replaced with LEVEL. TIER belongs to Vairify launch cohorts.** | `RULINGS-CP-07` §3 item 6 |
 | **26 Aug** | 37 | ⚠️⚠️ **§14.1 — three service levels renamed VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 4 |
-| **26 Aug** | 36 | ⚠️⚠️ **§16.1 — deleted "LEVEL 2 IS WRITTEN 'V.A.I. PLUS'".** | `RULINGS-CP-07` §3 item 2 |
+| **26 Aug** | 36 | ⚠️⚠️ **§16.1 — deleted the Level-2 Plus-form line.** | `RULINGS-CP-07` §3 item 2 |
 | **26 Aug** | 35 | ⚠️⚠️ **§16.1 LEVEL VALUES → VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 1 |
 | **25 Aug** | 34 | ⚠️⚠️ **§7.2 GREEN BAND RENAMED FROM PASS TO MATCH.** | Owner: the green band is Match. |
 | **25 Aug** | 33 | ⚠️⚠️ **`CANON-CP-02` DEPOSITED — THIRTEEN-STEP SPINE GOVERNS §2. SESSION KEY LENGTH 30. `SPEC-CP-02` v3 — CONTRACT REGISTRY FIVE TABLES, WRITE-ONCE, AGREEMENT RUNS INSIDE CHAINPASS. `CANON-MI-36` TWO RECOVERY PATHS. `RULINGS-CP-05` SERVICE STATE CONTROL. `RULINGS-CP-06` USER-REQUESTED RE-BASELINE ALWAYS THE PROVIDER. `SPEC-FLOW-01` §0.1 SUPERSEDED: RETRIEVAL IS A CHAINPASS PAGE. "PASS" AS A LEVEL NAME FLAGGED AGAINST §14.1.** | Owner filings 25 Aug. |
