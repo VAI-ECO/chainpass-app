@@ -12,7 +12,7 @@ Vairify holding copy: this file. Older `CANON-CP-02_CROSSREF.md` points here.**
 
 **Every level walks the same spine. The flows differ in exactly three places.**
 
-| | VAIRIFY FLOW | V.A.I. PRO | V.A.I. PASS + ACCESS |
+| | VAIRIFY FLOW | VAI PRO | VAI GO + VAI ACCESS |
 |---|---|---|---|
 | **Outside the walls** | ⚠️ Real information to Offenders.io. **Yes or no comes back. Nothing else.** | ⚠️ A custom pipeline per platform. **The pipeline is free; the service it connects to may carry a fee.** | **None.** |
 | **Documents signed** | LE disclosure · signature agreement · T&C | T&C · custom platform requirements **not requiring real-life ID** | T&C |
@@ -142,6 +142,7 @@ AND NEVER SEES THE DEVICE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| 26 Aug | 6 | ⚠️⚠️ **§0 — "V.A.I. PASS + ACCESS" deleted. Columns named VAI PRO · VAI GO + VAI ACCESS.** | `RULINGS-CP-07` §3 item 8 |
 | 25 Aug | 1 | Filed from the owner's flow document. | The owner's spoken flows outrank the written canon. |
 | 25 Aug | 2 | **PAY placed at step 2, first after landing.** Optional info page at 1a. | Owner ruling: payment happens before any of this. It also closes the §2-versus-§4A.2 clock collision — payment cannot start a clock it precedes. |
 | 25 Aug | 3 | §3 and §4 added: each company's own list. | Two windows with no shared memory were each reading a combined flow and inferring their half. The lists remove the inference. |
