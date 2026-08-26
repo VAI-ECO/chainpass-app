@@ -194,7 +194,7 @@ cannot get another.
 | # | |
 |---|---|
 | 1 | ⚠️ **CONTACT — AND WHATEVER THE PLATFORM'S COLLECTION SPEC ADDS. MINIMUM: A CONTACT PLUS TERMS ACCEPTED BEFORE BASELINE — TERMS AT THE ACCEPTANCE PAGE — §14.3.** ❌ ⚠️⚠️ **NEVER A LEGAL NAME.** ⚠️ **Username only when the platform's collection spec includes it — not a ChainPass requirement.** |
-| 1b | ⚠️⚠️ **THE COLLECTION SPEC LIVES ON THE PLATFORM AGREEMENT AND SUPPORTS "AT LEAST ONE OF" GROUPS. IT IS NOT A FLAT LIST.** ⚠️ **Vairify's group is {email, phone}. Another platform picks differently. A Standard age-gate platform may collect nothing at all.** |
+| 1b | ⚠️⚠️ **THE COLLECTION SPEC LIVES ON THE PLATFORM AGREEMENT AND SUPPORTS "AT LEAST ONE OF" GROUPS. IT IS NOT A FLAT LIST.** ⚠️ **Vairify's group is {email, phone}. Another platform picks differently. An age-gate platform may collect nothing at all.** |
 | 2 | ⚠️ **The member chooses which receives the OTP.** |
 | 3 | ⚠️⚠️ **THE NUMBER SCREEN COMES AFTER THE OTP, SO THERE IS SOMEWHERE TO SEND IT.** |
 | 4 | ⚠️⚠️ **THE PLATFORM HAS NO REGISTRATION FORM FOR IDENTITY OR SECURITY. CHAINPASS COLLECTS CONTACT HERE; TERMS AT STEP 8; THE THREE SECURITY QUESTIONS AND RECOVERY CONTACT AT STEP 12 — §2.10.** ⚠️ **One custodian, one record, no copy in a platform's database.** |
@@ -541,10 +541,10 @@ VAIRIFY SAYS NOTHING ABOUT THE MEMBER, ONLY THAT THE CREDENTIAL IS NOT ACTIVE.**
 | ⚠️ **VAI ACCESS — `settings:price_vai`** | **The credential. A verified person.** | **A platform that needs to know someone is real and of age** |
 | ⚠️ **VAI PRO — `settings:price_vai_pro`** | ⚠️⚠️ **THE SIGNATURE AGREEMENT PLUS AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED** | **A platform that needs to administer real actions** |
 
-⚠️⚠️ **A PORN SITE NEEDING ONLY AGE VERIFICATION IS A STANDARD CREDENTIAL. VAIRIFY IS A PRO
+⚠️⚠️ **A PORN SITE NEEDING ONLY AGE VERIFICATION IS A VAI ACCESS CREDENTIAL. VAIRIFY IS A PRO
 ONE.**
 
-⚠️ **Someone arriving at Vairify holding a Standard credential is short. They are told what
+⚠️ **Someone arriving at Vairify holding a VAI Access credential is short. They are told what
 is missing and routed to complete it.** — §11
 
 ## 4C.2 — ⚠️⚠️ THE SIGNATURE AGREEMENT IS THE MECHANISM
@@ -934,7 +934,7 @@ MAY ASK.**
 
 | Level | | What the platform may ask |
 |---|---|---|
-| **1** | ⚠️ **VAI GO** | ⚠️ **The door. One question at the gate: is this person real and of age.** ⚠️⚠️ **THIS IS THE STANDARD CREDENTIAL AT WORK — §4C.1.** |
+| **1** | ⚠️ **VAI GO** | ⚠️ **The door. One question at the gate: is this person real and of age.** |
 | **2** | ⚠️ **VAI ACCESS** | **The door plus inside. Repeated yes/no while the member is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** ⚠️ **Up to three platform requirements at the door — §4C.3.** |
 | **3** | ⚠️ **VAI PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED — §4C.2, §4C.3.** |
 
@@ -1494,6 +1494,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 47 | ⚠️⚠️ **Deleted Standard used as a level name. It never was one.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 7 |
 | **26 Aug** | 46 | ⚠️⚠️ **Level-1 copy that said Access deleted. Access is level 2.** | `RULINGS-CP-07_AMENDMENT-1` §1 item 4 · §5 item 8 |
 | **26 Aug** | 45 | ⚠️⚠️ **§4C opening line — level names replaced, argument kept.** | `RULINGS-CP-07_AMENDMENT-1` §2 |
 | **26 Aug** | 44 | ⚠️⚠️ **§4C table — STANDARD row → VAI ACCESS. PRO row → VAI PRO. Keys and figures untouched.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 5 |

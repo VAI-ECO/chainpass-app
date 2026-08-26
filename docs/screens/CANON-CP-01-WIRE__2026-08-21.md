@@ -600,5 +600,6 @@ All other loading/empty/error states are legitimately generic and are declared g
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 3 | ⚠️⚠️ **SN-02 — deleted Standard as a level name on the age-gate note.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 7 |
 | **26 Aug** | 2 | ⚠️⚠️ **Level-1 Access nav labels → VAI Go / VAI Access.** | `RULINGS-CP-07_AMENDMENT-1` §1 item 4 |
 | **26 Aug** | 1 | ⚠️⚠️ **SN-27 — deleted "band only, never a percentage". Level 3 returns a colour and a percentage.** | `RULINGS-CP-04`; already in `CANON-CP-01` §7.3 |
