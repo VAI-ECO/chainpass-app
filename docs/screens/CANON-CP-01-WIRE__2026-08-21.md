@@ -522,7 +522,7 @@ All other loading/empty/error states are legitimately generic and are declared g
 | Field | Value |
 |---|---|
 | Route | /verify/green |
-| Canon | §7.2 · §7.1 · §7.3 (band only, never a percentage) |
+| Canon | §7.2 · §7.1 · §7.3 |
 | Reads | verification.result · credential.state |
 | Writes | none |
 | Settings used | — |
@@ -597,3 +597,7 @@ All other loading/empty/error states are legitimately generic and are declared g
 | Fixed-390 | no |
 
 **21 August 2026.**
+
+| Date | # | Change | Reasoning |
+|---|---|---|---|
+| **26 Aug** | 1 | ⚠️⚠️ **SN-27 — deleted "band only, never a percentage". Level 3 returns a colour and a percentage.** | `RULINGS-CP-04`; already in `CANON-CP-01` §7.3 |
