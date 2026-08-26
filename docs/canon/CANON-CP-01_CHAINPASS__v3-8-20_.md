@@ -528,7 +528,7 @@ VAIRIFY SAYS NOTHING ABOUT THE MEMBER, ONLY THAT THE CREDENTIAL IS NOT ACTIVE.**
 
 ---
 
-# 4C — ⚠️⚠️ STANDARD AND PRO
+# 4C — ⚠️⚠️ VAI ACCESS AND VAI PRO
 
 > ⚠️⚠️ **STANDARD PROVES A PERSON. PRO LETS A PLATFORM DO THINGS WITH THAT PROOF.**
 
@@ -1494,6 +1494,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 43 | ⚠️⚠️ **§4C heading → VAI ACCESS AND VAI PRO.** | `RULINGS-CP-07_AMENDMENT-1` §2 · §5 item 4 |
 | **26 Aug** | 42 | ⚠️⚠️ **§16.2 — deleted the superseded `agreements` shape (`content_ref` · `vai_1`/`vai_2`). The `SPEC-CP-02` five-table registry remains.** | `CANON-CP-01` §14.2 · `SPEC-CP-02` |
 | **26 Aug** | 41 | ⚠️⚠️ **§12 item 6 closed. `credentials.complycube_client_id` already dropped by `20260821000005`. §2.4 patent-gate-unmet paragraph deleted. Schema unchanged this run.** | `CANON-CP-01` §2.4 · §12 item 6; migration already applied |
 | **26 Aug** | 40 | ⚠️⚠️ **§3 — deleted the losing length line. 32 stands. Encoding remains open.** | Owner ruling 25 Aug; UNIT 3 item 2 |
