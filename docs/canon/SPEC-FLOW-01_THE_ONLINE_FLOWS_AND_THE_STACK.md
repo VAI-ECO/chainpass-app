@@ -10,28 +10,27 @@ WHERE THIS FILE AND A CANON DISAGREE, THE CANON GOVERNS.**
 ⚠️ **Every server fact in §2 is `[V]` — read off `2.28.18.138` on 25 August. Every canon
 fact is `[D]`. Nothing here is `[?]`.**
 
-⚠️⚠️ **§0.1 BELOW IS SUPERSEDED.** `CANON-CP-02` §5 item 3 re-closed it the other way:
-the security layer is a ChainPass page, platform-branded, before the handoff.
+`CANON-CP-02` §5 item 3: the security layer is a ChainPass page, platform-branded, before the handoff.
 `CANON-MI-33`'s locked copy migrates onto that page word for word.
 
 ---
 
 # 0 — ⚠️⚠️ TWO DECISIONS TAKEN, SO THE FLOWS CAN BE WRITTEN
 
-**The owner delegated both. They are recorded here. §0.1 was reversed the same day.**
+**The owner delegated both. They are recorded here.**
 
-## 0.1 — ⚠️⚠️ SUPERSEDED 25 AUGUST — `CANON-CP-02` §5 item 3
+## 0.1 — THE SECURITY LAYER IS A CHAINPASS PAGE — `CANON-CP-02` §5 item 3
 
 ❌ **Do not build recovery screens on Vairify.**
 
 ⚠️⚠️ **THE SECURITY LAYER IS A CHAINPASS PAGE, PLATFORM-BRANDED, RUNNING BEFORE THE
 HANDOFF.** Locked copy in `CANON-MI-33` §2 migrates onto it word for word.
 
-| Was | Now |
+| # | |
 |---|---|
-| Custody moves, screens stay on Vairify | Custody and screens at ChainPass |
-| `CANON-MI-35` §0 stage 2 is Vairify-owned | Stage 2 leaves Vairify — `CANON-CP-02` §5 item 4 |
-| Recovery endpoints as a ninth surface for Vairify to render against | Retrieval page is ChainPass. Vairify never sets or stores questions or codes — `CANON-CP-02` §4.1 item 2 |
+| 1 | Custody and screens at ChainPass |
+| 2 | Stage 2 leaves Vairify — `CANON-CP-02` §5 item 4 |
+| 3 | Retrieval page is ChainPass. Vairify never sets or stores questions or codes — `CANON-CP-02` §4.1 item 2 |
 
 ## 0.2 — SIX DISGUISE ICONS. NO PREFIX.
 
@@ -294,6 +293,7 @@ Branding at the boundary is **closed** — platform-branded ChainPass pages — 
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 7 | ⚠️⚠️ **§0.1 — losing Vairify-screens lines deleted. Current rule unmarked.** | `CANON-CP-02` §5 item 3; UNIT 4 item 2 |
 | **26 Aug** | 6 | ⚠️⚠️ **§12 item 7 deleted — closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | **25 Aug** | 1 | Filed. Six online flows, the technology placed per step, the seam, the schematic and the build prompt. | The flows existed across eleven canon files and the technology existed on a server nobody had read. |
 | **25 Aug** | 2 | §0.1 **superseded the same day** by `CANON-CP-02` §5 item 3. | Owner re-closed recovery screens onto ChainPass. |
