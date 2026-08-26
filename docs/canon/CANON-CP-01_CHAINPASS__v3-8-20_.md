@@ -416,7 +416,7 @@ alone.**
 | 2 | ⚠️⚠️ **IT MUST SURVIVE YEARS IN A PLATFORM'S DATABASE.** **It cannot depend on anything ChainPass keeps.** |
 | 3 | ⚠️⚠️ **THIRTY-TWO CHARACTERS. ALPHANUMERIC.** **Owner ruling, 25 August.** |
 
-⬜ ⚠️ **ENCODING STILL OPEN.** **How a provider is derived · what happens when a provider is added or removed.** ⚠️ **Length is not open. Length is 30** — `CANON-CP-02` §1 step 3. The earlier 32-character line is superseded.
+⬜ ⚠️ **ENCODING STILL OPEN.** **How a provider is derived · what happens when a provider is added or removed.**
 
 ---
 
@@ -1505,6 +1505,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 40 | ⚠️⚠️ **§3 — deleted the losing length line. 32 stands. Encoding remains open.** | Owner ruling 25 Aug; UNIT 3 item 2 |
 | **26 Aug** | 39 | ⚠️⚠️ **§14.1 — Pass-as-level-name flag deleted. Closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | **26 Aug** | 38 | ⚠️⚠️ **§4C.1 — TIER replaced with LEVEL. TIER belongs to Vairify launch cohorts.** | `RULINGS-CP-07` §3 item 6 |
 | **26 Aug** | 37 | ⚠️⚠️ **§14.1 — three service levels renamed VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 4 |

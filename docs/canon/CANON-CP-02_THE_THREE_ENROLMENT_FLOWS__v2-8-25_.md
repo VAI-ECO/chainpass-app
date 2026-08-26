@@ -27,7 +27,7 @@ Vairify holding copy: this file. Older `CANON-CP-02_CROSSREF.md` points here.**
 | **1** | **The client lands in ChainPass** — sent by a platform, or choosing a platform on the ChainPass site. ⚠️⚠️ **NO PLATFORM DECLARATION, NO ENROLMENT.** |
 | **1a** | ⚠️ *Optional information page. It sells nothing and gates nothing.* |
 | **2** | ⚠️⚠️ **PAY. RULED 25 AUGUST — PAYMENT HAPPENS BEFORE ANY OF THIS.** The deferral offer lives here. **Nothing downstream begins until it clears.** |
-| **3** | **ChainPass creates a 30-character alphanumeric session key.** |
+| **3** | **ChainPass creates a 32-character alphanumeric session key.** |
 | **4** | **ChainPass hands the client to the KYC company.** |
 | **5** | ⚠️⚠️ **CHAINPASS OWNS THE CAMERA AND CAPTURES THE IMAGE: THE BASELINE.** |
 | **5a** | **The level's outside-the-walls step runs** — §0 row 1. |
@@ -78,7 +78,7 @@ AND NEVER SEES THE DEVICE.**
 |---|---|
 | 1 | **Take the platform declaration.** Reject anyone arriving without one. |
 | 2 | ⚠️⚠️ **TAKE PAYMENT FIRST.** Offer the deferral. Start nothing until it clears. |
-| 3 | **Mint and hold the session key.** 30 characters. Never in a URL, never in the browser. |
+| 3 | **Mint and hold the session key.** 32 characters. Never in a URL, never in the browser. |
 | 4 | **Drive the KYC company in an embedded frame.** Never a redirect. |
 | 5 | ⚠️⚠️ **OWN THE CAMERA. CAPTURE THE BASELINE. HOLD IT UNCOMMITTED.** |
 | 6 | **Send real details out to the checker, take back yes or no.** Store no detail. |
@@ -139,6 +139,7 @@ AND NEVER SEES THE DEVICE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| 26 Aug | 8 | ⚠️⚠️ **§1 step 3 and §3 item 3 — session key length 32. The 30 figure is deleted.** | Owner ruling 25 Aug; UNIT 3 item 2 |
 | 26 Aug | 7 | ⚠️⚠️ **§5 item 6 open flag deleted — closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | 26 Aug | 6 | ⚠️⚠️ **§0 — the Pass+Access column name deleted. Columns named VAI PRO · VAI GO + VAI ACCESS.** | `RULINGS-CP-07` §3 item 8 |
 | 25 Aug | 1 | Filed from the owner's flow document. | The owner's spoken flows outrank the written canon. |
