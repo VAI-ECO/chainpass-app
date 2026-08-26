@@ -36,7 +36,7 @@ serve(async (req) => {
     const { data: session, error } = await supabase
       .from("sessions")
       .select(
-        "id, username, contact_email, contact_phone, enrolment_step, paid_at, payment_choice"
+        "id, username, contact_email, contact_phone, enrolment_step, paid_at, payment_choice, platform_id"
       )
       .eq("id", session_id)
       .maybeSingle();
@@ -49,6 +49,18 @@ serve(async (req) => {
     }
     if ((session.enrolment_step ?? 1) < 9) {
       return json({ error: "enrolment_step_order: contact at 9 before otp at 9" }, 403);
+    }
+
+    const { data: platform, error: pErr } = await supabase
+      .from("platforms")
+      .select("trial_mode")
+      .eq("id", session.platform_id)
+      .maybeSingle();
+    if (pErr) throw new Error(pErr.message);
+    if (!platform) return json({ error: "platform_not_found" }, 404);
+    // enrol_otp_accept is a settings skip. It cannot work on a live path.
+    if (platform.trial_mode !== true) {
+      return json({ error: "otp_invalid" }, 401);
     }
 
     // OTP value from settings — never a constant in code.

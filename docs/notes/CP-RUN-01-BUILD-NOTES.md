@@ -200,3 +200,78 @@ Files: `src/pages/__tests__/VaiEntryCheck.test.tsx` and `chainpass-app-inspect/s
 
 ### L-U2-08
 Did not fix the 16 type errors this unit. UNIT 3 removes them at the source if they are live-schema mismatches.
+
+---
+
+## UNIT 3 — DOES THE CODE MATCH LIVE
+
+### L-U3-01
+`grep -rhoE "from\(['\"][a-z_]+['\"]" src/ supabase/` (closed quote; prefix match without close-quote falsely added `baseline` / `verification`). Unique names: 81. Full list in L-U3-03 complement.
+
+### L-U3-02
+Live public tables, exact `count(*)` on `pguwhjearlqqfworantq` (43):
+agreement_parties 2 · agreement_proofs 1 · agreement_versions 2 · agreements 2 · baselines 4 · blocks 2 · commission_ledger 2 · contracts 4 · credential_events 0 · credential_keys 0 · credential_platforms 0 · credentials 4 · enrolment_agreements 1 · facial_signature_attempts 0 · facial_verification_attempts 0 · identity_join_log 1 · lookup_log 0 · payments 0 · platform_agreements 2 · platform_coupon_redemptions 0 · platform_coupons 0 · platform_requirements 0 · platform_services 0 · platform_visits 1 · platforms 2 · record_ledger 6 · recovery_codes 3 · requirement_completions 0 · requirement_versions 0 · requirements 4 · security_question_attempts 0 · security_question_lockouts 0 · security_question_options 6 · security_questions 3 · serve_events 2 · service_registry 5 · service_state 2 · service_state_log 0 · sessions 9 · settings 46 · settings_audit 11 · verification_ledger 13 · verification_records 0.
+RECORD vs LIVE: 26 Aug notes said verification_ledger 12; live now 13.
+
+### L-U3-03
+Code names absent from live (41). None renamed. CREATE NOTHING.
+admin_activity_logs · admin_badges · admin_earned_badges · admin_performance_scores · alert_history · alert_settings · anomaly_detection_settings · api_usage_logs · archived_activity_logs · business_configurations · business_partners · business_records · composite_vai_records · coupon_usage · coupons · detected_anomalies · email_digest_history · email_digest_recipients · email_digest_settings · email_notifications · employee_coupons · error_logs · leo_retrieval_audit · person_identity_signatures · person_profiles · pricing_config · profiles · recovery_requests · retention_policies · sandbox_test_scenarios · user_preferences · user_roles · vai_assignments · vai_audit_log · vai_records · vai_status_updates · vairify_webhook_events · verification_sessions · webhook_delivery_queue · webhook_replay_history · webhook_test_history
+Live not queried via from(): payments · security_question_attempts · service_state_log.
+
+### L-U3-04
+`.select()` columns on the eight named tables vs live `information_schema.columns`: **none missing**.
+credentials: vai, state, document_expiry, next_complycube_date, next_renewal_date, originating_platform_id, verified_at, deferral_expires_at, deferral_used, credential_level, reds_count, rebaseline_count (+ `*`)
+sessions: id, platform_id, vai, enrolment_step, held_capture, held_capture_voided_at, acceptance_capture, acceptance_capture_voided_at, requirements_signed_at, terms_accepted_at, required_credential_level, kyc_match_percent, paid_at, otp_verified_at, contact_email, contact_phone, background_check_at, document_expiry, issuing_country, issuing_province, payment_choice, session_key, username, provider_session_key, biometric_consent_at, warning_acked_at, complycube_session_id, expires_at, return_url, state (+ `*`)
+platforms: id, display_name, response_level, service_level, status, trial_mode, webhook_url, webhook_secret, webhook_state, api_key_hash, base_price_cents, brand, contact_spec, collection_fields
+blocks: id, platform_id, size, consumed
+agreements: agreement_id, contract_id, content_hash, platform_id, outcome, created_at, created_at_offset, closed_at, closed_at_offset (+ `*`)
+agreement_versions: id, platform_id, body, subtype, version, notice, created_at, effective_from
+agreement_proofs: id, vai, verified_at, engine_used, agreement_version_id
+verification_ledger: id, call_type, result, billed_against_block
+
+### L-U3-05
+Each of the 41: table that was never created on this live project. Not an obvious rename of a live table (coupons ≠ platform_coupons; profiles ≠ any live row; business_partners ≠ platforms; vai_records ≠ credentials; verification_sessions ≠ sessions). No rename applied. The 16 TS errors are generated-types vs missing tables (`business_configurations`, `profiles`, `verification_records.vai_number`) plus local identifier bugs (`written`/`setWritten`, `exampleMutations`, Helmet `title`) — not live-column renames.
+
+### L-U3-06
+`npx tsc --noEmit -p tsconfig.app.json 2>&1 | grep -c "error TS"` still **16**. No rename this unit.
+
+### L-U3-07
+`src` `functions.invoke` string names vs live 86 slugs. All live callers are deployed. `track-referral` appears only as a comment in `src/services/accountService.ts:136`. Not deployed. No other missing invoke.
+
+### L-U3-08
+`grep -rnE "https://" src/lib/` → 0.
+Silent fallbacks: `src/lib/enrol.ts` `restHostFromEnv` returns `""` if `VITE_SUPABASE_URL` missing. `src/integrations/supabase/client.ts` `VITE_SUPABASE_URL || ''` and `VITE_SUPABASE_ANON_KEY || ''`. `src/components/contracts/FacialVerification.tsx` placeholder `referencePhotoUrl = "stored_photo_url"`.
+
+---
+
+## UNIT 4 — THE THREE SECURITY FINDINGS
+
+### L-U4-01
+`grep -rn "enrol_otp_accept"`:
+- `supabase/migrations/20260821000011_enrol_otp_setting.sql` seeds `'000000'`
+- `supabase/functions/enrol-otp/index.ts` compares `otp_code` to `settings.value`
+- `supabase/functions/master-settings/index.ts` maps the key to group `"Recovery"`
+Blast radius: any caller of `enrol-otp` who posts `otp_code=000000` can set `sessions.otp_verified_at` and advance enrolment_step to 9, skipping a real OTP. No SMS send exists in this function.
+
+### L-U4-02
+Before this unit: gated on **nothing**. No `trial_mode` read. No environment check.
+
+### L-U4-03
+Canon does not name `enrol_otp_accept`. Item 3 instructs the gate. `enrol-otp` now loads `platforms.trial_mode` via `sessions.platform_id`. If `trial_mode !== true`, returns `otp_invalid` 401 before reading the setting. Value of the setting unchanged.
+
+### L-U4-04
+BEFORE: `generate-api-key/index.ts` `.update({ api_key: apiKey, ...})` with `apiKey = crypto.randomUUID() + '-' + crypto.randomUUID()`.
+AFTER: `apiKeyHash = await sha256Hex(apiKey)` then `.update({ api_key: apiKeyHash, ...})`. Response JSON still returns the one-time plaintext. Existing rows not nulled. Table has no `api_key_hash` column in types; hash is written into `api_key`.
+
+### L-U4-05
+Same defect. BEFORE: `.update({ api_key: newApiKey })`. AFTER: `.update({ api_key: newApiKeyHash })` with `sha256Hex`.
+
+### L-U4-06
+`to_regclass` public/auth/storage/realtime/offbox/extensions/graphql/vault → all NULL. No `business_partners` table in any schema. Plaintext-key row count: **0** (table absent). `pg_class` `%partner%` / `%api_key%` → empty.
+
+### L-U4-07
+`SELECT id, platform_id, size, consumed, purchased_at FROM blocks`:
+id=1 cp03walk size=100 consumed=6 purchased_at=2026-08-22 11:23:24.733305+00
+id=2 vairify size=100 consumed=7 purchased_at=2026-08-25 23:00:47.775019+00
+RECORD vs LIVE: 26 Aug notes both consumed=6; vairify now 7. This run did not call verify. Test traffic vs production cannot be split (no source column).
+
