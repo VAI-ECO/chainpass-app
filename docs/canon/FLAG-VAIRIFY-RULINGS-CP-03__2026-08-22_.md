@@ -5,7 +5,7 @@ only. Correct at source in vairify-app when custody migration lands.
 
 ⚠️⚠️ **RULING:** `security_questions` · `security_question_lockouts` ·
 `security_question_attempts` · `security_question_options` · `recovery_codes` are **ChainPass's**.
-Collected at enrolment step 12. Vairify reads lockout state; it does not own the rows.
+Collected at enrolment step 11. Vairify reads lockout state; it does not own the rows.
 
 ---
 
@@ -13,7 +13,7 @@ Collected at enrolment step 12. Vairify reads lockout state; it does not own the
 
 | Section | Contradiction |
 |---|---|
-| **§2.1 item 1** | **"Three, chosen by the member, at registration."** Registration/setup is ChainPass step 12, not Vairify registration. |
+| **§2.1 item 1** | **"Three, chosen by the member, at registration."** Registration/setup is ChainPass step 11, not Vairify registration. |
 | **§1.1 item 5** | **"Shown once at onboarding."** Onboarding in MI-25/MI-33 means Vairify's first screen; ruling 7 places issuance at ChainPass account security. |
 | **§3 items 1–3** | **Lockout enforcement "in the database" with RLP and CHECK on `cleared_by`.** Schema and constraint must live on ChainPass; Vairify canon still describes Vairify as custodian. |
 | **§4 (whole block)** | **"VAIRIFY SETS A PENDING STATE"** on `security_question_lockouts`. Pending/cleared rows are ChainPass's; Vairify should set pending via ChainPass API or read ChainPass state, not own the table. |
@@ -30,7 +30,7 @@ Collected at enrolment step 12. Vairify reads lockout state; it does not own the
 
 | Section | Contradiction |
 |---|---|
-| **§0** | **"First screen of Vairify onboarding"** with three recovery sections. Ruling 7 and `CANON-CP-01` §2.10 place this at ChainPass step 12, before handoff. |
+| **§0** | **"First screen of Vairify onboarding"** with three recovery sections. Ruling 7 and `CANON-CP-01` §2.10 place this at ChainPass step 11, before handoff. |
 | **§1** | **"Recovery must exist before there is anything to recover" at the Vairify door.** Custody and setup are ChainPass's; Vairify receives an already-configured holder. |
 | **§2.1–§2.2 (copy)** | **"Nobody at Vairify can read them" / stored scrambled.** Rows live on ChainPass; copy is directionally right but implies Vairify storage. |
 | **§4 item 1** | **"VAIRIFY CANNOT READ THEM. THE COPY SAYS SO AND THE COPY MUST BE TRUE."** Must become ChainPass custodian language if screens stay Vairify-branded, or screens move to ChainPass. |
@@ -81,4 +81,5 @@ functions while migrations define `security_questions` — reconcile during repo
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug 2026** | 2 | ⚠️⚠️ **Security layer at step 11, not 12.** | `CANON-CP-02` §1 |
 | **22 Aug 2026** | 1 | Filed. | |
