@@ -18,8 +18,6 @@ Vairify holding copy: this file. Older `CANON-CP-02_CROSSREF.md` points here.**
 | **Documents signed** | LE disclosure · signature agreement · T&C | T&C · custom platform requirements **not requiring real-life ID** | T&C |
 | **Retrieval page brand** | VAIRIFY-branded | platform-branded | platform-branded |
 
-⬜ **§5 item 6 — "PASS" is a level name the register does not have.** Flagged, not renamed.
-
 ---
 
 # 1 — THE SPINE — THIRTEEN STEPS
@@ -134,7 +132,6 @@ AND NEVER SEES THE DEVICE.**
 | 3 | `RULINGS-VA-05` §1a · `SPEC-FLOW-01` §0.1 | ⚠️⚠️ **RE-CLOSED THE OTHER WAY ON THE OWNER'S WORD. THE SECURITY LAYER IS A CHAINPASS PAGE, PLATFORM-BRANDED, RUNNING BEFORE THE HANDOFF.** `CANON-MI-33`'s locked copy migrates onto it word for word. |
 | 4 | `CANON-MI-35` §0 | Onboarding becomes: ChainPass enrolment (incl. the retrieval page) → package page → install. **Stage 2 leaves Vairify.** |
 | 5 | `DESIGN-BRIEF-CP-01` §4 item 2 | ⚠️ **BRANDING AT THE BOUNDARY IS CLOSED: PLATFORM-BRANDED CHAINPASS PAGES.** |
-| 6 | `CANON-CP-01` §14.1 | ⬜ **"PASS" IS A LEVEL NAME THE REGISTER DOES NOT HAVE** — it lists Access · V.A.I. · Pro. **Rename, fourth level, or the Access pair? FLAGGED.** |
 
 ---
 
@@ -142,6 +139,7 @@ AND NEVER SEES THE DEVICE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| 26 Aug | 7 | ⚠️⚠️ **§5 item 6 open flag deleted — closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | 26 Aug | 6 | ⚠️⚠️ **§0 — the Pass+Access column name deleted. Columns named VAI PRO · VAI GO + VAI ACCESS.** | `RULINGS-CP-07` §3 item 8 |
 | 25 Aug | 1 | Filed from the owner's flow document. | The owner's spoken flows outrank the written canon. |
 | 25 Aug | 2 | **PAY placed at step 2, first after landing.** Optional info page at 1a. | Owner ruling: payment happens before any of this. It also closes the §2-versus-§4A.2 clock collision — payment cannot start a clock it precedes. |

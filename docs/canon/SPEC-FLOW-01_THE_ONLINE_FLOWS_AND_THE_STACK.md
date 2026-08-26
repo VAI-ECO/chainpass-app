@@ -284,7 +284,6 @@ Enrolment sequence in any prompt that still says eleven steps is stale — use `
 | 4 | ⚠️⚠️ **RENEWAL ATTRIBUTION** | `CP-01` §16.4 |
 | 5 | ⚠️ **The signature agreement — which document it actually is** | `DESIGN-BRIEF-CP-01` CP-07, blocking |
 | 6 | ⚠️ **The band cut-offs** — measured in the pilot, against the INT8 model | Nothing until the pilot runs |
-| 7 | ⚠️ **"PASS" as a level name** | `CANON-CP-02` §5 item 6 |
 | 8 | ⚠️ **Does the user pay for a requested re-baseline?** | `RULINGS-CP-06` §7 |
 
 Branding at the boundary is **closed** — platform-branded ChainPass pages — `CANON-CP-02` §5 item 5.
@@ -295,6 +294,7 @@ Branding at the boundary is **closed** — platform-branded ChainPass pages — 
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 6 | ⚠️⚠️ **§12 item 7 deleted — closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | **25 Aug** | 1 | Filed. Six online flows, the technology placed per step, the seam, the schematic and the build prompt. | The flows existed across eleven canon files and the technology existed on a server nobody had read. |
 | **25 Aug** | 2 | §0.1 **superseded the same day** by `CANON-CP-02` §5 item 3. | Owner re-closed recovery screens onto ChainPass. |
 | **25 Aug** | 3 | §0.2 — six disguise icons, no prefix. | A `V` prefix is a tell. |

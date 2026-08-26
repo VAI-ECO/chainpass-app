@@ -943,8 +943,6 @@ MAY ASK.**
 | **2** | ⚠️ **VAI ACCESS** | **The door plus inside. Repeated yes/no while the member is in — live re-verification, a static photo-match, a gated room.** ❌ **No documents.** ⚠️ **Up to three platform requirements at the door — §4C.3.** |
 | **3** | ⚠️ **VAI PRO** | ⚠️⚠️ **EVERYTHING. PLUS THE SIGNATURE AGREEMENT AND AS MANY CUSTOM REQUIREMENTS AS THE PLATFORM ELECTS — UNCAPPED — §4C.2, §4C.3.** |
 
-⬜ ⚠️⚠️ **`CANON-CP-02` §0 NAMES "V.A.I. PASS + ACCESS". THE REGISTER HERE LISTS ACCESS · V.A.I. · PRO. RENAME, FOURTH LEVEL, OR THE ACCESS PAIR? FLAGGED. NOTHING RENAMED.** — `CANON-CP-02` §5 item 6.
-
 ⚠️⚠️ **ENDPOINTS CHECK `agreement level ≥ endpoint's required level` AND NOTHING ELSE. ONE
 INTEGER COMPARISON.**
 
@@ -1507,6 +1505,7 @@ CUSTOMER ZERO, NOT AS A SPECIAL CASE.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 39 | ⚠️⚠️ **§14.1 — Pass-as-level-name flag deleted. Closed by `RULINGS-CP-07`.** | `RULINGS-CP-07` §3 item 9 |
 | **26 Aug** | 38 | ⚠️⚠️ **§4C.1 — TIER replaced with LEVEL. TIER belongs to Vairify launch cohorts.** | `RULINGS-CP-07` §3 item 6 |
 | **26 Aug** | 37 | ⚠️⚠️ **§14.1 — three service levels renamed VAI Go · VAI Access · VAI Pro. Integers 1, 2, 3 do not move.** | `RULINGS-CP-07` §3 item 4 |
 | **26 Aug** | 36 | ⚠️⚠️ **§16.1 — deleted "LEVEL 2 IS WRITTEN 'V.A.I. PLUS'".** | `RULINGS-CP-07` §3 item 2 |
