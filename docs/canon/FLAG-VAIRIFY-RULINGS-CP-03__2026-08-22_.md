@@ -74,3 +74,11 @@ functions while migrations define `security_questions` — reconcile during repo
 ---
 
 **22 August 2026.**
+
+---
+
+# CHANGELOG
+
+| Date | # | Change | Reasoning |
+|---|---|---|---|
+| **22 Aug 2026** | 1 | Filed. | |
