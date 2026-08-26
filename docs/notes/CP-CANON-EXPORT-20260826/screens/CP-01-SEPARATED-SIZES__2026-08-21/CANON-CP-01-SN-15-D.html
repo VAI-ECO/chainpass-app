@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SN-15-D · CP14 The handoff</title>
+<style>
+:root{--cp-blue:#3e6bf5;--cp-ink:#16295f;--cp-bg:#f2f2f3;--cp-warn:#8a5a00;--cp-warn-bg:#fff3d6;
+--cp-err:#8a1f1f;--space:16px;--radius:10px;--type:16px;--type-h:22px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--cp-blue);
+color:var(--cp-ink);font-size:var(--type);}
+.screen{background:var(--cp-bg);border-radius:var(--radius);padding:calc(var(--space)*1.5);
+margin-block:var(--space);}
+.state{border-block-start:1px dashed #bbb;padding-block-start:var(--space);margin-block-start:var(--space)}
+.state:first-of-type{border:none;margin-block-start:0;padding-block-start:0}
+.state>.tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;margin-block-end:8px}
+h1{font-size:var(--type-h);margin-block:8px}
+p{margin-block:8px;line-height:1.45}
+label.lbl{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-block:10px 4px}
+.field{display:block;inline-size:100%;padding:12px;border:1.5px solid var(--cp-ink);border-radius:8px;background:#fff;font-size:var(--type)}
+button{display:block;inline-size:100%;padding:13px;border-radius:8px;font-size:var(--type);margin-block:10px;cursor:pointer}
+button.b1{background:var(--cp-ink);color:#fff;border:none}
+button.b2{background:transparent;color:var(--cp-ink);border:1.5px solid var(--cp-ink)}
+button:focus-visible{outline:3px solid var(--cp-blue);outline-offset:2px}
+button:disabled{opacity:.45;cursor:default}
+.note{font-size:13px;color:#555;margin-block:8px;line-height:1.4}
+.warn{font-size:13px;color:var(--cp-warn);background:var(--cp-warn-bg);padding:10px;border-radius:8px;margin-block:8px}
+.row{display:flex;justify-content:space-between;gap:12px;padding-block:8px;border-block-end:1px solid #ddd}
+.big{font-size:34px;font-weight:700;letter-spacing:.14em;text-align:center;margin-block:14px}
+.skel{block-size:14px;border-radius:7px;background:#ddd;margin-block:10px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.5}}
+header.top{display:none}
+.wrap{max-inline-size:640px;margin-inline:auto;padding:calc(var(--space)*2)}
+header.top{display:flex;align-items:center;background:var(--cp-ink);color:#fff;
+padding:14px calc(var(--space)*2);font-weight:700;letter-spacing:.12em}</style></head>
+<body><header class='top'>CHAINPASS</header><main class="wrap">
+<p class="note">CANON-CP-01-SN-15-D · CP14 · The handoff · §2 step 11 · §2.9 · §2.4 · SPEC-CP-01 §2.3–§2.6 · route /enrol/return — one fixed URL, zero parameters · Desktop · ≥1024 · content capped 640 · top bar</p>
+<div class="screen"><section class='state' data-sn='15' data-size='D' data-state='default'><div class='tag'>default</div><label class='lbl'>Step 11 of 11</label><h1>Back at the platform</h1><p>Your credential has been delivered to the platform, server to server. Nothing about it travelled in your browser.</p><div class='row' data-wire="flag:🔴 handoff payload unpublished — SPEC-CP-01 §6 item 1"><span>Delivered</span><strong>V.A.I. · username · contact · session key</strong></div><div class='row' data-wire="reads:cookie cp_enrol → 🔴 enrolment_sessions (ghost table)"><span>Carried in the browser</span><strong>a cookie, nothing else</strong></div><div class='row' data-wire="writes:vault, blind tag — §2.4c item 2"><span>Session key</span><strong>straight to the vault</strong></div><button class='b1' data-wire="nav:platform account">Continue to your account</button><p class='note'>SPEC-CP-01 §0: the handoff is server to server. A page built to read the credential off the return trip is built wrong.</p><p class='warn'>⚠ Red: enrolment_sessions does not exist in the schema read 20 August. Red: the handoff payload has no published shape.</p></section><section class='state' data-sn='15' data-size='D' data-state='loading'><div class='tag'>loading</div><label class='lbl'>Finishing</label><h1>Finishing up</h1><p>Your credential has been issued. We are waiting for the platform to confirm it has been received.</p><div class='skel' style='inline-size:70%'></div><div class='skel' style='inline-size:46%'></div><p class='note'>SPEC-CP-01 §2.5: the redirect will sometimes beat the webhook. This is not an error. Polls for settings:handoff_poll_window, then leaves the row pending server-side.</p></section><section class='state' data-sn='15' data-size='D' data-state='empty'><div class='tag'>empty</div><label class='lbl'>Step 11 of 11</label><h1>No session found</h1><p>This browser holds no enrolment session. If you started on another device, return using the link the platform sent you.</p><p class='note'>SPEC-CP-01 §2.6: a one-time handback code — 32 bytes, single use, settings:handback_nonce_ttl — is exchanged server-side and destroyed. It identifies nobody.</p></section><section class='state' data-sn='15' data-size='D' data-state='error'><div class='tag'>error</div><label class='lbl'>Error</label><h1>Something went wrong</h1><p>The handoff has not completed. Your credential exists and the platform will receive it — this page can be closed safely.</p><button class='b1' data-wire="nav:platform account">Check again</button><p class='note'>The enrolment row stays server-side and survives a closed browser — SPEC-CP-01 §2.5.</p></section></div>
+<p class="warn">⚠ Handoff payload has no published shape (SPEC-CP-01 §6 item 1). Signature scheme and poll/TTL unruled (items 2–3). enrolment_sessions is a red ghost table (item 4).</p>
+</main></body></html>

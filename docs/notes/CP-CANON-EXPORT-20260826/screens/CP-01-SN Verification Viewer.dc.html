@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/industry-3c9c6f8e-5061-45eb-82b8-3274dfd0173c/styles.css">
+<script src="_ds/industry-3c9c6f8e-5061-45eb-82b8-3274dfd0173c/_ds_bundle.js"></script>
+<style>
+:root{
+  --color-accent:#5170FF;
+  --color-accent-100:#eef1ff;--color-accent-200:#dbe1ff;--color-accent-300:#bcc7ff;
+  --color-accent-400:#93a4ff;--color-accent-500:#5170FF;--color-accent-600:#3f57d8;
+  --color-accent-700:#2f41a8;--color-accent-800:#232f78;--color-accent-900:#161f4f;
+}
+body{margin:0;background:#e6e8ef;font-family:var(--font-body)}
+a{color:#2f41a8;text-decoration:none}
+a:hover{color:#161f4f}
+.vk{font-family:var(--font-heading);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#8a8f9e}
+.vt{font-family:var(--font-heading);font-size:29px;line-height:1.07;letter-spacing:-.005em;color:#1d1f20;font-weight:600}
+.vb{font-size:15.5px;line-height:1.6;color:#42465a;text-wrap:pretty}
+.vbtn{width:100%;height:54px;display:flex;align-items:center;justify-content:center;background:#5170FF;color:#fff;border:1px solid #5170FF;font-family:var(--font-heading);font-size:16px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .15s ease}
+.vbtn:hover{background:#3f57d8}
+.vbtn:active{background:#2f41a8}
+.valt{width:100%;height:48px;display:flex;align-items:center;justify-content:center;background:transparent;color:#42465a;border:1px solid #c7cbd6;font-family:var(--font-heading);font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .15s ease}
+.valt:hover{border-color:#5170FF;color:#1d1f20}
+.vrail{display:flex;gap:12px;align-items:baseline;padding:9px 12px;border:1px solid transparent;cursor:pointer;text-align:left;background:transparent;width:100%;font-family:var(--font-body);transition:background .14s ease}
+.vrail:hover{background:#edeff5}
+.vrow{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0;border-bottom:1px solid #dcdfe8}
+.vlab{font-size:15px;color:#5c6070}
+.vval{font-size:15px;color:#1d1f20}
+button:focus-visible{outline:2px solid #5170FF;outline-offset:2px}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#5170FF">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#5170FF"></rect>
+    <rect x="440" y="170" width="320" height="460" fill="#f2f2f3" stroke="#161f4f" stroke-width="6"></rect>
+    <ellipse cx="600" cy="380" rx="110" ry="145" fill="none" stroke="#5170FF" stroke-width="6"></ellipse>
+    <rect x="490" y="232" width="140" height="12" fill="#9a9fae"></rect>
+    <rect x="490" y="560" width="220" height="46" fill="#5170FF"></rect>
+  </svg>
+</template>
+
+<div style="display:flex;align-items:stretch;min-height:100vh;background:#e6e8ef;font-family:var(--font-body)">
+
+  <div style="width:300px;flex:none;background:#f2f2f3;border-right:1px solid #cbcfd9;padding:28px 18px 40px">
+    <div style="padding:0 6px 20px">
+      <img src="assets/chainpass-lockup.png" alt="ChainPass" style="width:168px;display:block">
+    </div>
+    <div class="vk" style="padding:0 6px 10px">Annual verification · member</div>
+    <sc-for list="{{ railA }}" as="r" hint-placeholder-count="5">
+      <button class="vrail" style="{{ r.style }}" onClick="{{ r.go }}">
+        <span style="font-family:ui-monospace,monospace;font-size:11px;color:#9a9fae;flex:none;letter-spacing:.04em">{{ r.code }}</span>
+        <span style="font-size:14.5px;line-height:1.35">{{ r.label }}</span>
+      </button>
+    </sc-for>
+    <div class="vk" style="padding:26px 6px 10px">ChainPass admin</div>
+    <sc-for list="{{ railB }}" as="r" hint-placeholder-count="2">
+      <button class="vrail" style="{{ r.style }}" onClick="{{ r.go }}">
+        <span style="font-family:ui-monospace,monospace;font-size:11px;color:#9a9fae;flex:none;letter-spacing:.04em">{{ r.code }}</span>
+        <span style="font-size:14.5px;line-height:1.35">{{ r.label }}</span>
+      </button>
+    </sc-for>
+    <div style="margin-top:28px;padding:16px;border:1px solid #c7cbd6;background:#fff">
+      <div class="vk" style="margin-bottom:10px">Cut from the pilot</div>
+      <div style="font-size:13.5px;line-height:1.6;color:#5c6070;text-wrap:pretty">The confidence percentage, both places it printed. The testing skip link, both places it appeared. The attempt counter reset in handleRetry. The comparison against a platform-held selfie and client id.</div>
+    </div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:48px 40px 60px">
+
+    <div style="width:390px;flex:none;background:var(--color-bg);border:1px solid #b7bcc9;box-shadow:0 18px 50px rgba(29,31,32,.16);display:flex;flex-direction:column;height:844px;overflow:hidden">
+
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:14px 22px 0;font-family:var(--font-heading);font-size:13px;letter-spacing:.04em;color:#1d1f20">
+        <span>9:41</span>
+        <span style="letter-spacing:.14em">▮▮▮</span>
+      </div>
+
+      <div style="flex:none;display:flex;align-items:center;gap:9px;padding:16px 22px 14px;border-bottom:1px solid #dcdfe8">
+        <img src="assets/chainpass-mark.png" alt="" style="width:15px;height:17px;display:block">
+        <span style="font-family:var(--font-heading);font-size:14.5px;letter-spacing:.06em;font-weight:600;color:#1d1f20">ChainPass</span>
+        <span style="margin-left:auto;display:flex;align-items:baseline;gap:9px">
+          <span style="font-family:var(--font-heading);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a8f9e">{{ chrome }}</span>
+          <span style="font-family:ui-monospace,monospace;font-size:11.5px;letter-spacing:.06em;color:#1d1f20;border:1px solid #c7cbd6;padding:2px 7px">{{ code }}</span>
+        </span>
+      </div>
+
+      <sc-if value="{{ isCamera }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="V01 Camera" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:24px 22px 0">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px">
+              <span class="vk">Annual verification</span>
+              <span style="font-family:var(--font-heading);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#2f41a8">Attempt {{ attempt }} of {{ cap }}</span>
+            </div>
+            <div class="vt" style="margin-bottom:12px">Look straight at the camera.</div>
+            <div class="vb" style="margin-bottom:18px">Fill the oval, even light, no glasses. {{ capNote }}</div>
+            <div class="blueprint" style="flex:1;min-height:300px;position:relative;background:#161f4f;overflow:hidden;margin-bottom:6px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <video ref="{{ videoRef }}" autoPlay muted playsInline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)"></video>
+              <img src="assets/chainpass-lockup-white.png" alt="Powered by ChainPass" style="position:absolute;top:14px;left:14px;width:134px;display:block">
+              <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:196px;height:262px;border:1.5px solid #5170FF;border-radius:50%;display:block"></span>
+              <span style="position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:ui-monospace,monospace;font-size:11.5px;color:#aeb8e0">{{ camNote }}</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding:12px 0 16px">
+              <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#8a8f9e">{{ engineNote }}</span>
+              <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#8a8f9e">{{ attemptsLeftNote }}</span>
+            </div>
+          </div>
+          <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff">
+            <button class="vbtn" onClick="{{ capture }}">Capture</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isProcessing }}">
+        <div data-screen-label="V02 Processing" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:1;min-height:0;overflow:auto;padding:30px 22px 0">
+            <div class="vk" style="margin-bottom:16px">Attempt {{ attempt }} of {{ cap }}</div>
+            <div class="vt" style="margin-bottom:14px">Checking your face against the one we hold.</div>
+            <div class="vb" style="margin-bottom:26px">A few seconds. Stay on this screen.</div>
+            <div style="border-top:1px solid #dcdfe8">
+              <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #dcdfe8">
+                <span style="width:7px;height:7px;background:#5170FF;flex:none"></span>
+                <span style="font-size:15.5px;color:#1d1f20">Photograph captured</span>
+                <span style="margin-left:auto;font-family:ui-monospace,monospace;font-size:12px;color:#8a8f9e">done</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #dcdfe8">
+                <span style="width:7px;height:7px;background:#5170FF;flex:none"></span>
+                <span style="font-size:15.5px;color:#1d1f20">Sent to ChainPass</span>
+                <span style="margin-left:auto;font-family:ui-monospace,monospace;font-size:12px;color:#8a8f9e">done</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #dcdfe8">
+                <span style="width:7px;height:7px;border:1px solid #9a9fae;flex:none"></span>
+                <span style="font-size:15.5px;color:#1d1f20">Compared to your baseline</span>
+                <span style="margin-left:auto;font-family:ui-monospace,monospace;font-size:12px;color:#8a8f9e">running</span>
+              </div>
+            </div>
+            <div class="blueprint" style="margin-top:26px;padding:16px;background:#fff">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="margin-bottom:8px">Where this runs</div>
+              <div style="font-size:14.5px;line-height:1.55;color:#42465a;text-wrap:pretty">The comparison happens at ChainPass, against the photograph ChainPass holds. The platform holds no photograph of you and no reference to the verification company, so it has nothing to compare and nothing to leak.</div>
+            </div>
+          </div>
+          <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff;display:flex;flex-direction:column;gap:10px">
+            <button class="vbtn" onClick="{{ resolveMatch }}">Answer comes back · match</button>
+            <button class="valt" onClick="{{ resolveFail }}">Answer comes back · no match</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSuccess }}">
+        <div data-screen-label="V03 Success" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:1;min-height:0;overflow:auto;padding:32px 22px 0">
+            <div style="width:100%;height:6px;background:#5170FF;margin-bottom:26px"></div>
+            <div class="vk" style="margin-bottom:16px">Verified</div>
+            <div class="vt" style="margin-bottom:14px">It is you. You are good for another year.</div>
+            <div class="vb" style="margin-bottom:26px">The platform has been told you passed. Nothing else went with it.</div>
+            <div class="blueprint" style="padding:24px 18px;background:#fff;text-align:center;margin-bottom:24px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div style="font-family:ui-monospace,monospace;font-size:26px;letter-spacing:.2em;color:#1d1f20;margin-bottom:8px">765UT7X</div>
+              <div style="font-family:var(--font-heading);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#2f41a8">Active until 16 August 2027</div>
+            </div>
+            <div style="border-top:1px solid #dcdfe8">
+              <div class="vrow"><span class="vlab">Sent to the platform</span><span class="vval">Match</span></div>
+              <div class="vrow"><span class="vlab">A number</span><span class="vval" style="color:#8b909f">never sent</span></div>
+              <div class="vrow"><span class="vlab">Your photograph</span><span class="vval" style="color:#8b909f">never sent</span></div>
+              <div class="vrow"><span class="vlab">Attempts used</span><span class="vval">{{ attempt }} of {{ cap }}</span></div>
+            </div>
+          </div>
+          <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff">
+            <button class="vbtn" onClick="{{ restart }}">Done</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isFailed }}">
+        <div data-screen-label="V04 Failed" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:1;min-height:0;overflow:auto;padding:32px 22px 0">
+            <div style="display:flex;gap:4px;margin-bottom:26px">
+              <sc-for list="{{ pips }}" as="p" hint-placeholder-count="3">
+                <span style="{{ p }}"></span>
+              </sc-for>
+            </div>
+            <div class="vk" style="margin-bottom:16px">Attempt {{ attempt }} of {{ cap }} · no match</div>
+            <div class="vt" style="margin-bottom:14px">We could not make that your face.</div>
+            <div class="vb" style="margin-bottom:24px">That is not an accusation. Bad light, a camera behind glass, a new beard. Move somewhere brighter and try again.</div>
+            <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:22px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="margin-bottom:10px">What you were told</div>
+              <div style="font-size:14.5px;line-height:1.55;color:#42465a;text-wrap:pretty">No match, and nothing more. There is no score on this screen because there is no score to show you — the arithmetic stays at ChainPass and only the judgement leaves it.</div>
+            </div>
+            <div style="border-top:1px solid #dcdfe8">
+              <div class="vrow"><span class="vlab">Attempts remaining</span><span class="vval">{{ remaining }}</span></div>
+              <div class="vrow"><span class="vlab">Attempts already used</span><span class="vval">{{ attempt }}</span></div>
+            </div>
+          </div>
+          <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff">
+            <button class="vbtn" onClick="{{ retry }}">Try again</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isMaxed }}">
+        <div data-screen-label="V05 Last attempt used" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:1;min-height:0;overflow:auto;padding:32px 22px 0">
+            <div style="display:flex;gap:4px;margin-bottom:26px">
+              <sc-for list="{{ pips }}" as="p" hint-placeholder-count="3">
+                <span style="{{ p }}"></span>
+              </sc-for>
+            </div>
+            <div class="vk" style="margin-bottom:16px">{{ cap }} of {{ cap }} attempts used</div>
+            <div class="vt" style="margin-bottom:14px">Your verification will be manually reviewed.</div>
+            <div class="vb" style="margin-bottom:24px">There are no more attempts today. Someone at ChainPass looks at the photograph you just took beside the one we hold on file.</div>
+            <div class="blueprint" style="padding:18px;background:#fff;margin-bottom:22px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="margin-bottom:10px">The last attempt, whatever the cap</div>
+              <div style="font-size:14.5px;line-height:1.55;color:#42465a;margin-bottom:14px;text-wrap:pretty">The premium engine and the photograph both belong to the last attempt. The engine is a setting per attempt, not a constant.</div>
+              <div class="vk" style="margin-bottom:10px">You are not waiting on it</div>
+              <div style="font-size:14.5px;line-height:1.55;color:#42465a;text-wrap:pretty">The review is our record, not a gate in front of you. Carry on with the platform the way it told you to — a one-time number, a code, or a fresh verification if it locked you.</div>
+            </div>
+            <div style="border-top:1px solid #dcdfe8">
+              <div class="vrow"><span class="vlab">Your credential</span><span class="vval" style="font-family:ui-monospace,monospace;letter-spacing:.08em">765UT7X</span></div>
+              <div class="vrow"><span class="vlab">Attempts</span><span class="vval">{{ cap }} of {{ cap }}</span></div>
+              <div class="vrow"><span class="vlab">Last photograph</span><span class="vval">Held for review</span></div>
+            </div>
+          </div>
+          <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff">
+            <button class="vbtn" onClick="{{ goFailures }}">See what admin receives</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isFailures }}">
+        <div data-screen-label="V06 Failures column" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:none;padding:26px 22px 0">
+            <div class="vk" style="margin-bottom:14px">ChainPass admin</div>
+            <div style="font-family:var(--font-heading);font-size:28px;line-height:1.08;color:#1d1f20;font-weight:600;margin-bottom:10px">Failures</div>
+            <div style="font-size:14.5px;line-height:1.55;color:#5c6070;margin-bottom:16px;text-wrap:pretty">Third attempts that did not pass. Each arrived with its V.A.I. Nobody in this list is waiting on you.</div>
+            <div style="display:flex;gap:8px">
+              <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+                <button class="valt" style="{{ t.style }}" onClick="{{ t.go }}">{{ t.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1;min-height:0;overflow:auto;padding:14px 22px 0">
+            <sc-for list="{{ queueRows }}" as="q" hint-placeholder-count="3">
+              <button onClick="{{ q.go }}" style="width:100%;text-align:left;background:#fff;border:none;border-bottom:1px solid #dcdfe8;padding:15px 0;display:grid;grid-template-columns:9px 1fr auto;gap:13px;align-items:start;cursor:pointer;font-family:var(--font-body)">
+                <span style="{{ q.mark }}"></span>
+                <span style="display:block">
+                  <span style="display:block;font-family:ui-monospace,monospace;font-size:15px;letter-spacing:.1em;color:#1d1f20">{{ q.num }}</span>
+                  <span style="display:block;font-size:13.5px;color:#8a8f9e;margin-top:3px">{{ q.when }} · {{ q.engine }} engine</span>
+                  <span style="display:block;font-size:13.5px;color:#5c6070;margin-top:3px">{{ q.member }}</span>
+                </span>
+                <span style="{{ q.tone }};font-family:var(--font-heading);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding-top:3px">{{ q.state }}</span>
+              </button>
+            </sc-for>
+            <div style="padding:20px 0 24px;font-size:13.5px;line-height:1.55;color:#7b8090;text-wrap:pretty">A photograph only reaches us when the third attempt fails. When it passes, it is discarded on the platform's side and we never see it. ChainPass holds faces; the platform never does.</div>
+          </div>
+          <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff;display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font-size:14.5px;color:#5c6070">Unreviewed</span>
+            <span style="font-family:var(--font-heading);font-size:20px;color:#1d1f20">{{ unreviewedCount }}</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isStack }}">
+        <div data-screen-label="V08 The facial stack" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:none;padding:26px 22px 0">
+            <div class="vk" style="margin-bottom:14px">ChainPass admin</div>
+            <div style="font-family:var(--font-heading);font-size:28px;line-height:1.08;color:#1d1f20;font-weight:600;margin-bottom:10px">The facial stack</div>
+            <div style="font-size:14.5px;line-height:1.55;color:#5c6070;text-wrap:pretty">Capture, baselines, matcher, image serve, engines and thresholds are all ours. Nothing on this screen is a platform setting.</div>
+          </div>
+          <div style="flex:1;min-height:0;overflow:auto;padding:18px 22px 0">
+            <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:14px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="margin-bottom:12px">Attempts allowed</div>
+              <div style="display:flex;gap:8px;margin-bottom:12px">
+                <sc-for list="{{ capOptions }}" as="c" hint-placeholder-count="3">
+                  <button class="valt" style="{{ c.style }}" onClick="{{ c.go }}">{{ c.label }}</button>
+                </sc-for>
+              </div>
+              <div style="font-size:14px;line-height:1.55;color:#42465a;text-wrap:pretty">One to three. Member copy reads the number set here and never a literal three. The premium engine and the photograph sent for review both belong to the last attempt, whatever that number is — the engine is a setting per attempt, never a constant.</div>
+            </div>
+            <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:14px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="margin-bottom:12px">Obligation one · the health signal</div>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                <span style="{{ healthDot }}"></span>
+                <span style="font-family:var(--font-heading);font-size:19px;color:#1d1f20">{{ matcherLabel }}</span>
+                <button class="valt" style="width:auto;height:38px;padding:0 14px;font-size:12px;margin-left:auto" onClick="{{ toggleMatcher }}">Flip</button>
+              </div>
+              <div style="font-size:14px;line-height:1.55;color:#42465a;text-wrap:pretty">ChainPass declares its own outage. A platform never has to guess from a timeout whether the matcher is down, and never decides for itself that we are unavailable.</div>
+            </div>
+            <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:14px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="margin-bottom:12px">Obligation two · separate deploys</div>
+              <div style="border-top:1px solid #dcdfe8;margin-bottom:12px">
+                <div class="vrow"><span class="vlab">Matcher</span><span class="vval">{{ matcherState }}</span></div>
+                <div class="vrow"><span class="vlab">Image serve</span><span class="vval">Serving</span></div>
+              </div>
+              <div style="font-size:14px;line-height:1.55;color:#42465a;text-wrap:pretty">The image serve deploys on its own, so a photograph still reaches a screen when the matcher is down. A manual review does not stop because matching has stopped.</div>
+            </div>
+            <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:24px;border-color:#5170FF">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="color:#2f41a8;margin-bottom:12px">Obligation three · the recovery path</div>
+              <div style="font-size:14px;line-height:1.7;color:#42465a;text-wrap:pretty">{{ recoveryPath }}</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isReview }}">
+        <div data-screen-label="V07 Side-by-side review" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:none;padding:20px 22px 14px;border-bottom:1px solid #dcdfe8;display:flex;align-items:center;gap:12px">
+            <button class="valt" style="width:auto;height:44px;padding:0 16px;font-size:13px" onClick="{{ goFailures }}">Back</button>
+            <span style="font-family:ui-monospace,monospace;font-size:16px;letter-spacing:.12em;color:#1d1f20">765UT7X</span>
+            <span class="vk" style="margin-left:auto">Unreviewed</span>
+          </div>
+          <div style="flex:1;min-height:0;overflow:auto;padding:18px 22px 0">
+            <div style="font-size:14.5px;line-height:1.55;color:#5c6070;margin-bottom:20px;text-wrap:pretty">Is this obviously not the same person — a different face, a photograph of a screen, a mask? That is the only question. It is not a second opinion on the match.</div>
+            <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:24px">
+              <div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px">
+                  <span class="vk">Baseline</span>
+                  <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#8a8f9e">enrolment · 16 Aug 2026</span>
+                </div>
+                <div class="blueprint" style="height:336px;background:repeating-linear-gradient(135deg,#e9ebf2 0 8px,#dee1ea 8px 16px)">
+                  <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px">
+                  <span class="vk">Third attempt</span>
+                  <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#8a8f9e">17 Aug 2026 · 21:03</span>
+                </div>
+                <div class="blueprint" style="height:336px;background:repeating-linear-gradient(135deg,#eef0f4 0 8px,#e3e6ed 8px 16px)">
+                  <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                </div>
+              </div>
+            </div>
+            <div style="border-top:1px solid #dcdfe8;margin-bottom:22px">
+              <div class="vrow"><span class="vlab">Asked by</span><span class="vval">VAIRIFY</span></div>
+              <div class="vrow"><span class="vlab">Engine, third attempt</span><span class="vval">Premium</span></div>
+              <div class="vrow"><span class="vlab">Band returned</span><span class="vval">Red</span></div>
+              <div class="vrow"><span class="vlab">Reds on this credential</span><span class="vval">4</span></div>
+              <div class="vrow"><span class="vlab">Member</span><span class="vval">Locked · re-verification</span></div>
+            </div>
+            <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:20px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div style="font-size:14.5px;line-height:1.55;color:#42465a;text-wrap:pretty">The member is not waiting on this. The member has already gone past the scanner with a one-time number or a code, or the member is locked and on the way to re-verification. This is a record of what happened, not a gate.</div>
+            </div>
+            <div class="blueprint" style="padding:16px;background:#fff;margin-bottom:24px;border-color:#5170FF">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="vk" style="color:#2f41a8;margin-bottom:9px">Unruled · not decided here</div>
+              <div style="font-size:14.5px;line-height:1.55;color:#42465a;text-wrap:pretty">What a reviewer's outcome does has not been ruled: nothing, a flag, an order to re-baseline, or a credential state. Separately, obvious fraud has nowhere to go — the API runs one direction only, so none of these can reach the platform today.</div>
+            </div>
+          </div>
+          <div style="flex:none;padding:16px 22px 26px;border-top:1px solid #dcdfe8;background:#fff;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:10px">
+              <button class="valt" style="height:48px" onClick="{{ goFailures }}">Obvious fraud</button>
+              <button class="valt" style="height:48px" onClick="{{ goFailures }}">Not fraud</button>
+            </div>
+            <button class="valt" style="height:44px;font-size:13px" onClick="{{ goFailures }}">Leave unreviewed</button>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <div style="width:390px;flex:none;padding:20px 2px 0">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:9px">
+        <span style="font-family:ui-monospace,monospace;font-size:12.5px;letter-spacing:.06em;color:#1d1f20">{{ code }}</span>
+        <span style="font-family:var(--font-heading);font-size:15px;color:#1d1f20">{{ noteName }}</span>
+        <span class="vk" style="margin-left:auto">{{ noteRef }}</span>
+      </div>
+      <div style="font-size:14.5px;line-height:1.6;color:#5c6070;text-wrap:pretty">{{ noteBody }}</div>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:1040}}">
+class Component extends DCLogic {
+  state = { id: "camera", attempt: 1, filter: "Unreviewed", camNote: "starting camera", cap: 3, matcherUp: true };
+
+  setCap = (n) => () => this.setState(s => ({ cap: n, attempt: Math.min(s.attempt, n) }));
+  toggleMatcher = () => this.setState(s => ({ matcherUp: !s.matcherUp }));
+  videoRef = React.createRef();
+
+  A = [
+    ["camera", "Camera", "CANON-CP-01 §7", "getUserMedia at 1280 × 720, front camera, canvas capture, an oval face guide, and the attempt counter on screen. The cap is an admin setting between one and three, so the copy reads attempt N of the cap and never a literal three. The testing skip link that appeared here and inside the modal is gone: nothing on this screen bypasses verification."],
+    ["processing", "Processing", "CANON §6, §7.1", "The captured frame goes to ChainPass and the comparison runs at ChainPass against the baseline it holds. It does not run in a platform function against a platform-held selfie_url and complycube_client_id — the platform holds neither."],
+    ["success", "Success", "CANON §7.2, §7.3", "Match. The percentage never leaves ChainPass, so no number is printed here or anywhere else in this flow."],
+    ["failed", "Failed", "CANON §7.2", "No match, and nothing more. Retry does not reset the counter: the pilot's handleRetry set attempts back to zero, which defeated the cap. Attempts only go up."],
+    ["maxed", "Last attempt used", "CANON-CP-01 §7, third-attempt selfie", "The cap is reached, whatever the cap is set to. The wording stays as the pilot had it: your verification will be manually reviewed. The premium engine and the selfie both belong to the last attempt, not to a fixed third — the engine is a setting per attempt, never a constant. On that attempt the photograph goes to ChainPass and lands in the failures column."]
+  ];
+
+  B = [
+    ["failures", "The failures column", "CANON, ruled 17 Aug 2026", "A third-attempt photograph arrives with the V.A.I. and lands here. Reviewed and unreviewed are the two states of the column. Everyone listed has already gone past the scanner or is locked and heading to re-verification."],
+    ["review", "Side-by-side review", "CANON, ruled 17 Aug 2026", "The baseline and the last attempt, together, at size. Staff look for obvious fraud, not a score and not a second opinion on the match — no percentage appears. What the reviewer's outcome does is UNRULED and is flagged on the screen rather than chosen."],
+    ["stack", "The facial stack", "CANON-CP-01, the facial stack", "Capture, baselines, matcher, image serve, engines and thresholds are all ChainPass's. Three obligations follow, and all three are stated on this screen: ChainPass declares an outage through a health signal, the image serve deploys separately from the matcher so a photograph still serves when the matcher is down, and ChainPass states the recovery path. The attempt cap lives here too — one to three."]
+  ];
+
+  queue = [
+    ["765UT7X", "17 Aug · 21:03", "Premium", "", "Locked · re-verification"],
+    ["J4K2M9P", "17 Aug · 19:41", "Premium", "", "Went past with a code"],
+    ["Q8ZR3T5", "17 Aug · 14:22", "Standard", "", "Went past with a one-time number"],
+    ["B2WX7L4", "16 Aug · 23:58", "Premium", "Not fraud", "Went past with a code"],
+    ["H6VN1D8", "16 Aug · 20:11", "Premium", "Obvious fraud", "Locked · re-verification"],
+    ["T9CM4K2", "16 Aug · 08:37", "Standard", "Not fraud", "Went past with a code"]
+  ];
+
+  componentDidMount() { this.startCam(); }
+  componentDidUpdate(_, prev) { if (prev.id !== this.state.id && this.state.id === "camera") this.startCam(); }
+  componentWillUnmount() { this.stopCam(); }
+
+  startCam() {
+    if (this.stream) { this.attach(); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      this.setState({ camNote: "camera preview unavailable here" });
+      return;
+    }
+    navigator.mediaDevices
+      .getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" }, audio: false })
+      .then(s => { this.stream = s; this.attach(); this.setState({ camNote: "hold still" }); })
+      .catch(() => this.setState({ camNote: "camera preview unavailable here" }));
+  }
+
+  attach() {
+    const v = this.videoRef.current;
+    if (v && this.stream && v.srcObject !== this.stream) v.srcObject = this.stream;
+  }
+
+  stopCam() {
+    if (this.stream) { this.stream.getTracks().forEach(t => t.stop()); this.stream = null; }
+  }
+
+  grab() {
+    const v = this.videoRef.current;
+    if (!v || !v.videoWidth) return null;
+    const c = document.createElement("canvas");
+    c.width = 1280; c.height = 720;
+    c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
+    return c.toDataURL("image/jpeg", 0.9);
+  }
+
+  go = (id) => () => this.setState({ id });
+  setFilter = (f) => () => this.setState({ filter: f });
+
+  capture = () => { this.frame = this.grab(); this.setState({ id: "processing" }); };
+  resolveMatch = () => this.setState({ id: "success" });
+  resolveFail = () => this.setState(s => ({ id: s.attempt >= s.cap ? "maxed" : "failed" }));
+  retry = () => this.setState(s => ({ id: "camera", attempt: Math.min(s.attempt + 1, s.cap) }));
+  restart = () => this.setState({ id: "camera", attempt: 1 });
+
+  all() { return this.A.concat(this.B); }
+  code(i) { return "V" + String(i + 1).padStart(2, "0"); }
+
+  rail(rows, offset) {
+    return rows.map(([id, label], i) => ({
+      code: this.code(i + offset),
+      label,
+      go: this.go(id),
+      style: this.state.id === id
+        ? "background:#fff;border-color:#5170FF;color:#1d1f20"
+        : "color:#5c6070"
+    }));
+  }
+
+  renderVals() {
+    const rows = this.all();
+    const i = Math.max(0, rows.findIndex(r => r[0] === this.state.id));
+    const row = rows[i];
+    const a = this.state.attempt;
+    const cap = this.state.cap;
+    const isLast = a >= cap;
+    return {
+      cap,
+      capNote: cap === 1 ? "You have one attempt." : "You have " + (cap === 2 ? "two" : "three") + " attempts.",
+      engineNote: isLast ? "Premium engine · last attempt" : "Standard engine",
+      lastAttemptNote: isLast
+        ? "This is the last attempt. It runs on the premium engine, and if it does not pass the photograph goes to ChainPass for review."
+        : "Attempts after this one may run on a different engine — the engine is a setting per attempt, not a constant.",
+      capOptions: [1, 2, 3].map(n => ({
+        label: String(n),
+        go: this.setCap(n),
+        style: cap === n
+          ? "background:#5170FF;color:#fff;border-color:#5170FF"
+          : "background:#fff;color:#5c6070;border-color:#c7cbd6"
+      })),
+      matcherUp: this.state.matcherUp,
+      matcherDown: !this.state.matcherUp,
+      matcherLabel: this.state.matcherUp ? "Reporting healthy" : "Reporting an outage",
+      matcherState: this.state.matcherUp ? "Matching" : "Down",
+      healthDot: "width:12px;height:12px;display:block;flex:none;background:" + (this.state.matcherUp ? "#5170FF" : "#F94E00"),
+      recoveryPath: this.state.matcherUp
+        ? "Nothing to recover. While the signal reads healthy, a platform proceeds normally and no fallback is offered."
+        : "ChainPass states the path, not the platform: no attempt is spent while we are down, the member is told to come back rather than that the member failed, the platform lets the member in the way it already does when a face cannot be checked, and attempts resume from the count the member had when the signal clears.",
+      toggleMatcher: this.toggleMatcher,
+      isStack: this.state.id === "stack",
+      railA: this.rail(this.A, 0),
+      railB: this.rail(this.B, this.A.length),
+      chrome: i < this.A.length ? "Verification" : "Review",
+      code: this.code(i),
+      noteName: row[1],
+      noteRef: row[2],
+      noteBody: row[3],
+      attempt: a,
+      attemptsLeftNote: isLast ? "last attempt" : (cap - a) + " left after this",
+      camNote: this.state.camNote,
+      videoRef: this.videoRef,
+      pips: Array.from({ length: cap }, (_, k) => k + 1).map(n => "flex:1;height:6px;display:block;background:" + (n <= a ? "#161f4f" : "#c7cbd6")),
+      remaining: cap - a,
+      capture: this.capture,
+      resolveMatch: this.resolveMatch,
+      resolveFail: this.resolveFail,
+      retry: this.retry,
+      restart: this.restart,
+      goFailures: this.go("failures"),
+      isCamera: this.state.id === "camera",
+      isProcessing: this.state.id === "processing",
+      isSuccess: this.state.id === "success",
+      isFailed: this.state.id === "failed",
+      isMaxed: this.state.id === "maxed",
+      isFailures: this.state.id === "failures",
+      isReview: this.state.id === "review",
+      unreviewedCount: this.queue.filter(q => !q[3]).length,
+      tabs: ["Unreviewed", "Reviewed", "All"].map(t => ({
+        label: t,
+        go: this.setFilter(t),
+        style: this.state.filter === t
+          ? "background:#5170FF;color:#fff;border-color:#5170FF"
+          : "background:#fff;color:#5c6070;border-color:#c7cbd6"
+      })),
+      queueRows: this.queue
+        .filter(q => this.state.filter === "All" || (this.state.filter === "Reviewed" ? !!q[3] : !q[3]))
+        .map(q => ({
+          num: q[0], when: q[1], engine: q[2], state: q[3] || "Unreviewed", member: q[4],
+          go: this.go("review"),
+          mark: "display:block;width:9px;height:9px;margin-top:7px;" + (q[3]
+            ? "border:1px solid #b7bcc9;background:transparent"
+            : "background:#161f4f;border:1px solid #161f4f"),
+          tone: q[3] ? "color:#8a8f9e" : "color:#1d1f20"
+        }))
+    };
+  }
+}
+</script>
+</body>
+</html>
