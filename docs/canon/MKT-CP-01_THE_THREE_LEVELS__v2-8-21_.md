@@ -11,7 +11,7 @@ real.**
 
 ---
 
-# 1 — ACCESS — THE GATE
+# 1 — VAI GO — THE GATE
 
 ⚠️ **Priced at launch from `settings:price_access`. The value is held internally until announced — "give them the deal, inform later," owner 21 Aug. No figure appears on any surface until then.**
 
@@ -36,9 +36,9 @@ real.**
 
 ---
 
-# 2 — V.A.I. — THE FACE LEVEL
+# 2 — VAI ACCESS — THE FACE LEVEL
 
-**`settings:price_vai`.** ⚠️ **Public name: V.A.I. — ruled by `CANON-CP-01` §14.1 vocabulary map (1 Access · 2 V.A.I. · 3 Pro). Bare "Plus" never appears; it is Vairify's package word.**
+**`settings:price_vai`.** ⚠️ **Public name: VAI ACCESS — ruled by `CANON-CP-01` §14.1 vocabulary map (1 VAI Go · 2 VAI Access · 3 VAI Pro). Bare "Plus" never appears; it is Vairify's package word.**
 
 ## 2.1 — For the platform
 
@@ -47,7 +47,7 @@ real.**
 | 1 | ⚠️⚠️ **PUT ANYTHING BEHIND THEIR FACE — FAVORITES, PRIVATE GALLERIES, PURCHASES, GATED ROOMS. YOU DECIDE WHAT'S WORTH PROTECTING; THE VERIFICATION IS A DESIGN MATERIAL.** |
 | 2 | ⚠️ **Membership money with a verified person behind it — recurring billing without holding identity.** |
 | 3 | ⚠️ **Account takeover dies at the face. A stolen password opens nothing you gated.** |
-| 4 | **Every member at your door is the same standard — one level, one price, no tiers to police.** |
+| 4 | **Every member at your door is the same standard — one level, one price, no levels to police.** |
 
 ## 2.2 — For the individual
 
@@ -60,7 +60,7 @@ real.**
 
 ---
 
-# 3 — PRO — THE DOCUMENT LEVEL
+# 3 — VAI PRO — THE DOCUMENT LEVEL
 
 **`settings:price_vai_pro`.**
 
@@ -70,8 +70,8 @@ real.**
 |---|---|
 | 1 | ⚠️⚠️ **ADMINISTER ANYTHING A PERSON CAN SIGN — CONSENT CONTRACTS, DISCLOSURES, RELEASES, BACKGROUND CHECKS — WITNESSED AGAINST A VERIFIED IDENTITY, HELD IMMUTABLY BY CHAINPASS** — §4C.4, §14.2. |
 | 2 | ⚠️⚠️ **YOUR AGREEMENTS SURVIVE YOU. VERSION-STAMPED, IMMUTABLE, RETRIEVABLE FOREVER — A RECORD NO DISPUTE CAN REWRITE AND NO STORAGE FAILURE CAN LOSE** — §14.2a. |
-| 3 | ⚠️ **As many custom requirements as you elect — Pro is uncapped. A new requirement is a row, not a build** — §4C.3 · `RULINGS-CP-03` §3. |
-| 4 | ⚠️ **Any Pro can meet any Pro — ChainPass reconciles missing requirements, so your members are never dead-ended** — §11. |
+| 3 | ⚠️ **As many custom requirements as you elect — VAI Pro is uncapped. A new requirement is a row, not a build** — §4C.3 · `RULINGS-CP-03` §3. |
+| 4 | ⚠️ **Any VAI Pro can meet any VAI Pro — ChainPass reconciles missing requirements, so your members are never dead-ended** — §11. |
 
 ## 3.2 — For the individual
 
@@ -107,10 +107,10 @@ real.**
 
 | Date | # | Change | Reasoning |
 |---|---|---|---|
+| **26 Aug** | 3 | ⚠️⚠️ **Level names → VAI Go · VAI Access · VAI Pro. 21 Aug "LEVEL 2'S PUBLIC NAME CLOSED: V.A.I." deleted.** | `RULINGS-CP-07` §3 item 7 |
 | **22 Aug** | 2 | ⚠️ **Banned-words list: already-purged terms deleted.** The list entries were stale. | Task 8 / Task 10 |
 | **22 Aug** | 1 | ⚠️⚠️ **REAL FIGURES → `settings:price_vai`, `settings:price_vai_pro`, `settings:pro_custom_requirement_cap`. `settings:price_access` ALREADY POINTER. ILLUSTRATIVE LEFT.** | CANON-00 §16. |
 | **20 Aug** | 1 | **Filed from the owner's tier walkthrough.** | ⚠️ **"The wording has to change, but that's real."** |
-| **21 Aug** | 2 | ⚠️⚠️ **LEVEL 2'S PUBLIC NAME CLOSED: V.A.I.** The "unresolved" line in §2 is deleted. | ⚠️ **`CANON-CP-01` §14.1 already ruled it in the vocabulary map — this file contradicted canon and the contradiction produced a design flag (SN-50). Superseded lines are deleted, never marked.** |
 | **21 Aug** | 3 | ⚠️ **THE ACCESS PRICE POSTURE CLOSED.** $19 working number deleted; value lives at `settings:price_access`, held internally until announced. | ⚠️ **Owner, 21 Aug: "give them the deal, inform later." The structure is ruled; the number is a launch decision, not a document value.** |
 
 ---
